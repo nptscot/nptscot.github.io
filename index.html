@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="content-type" content="text/html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="Description" content="An interactive map to aid cycle planning in Scotland">
+  
+  <!--  Social Media Tags -->
+  <meta property="og:title" content="ATUM Scotland">
+  <meta property="og:description" content="An interactive map to aid cycle planning in Scotland">
+  <meta property="og:image" content="/images/thumbnail.jpg">
+  <meta property="twitter:image" content="https://atumscot.github.io/web/images/thumbnail.jpg">
+  <meta property="og:url" content="https://atumscot.github.io/web">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta property="og:site_name" content="ATUM Scotland">
+  <meta name="twitter:image:alt" content="ATUM Scotland thumbnail">
+  
+  <title>ATUM Scotland</title>
+  <!-- PWA support -->
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="/images/icon192.png">
+  <meta name="apple-mobile-web-app-status-bar" content="#AC1A40">
+  <meta name="theme-color" content="#AC1A40">
+  <script src="/app.js" defer></script>
+  
+  <!-- Set Up CSS -->
+  <link rel="stylesheet" href="css/main.css">
+  
+  <!-- Third Party Scrips -->
+  <script src="https://kit.fontawesome.com/1f7357bc14.js" crossorigin="anonymous" async></script>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+  
+    gtag('config', 'G-XXXXXXXXX');
+  </script>
+  
+  <!-- Set Up Icon -->
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  
+</head>
+<body style="overflow:hidden">
+
+<!-- Menu -->
+<div class="nav-wrapper">
+	<div class="topnav" id="myTopnav">
+		<div class="main-title">
+		  	<a href="/">ATUM Scotland</a>
+		</div>
+		   <a href="/about" title="About">About</a>
+		   <a href="/data" title="Data">Data</a>
+		   <a class="smaller" href="/privacy">Privacy &amp; accessibility</a>
+		   <a href="javascript:void(0);" class="icon" onclick="expandtopnav()" aria-label="Expand Menu">
+    <i class="fa fa-bars"></i>
+  </a>
+	</div>
+		<div class="logo">
+			<a href="https://atumscot.github.io/web" target="_blank" rel="noopener noreferrer"><img src="images/leeds_logo.png" alt="University of Leeds Logo" width="110" height="35.85"></a>
+		</div>	
+</div>
+
+<!-- Welcome Splash -->
+<div id="welcome" class="welcome">
+<span class="closewelcome">&times;</span>
+<div>
+<h3>Welcome to ATUM Scotland</h3>
+<p>Welcome text goes here</p>
+<p>Last Updated: 23/12/2022</p>
+</div>
+</div>
+
+<!-- Set Up map -->
+<script src="https://unpkg.com/maplibre-gl@2.4.0/dist/maplibre-gl.js"></script>
+<link href="https://unpkg.com/maplibre-gl@2.4.0/dist/maplibre-gl.css" rel="stylesheet" />
+
+<!-- Load the `maplibre-gl-geocoder` plugin. -->
+<script src="https://unpkg.com/@maplibre/maplibre-gl-geocoder@1.2.0/dist/maplibre-gl-geocoder.min.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/@maplibre/maplibre-gl-geocoder@1.2.0/dist/maplibre-gl-geocoder.css" type="text/css"/>
+
+
+<!-- Cookies Warning  -->
+<div id='cookiewarning' class='cookiewarning'>
+  <p>We use cookies to measure how you use our website so we can understand how you interact with it, which helps us to make improvements. <a href="/privacy">Find out more.</a></p>
+  <p>
+    <button onclick="cookiebutton(true)" class="button button1"><b>OK</b></button>
+    <button onclick="cookiebutton(false)" class="button button2"><b>No</b></button>
+  </p>
+</div>
+<script type="text/javascript" src="js/ga_optout.js"></script>
+
+<!-- Main Content -->
+<div class="content" style="overflow:hidden">
+<div id="map"></div>
+</div>
+
+<!-- Floating Objects -->
+<div id="legend" class="legend"></div>
+
+<!-- Show Legend Button  -->
+<div id="showlegend" class="showlegend">
+  <button onclick="showlegend(true)" aria-label="Hide legend"><i class="fas fa-ellipsis-v"></i></button>
+</div>
+
+<!-- Show Layer Selection Panel  Button-->
+<div id="showrightbox" class="showrightbox">
+  <button onclick="showrighbox(true)" aria-label="Show layers"><i class="fa fa-bars"></i></button>
+</div>
+
+<!-- Layer Selection Panel -->
+<div id="rightbox" class="rightbox">
+  <button onclick="showrighbox(false)" style="float:right" aria-label="Hide layers"><i class="fas fa-times"></i></button>
+
+<p>Select map layers</p>
+
+<button class="accordion">Zones</button>
+<div class="panel">
+  <p><label><input type="checkbox" id="zonescheckbox" value="true" onclick="toggleLayer('zones')" checked>Show Layer</label></p>
+  <select id="layerinput" name="layerinput" onchange="switchLayer()" aria-label="LSOA Layer">
+      <option value="total_emissions_grade" selected>Total Emission Grade</option>
+      <option value="car_emissions_grade">Car Emissions Grade</option>
+      <option value="van_grade">Van Emissions Grade</option>
+  </select>
+  <div id="layerdesc"><p>Desc</p></div>
+  
+</div>
+
+<button class="accordion">Routes</button>
+<div class="panel">
+  <p><label><input type="checkbox" id="routescheckbox" value="true" onclick="toggleLayer('routes')" checked>Show Layer</label></p>
+  <select id="layerinput" name="layerinput" onchange="switchLayer()" aria-label="LSOA Layer">
+      <option value="total_emissions_grade" selected>Total Emission Grade</option>
+      <option value="car_emissions_grade">Car Emissions Grade</option>
+      <option value="van_grade">Van Emissions Grade</option>
+  </select>
+  <div id="layerdesc"><p>Desc</p></div>
+  
+</div>
+
+<button class="accordion">Route Network</button>
+<div class="panel">
+  <p><label><input type="checkbox" id="rnetcheckbox" value="true" onclick="toggleLayer('rnet')" checked>Show Layer</label></p>
+  <select id="layerinput" name="layerinput" onchange="switchLayer()" aria-label="LSOA Layer">
+      <option value="total_emissions_grade" selected>Total Emission Grade</option>
+      <option value="car_emissions_grade">Car Emissions Grade</option>
+      <option value="van_grade">Van Emissions Grade</option>
+  </select>
+  <div id="layerdesc"><p>Desc</p></div>
+  
+</div>
+
+<button class="accordion">Administrative boundaries</button>
+<div class="panel">
+  <p>Show Administrative boundaries</p>
+  <p><label><input type="checkbox" id="lacheckbox" value="true" onclick="toggleLayer('la')"> Lower Tier/Unitary Local Authority</label></p>
+  <p><label><input type="checkbox" id="wardscheckbox" value="true" onclick="toggleLayer('wards')"> Wards</label></p>
+  <p><label><input type="checkbox" id="constituenciescheckbox" value="true" onclick="toggleLayer('constituencies')"> Westminster Constituencies</label></p>
+  <p><label><input type="checkbox" id="parishcheckbox" value="true" onclick="toggleLayer('parish')"> Parishes</label></p>
+</div>
+
+
+<button class="accordion">Transport stops </button>
+<div class="panel">
+  <p><label><input type="checkbox" id="transitstopscheckbox" value="true" onclick="toggleLayer('transitstops')"> Show Layer</label></p>
+  <p>Shows public transport stops and frequency of service. Stops are coloured using the A+ (most) to F- (least) frequent grades. Click on stops for more details, and zoom in to see more stops.</p>
+  
+  <div>
+  	  <div><span style="background-color: #313695;" class="legenddot"></span>A+ (best 1%)</div>
+    		<div><span style="background-color: #4575b4;" class="legenddot"></span>A</div>
+    		<div><span style="background-color: #4575b4;" class="legenddot"></span>A- (best 10%)</div>
+    		<div><span style="background-color: #74add1;" class="legenddot"></span>B+</div>
+    		<div><span style="background-color: #abd9e9;" class="legenddot"></span>B</div>
+    		<div><span style="background-color: #abd9e9;" class="legenddot"></span>B-</div>
+    		<div><span style="background-color: #e0f3f8;" class="legenddot"></span>C+</div>
+    		<div><span style="background-color: #e0f3f8;" class="legenddot"></span>C</div>
+    		<div><span style="background-color: #ffffbf;" class="legenddot"></span>C- (above average)</div>
+    		<div><span style="background-color: #ffffbf;" class="legenddot"></span>D+ (below average)</div>
+    		<div><span style="background-color: #fee090;" class="legenddot"></span>D</div>
+    		<div><span style="background-color: #fee090;" class="legenddot"></span>D-</div>
+    		<div><span style="background-color: #fdae61;" class="legenddot"></span>E+</div>
+    		<div><span style="background-color: #fdae61;" class="legenddot"></span>E</div>
+    		<div><span style="background-color: #f46d43;" class="legenddot"></span>E-</div>
+    		<div><span style="background-color: #d73027;" class="legenddot"></span>F+ (worst 10%)</div>
+    		<div><span style="background-color: #d73027;" class="legenddot"></span>F</div>
+    		<div><span style="background-color: #a50026;" class="legenddot"></span>F- (worst 1%)</div>
+    		<div><span style="background-color: #e0e0e0;" class="legenddot"></span>No Data</div>
+  </div>
+  
+  
+</div>
+
+<button class="accordion">PCT Route Network </button>
+<div class="panel">
+  <p><label><input type="checkbox" id="pctcheckbox" value="true" onclick="toggleLayer('pct')"> Show Layer</label></p>
+  <p>The <abbr title="Propensity to Cycle Tool">PCT</abbr> shows roads where there could be more cycling in the future. This layer shows the combined peak number of daily cyclists for commuting and travel to school under three scenarios. See <a href="https://www.pct.bike" target="_blank" rel="noopener">PCT website</a> or <a href="https://www.jtlu.org/index.php/jtlu/article/view/862" target="_blank" rel="noopener">Lovelace et al 2017</a> for details.</p>
+  
+  <select id="pctinput" name="pctinput" onchange="switchPCT()" aria-label="PCT Scenarios">
+      <option value="bicycle" selected>Baseline (2011)</option>
+      <option value="govtarget_slc">Government Target (2025)</option>
+      <option value="dutch_slc">Go Dutch</option>
+  </select>
+  
+  <div>
+    <div><span style="background-color: #9C9C9C;" class="legenddot"></span>1-9</div>
+	  <div><span style="background-color: #FFFF73;" class="legenddot"></span>10-49</div>
+	  <div><span style="background-color: #AFFF00;" class="legenddot"></span>50-99</div>
+	  <div><span style="background-color: #00FFFF;" class="legenddot"></span>100-249</div>
+	  <div><span style="background-color: #30B0FF;" class="legenddot"></span>250-499</div>
+	  <div><span style="background-color: #2E5FFF;" class="legenddot"></span>500-999</div>
+	  <div><span style="background-color: #0000FF;" class="legenddot"></span>1000-1999</div>
+	  <div><span style="background-color: #FF00C5;" class="legenddot"></span>2000+</div>
+  </div>
+  
+  <p> </p>
+  
+</div>
+
+</div>
+
+<script type="text/javascript" src="js/welcome.js"></script>
+<script type="text/javascript" src="js/accordion.js"></script>
+<script type="text/javascript" src="js/map.js"></script>
+<script type="text/javascript" src="js/map_later.js" async></script>
+<script type="text/javascript" src="js/layer_control.js" async></script>
+<script type="text/javascript" src="js/ga_optout.js" async></script>
+
+</body>
+</html>
