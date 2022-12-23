@@ -61,6 +61,29 @@ function toggleLayer(layerName){
             }
         });
         break;
+      case 'rnet':
+        // code block
+        map.addLayer({
+            'id': 'rnet',
+            'type': 'line',
+            'source': 'rnet',
+            'source-layer': 'pct',
+            'paint': {
+              'line-color': ["step",["get","bicycle"],
+              "rgba(0,0,0,0)",
+              1,
+              "#9C9C9C",10,
+              "#FFFF73",50,
+              "#AFFF00",100,
+              "#00FFFF",250,
+              "#30B0FF",500,
+              "#2E5FFF",1000,
+              "#0000FF",2000,
+              "#FF00C5"],
+              'line-width': 2
+            }
+        });
+        break;
       case 'pct':
         // code block
         switchPCT();

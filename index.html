@@ -145,13 +145,23 @@
 <div class="panel">
   <p><label><input type="checkbox" id="rnetcheckbox" value="true" onclick="toggleLayer('rnet')" checked>Show Layer</label></p>
   <select id="layerinput" name="layerinput" onchange="switchLayer()" aria-label="LSOA Layer">
-      <option value="total_emissions_grade" selected>Total Emission Grade</option>
-      <option value="car_emissions_grade">Car Emissions Grade</option>
-      <option value="van_grade">Van Emissions Grade</option>
+      <option value="all">all</option>
+      <option value="from_home">from_home</option>
+      <option value="train">train</option>
+      <option value="bus">bus</option>
+      <option value="car_driver">car_driver</option>
+      <option value="car_passenger">car_passenger</option>
+      <option value="bicycle" selected>Bicycle</option>
+      <option value="foot">foot</option>
+      <option value="other">other</option>
   </select>
   <div id="layerdesc"><p>Desc</p></div>
   
 </div>
+
+
+
+
 
 <button class="accordion">Administrative boundaries</button>
 <div class="panel">
