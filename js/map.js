@@ -73,11 +73,20 @@ map.addSource('rnet', {
 	'tiles': [
 	'https://www.wisemover.co.uk/tiles/rnet/{z}/{x}/{y}.pbf'
 	],
-	'minzoom': 4,
-	'maxzoom': 13
+	'minzoom': 6,
+	'maxzoom': 14
 });
 
+map.addSource('routes', {
+	'type': 'vector',
+	'tiles': [
+	'https://www.wisemover.co.uk/tiles/routes/{z}/{x}/{y}.pbf'
+	],
+	'minzoom': 6,
+	'maxzoom': 12
+});
 
+/*
 map.addSource('la', {
 	'type': 'vector',
 	'tiles': [
@@ -122,6 +131,7 @@ map.addSource('transitstops', {
 	'minzoom': 6,
 	'maxzoom': 13
 });
+*/
 
 map.addSource('terrainSource', {
   'type': 'raster-dem',
@@ -148,10 +158,13 @@ map.addLayer(
 'sea'
 );
 
-});
-
 // Setup other part of the website
 showrighbox(true); // Show the accordion hide the button 
-showlegend(true); // Show the legend hide the button 
+show_rnet_legend(true); // Show the legend hide the button 
+toggleLayer('rnet') // Start with the rnet on
+
+
+});
+
 
 

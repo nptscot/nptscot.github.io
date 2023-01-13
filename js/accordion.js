@@ -31,9 +31,9 @@ function showrighbox(show){
     }
 }
     
-function showlegend(show){
-    var box = document.getElementById("legend");
-    var boxbutton = document.getElementById("showlegend");
+function show_rnet_legend(show){
+    var box = document.getElementById("rnetlegend");
+    var boxbutton = document.getElementById("rnetshowlegend");
     if(show){
       box.style.display = "block";
       boxbutton.style.display = "none";
@@ -43,16 +43,6 @@ function showlegend(show){
     }
 }
 
-/*
-function expandtopnav() {
-  var x = document.getElementById("topnav");
-  if (x.className === "topnav") {
-    x.className += " responsive";
-  } else {
-    x.className = "topnav";
-  }
-}
-*/
 
 function expandtopnav() {
   var x = document.getElementById("myTopnav");

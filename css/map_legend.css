@@ -1,4 +1,4 @@
-.legend {
+.rnetlegend {
 background-color: #fff;
 border-radius: 3px;
 bottom: 10px;
@@ -12,11 +12,11 @@ z-index: 1;
 overflow: auto;
 }
 
-.legend h4 {
+.rnetlegend h4 {
 margin: 0 0 10px;
 }
 
-.legend div span {
+.rnetlegend div span {
 border-radius: 50%;
 display: inline-block;
 height: 10px;
@@ -24,7 +24,7 @@ margin-right: 5px;
 width: 10px;
 }
 
-.showlegend {
+.rnetshowlegend {
 background-color: #fff;
 border-radius: 3px;
 bottom: 10px;
