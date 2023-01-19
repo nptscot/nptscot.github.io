@@ -166,6 +166,15 @@
   
 </div>
 
+<button class="accordion">Zones</button>
+<div class="panel">
+  <p><label><input type="checkbox" id="zonescheckbox" value="false" onclick="toggleLayer('zones')">Show Layer</label></p>
+  <select id="zones_input" name="zones_input" onchange="switch_zones()" aria-label="Zones layer">
+      <option value="TotPop2011" selected>Population 2011</option>
+  </select>
+  
+</div>
+
 </div>
 
 <script type="text/javascript" src="js/welcome.js"></script>

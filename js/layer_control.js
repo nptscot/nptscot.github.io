@@ -9,6 +9,9 @@ function toggleLayer(layerName) {
       case 'routes':
         switch_routes();
         break;
+      case 'zones':
+        switch_zones();
+        break;
       default:
         console.log('unknown layer selected');
     }
@@ -191,3 +194,34 @@ function switch_routes() {
   }
 }
 
+
+function switch_zones() {
+  var checkBox = document.getElementById('zonescheckbox');
+  var layerId = document.getElementById("zones_input").value;
+  if (checkBox.checked === true) {
+    if (map.getLayer('zones')) map.removeLayer('zones');
+    map.addLayer({
+      'id': 'zones',
+      'type': 'fill',
+      'source': 'zones',
+      'source-layer': 'zones',
+      'paint': {
+        'fill-color': ["step", ["get", layerId],
+          "#1b7837", 1000,
+          "#5aae61", 2000,
+          "#a6dba0", 3000,
+          "#d9f0d3", 4000,
+          "#e7d4e8", 5000,
+          "#c2a5cf", 6000,
+          "#9970ab", 7000,
+          "#762a83"],
+        'fill-opacity': 0.7,
+        'fill-outline-color': 'rgba(0, 0, 0, 0.2)'
+      }
+    }, 'roads 0 Restricted Road'
+    );
+
+  } else {
+    if (map.getLayer("zones")) map.removeLayer("zones");
+  }
+}

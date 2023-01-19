@@ -74,7 +74,7 @@ map.addSource('rnet', {
 	'https://www.wisemover.co.uk/tiles/rnet/{z}/{x}/{y}.pbf'
 	],
 	'minzoom': 6,
-	'maxzoom': 14
+	'maxzoom': 11
 });
 
 map.addSource('routes', {
@@ -83,55 +83,17 @@ map.addSource('routes', {
 	'https://www.wisemover.co.uk/tiles/routes/{z}/{x}/{y}.pbf'
 	],
 	'minzoom': 6,
-	'maxzoom': 12
+	'maxzoom': 11
 });
 
-/*
-map.addSource('la', {
+map.addSource('zones', {
 	'type': 'vector',
 	'tiles': [
-	'https://www.carbon.place/tiles/la/{z}/{x}/{y}.pbf'
-	],
-	'minzoom': 4,
-	'maxzoom': 10
-});
-
-map.addSource('parish', {
-	'type': 'vector',
-	'tiles': [
-	'https://www.carbon.place/tiles/parish/{z}/{x}/{y}.pbf'
-	],
-	'minzoom': 4,
-	'maxzoom': 10
-});
-
-map.addSource('constituencies', {
-	'type': 'vector',
-	'tiles': [
-	'https://www.carbon.place/tiles/constituencies/{z}/{x}/{y}.pbf'
-	],
-	'minzoom': 4,
-	'maxzoom': 10
-});
-
-map.addSource('wards', {
-	'type': 'vector',
-	'tiles': [
-	'https://www.carbon.place/tiles/wards/{z}/{x}/{y}.pbf'
-	],
-	'minzoom': 4,
-	'maxzoom': 10
-});
-
-map.addSource('transitstops', {
-	'type': 'vector',
-	'tiles': [
-	'https://www.carbon.place/tiles/transitstops/{z}/{x}/{y}.pbf'
+	'https://www.wisemover.co.uk/tiles/zones/{z}/{x}/{y}.pbf'
 	],
 	'minzoom': 6,
-	'maxzoom': 13
+	'maxzoom': 12
 });
-*/
 
 map.addSource('terrainSource', {
   'type': 'raster-dem',
@@ -162,7 +124,8 @@ map.addLayer(
 showrighbox(true); // Show the accordion hide the button 
 show_rnet_legend(true); // Show the legend hide the button 
 toggleLayer('rnet') // Start with the rnet on
-
+toggleLayer('routes') // Start with the rnet on
+toggleLayer('zones') // Start with the rnet on
 
 });
 
