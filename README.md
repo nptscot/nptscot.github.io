@@ -1,2 +1,2 @@
 # web
-Website for the Atum Scotland Project
+Website for the NPT Scotland Project
