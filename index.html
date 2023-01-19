@@ -71,6 +71,7 @@
 <div>
 <h3>Welcome to NPT Scotland</h3>
 <p>Network Planning Tool for strategic cycle network planning.</p>
+<p><b>This site is in ALPHA and is not ready for public use.</b></p>
 <p>Last Updated: 2023-01-19</p>
 </div>
 </div>
@@ -121,10 +122,20 @@
 <button class="accordion">Route Network</button>
 <div class="panel">
   <p><label><input type="checkbox" id="rnetcheckbox" value="true" onclick="toggleLayer('rnet')" checked>Show Layer</label></p>
-  
-  <select id="rnet_purpose_input" name="rnet_purpose_input" onchange="switch_rnet()" aria-label="Route network trip purpose">
+  <p>
+    <select id="rnet_purpose_input" name="rnet_purpose_input" onchange="switch_rnet()" aria-label="Route network trip purpose">
       <option value="commute" selected>Commute</option>
-  </select>
+    </select>
+    Trip purpose
+  </p>
+  
+  <p>
+    <select id="rnet_type_input" name="rnet_type_input" onchange="switch_rnet()" aria-label="Route network trip purpose">
+      <option value="commute" selected>Balanced</option>
+    </select>
+    Network type
+  </p>
+  
   <p>
   <select id="rnet_scenario_input" name="rnet_scenario_input" onchange="switch_rnet()" aria-label="Route network scenario">
       <option value="bicycle" selected>Baseline (2011)</option>
@@ -132,6 +143,7 @@
       <option value="Quietness">Quietness</option>
       <option value="Gradient">Gradient</option>
   </select>
+  Scenario
   </p>
   
 </div>
