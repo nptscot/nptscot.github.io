@@ -65,9 +65,12 @@
 		</div>	
 </div>
 
+<!-- Overlay -->
+ <div id="overlay"></div>
+
 <!-- Welcome Splash -->
 <div id="welcome" class="welcome">
-<span class="closewelcome">&times;</span>
+<span id="closewelcome" class="closewelcome">&times;</span>
 <div>
 <h3>Welcome to NPT Scotland</h3>
 <p>Network Planning Tool for strategic cycle network planning.</p>
@@ -126,14 +129,14 @@
     <select id="rnet_purpose_input" name="rnet_purpose_input" onchange="switch_rnet()" aria-label="Route network trip purpose">
       <option value="commute" selected>Commute</option>
     </select>
-    Trip purpose
+    Trip purpose <button onclick="show_help('purpose')" aria-label="Hide legend"><i class="fa fa-question-circle" aria-hidden="true"></i></button>
   </p>
   
   <p>
     <select id="rnet_type_input" name="rnet_type_input" onchange="switch_rnet()" aria-label="Route network trip purpose">
       <option value="commute" selected>Balanced</option>
     </select>
-    Network type
+    Network type <button onclick="show_help('type')" aria-label="Hide legend"><i class="fa fa-question-circle" aria-hidden="true"></i></button>
   </p>
   
   <p>
@@ -143,7 +146,7 @@
       <option value="Quietness">Quietness</option>
       <option value="Gradient">Gradient</option>
   </select>
-  Scenario
+  Scenario <button onclick="show_help('scenario')" aria-label="Hide legend"><i class="fa fa-question-circle" aria-hidden="true"></i></button>
   </p>
   
 </div>
@@ -170,6 +173,15 @@
 
 </div>
 
+<!-- Help Box -->
+<div id="help" class="help">
+<span id="closehelp" class="closehelp">&times;</span>
+<div id="helpcontent">
+  <p>This is the help box</p>
+</div>
+</div>
+
+
 <script type="text/javascript" src="js/welcome.js"></script>
 <script type="text/javascript" src="js/accordion.js"></script>
 <script type="text/javascript" src="js/layer_control.js"></script>
@@ -178,7 +190,6 @@
 <script type="text/javascript" src="js/ga_optout.js" async></script>
 <script type="text/javascript" src="js/help.js" async></script>
 <script type="text/javascript" src="js/popup.js" async></script>
-
 
 </body>
 </html>
