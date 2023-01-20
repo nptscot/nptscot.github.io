@@ -150,9 +150,24 @@
   Scenario <button onclick="show_help('scenario')" aria-label="Hide legend"><i class="fa fa-question-circle" aria-hidden="true"></i></button>
   </p>
   
+  <p>Minimum number of cyclists</p>
+  <div class="slidecontainer">
+  <input type="range" min="1" max="1000" value="1" class="slider" id="slide_flow" onchange="switch_rnet()" oninput="this.nextElementSibling.value = this.value"> <output>1</output>
+  </div>
+  
+  <p>Maximum road quietness</p>
+  <div class="slidecontainer">
+  <input type="range" min="1" max="100" value="100" class="slider" id="slide_quietness" onchange="switch_rnet()" oninput="this.nextElementSibling.value = this.value"> <output>100</output>%
+  </div>
+  
+  <p>Maximum road gradient</p>
+  <div class="slidecontainer">
+  <input type="range" min="0" max="100" value="100" class="slider" id="slide_gradient" onchange="switch_rnet()" oninput="this.nextElementSibling.value = this.value"> <output>100</output>%
+  </div>
+  
 </div>
 
-
+<!---
 <button class="accordion">Routes</button>
 <div class="panel">
   <p><label><input type="checkbox" id="routescheckbox" value="false" onclick="toggleLayer('routes')">Show Layer</label></p>
@@ -162,7 +177,7 @@
   </select>
   
 </div>
-
+-->
 <button class="accordion">Zones</button>
 <div class="panel">
   <p><label><input type="checkbox" id="zonescheckbox" value="false" onclick="toggleLayer('zones')">Show Layer</label></p>

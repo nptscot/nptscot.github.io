@@ -24,6 +24,9 @@ function switch_rnet() {
   var checkBox = document.getElementById('rnetcheckbox');
   var layerId = document.getElementById("rnet_scenario_input").value;
   var layerType = document.getElementById("rnet_type_input").value;
+  var sliderFlow = Number(document.getElementById("slide_flow").value);
+  var sliderQuietness = Number(document.getElementById("slide_quietness").value);
+  var sliderGradient = Number(document.getElementById("slide_gradient").value);
   if (checkBox.checked === true) {
     if (map.getLayer('rnet')) map.removeLayer('rnet');
     switch (layerId) {
@@ -33,6 +36,10 @@ function switch_rnet() {
           'type': 'line',
           'source': 'rnet',
           'source-layer': 'rnet',
+          'filter': ["all",
+              ['<=', "Quietness", sliderQuietness],
+              ['<=', "Gradient", sliderGradient]
+           ],
           'paint': {
             'line-color': ["step", ["get", layerId],
               "#882255", 25,
@@ -68,6 +75,10 @@ function switch_rnet() {
           'type': 'line',
           'source': 'rnet',
           'source-layer': 'rnet',
+                    'filter': ["all",
+                        ['<=', "Quietness", sliderQuietness],
+                        ['<=', "Gradient", sliderGradient]
+                     ],
           'paint': {
             'line-color': ["step", ["get", layerId],
               "#feebe2", 0,
@@ -104,12 +115,16 @@ function switch_rnet() {
         
         break;
       default:
-      console.log(layerType + "_" + layerId)
         map.addLayer({
           'id': 'rnet',
           'type': 'line',
           'source': 'rnet',
           'source-layer': 'rnet',
+          'filter': ["all",
+                        ['>=', layerType + "_" + layerId, sliderFlow],
+                        ['<=', "Quietness", sliderQuietness],
+                        ['<=', "Gradient", sliderGradient]
+                     ],
           'paint': {
             'line-color': ["step", ["get", layerType + "_" + layerId],
               "rgba(0,0,0,0)", 1,
