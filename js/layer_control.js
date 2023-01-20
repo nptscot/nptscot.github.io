@@ -23,6 +23,7 @@ function toggleLayer(layerName) {
 function switch_rnet() {
   var checkBox = document.getElementById('rnetcheckbox');
   var layerId = document.getElementById("rnet_scenario_input").value;
+  var layerType = document.getElementById("rnet_type_input").value;
   if (checkBox.checked === true) {
     if (map.getLayer('rnet')) map.removeLayer('rnet');
     switch (layerId) {
@@ -103,13 +104,14 @@ function switch_rnet() {
         
         break;
       default:
+      console.log(layerType + "_" + layerId)
         map.addLayer({
           'id': 'rnet',
           'type': 'line',
           'source': 'rnet',
           'source-layer': 'rnet',
           'paint': {
-            'line-color': ["step", ["get", layerId],
+            'line-color': ["step", ["get", layerType + "_" + layerId],
               "rgba(0,0,0,0)", 1,
               "#9C9C9C", 10,
               "#FFFF73", 50,
