@@ -261,19 +261,20 @@ p.welcome-end {
 }
 
 .help {
-  position: fixed;
+  position: absolute;
   display: none;
-  top: 10%; 
-  max-width: 300px;
-  max-height: 80%;
+  top: 10%;
+  left: 50%;
+  width: 80%;
+  max-width: 800px;
+  max-height: 90%;
   background-color: white;
   border: solid 1px #444;
   border-radius: 25px;
   z-index: 1002;
   padding: 20px;
   overflow: auto; 
-  margin-left: 5%;
-  margin-right: 5%;
+  margin: 0 -50% 0 -45%;
 }
 p.help-end {
     font-size: 0.9em;
@@ -311,4 +312,19 @@ p.help-end {
   width: 100%; /* Width of the outside container */
 }
 
+/* Responvie image widths*/
+.responsive {
+  width: 100%;
+  height: auto;
+}
 
+.helpbutton {
+  background: transparent;
+  border: none !important;
+  min-width: 10px;
+  min-height: 10px;
+}
+
+.fa-question-circle {
+  color: blue;
+}
