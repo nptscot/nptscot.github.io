@@ -71,7 +71,7 @@ map.addControl(new maplibregl.ScaleControl({
 map.addSource('rnet', {
 	'type': 'vector',
 	'tiles': [
-	'https://www.wisemover.co.uk/tiles/rnet2/{z}/{x}/{y}.pbf'
+	'https://www.wisemover.co.uk/tiles/rnet/{z}/{x}/{y}.pbf'
 	],
 	'minzoom': 6,
 	'maxzoom': 11
