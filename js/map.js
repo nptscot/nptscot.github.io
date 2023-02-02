@@ -74,9 +74,11 @@ map.addSource('rnet', {
 	'https://www.wisemover.co.uk/tiles/rnet/{z}/{x}/{y}.pbf'
 	],
 	'minzoom': 6,
-	'maxzoom': 11
+	'maxzoom': 11,
+	'bounds': [-8.649240,54.633160,-0.722602,60.861379]
 });
 
+/*
 map.addSource('routes', {
 	'type': 'vector',
 	'tiles': [
@@ -85,6 +87,7 @@ map.addSource('routes', {
 	'minzoom': 6,
 	'maxzoom': 11
 });
+*/
 
 map.addSource('zones', {
 	'type': 'vector',
@@ -92,7 +95,8 @@ map.addSource('zones', {
 	'https://www.wisemover.co.uk/tiles/zones/{z}/{x}/{y}.pbf'
 	],
 	'minzoom': 6,
-	'maxzoom': 12
+	'maxzoom': 12,
+	'bounds': [-8.649240,54.633160,-0.722602,60.861379]
 });
 
 map.addSource('terrainSource', {
@@ -100,7 +104,8 @@ map.addSource('terrainSource', {
   'tiles': ["https://www.carbon.place/rastertiles/demwebp/{z}/{x}/{y}.webp"],
   'tileSize': 512,
   'minzoom': 0,
-	'maxzoom': 9
+	'maxzoom': 9,
+	'bounds': [-13.000000,47.000000,10.000000,63.000000]
 });
 
 map.addSource('hillshadeSource', {
@@ -115,7 +120,8 @@ map.addLayer(
 {
 'id': 'hillshading',
 'source': 'hillshadeSource',
-'type': 'hillshade'
+'type': 'hillshade',
+'bounds': [-13.000000,47.000000,10.000000,63.000000]
 },
 'sea'
 );
