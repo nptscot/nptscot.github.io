@@ -43,8 +43,16 @@ function show_help(help) {
         
         `;
         break;
+      case 'ends':
+        document.getElementById("helpcontent").innerHTML = `
+        <h3>Trip ends</h3>
+        <p>Travel data can be summarised by origins or destinations. Consider work travel; typically, people travel from many residential areas at the edge of cities into a few city centre areas where most jobs are concentrated. So mapping cycling by origins shows information about residents. But mapping by destination shows information about workers. </p>
+        <p></p>
+        
+        `;
+        break;
       default:
-        console.log('unknown help selected');
+        console.log('unknown help selected: ' + help);
   }
   document.getElementById("help").style.display = "block";
   toggle_overlay(true)

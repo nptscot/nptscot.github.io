@@ -1,3 +1,4 @@
+console.log("Loaded layer control");
 function toggleLayer(layerName) {
   var checkBox = document.getElementById(layerName.concat('checkbox'));
   // If the checkbox is checked add the layer to the map
@@ -170,7 +171,7 @@ function switch_rnet() {
   }
 }
 
-
+/*
 function switch_routes() {
   var checkBox = document.getElementById('routescheckbox');
   var layerId = document.getElementById("routes_input").value;
@@ -210,35 +211,91 @@ function switch_routes() {
     if (map.getLayer("routes")) map.removeLayer("routes");
   }
 }
-
+*/
 
 function switch_zones() {
   var checkBox = document.getElementById('zonescheckbox');
-  var layerId = document.getElementById("zones_input").value;
+  var zend = document.getElementById("zones_end_input").value;
+  var zpurpose = document.getElementById("zones_purpose_input").value;
+  var ztype = document.getElementById("zones_type_input").value;
+  var zscenario = document.getElementById("zones_scenario_input").value;
+  var layerId = zend + "_" + zscenario + "_" + ztype + "_" + zpurpose
+  
   if (checkBox.checked === true) {
     if (map.getLayer('zones')) map.removeLayer('zones');
-    map.addLayer({
-      'id': 'zones',
-      'type': 'fill',
-      'source': 'zones',
-      'source-layer': 'zones',
-      'paint': {
-        'fill-color': ["step", ["get", layerId],
-          "#1b7837", 1000,
-          "#5aae61", 2000,
-          "#a6dba0", 3000,
-          "#d9f0d3", 4000,
-          "#e7d4e8", 5000,
-          "#c2a5cf", 6000,
-          "#9970ab", 7000,
-          "#762a83"],
-        'fill-opacity': 0.7,
-        'fill-outline-color': 'rgba(0, 0, 0, 0.2)'
+    switch (zscenario) {
+      case 'quietness_mean':
+        map.addLayer({
+          'id': 'zones',
+          'type': 'fill',
+          'source': 'zones',
+          'source-layer': 'zones',
+          'paint': {
+            'fill-color': ["step", ["get", layerId ],
+              "#882255", 25,
+              "#CC6677", 50,
+              "#44AA99", 75,
+              "#117733", 101,
+              "#000000"],
+            'fill-opacity': 0.7,
+            'fill-outline-color': 'rgba(0, 0, 0, 0.2)'
+          }
+        }, 'roads 0 Restricted Road'
+        );
+        
+    	  
+        break;
+      case 'hilliness_mean':
+        map.addLayer({
+          'id': 'zones',
+          'type': 'fill',
+          'source': 'zones',
+          'source-layer': 'zones',
+          'paint': {
+            'fill-color': ["step", ["get", layerId ],
+             "#feebe2", 0,
+              "#fcc5c0", 2,
+              "#fa9fb5", 4,
+              "#f768a1", 6,
+              "#dd3497", 8,
+              "#ae017e", 10,
+              "#7a0177", 100,
+              "#000000"],
+            'fill-opacity': 0.7,
+            'fill-outline-color': 'rgba(0, 0, 0, 0.2)'
+          }
+        }, 'roads 0 Restricted Road'
+        );
+        
+        break;
+      default:
+      
+        map.addLayer({
+          'id': 'zones',
+          'type': 'fill',
+          'source': 'zones',
+          'source-layer': 'zones',
+          'paint': {
+            'fill-color': ["step", ["get", layerId ],
+             "#A50026", 0,
+              "#D73027", 2,
+              "#F46D43", 4,
+              "#FDAE61", 7,
+              "#FEE090", 10,
+              "#ffffbf", 15,
+              "#C6DBEF", 20,
+              "#ABD9E9", 25,
+              "#74ADD1", 30,
+              "#4575B4", 40,
+              "#000000"],
+            'fill-opacity': 0.7,
+            'fill-outline-color': 'rgba(0, 0, 0, 0.2)'
+          }
+        }, 'roads 0 Restricted Road'
+        );
       }
-    }, 'roads 0 Restricted Road'
-    );
-
-  } else {
+    } else {
     if (map.getLayer("zones")) map.removeLayer("zones");
   }
 }
+

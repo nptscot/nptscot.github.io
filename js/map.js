@@ -124,8 +124,8 @@ map.addLayer(
 showrighbox(true); // Show the accordion hide the button 
 show_rnet_legend(true); // Show the legend hide the button 
 toggleLayer('rnet') // Start with the rnet on
-toggleLayer('routes') // Start with the rnet on
 toggleLayer('zones') // Start with the rnet on
+
 
 });
 
