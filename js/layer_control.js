@@ -28,10 +28,98 @@ function switch_rnet() {
   var sliderFlow = Number(document.getElementById("slide_flow").value);
   var sliderQuietness = Number(document.getElementById("slide_quietness").value);
   var sliderGradient = Number(document.getElementById("slide_gradient").value);
+  
+  // Width
+  var layerWidth = document.getElementById("rnet_width_input").value;
+  var a = 1;
+  var b = 1;
+  switch(layerWidth){
+    case 'Quietness':
+      a = 0.01;
+      break;
+    case 'Gradient':
+      a = 0.2;
+      break;
+    case 'none':
+      break;
+    default:
+     a = 0.05;
+     b = 0.5;
+     layerWidth = layerType + "_" + layerWidth;
+  }
+  console.log(a);
+  console.log(layerWidth);
+  
   if (checkBox.checked === true) {
     if (map.getLayer('rnet')) map.removeLayer('rnet');
     switch (layerId) {
       case 'Quietness':
+        
+        if(layerWidth == 'none'){
+          map.addLayer({
+          'id': 'rnet',
+          'type': 'line',
+          'source': 'rnet',
+          'source-layer': 'rnet',
+          'filter': ["all",
+              ['<=', "Quietness", sliderQuietness],
+              ['<=', "Gradient", sliderGradient]
+           ],
+          'paint': {
+            'line-color': ["step", ["get", layerId],
+              "#882255", 25,
+              "#CC6677", 50,
+              "#44AA99", 75,
+              "#117733", 101,
+              "#000000"],
+            "line-width": [
+              "interpolate",
+              ["linear"],
+              ["zoom"],
+              12, 2.1,
+              14, 5.25,
+              15, 7.5,
+              16, 18,
+              18, 52.5,
+              22, 150
+            ],
+          }
+        });
+        } else {
+          
+          map.addLayer({
+          'id': 'rnet',
+          'type': 'line',
+          'source': 'rnet',
+          'source-layer': 'rnet',
+          'filter': ["all",
+              ['<=', "Quietness", sliderQuietness],
+              ['<=', "Gradient", sliderGradient]
+           ],
+          'paint': {
+            'line-color': ["step", ["get", layerId],
+              "#882255", 25,
+              "#CC6677", 50,
+              "#44AA99", 75,
+              "#117733", 101,
+              "#000000"],
+            'line-width': [
+                'interpolate', 
+                ['linear'], 
+                ['zoom'],
+                12, ["*", 2.1 , a, ["^", ["+", 1, ["get", layerWidth]], b]],
+                14, ["*", 5.25, a, ["^", ["+", 1, ["get", layerWidth]], b]],
+                15, ["*", 7.5 , a, ["^", ["+", 1, ["get", layerWidth]], b]],
+                16, ["*", 18  , a, ["^", ["+", 1, ["get", layerWidth]], b]],
+                18, ["*", 52.5, a, ["^", ["+", 1, ["get", layerWidth]], b]], 
+                22, ["*", 150 , a, ["^", ["+", 1, ["get", layerWidth]], b]]
+            ],
+          }
+        });
+        
+          
+        }
+        
         map.addLayer({
           'id': 'rnet',
           'type': 'line',
@@ -71,7 +159,10 @@ function switch_rnet() {
     	  
         break;
       case 'Gradient':
-        map.addLayer({
+        
+        
+        if(layerWidth == 'none'){
+          map.addLayer({
           'id': 'rnet',
           'type': 'line',
           'source': 'rnet',
@@ -103,6 +194,42 @@ function switch_rnet() {
             ],
           }
         });
+        } else {
+          
+          map.addLayer({
+          'id': 'rnet',
+          'type': 'line',
+          'source': 'rnet',
+          'source-layer': 'rnet',
+                    'filter': ["all",
+                        ['<=', "Quietness", sliderQuietness],
+                        ['<=', "Gradient", sliderGradient]
+                     ],
+          'paint': {
+            'line-color': ["step", ["get", layerId],
+              "#feebe2", 0,
+              "#fcc5c0", 2,
+              "#fa9fb5", 4,
+              "#f768a1", 6,
+              "#dd3497", 8,
+              "#ae017e", 10,
+              "#7a0177", 100,
+              "#000000"],
+            'line-width': [
+                'interpolate', 
+                ['linear'], 
+                ['zoom'],
+                12, ["*", 2.1 , a, ["^", ["+", 1, ["get", layerWidth]], b]],
+                14, ["*", 5.25, a, ["^", ["+", 1, ["get", layerWidth]], b]],
+                15, ["*", 7.5 , a, ["^", ["+", 1, ["get", layerWidth]], b]],
+                16, ["*", 18  , a, ["^", ["+", 1, ["get", layerWidth]], b]],
+                18, ["*", 52.5, a, ["^", ["+", 1, ["get", layerWidth]], b]], 
+                22, ["*", 150 , a, ["^", ["+", 1, ["get", layerWidth]], b]]
+            ],
+          }
+        });
+          
+        }
         
         document.getElementById("rnetlegend").innerHTML = `<button onclick="show_rnet_legend(false)" style="float:right" aria-label="Hide legend"><i class="fas fa-times"></i></button>
         <h4>Gradient</h4>
@@ -116,7 +243,9 @@ function switch_rnet() {
         
         break;
       default:
-        map.addLayer({
+      
+        if(layerWidth == 'none'){
+          map.addLayer({
           'id': 'rnet',
           'type': 'line',
           'source': 'rnet',
@@ -150,7 +279,43 @@ function switch_rnet() {
             ],
           }
         });
-        
+        } else {
+          map.addLayer({
+          'id': 'rnet',
+          'type': 'line',
+          'source': 'rnet',
+          'source-layer': 'rnet',
+          'filter': ["all",
+                        ['>=', layerType + "_" + layerId, sliderFlow],
+                        ['<=', "Quietness", sliderQuietness],
+                        ['<=', "Gradient", sliderGradient]
+                     ],
+          'paint': {
+            'line-color': ["step", ["get", layerType + "_" + layerId],
+              "rgba(0,0,0,0)", 1,
+              "#9C9C9C", 10,
+              "#FFFF73", 50,
+              "#AFFF00", 100,
+              "#00FFFF", 250,
+              "#30B0FF", 500,
+              "#2E5FFF", 1000,
+              "#0000FF", 2000,
+              "#FF00C5"],
+            'line-width': [
+                'interpolate', 
+                ['linear'], 
+                ['zoom'],
+                12, ["*", 2.1 , a, ["^", ["+", 1, ["get", layerWidth]], b]],
+                14, ["*", 5.25, a, ["^", ["+", 1, ["get", layerWidth]], b]],
+                15, ["*", 7.5 , a, ["^", ["+", 1, ["get", layerWidth]], b]],
+                16, ["*", 18  , a, ["^", ["+", 1, ["get", layerWidth]], b]],
+                18, ["*", 52.5, a, ["^", ["+", 1, ["get", layerWidth]], b]], 
+                22, ["*", 150 , a, ["^", ["+", 1, ["get", layerWidth]], b]]
+            ],
+          }
+        });
+        }
+      
         document.getElementById("rnetlegend").innerHTML = `<button onclick="show_rnet_legend(false)" style="float:right" aria-label="Hide legend"><i class="fas fa-times"></i></button>
         <h4>Number of Cyclists</h4>
         <div><span style="background-color: #9C9C9C;" class="legenddot"></span>1-9</div>
