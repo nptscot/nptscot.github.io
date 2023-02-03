@@ -312,6 +312,10 @@ p.help-end {
   width: 100%; /* Width of the outside container */
 }
 
+.slider{
+  width: 190px;
+}
+
 /* Responvie image widths*/
 .responsive {
   width: 100%;
