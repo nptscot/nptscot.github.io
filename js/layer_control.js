@@ -120,35 +120,6 @@ function switch_rnet() {
           
         }
         
-        map.addLayer({
-          'id': 'rnet',
-          'type': 'line',
-          'source': 'rnet',
-          'source-layer': 'rnet',
-          'filter': ["all",
-              ['<=', "Quietness", sliderQuietness],
-              ['<=', "Gradient", sliderGradient]
-           ],
-          'paint': {
-            'line-color': ["step", ["get", layerId],
-              "#882255", 25,
-              "#CC6677", 50,
-              "#44AA99", 75,
-              "#117733", 101,
-              "#000000"],
-            "line-width": [
-              "interpolate",
-              ["linear"],
-              ["zoom"],
-              12, 2.1,
-              14, 5.25,
-              15, 7.5,
-              16, 18,
-              18, 52.5,
-              22, 150
-            ],
-          }
-        });
         
         document.getElementById("rnetlegend").innerHTML = `<button onclick="show_rnet_legend(false)" style="float:right" aria-label="Hide legend"><i class="fas fa-times"></i></button>
         <h4>Quietness</h4>
@@ -162,6 +133,7 @@ function switch_rnet() {
         
         
         if(layerWidth == 'none'){
+          
           map.addLayer({
           'id': 'rnet',
           'type': 'line',
@@ -194,6 +166,7 @@ function switch_rnet() {
             ],
           }
         });
+        
         } else {
           
           map.addLayer({
