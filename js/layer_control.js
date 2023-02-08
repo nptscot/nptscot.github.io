@@ -53,6 +53,67 @@ function switch_rnet() {
   if (checkBox.checked === true) {
     if (map.getLayer('rnet')) map.removeLayer('rnet');
     switch (layerId) {
+      case 'none':
+        
+        if(layerWidth == 'none'){
+          map.addLayer({
+          'id': 'rnet',
+          'type': 'line',
+          'source': 'rnet',
+          'source-layer': 'rnet',
+          'filter': ["all",
+              ['<=', "Quietness", sliderQuietness],
+              ['<=', "Gradient", sliderGradient]
+           ],
+          'paint': {
+            'line-color': "#304ce7",
+            "line-width": [
+              "interpolate",
+              ["linear"],
+              ["zoom"],
+              12, 2.1,
+              14, 5.25,
+              15, 7.5,
+              16, 18,
+              18, 52.5,
+              22, 150
+            ],
+          }
+        });
+        } else {
+          
+          map.addLayer({
+          'id': 'rnet',
+          'type': 'line',
+          'source': 'rnet',
+          'source-layer': 'rnet',
+          'filter': ["all",
+              ['<=', "Quietness", sliderQuietness],
+              ['<=', "Gradient", sliderGradient]
+           ],
+          'paint': {
+            'line-color': "#304ce7",
+            'line-width': [
+                'interpolate', 
+                ['linear'], 
+                ['zoom'],
+                12, ["*", 2.1 , a, ["^", ["+", 1, ["get", layerWidth]], b]],
+                14, ["*", 5.25, a, ["^", ["+", 1, ["get", layerWidth]], b]],
+                15, ["*", 7.5 , a, ["^", ["+", 1, ["get", layerWidth]], b]],
+                16, ["*", 18  , a, ["^", ["+", 1, ["get", layerWidth]], b]],
+                18, ["*", 52.5, a, ["^", ["+", 1, ["get", layerWidth]], b]], 
+                22, ["*", 150 , a, ["^", ["+", 1, ["get", layerWidth]], b]]
+            ],
+          }
+        });
+        
+          
+        }
+        
+        
+        document.getElementById("rnetlegend").innerHTML = `<button onclick="show_rnet_legend(false)" style="float:right" aria-label="Hide legend"><i class="fas fa-times"></i></button>`;
+    	  
+        break;
       case 'Quietness':
         
         if(layerWidth == 'none'){
@@ -145,13 +206,11 @@ function switch_rnet() {
                      ],
           'paint': {
             'line-color': ["step", ["get", layerId],
-              "#feebe2", 0,
-              "#fcc5c0", 2,
-              "#fa9fb5", 4,
-              "#f768a1", 6,
-              "#dd3497", 8,
-              "#ae017e", 10,
-              "#7a0177", 100,
+              "#59ee19", 3,
+              "#37a009", 5,
+              "#FFC300", 7,
+              "#C70039", 10,
+              "#581845", 100,
               "#000000"],
             "line-width": [
               "interpolate",
@@ -180,13 +239,11 @@ function switch_rnet() {
                      ],
           'paint': {
             'line-color': ["step", ["get", layerId],
-              "#feebe2", 0,
-              "#fcc5c0", 2,
-              "#fa9fb5", 4,
-              "#f768a1", 6,
-              "#dd3497", 8,
-              "#ae017e", 10,
-              "#7a0177", 100,
+              "#59ee19", 3,
+              "#37a009", 5,
+              "#FFC300", 7,
+              "#C70039", 10,
+              "#581845", 100,
               "#000000"],
             'line-width': [
                 'interpolate', 
@@ -206,13 +263,11 @@ function switch_rnet() {
         
         document.getElementById("rnetlegend").innerHTML = `<button onclick="show_rnet_legend(false)" style="float:right" aria-label="Hide legend"><i class="fas fa-times"></i></button>
         <h4>Gradient</h4>
-        <div><span style="background-color: #feebe2;" class="legenddot"></span>0</div>
-    	  <div><span style="background-color: #fcc5c0;" class="legenddot"></span>2</div>
-    	  <div><span style="background-color: #fa9fb5;" class="legenddot"></span>4</div>
-    	  <div><span style="background-color: #f768a1;" class="legenddot"></span>6</div>
-    	  <div><span style="background-color: #dd3497;" class="legenddot"></span>8</div>
-    	  <div><span style="background-color: #ae017e;" class="legenddot"></span>10</div>
-    	  <div><span style="background-color: #7a0177;" class="legenddot"></span>100</div>`;
+        <div><span style="background-color: #59ee19;" class="legenddot"></span>0-3</div>
+    	  <div><span style="background-color: #37a009;" class="legenddot"></span>3-5</div>
+    	  <div><span style="background-color: #FFC300;" class="legenddot"></span>5-7</div>
+    	  <div><span style="background-color: #C70039;" class="legenddot"></span>7-10</div>
+    	  <div><span style="background-color: #581845;" class="legenddot"></span>10+</div>`;
         
         break;
       default:

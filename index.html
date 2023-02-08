@@ -146,9 +146,10 @@
   
   <p>
   <select id="rnet_scenario_input" name="rnet_scenario_input" onchange="switch_rnet()" aria-label="Route network scenario">
-      <option value="bicycle" selected>Baseline (2011)</option>
+      <option value="none" >None</option>
+      <option value="bicycle" >Baseline (2011)</option>
       <option value="bicycle_go_dutch">Go Dutch</option>
-      <option value="Quietness">Quietness</option>
+      <option value="Quietness" selected>Quietness</option>
       <option value="Gradient">Gradient</option>
   </select>
   Line colour <button onclick="show_help('scenario')" aria-label="Help scenario" class="helpbutton"><i class="fa fa-question-circle" aria-hidden="true"></i></button>
@@ -156,8 +157,8 @@
   
   <p>
   <select id="rnet_width_input" name="rnet_width_input" onchange="switch_rnet()" aria-label="Route network scenario">
-      <option value="none" selected>None</option>
-      <option value="bicycle" >Baseline (2011)</option>
+      <option value="none" >None</option>
+      <option value="bicycle" selected>Baseline (2011)</option>
       <option value="bicycle_go_dutch">Go Dutch</option>
       <option value="Quietness">Quietness</option>
       <option value="Gradient">Gradient</option>
