@@ -60,7 +60,7 @@ positionOptions: {enableHighAccuracy: true},trackUserLocation: true})
 ,'top-left');
 
 map.addControl(
-new maplibregl.TerrainControl({source: 'terrainSource',exaggeration: 1.5})
+new maplibregl.TerrainControl({source: 'terrainSource',exaggeration: 1.25})
 ,'top-left');
 
 map.addControl(new maplibregl.ScaleControl({
