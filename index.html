@@ -235,6 +235,32 @@
   
 </div>
 
+<button class="accordion">Data Zones</button>
+<div class="panel">
+  <p><label><input type="checkbox" id="data_zonescheckbox" value="false" onclick="toggleLayer('data_zones')">Show Layer</label></p>
+
+  <p>
+    <select id="data_zone_input" name="data_zone_input" onchange="switch_data_zones()" aria-label="Data zone layer">
+      <option value="Total_population" selected>Population (2020)</option>
+      <option value="SIMD2020v2_Decile">Index of Muliple Deprivation (2020)</option>
+      <option value="drive_petrol">Drive time to petrol station</option>
+      <option value="drive_GP">Drive time to GP</option>
+      <option value="drive_post">Drive time to post office</option>
+      <option value="drive_retail">Drive time to retail centre</option>
+      <option value="drive_primary">Drive time to primary school</option>
+      <option value="drive_secondary">Drive time to secondary school</option>
+      <option value="PT_GP">Public transport time to GP</option>
+      <option value="PT_post">Public transport time to post office</option>
+      <option value="PT_retail">Public transport time to retail centre</option>
+      <option value="broadband">% without superfast broadband</option>
+    </select>
+    <button onclick="show_help('SIMD')" aria-label="Help purpsose" class="helpbutton"><i class="fa fa-question-circle" aria-hidden="true"></i></button>
+  </p>
+  
+  
+</div>
+
+
 </div>
 
 <!-- Help Box -->

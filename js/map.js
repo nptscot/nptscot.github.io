@@ -99,6 +99,17 @@ map.addSource('zones', {
 	'bounds': [-8.649240,54.633160,-0.722602,60.861379]
 });
 
+map.addSource('data_zones', {
+	'type': 'vector',
+	'tiles': [
+	'https://www.wisemover.co.uk/tiles/data_zones/{z}/{x}/{y}.pbf'
+	],
+	'minzoom': 6,
+	'maxzoom': 12,
+	'bounds': [-8.649240,54.633160,-0.722602,60.861379]
+});
+
+
 map.addSource('terrainSource', {
   'type': 'raster-dem',
   'tiles': ["https://www.carbon.place/rastertiles/demwebp/{z}/{x}/{y}.webp"],
@@ -113,7 +124,8 @@ map.addSource('hillshadeSource', {
   'tiles': ["https://www.carbon.place/rastertiles/demwebp/{z}/{x}/{y}.webp"],
   'tileSize': 512,
   'minzoom': 0,
-	'maxzoom': 9
+	'maxzoom': 9,
+	'bounds': [-13.000000,47.000000,10.000000,63.000000]
 });
 
 map.addLayer(
@@ -131,7 +143,7 @@ showrighbox(true); // Show the accordion hide the button
 show_rnet_legend(true); // Show the legend hide the button 
 toggleLayer('rnet') // Start with the rnet on
 toggleLayer('zones') // Start with the rnet on
-
+toggleLayer('data_zones') // Start with the rnet on
 
 });
 
