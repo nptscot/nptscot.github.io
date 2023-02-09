@@ -5,7 +5,7 @@ style: 'tiles/style.json' ,
 center: [-3.1382,55.9533],
 zoom: 8,
 maxZoom: 19,
-minZoom: 4,
+minZoom: 5,
 maxPitch: 85,
 hash: true
 });
