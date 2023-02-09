@@ -180,12 +180,14 @@ a.smaller {
   height: 25px;
 }
 #map {
+  background: linear-gradient(0deg, rgba(36,0,0,1) 56%, rgb(249 209 89) 62%, rgb(81 151 173) 80%, rgb(2 92 179) 95%);
   position: relative;
   top: 1px;
   bottom: 1px;
   width:100%;
   height:100%;
 }
+
 #searchbutton {
   background-color: white;
 }
