@@ -125,10 +125,11 @@
   <button onclick="showrighbox(false)" style="float:right" aria-label="Hide layers"><i class="fas fa-times"></i></button>
 
 <p>Select map layers</p>
+<p><label><input type="checkbox" id="satellitecheckbox" value="true" onclick="toggleraster('satellite ')" checked>Satellite </label></p>
 
 <button class="accordion">Route Network</button>
 <div class="panel">
-  <p><label><input type="checkbox" id="rnetcheckbox" value="true" onclick="toggleLayer('rnet')" checked>Show Layer</label></p>
+  <p><label><input type="checkbox" id="rnetcheckbox" onclick="toggleLayer('rnet')" checked>Show Layer</label></p>
   <p>
     <select id="rnet_purpose_input" name="rnet_purpose_input" onchange="switch_rnet()" aria-label="Route network trip purpose">
       <option value="commute" selected>Commute</option>

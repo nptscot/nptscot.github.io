@@ -1,4 +1,3 @@
-console.log("Loaded layer control");
 function toggleLayer(layerName) {
   var checkBox = document.getElementById(layerName.concat('checkbox'));
   // If the checkbox is checked add the layer to the map
@@ -23,6 +22,31 @@ function toggleLayer(layerName) {
     if (map.getLayer(layerName)) map.removeLayer(layerName);
   }
 }
+
+function toggleraster(layerName) {
+  var checkBox = document.getElementById(layerName.concat('checkbox'));
+  // If the checkbox is checked add the layer to the map
+  if (checkBox.checked === true) {
+    switch (layerName) {
+      case 'satellite':
+        if (map.getLayer('satellite')) map.removeLayer('satellite');
+        map.addLayer({
+          'id': 'satellite',
+          'type': 'raster',
+          'source': 'satellite',
+        }, 'roads 0 Restricted Road'
+        );
+        
+        break;
+      default:
+        console.log('unknown layer selected');
+    }
+  } else {
+    if (map.getLayer(layerName)) map.removeLayer(layerName);
+  }
+}
+
+
 
 function switch_rnet() {
   var checkBox = document.getElementById('rnetcheckbox');

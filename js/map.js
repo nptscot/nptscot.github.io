@@ -51,7 +51,7 @@ map.on('load', function() {
 map.addControl(new maplibregl.NavigationControl(), 'top-left');
 
 map.addControl(new maplibregl.AttributionControl({
-  customAttribution: 'Contains OS data © Crown copyright 2021'
+  customAttribution: 'Contains OS data © Crown copyright 2021, Satelite map © ESRI 2023, © OpenStreetMap contributors'
 }));
 
 map.addControl(new maplibregl.GeolocateControl({
@@ -110,6 +110,16 @@ map.addSource('data_zones', {
 });
 
 
+map.addSource('satellite', {
+	'type': 'raster',
+	'tiles': [
+	'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'
+	],
+	'tileSize': 256
+});
+
+
+
 map.addSource('terrainSource', {
   'type': 'raster-dem',
   'tiles': ["https://www.carbon.place/rastertiles/demwebp/{z}/{x}/{y}.webp"],
@@ -142,8 +152,9 @@ map.addLayer(
 showrighbox(true); // Show the accordion hide the button 
 show_rnet_legend(true); // Show the legend hide the button 
 toggleLayer('rnet') // Start with the rnet on
-toggleLayer('zones') // Start with the rnet on
-toggleLayer('data_zones') // Start with the rnet on
+toggleLayer('zones')
+toggleLayer('data_zones')
+toggleraster('satellite')
 
 });
 
