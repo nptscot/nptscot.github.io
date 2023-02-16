@@ -110,6 +110,45 @@ map.addSource('data_zones', {
 	'bounds': [-8.649240,54.633160,-0.722602,60.861379]
 });
 
+map.addSource('la', {
+	'type': 'vector',
+	'tiles': [
+	'https://www.wisemover.co.uk/tiles/la/{z}/{x}/{y}.pbf'
+	],
+	'minzoom': 6,
+	'maxzoom': 12,
+	'bounds': [-8.650007,49.864674,1.763680,60.860766]
+});
+
+map.addSource('wards', {
+	'type': 'vector',
+	'tiles': [
+	'https://www.wisemover.co.uk/tiles/wards/{z}/{x}/{y}.pbf'
+	],
+	'minzoom': 6,
+	'maxzoom': 12,
+	'bounds': [-8.650007,49.864674,1.763680,60.860766]
+});
+
+map.addSource('westminster', {
+	'type': 'vector',
+	'tiles': [
+	'https://www.wisemover.co.uk/tiles/westminster/{z}/{x}/{y}.pbf'
+	],
+	'minzoom': 6,
+	'maxzoom': 12,
+	'bounds': [-8.650007,49.864674,1.763680,60.860766]
+});
+
+map.addSource('holyrood', {
+	'type': 'vector',
+	'tiles': [
+	'https://www.wisemover.co.uk/tiles/holyrood/{z}/{x}/{y}.pbf'
+	],
+	'minzoom': 6,
+	'maxzoom': 12,
+	'bounds': [-8.650007,49.864674,1.763680,60.860766]
+});
 
 map.addSource('satellite', {
 	'type': 'raster',
@@ -119,15 +158,13 @@ map.addSource('satellite', {
 	'tileSize': 256
 });
 
-
-
 map.addSource('terrainSource', {
   'type': 'raster-dem',
   'tiles': ["https://www.carbon.place/rastertiles/demwebp/{z}/{x}/{y}.webp"],
   'tileSize': 512,
   'minzoom': 0,
 	'maxzoom': 9,
-	'bounds': [-13.000000,47.000000,10.000000,63.000000]
+	'bounds': [-8.650007,49.864674,1.763680,60.860766]
 });
 
 map.addSource('hillshadeSource', {
@@ -136,7 +173,7 @@ map.addSource('hillshadeSource', {
   'tileSize': 512,
   'minzoom': 0,
 	'maxzoom': 9,
-	'bounds': [-13.000000,47.000000,10.000000,63.000000]
+	'bounds': [-8.650007,49.864674,1.763680,60.860766]
 });
 
 map.addLayer(
@@ -144,7 +181,7 @@ map.addLayer(
 'id': 'hillshading',
 'source': 'hillshadeSource',
 'type': 'hillshade',
-'bounds': [-13.000000,47.000000,10.000000,63.000000]
+'bounds': [-8.650007,49.864674,1.763680,60.860766]
 },
 'sea'
 );
@@ -152,10 +189,14 @@ map.addLayer(
 // Setup other part of the website
 showrighbox(true); // Show the accordion hide the button 
 show_rnet_legend(true); // Show the legend hide the button 
-toggleLayer('rnet') // Start with the rnet on
-toggleLayer('zones')
-toggleLayer('data_zones')
-toggleraster('satellite')
+toggleLayer('rnet'); // Start with the rnet on
+toggleLayer('zones');
+toggleLayer('data_zones');
+toggleLayer('la');
+toggleLayer('wards');
+toggleLayer('westminster');
+toggleLayer('holyrood');
+toggleraster('satellite');
 
 });
 

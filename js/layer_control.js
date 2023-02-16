@@ -15,6 +15,54 @@ function toggleLayer(layerName) {
       case 'data_zones':
         switch_data_zones();
         break;
+      case 'la':
+        map.addLayer({
+            'id': 'la',
+            'type': 'line',
+            'source': 'la',
+            'source-layer': 'la',
+            'paint': {
+              'line-color': 'rgba(107, 7, 7, 1)',
+              'line-width': 2
+            }
+        });
+        break;
+      case 'wards':
+        map.addLayer({
+            'id': 'wards',
+            'type': 'line',
+            'source': 'wards',
+            'source-layer': 'wards',
+            'paint': {
+              'line-color': 'rgba(32, 107, 7, 1)',
+              'line-width': 2
+            }
+        });
+        break;
+      case 'westminster':
+        map.addLayer({
+            'id': 'westminster',
+            'type': 'line',
+            'source': 'westminster',
+            'source-layer': 'westminster',
+            'paint': {
+              'line-color': 'rgba(7, 54, 107, 1)',
+              'line-width': 2
+            }
+        });
+        break;
+      case 'holyrood':
+        map.addLayer({
+            'id': 'holyrood',
+            'type': 'line',
+            'source': 'holyrood',
+            'source-layer': 'holyrood',
+            'paint': {
+              'line-color': 'rgba(107, 7, 99, 1)',
+              'line-width': 2
+            }
+        });
+        break;
       default:
         console.log('unknown layer selected');
     }
