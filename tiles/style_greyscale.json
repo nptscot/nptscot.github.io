@@ -18,7 +18,7 @@
       "maxzoom": 14
     }
   },
-  "sprite": "web/sprites/greyscale",
+  "sprite": "https://nptscot.github.io/web/sprites/greyscale",
   "glyphs": "https://www.carbon.place/fonts/{fontstack}/{range}.pbf",
   "layers": [
     {

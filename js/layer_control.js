@@ -34,7 +34,7 @@ function toggleraster(layerName) {
           'id': 'satellite',
           'type': 'raster',
           'source': 'satellite',
-        }, 'roads 0 Restricted Road'
+        }, 'roads 0 Local Road'
         );
         
         break;
@@ -460,7 +460,7 @@ function switch_zones() {
             'fill-opacity': 0.7,
             'fill-outline-color': 'rgba(0, 0, 0, 0.2)'
           }
-        }, 'roads 0 Restricted Road'
+        }, 'roads 0 Guided Busway Casing'
         );
         
     	  
@@ -484,7 +484,7 @@ function switch_zones() {
             'fill-opacity': 0.7,
             'fill-outline-color': 'rgba(0, 0, 0, 0.2)'
           }
-        }, 'roads 0 Restricted Road'
+        }, 'roads 0 Guided Busway Casing'
         );
         
         break;
@@ -511,7 +511,7 @@ function switch_zones() {
             'fill-opacity': 0.7,
             'fill-outline-color': 'rgba(0, 0, 0, 0.2)'
           }
-        }, 'roads 0 Restricted Road'
+        }, 'roads 0 Guided Busway Casing'
         );
       }
     } else {
@@ -549,7 +549,7 @@ function switch_data_zones() {
             'fill-opacity': 0.7,
             'fill-outline-color': 'rgba(0, 0, 0, 0.2)'
           }
-        }, 'roads 0 Restricted Road'
+        }, 'roads 0 Guided Busway Casing'
         );
         
     	  
@@ -572,7 +572,7 @@ function switch_data_zones() {
             'fill-opacity': 0.7,
             'fill-outline-color': 'rgba(0, 0, 0, 0.2)'
           }
-        }, 'roads 0 Restricted Road'
+        }, 'roads 0 Guided Busway Casing'
         );
         
         break;
@@ -594,7 +594,7 @@ function switch_data_zones() {
             'fill-opacity': 0.7,
             'fill-outline-color': 'rgba(0, 0, 0, 0.2)'
           }
-        }, 'roads 0 Restricted Road'
+        }, 'roads 0 Guided Busway Casing'
         );
         
         break;
@@ -618,7 +618,7 @@ function switch_data_zones() {
             'fill-opacity': 0.7,
             'fill-outline-color': 'rgba(0, 0, 0, 0.2)'
           }
-        }, 'roads 0 Restricted Road'
+        }, 'roads 0 Guided Busway Casing'
         );
       }
     } else {

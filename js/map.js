@@ -1,7 +1,7 @@
 // Setup Map
 var map = new maplibregl.Map({
 container: 'map',
-style: 'tiles/style.json' ,
+style: 'tiles/style_greyscale.json' ,
 center: [-3.1382,55.9533],
 zoom: 8,
 maxZoom: 19,
