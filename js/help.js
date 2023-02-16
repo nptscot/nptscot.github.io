@@ -51,6 +51,19 @@ function show_help(help) {
         
         `;
         break;
+      case 'filters':
+        document.getElementById("helpcontent").innerHTML = `
+        <h3>Route Network Filters</h3>
+        <p>The sliders allow you to show/hide parts of the route network. You can filter on three variables:</p>
+        <h4>Numbers of cyclists</h4>
+        <p>This filter is only available when "Line colour" is set to a cycling scenario.</p>
+        <h4>Gradient</h4>
+        <p>Set the maximum and minimum gradient of roads that are visible. Gradient measures the average gradient of the road segment as a percentage. E.g. 0% = flat, 100% = vertical cliff.</p>
+        <h4>Quietness</h4>
+        <p>Set the maximum and minimum quietness of roads that are visible. Quietness measures how cycle friendly the existing road is from 0 (least friendly) to 100 most (friendly).</p>
+        <p></p>
+        `;
+        break;
       default:
         console.log('unknown help selected: ' + help);
   }

@@ -309,13 +309,10 @@ p.help-end {
   cursor: pointer;
 }
 
+/* Sliders */
 
-.slidecontainer {
-  width: 100%; /* Width of the outside container */
-}
-
-.slider{
-  width: 176px;
+.slider-styled .noUi-connect{
+  background: #0060df;
 }
 
 /* Responvie image widths*/

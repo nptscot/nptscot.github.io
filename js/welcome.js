@@ -22,7 +22,7 @@ spanhelp.onclick = function() {
 //};
 
 function toggle_overlay(on) {
-  console.log(on)
+  //console.log(on)
   if(on){
     document.getElementById("overlay").style.display = "block";
   } else {

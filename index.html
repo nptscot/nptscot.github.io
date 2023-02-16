@@ -31,6 +31,10 @@
   
   <!-- Third Party Scrips -->
   <script src="https://kit.fontawesome.com/1f7357bc14.js" crossorigin="anonymous" async></script>
+  <link href="js/lib/noUiSlider_15_7_0/nouislider.min.css" rel="stylesheet">
+  <script src="js/lib/noUiSlider_15_7_0/nouislider.min.js"></script>
+  
+  
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXX"></script>
   <script>
@@ -167,20 +171,20 @@
   Line width <button onclick="show_help('scenario')" aria-label="Help scenario" class="helpbutton"><i class="fa fa-question-circle" aria-hidden="true"></i></button>
   </p>
   
-  <p>Minimum number of cyclists</p>
-  <div class="slidecontainer">
-  <input type="range" min="1" max="1000" value="1" class="slider" id="slide_flow" onchange="switch_rnet()" oninput="this.nextElementSibling.value = this.value"> <output>1</output>
-  </div>
+  <p><b>Filters</b><button onclick="show_help('filters')" aria-label="Help scenario" class="helpbutton"><i class="fa fa-question-circle" aria-hidden="true"></i></button></p>
   
-  <p>Maximum road quietness</p>
-  <div class="slidecontainer">
-  <input type="range" min="1" max="100" value="100" class="slider" id="slide_quietness" onchange="switch_rnet()" oninput="this.nextElementSibling.value = this.value"> <output>100</output>%
-  </div>
+  <p>Number of cyclists</p>
+  <div id="slider-cycle" class="slider-styled" onchange="switch_rnet()"></div>
+  <p>&nbsp</p>
   
-  <p>Maximum road gradient</p>
-  <div class="slidecontainer">
-  <input type="range" min="0" max="35" value="35" class="slider" id="slide_gradient" onchange="switch_rnet()" oninput="this.nextElementSibling.value = this.value"> <output>35</output>%
-  </div>
+  <p>Gradient</p>
+  <div id="slider-gradient" class="slider-styled" onchange="switch_rnet()"></div>
+  <p>&nbsp</p>
+  
+  <p>Quietness</p>
+  <div id="slider-quietness" class="slider-styled" onchange="switch_rnet()"></div>
+  <p>&nbsp</p>
+  
   
 </div>
 
@@ -309,6 +313,7 @@
 <script type="text/javascript" src="js/help.js" async></script>
 <script type="text/javascript" src="js/popup.js" async></script>
 <script type="text/javascript" src="js/modal.js" async></script>
+<script type="text/javascript" src="js/sliders.js" async></script>
 
 
 <script id="jquery" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" async></script>

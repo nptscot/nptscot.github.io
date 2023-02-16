@@ -52,10 +52,16 @@ function switch_rnet() {
   var checkBox = document.getElementById('rnetcheckbox');
   var layerId = document.getElementById("rnet_scenario_input").value;
   var layerType = document.getElementById("rnet_type_input").value;
-  var sliderFlow = Number(document.getElementById("slide_flow").value);
-  var sliderQuietness = Number(document.getElementById("slide_quietness").value);
-  var sliderGradient = Number(document.getElementById("slide_gradient").value);
-  
+  //var sliderFlow = Number(document.getElementById("slide_flow").value);
+  //var sliderQuietness = Number(document.getElementById("slide_quietness").value);
+  //var sliderGradient = Number(document.getElementById("slide_gradient").value);
+  var sliderQuietness_min = Number(quietnessSlider.noUiSlider.get()[0]);
+  var sliderQuietness_max = Number(quietnessSlider.noUiSlider.get()[1]);
+  var sliderGradient_min = Number(gradientlider.noUiSlider.get()[0]);
+  var sliderGradient_max = Number(gradientlider.noUiSlider.get()[1]);
+  var sliderFlow_min = Number(cycleSlider.noUiSlider.get()[0]);
+  var sliderFlow_max = Number(cycleSlider.noUiSlider.get()[1]);
+
   // Width
   var layerWidth = document.getElementById("rnet_width_input").value;
   var a = 1;
@@ -74,13 +80,12 @@ function switch_rnet() {
      b = 0.5;
      layerWidth = layerType + "_" + layerWidth;
   }
-  console.log(a);
-  console.log(layerWidth);
-  
+
   if (checkBox.checked === true) {
     if (map.getLayer('rnet')) map.removeLayer('rnet');
     switch (layerId) {
       case 'none':
+        cycleSlider.noUiSlider.disable();
         
         if(layerWidth == 'none'){
           map.addLayer({
@@ -89,8 +94,10 @@ function switch_rnet() {
           'source': 'rnet',
           'source-layer': 'rnet',
           'filter': ["all",
-              ['<=', "Quietness", sliderQuietness],
-              ['<=', "Gradient", sliderGradient]
+              ['<=', "Quietness", sliderQuietness_max],
+              ['>=', "Quietness", sliderQuietness_min],
+              ['<=', "Gradient", sliderGradient_max],
+              ['>=', "Gradient", sliderGradient_min]
            ],
           'paint': {
             'line-color': "#304ce7",
@@ -115,8 +122,10 @@ function switch_rnet() {
           'source': 'rnet',
           'source-layer': 'rnet',
           'filter': ["all",
-              ['<=', "Quietness", sliderQuietness],
-              ['<=', "Gradient", sliderGradient]
+              ['<=', "Quietness", sliderQuietness_max],
+              ['>=', "Quietness", sliderQuietness_min],
+              ['<=', "Gradient", sliderGradient_max],
+              ['>=', "Gradient", sliderGradient_min]
            ],
           'paint': {
             'line-color': "#304ce7",
@@ -142,7 +151,7 @@ function switch_rnet() {
     	  
         break;
       case 'Quietness':
-        
+        cycleSlider.noUiSlider.disable();
         if(layerWidth == 'none'){
           map.addLayer({
           'id': 'rnet',
@@ -150,8 +159,10 @@ function switch_rnet() {
           'source': 'rnet',
           'source-layer': 'rnet',
           'filter': ["all",
-              ['<=', "Quietness", sliderQuietness],
-              ['<=', "Gradient", sliderGradient]
+              ['<=', "Quietness", sliderQuietness_max],
+              ['>=', "Quietness", sliderQuietness_min],
+              ['<=', "Gradient", sliderGradient_max],
+              ['>=', "Gradient", sliderGradient_min]
            ],
           'paint': {
             'line-color': ["step", ["get", layerId],
@@ -181,8 +192,10 @@ function switch_rnet() {
           'source': 'rnet',
           'source-layer': 'rnet',
           'filter': ["all",
-              ['<=', "Quietness", sliderQuietness],
-              ['<=', "Gradient", sliderGradient]
+              ['<=', "Quietness", sliderQuietness_max],
+              ['>=', "Quietness", sliderQuietness_min],
+              ['<=', "Gradient", sliderGradient_max],
+              ['>=', "Gradient", sliderGradient_min]
            ],
           'paint': {
             'line-color': ["step", ["get", layerId],
@@ -218,7 +231,7 @@ function switch_rnet() {
     	  
         break;
       case 'Gradient':
-        
+        cycleSlider.noUiSlider.disable();
         
         if(layerWidth == 'none'){
           
@@ -227,10 +240,12 @@ function switch_rnet() {
           'type': 'line',
           'source': 'rnet',
           'source-layer': 'rnet',
-                    'filter': ["all",
-                        ['<=', "Quietness", sliderQuietness],
-                        ['<=', "Gradient", sliderGradient]
-                     ],
+          'filter': ["all",
+              ['<=', "Quietness", sliderQuietness_max],
+              ['>=', "Quietness", sliderQuietness_min],
+              ['<=', "Gradient", sliderGradient_max],
+              ['>=', "Gradient", sliderGradient_min]
+           ],
           'paint': {
             'line-color': ["step", ["get", layerId],
               "#59ee19", 3,
@@ -260,10 +275,12 @@ function switch_rnet() {
           'type': 'line',
           'source': 'rnet',
           'source-layer': 'rnet',
-                    'filter': ["all",
-                        ['<=', "Quietness", sliderQuietness],
-                        ['<=', "Gradient", sliderGradient]
-                     ],
+          'filter': ["all",
+              ['<=', "Quietness", sliderQuietness_max],
+              ['>=', "Quietness", sliderQuietness_min],
+              ['<=', "Gradient", sliderGradient_max],
+              ['>=', "Gradient", sliderGradient_min]
+          ],
           'paint': {
             'line-color': ["step", ["get", layerId],
               "#59ee19", 3,
@@ -298,7 +315,7 @@ function switch_rnet() {
         
         break;
       default:
-      
+        cycleSlider.noUiSlider.enable();
         if(layerWidth == 'none'){
           map.addLayer({
           'id': 'rnet',
@@ -306,10 +323,13 @@ function switch_rnet() {
           'source': 'rnet',
           'source-layer': 'rnet',
           'filter': ["all",
-                        ['>=', layerType + "_" + layerId, sliderFlow],
-                        ['<=', "Quietness", sliderQuietness],
-                        ['<=', "Gradient", sliderGradient]
-                     ],
+              ['<=', layerType + "_" + layerId, sliderFlow_max],
+              ['>=', layerType + "_" + layerId, sliderFlow_min],
+              ['<=', "Quietness", sliderQuietness_max],
+              ['>=', "Quietness", sliderQuietness_min],
+              ['<=', "Gradient", sliderGradient_max],
+              ['>=', "Gradient", sliderGradient_min]
+           ],
           'paint': {
             'line-color': ["step", ["get", layerType + "_" + layerId],
               "rgba(0,0,0,0)", 1,
@@ -341,10 +361,13 @@ function switch_rnet() {
           'source': 'rnet',
           'source-layer': 'rnet',
           'filter': ["all",
-                        ['>=', layerType + "_" + layerId, sliderFlow],
-                        ['<=', "Quietness", sliderQuietness],
-                        ['<=', "Gradient", sliderGradient]
-                     ],
+              ['<=', layerType + "_" + layerId, sliderFlow_max],
+              ['>=', layerType + "_" + layerId, sliderFlow_min],
+              ['<=', "Quietness", sliderQuietness_max],
+              ['>=', "Quietness", sliderQuietness_min],
+              ['<=', "Gradient", sliderGradient_max],
+              ['>=', "Gradient", sliderGradient_min]
+           ],
           'paint': {
             'line-color': ["step", ["get", layerType + "_" + layerId],
               "rgba(0,0,0,0)", 1,
