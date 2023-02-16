@@ -169,11 +169,6 @@ a.smaller {
 }
 .showrightbox {
   top: 120px;
-  /*
-  background-color: #fff;
-  border-radius: 3px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); 
-  padding: 10px; */
   position: absolute;
   right: 15px;
   z-index: 2;
@@ -184,6 +179,8 @@ a.smaller {
 .float_button{
   height:35px;
   width:35px;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
 }
 
 #map {

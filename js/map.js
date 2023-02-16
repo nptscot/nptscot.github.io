@@ -52,7 +52,9 @@ map.on('load', function() {
 map.addControl(new maplibregl.NavigationControl(), 'top-left');
 
 map.addControl(new maplibregl.AttributionControl({
+  compact: true,
   customAttribution: 'Contains OS data © Crown copyright 2021, Satelite map © ESRI 2023, © OpenStreetMap contributors'
+  
 }));
 
 map.addControl(new maplibregl.GeolocateControl({
