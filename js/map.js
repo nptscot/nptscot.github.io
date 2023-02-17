@@ -51,19 +51,22 @@ map.on('load', function() {
 // Add Controls to the Map
 map.addControl(new maplibregl.NavigationControl(), 'top-left');
 
+map.addControl(
+new maplibregl.TerrainControl({source: 'terrainSource',exaggeration: 1.25})
+,'top-left');
+
+map.addControl(new maplibregl.GeolocateControl({
+positionOptions: {enableHighAccuracy: true},
+trackUserLocation: true})
+,'top-left');
+
+map.addControl(new maplibregl.FullscreenControl(), 'top-left');
+
 map.addControl(new maplibregl.AttributionControl({
   compact: true,
   customAttribution: 'Contains OS data © Crown copyright 2021, Satelite map © ESRI 2023, © OpenStreetMap contributors'
   
 }));
-
-map.addControl(new maplibregl.GeolocateControl({
-positionOptions: {enableHighAccuracy: true},trackUserLocation: true})
-,'top-left');
-
-map.addControl(
-new maplibregl.TerrainControl({source: 'terrainSource',exaggeration: 1.25})
-,'top-left');
 
 map.addControl(new maplibregl.ScaleControl({
   maxWidth: 80,
