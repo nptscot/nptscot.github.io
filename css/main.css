@@ -360,7 +360,7 @@ input[type="radio"][id^="bm"] {
   float: left;
 }
 
-label {
+.basemap label {
   border: 1px solid #fff;
   padding: 3px;
   /*display: block;*/
@@ -378,7 +378,7 @@ label {
 }
 
 
-label::before {
+.basemap label::before {
   /*
   background-color: white;
   color: white;
@@ -399,7 +399,7 @@ label::before {
 }
 
 
-label img {
+.basemap label img {
   height: 50px;
   width: 50px;
   border-radius: 5px;
@@ -420,7 +420,7 @@ label img {
 }
 */
 
-:checked+label img {
+.basemap :checked+label img {
   transform: scale(0.9);
   box-shadow: 0 0 20px #0060df;
   z-index: -1;
