@@ -160,6 +160,16 @@ map.addSource('satellite', {
 	'tileSize': 256
 });
 
+
+map.addSource('opencyclemap', {
+	'type': 'raster',
+	'tiles': [
+	'https://tile.thunderforest.com/cycle/{z}/{x}/{y}.png?apikey=bf09fff64f1443028994661047c077f5'
+	],
+	'tileSize': 256
+});
+
+
 map.addSource('terrainSource', {
   'type': 'raster-dem',
   'tiles': ["https://www.carbon.place/rastertiles/demwebp/{z}/{x}/{y}.webp"],
@@ -198,7 +208,7 @@ toggleLayer('la');
 toggleLayer('wards');
 toggleLayer('westminster');
 toggleLayer('holyrood');
-toggleraster('satellite');
+toggleraster();
 
 });
 

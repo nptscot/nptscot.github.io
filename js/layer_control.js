@@ -71,26 +71,43 @@ function toggleLayer(layerName) {
   }
 }
 
-function toggleraster(layerName) {
-  var checkBox = document.getElementById(layerName.concat('checkbox'));
-  // If the checkbox is checked add the layer to the map
-  if (checkBox.checked === true) {
-    switch (layerName) {
-      case 'satellite':
-        if (map.getLayer('satellite')) map.removeLayer('satellite');
-        map.addLayer({
-          'id': 'satellite',
-          'type': 'raster',
-          'source': 'satellite',
-        }, 'roads 0 Local Road'
-        );
-        
-        break;
-      default:
-        console.log('unknown layer selected');
-    }
-  } else {
-    if (map.getLayer(layerName)) map.removeLayer(layerName);
+function displayRadioValue(ele) {
+  for(i = 0; i < ele.length; i++) {
+      if(ele[i].checked){
+        return ele[i].value;
+      }
+  }
+}
+
+
+function toggleraster() {
+  var layerid = displayRadioValue(document.getElementById("basemapform"));
+
+  if (map.getLayer("satellite")) map.removeLayer("satellite");
+  if (map.getLayer("opencyclemap")) map.removeLayer("opencyclemap");
+  //console.log(layerid)
+  // Switch basemap
+  switch (layerid) {
+    case 'satellite':
+      map.addLayer({
+        'id': 'satellite',
+        'type': 'raster',
+        'source': 'satellite',
+      }, 'roads 0 Local Road'
+      );
+      
+      break;
+    case 'opencyclemap':
+      map.addLayer({
+        'id': 'opencyclemap',
+        'type': 'raster',
+        'source': 'opencyclemap',
+      }, 'roads 0 Local Road'
+      );
+      
+      break;
+    default:
+      // Do noting
   }
 }
 

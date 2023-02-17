@@ -346,3 +346,82 @@ p.help-end {
 .fa-question-circle {
   color: blue;
 }
+
+/* Basemap selection */
+
+
+input[type="radio"][id^="bm"] {
+  display: none;
+}
+
+
+.radio-inline {
+  display: inline;
+  float: left;
+}
+
+label {
+  border: 1px solid #fff;
+  padding: 3px;
+  /*display: block;*/
+  position: relative;
+  margin: 3px;
+  cursor: pointer;
+  /*
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  */
+  user-select: none;
+}
+
+
+label::before {
+  /*
+  background-color: white;
+  color: white;
+  content: " ";
+  display: block;
+  border-radius: 50%;
+  border: 1px solid grey;
+  position: absolute; 
+  top: -5px;
+  left: -5px;
+  width: 25px;
+  height: 25px;
+  text-align: center;
+  line-height: 28px;
+  */
+  transition-duration: 0.4s;
+  transform: scale(0);
+}
+
+
+label img {
+  height: 50px;
+  width: 50px;
+  border-radius: 5px;
+  transition-duration: 0.4s;
+  transform-origin: 50% 50%;
+}
+
+/*
+:checked+label {
+  border-color: #0060df;
+}
+
+
+:checked+label::before {
+  content: "✓";
+  background-color: grey;
+  transform: scale(1);
+}
+*/
+
+:checked+label img {
+  transform: scale(0.9);
+  box-shadow: 0 0 20px #0060df;
+  z-index: -1;
+}
