@@ -1,13 +1,13 @@
 // Click on Transit transitstops
 map.on('click', 'rnet', function (e) {
 var coordinates = e.lngLat;
-var fast_bicycle  = e.features[0].properties.fast_bicycle ;
-var balance_bicycle = e.features[0].properties.balance_bicycle;
-var quiet_bicycle = e.features[0].properties.quiet_bicycle;
+var fast_bicycle  = e.features[0].properties.fastest_bicycle ;
+var balance_bicycle = e.features[0].properties.balanced_bicycle;
+var quiet_bicycle = e.features[0].properties.quietest_bicycle;
 var ebike_bicycle = e.features[0].properties.ebike_bicycle;
-var fast_bicycle_go_dutch = e.features[0].properties.fast_bicycle_go_dutch;
-var balance_bicycle_go_dutch = e.features[0].properties.balance_bicycle_go_dutch;
-var quiet_bicycle_go_dutch = e.features[0].properties.quiet_bicycle_go_dutch;
+var fast_bicycle_go_dutch = e.features[0].properties.fastest_bicycle_go_dutch;
+var balance_bicycle_go_dutch = e.features[0].properties.balanced_bicycle_go_dutch;
+var quiet_bicycle_go_dutch = e.features[0].properties.quietest_bicycle_go_dutch;
 var ebike_bicycle_go_dutch = e.features[0].properties.ebike_bicycle_go_dutch;
 
 var Gradient = e.features[0].properties.Gradient;
