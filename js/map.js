@@ -46,6 +46,10 @@ map.addControl(
   })
 );
 
+// pmtiles
+let protocol = new pmtiles.Protocol();
+maplibregl.addProtocol("pmtiles",protocol.tile);
+
 map.on('load', function() {
 
 // Add Controls to the Map
@@ -76,24 +80,8 @@ map.addControl(new maplibregl.ScaleControl({
 // Add Data Sources
 map.addSource('rnet', {
 	'type': 'vector',
-	'tiles': [
-	'https://www.wisemover.co.uk/tiles/rnet/{z}/{x}/{y}.pbf'
-	],
-	'minzoom': 6,
-	'maxzoom': 11,
-	'bounds': [-8.649240,54.633160,-0.722602,60.861379]
+	'url': 'pmtiles://https://www.wisemover.co.uk/pmtiles/nptscot/rnet.pmtiles',
 });
-
-/*
-map.addSource('routes', {
-	'type': 'vector',
-	'tiles': [
-	'https://www.wisemover.co.uk/tiles/routes/{z}/{x}/{y}.pbf'
-	],
-	'minzoom': 6,
-	'maxzoom': 11
-});
-*/
 
 map.addSource('zones', {
 	'type': 'vector',

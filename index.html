@@ -29,6 +29,13 @@
   <link rel="stylesheet" href="css/map_legend.css">
   <link rel="stylesheet" href="css/modal.css">
   
+  <!-- Set Up map -->
+  <script src="https://unpkg.com/maplibre-gl@3.0.0-pre.4/dist/maplibre-gl.js"></script>
+  <link href="https://unpkg.com/maplibre-gl@3.0.0-pre.4/dist/maplibre-gl.css" rel="stylesheet" />
+  <script src="https://unpkg.com/pmtiles/dist/index.js"></script>
+  <script src="https://unpkg.com/@maplibre/maplibre-gl-geocoder@1.2.0/dist/maplibre-gl-geocoder.min.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/@maplibre/maplibre-gl-geocoder@1.2.0/dist/maplibre-gl-geocoder.css" type="text/css"/>
+  
   <!-- Third Party Scrips -->
   <script src="https://kit.fontawesome.com/1f7357bc14.js" crossorigin="anonymous" async></script>
   <link href="js/lib/noUiSlider_15_7_0/nouislider.min.css" rel="stylesheet">
@@ -87,15 +94,6 @@
 </div>
 </div>
 
-<!-- Set Up map -->
-<script src="https://unpkg.com/maplibre-gl@3.0.0-pre.4/dist/maplibre-gl.js"></script>
-<link href="https://unpkg.com/maplibre-gl@3.0.0-pre.4/dist/maplibre-gl.css" rel="stylesheet" />
-
-<!-- Load the `maplibre-gl-geocoder` plugin. -->
-<script src="https://unpkg.com/@maplibre/maplibre-gl-geocoder@1.2.0/dist/maplibre-gl-geocoder.min.js"></script>
-<link rel="stylesheet" href="https://unpkg.com/@maplibre/maplibre-gl-geocoder@1.2.0/dist/maplibre-gl-geocoder.css" type="text/css"/>
-
-
 <!-- Cookies Warning  -->
 <div id='cookiewarning' class='cookiewarning'>
   <p>We use cookies to measure how you use our website so we can understand how you interact with it, which helps us to make improvements. <a href="/privacy">Find out more.</a></p>
@@ -152,8 +150,11 @@
   
   <p>
     <select id="rnet_type_input" name="rnet_type_input" onchange="switch_rnet()" aria-label="Route network trip purpose">
-      <option value="balance">Balanced</option>
-      <option value="fast"selected>Fastest</option>
+      <option value="fastest"selected>Fastest</option>
+      <option value="balanced">Balanced</option>
+      <option value="quietest">Quietest</option>
+      <option value="ebike">Ebike</option>
+      
     </select>
     Network type <button onclick="show_help('type')" aria-label="Help type" class="helpbutton"><i class="fa fa-question-circle" aria-hidden="true"></i></button>
   </p>
