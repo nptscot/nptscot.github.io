@@ -213,6 +213,10 @@ function switch_rnet() {
         
         
         document.getElementById("rnetlegend").innerHTML = `<button onclick="show_rnet_legend(false)" style="float:right" aria-label="Hide legend"><i class="fas fa-times"></i></button>`;
+        
+        document.getElementById("linecolourlegend").innerHTML = `<div class="l_r">
+        <div class="lb"><span style="background-color: #304ce7"></span>&nbsp</div>
+      	</div>`;
     	  
         break;
       case 'Quietness':
@@ -293,6 +297,15 @@ function switch_rnet() {
     	  <div><span style="background-color: #CC6677;" class="legenddot"></span>25-50</div>
     	  <div><span style="background-color: #44AA99;" class="legenddot"></span>50-75</div>
     	  <div><span style="background-color: #117733;" class="legenddot"></span>75-100</div>`;
+    	  
+    	  document.getElementById("linecolourlegend").innerHTML = `<div class="l_r">
+  <div class="lb"><span style="background-color: #882255"></span>0-25</div>
+  <div class="lb"><span style="background-color: #CC6677"></span>25-50</div>
+  <div class="lb"><span style="background-color: #44AA99"></span>50-75</div>
+  <div class="lb"><span style="background-color: #117733"></span>75-100</div>
+	</div>`;
+    	  
+    	  
     	  
         break;
       case 'Gradient':
@@ -377,6 +390,14 @@ function switch_rnet() {
     	  <div><span style="background-color: #FFC300;" class="legenddot"></span>5-7</div>
     	  <div><span style="background-color: #C70039;" class="legenddot"></span>7-10</div>
     	  <div><span style="background-color: #581845;" class="legenddot"></span>10+</div>`;
+    	  
+    	  document.getElementById("linecolourlegend").innerHTML = `<div class="l_r">
+        <div class="lb"><span style="background-color: #59ee19"></span>0-3</div>
+        <div class="lb"><span style="background-color: #37a009"></span>3-5</div>
+        <div class="lb"><span style="background-color: #FFC300"></span>5-7</div>
+        <div class="lb"><span style="background-color: #C70039"></span>7-10</div>
+        <div class="lb"><span style="background-color: #581845"></span>10+</div>
+      	</div>`;
         
         break;
       default:
@@ -461,14 +482,29 @@ function switch_rnet() {
       
         document.getElementById("rnetlegend").innerHTML = `<button onclick="show_rnet_legend(false)" style="float:right" aria-label="Hide legend"><i class="fas fa-times"></i></button>
         <h4>Number of Cyclists</h4>
-        <div><span style="background-color: #9C9C9C;" class="legenddot"></span>1-9</div>
-    	  <div><span style="background-color: #FFFF73;" class="legenddot"></span>10-49</div>
-    	  <div><span style="background-color: #AFFF00;" class="legenddot"></span>50-99</div>
-    	  <div><span style="background-color: #00FFFF;" class="legenddot"></span>100-249</div>
-    	  <div><span style="background-color: #30B0FF;" class="legenddot"></span>250-499</div>
-    	  <div><span style="background-color: #2E5FFF;" class="legenddot"></span>500-999</div>
-    	  <div><span style="background-color: #0000FF;" class="legenddot"></span>1000-1999</div>
+        <div><span style="background-color: #9C9C9C;" class="legenddot"></span>1</div>
+    	  <div><span style="background-color: #FFFF73;" class="legenddot"></span>10</div>
+    	  <div><span style="background-color: #AFFF00;" class="legenddot"></span>50</div>
+    	  <div><span style="background-color: #00FFFF;" class="legenddot"></span>100</div>
+    	  <div><span style="background-color: #30B0FF;" class="legenddot"></span>250</div>
+    	  <div><span style="background-color: #2E5FFF;" class="legenddot"></span>500</div>
+    	  <div><span style="background-color: #0000FF;" class="legenddot"></span>1000</div>
     	  <div><span style="background-color: #FF00C5;" class="legenddot"></span>2000+</div>`;
+    	  
+    	  
+    	  document.getElementById("linecolourlegend").innerHTML = `<div class="l_r">
+        <div class="lb"><span style="background-color: #9C9C9C"></span>1</div>
+        <div class="lb"><span style="background-color: #FFFF73"></span>10</div>
+        <div class="lb"><span style="background-color: #AFFF00"></span>50</div>
+        <div class="lb"><span style="background-color: #00FFFF"></span>100</div>
+        <div class="lb"><span style="background-color: #30B0FF"></span>250</div>
+        <div class="lb"><span style="background-color: #2E5FFF"></span>500</div>
+        <div class="lb"><span style="background-color: #0000FF"></span>1000</div>
+        <div class="lb"><span style="background-color: #FF00C5"></span>2000+</div>
+      	</div>`;
+    	  
+    	  
+    	  
     
     }
 

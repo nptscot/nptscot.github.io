@@ -423,3 +423,28 @@ input[type="radio"][id^="bm"] {
   box-shadow: 0 0 20px #0060df;
   z-index: -1;
 }
+
+
+/* Legend */
+.legend {
+  width: 100%;
+  text-align: center;
+  display: table;
+  table-layout: fixed;
+  font-size: 10px;
+}
+
+.l_r{
+  display: table-row;
+}
+
+.lb{
+  display: table-cell;
+}
+
+.legend div span {
+  display: inline-block;
+  height: 15px;
+  width: 100%;
+  border: 1px solid black;
+}
