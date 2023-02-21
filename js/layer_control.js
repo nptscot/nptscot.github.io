@@ -58,7 +58,7 @@ function toggleLayer(layerName) {
             'source': 'holyrood',
             'source-layer': 'holyrood',
             'paint': {
-              'line-color': 'rgba(107, 7, 99, 1)',
+              'line-color': 'rgba(83, 123, 252, 1)',
               'line-width': 2
             }
         });
