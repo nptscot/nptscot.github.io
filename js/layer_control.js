@@ -512,6 +512,9 @@ function switch_rnet() {
   } else {
     document.getElementById("rnetlegend").innerHTML = ``;
     if (map.getLayer("rnet")) map.removeLayer("rnet");
+    document.getElementById("linecolourlegend").innerHTML = `<div class="l_r">
+    <div class="lb"><span style="background-color: #ffffff"></span>&nbsp</div>
+  	</div>`;
   }
 }
 
