@@ -24,9 +24,10 @@
   <meta name="theme-color" content="#AC1A40">
   <script src="/app.js" defer></script>
   
-  <!-- Set Up CSS -->
-  <link rel="stylesheet" href="css/main.css">
+  <!-- Set Up CSS 
   <link rel="stylesheet" href="css/map_legend.css">
+  -->
+  <link rel="stylesheet" href="css/main.css">
   <link rel="stylesheet" href="css/modal.css">
   
   <!-- Set Up map -->
@@ -109,13 +110,12 @@
 <div id="map"></div>
 </div>
 
-<!-- Floating Objects -->
+<!-- Floating Objects 
 <div id="rnetlegend" class="rnetlegend"></div>
-
-<!-- Show Legend Button  -->
 <div id="rnetshowlegend" class="rnetshowlegend">
   <button class="float_button" onclick="show_rnet_legend(true)" aria-label="Hide legend"><i class="fas fa-ellipsis-v"></i></button>
 </div>
+-->
 
 <!-- Show Layer Selection Panel  Button-->
 <div id="showrightbox" class="showrightbox">
@@ -159,6 +159,17 @@
   </p>
   
   <p>
+  <select id="rnet_width_input" name="rnet_width_input" onchange="switch_rnet()" aria-label="Route network scenario">
+      <option value="none" >None</option>
+      <option value="bicycle" selected>Baseline (2011)</option>
+      <option value="bicycle_go_dutch">Go Dutch</option>
+      <option value="Quietness">Quietness</option>
+      <option value="Gradient">Gradient</option>
+  </select>
+  Line width <button onclick="show_help('scenario')" aria-label="Help scenario" class="helpbutton"><i class="fa fa-question-circle" aria-hidden="true"></i></button>
+  </p>
+  
+  <p>
   <select id="rnet_scenario_input" name="rnet_scenario_input" onchange="switch_rnet()" aria-label="Route network scenario">
       <option value="none" >None</option>
       <option value="bicycle" >Baseline (2011)</option>
@@ -175,17 +186,12 @@
 	</div>
 	</div>
  
-  <p>
-  <select id="rnet_width_input" name="rnet_width_input" onchange="switch_rnet()" aria-label="Route network scenario">
-      <option value="none" >None</option>
-      <option value="bicycle" selected>Baseline (2011)</option>
-      <option value="bicycle_go_dutch">Go Dutch</option>
-      <option value="Quietness">Quietness</option>
-      <option value="Gradient">Gradient</option>
-  </select>
-  Line width <button onclick="show_help('scenario')" aria-label="Help scenario" class="helpbutton"><i class="fa fa-question-circle" aria-hidden="true"></i></button>
-  </p>
   
+
+</div>
+
+<button class="accordion">Route Network Filters</button>
+<div class="panel">
   <p><b>Filters</b><button onclick="show_help('filters')" aria-label="Help scenario" class="helpbutton"><i class="fa fa-question-circle" aria-hidden="true"></i></button></p>
   
   <p>Number of cyclists</p>
@@ -276,6 +282,12 @@
     </select>
     <button onclick="show_help('SIMD')" aria-label="Help purpsose" class="helpbutton"><i class="fa fa-question-circle" aria-hidden="true"></i></button>
   </p>
+  
+  <div id="dzlegend" class="legend">
+  <div class="l_r">
+  <div class="lb"><span style="background-color: #ffffff"></span>&nbsp</div>
+	</div>
+	</div>
   
   
 </div>

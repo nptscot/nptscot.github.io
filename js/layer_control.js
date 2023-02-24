@@ -145,12 +145,53 @@ function switch_rnet() {
      b = 0.5;
      layerWidth = layerType + "_" + layerWidth;
   }
-
+  
+  // Update the Legend - Do this even if map layer is off
+  switch(layerId) {
+    case 'none':
+      cycleSlider.noUiSlider.disable();
+      document.getElementById("linecolourlegend").innerHTML = `<div class="l_r">
+        <div class="lb"><span style="background-color: #304ce7"></span>&nbsp</div>
+      	</div>`;
+      break;
+    case 'Quietness':
+      cycleSlider.noUiSlider.disable();
+      document.getElementById("linecolourlegend").innerHTML = `<div class="l_r">
+        <div class="lb"><span style="background-color: #882255"></span>0-25</div>
+        <div class="lb"><span style="background-color: #CC6677"></span>25-50</div>
+        <div class="lb"><span style="background-color: #44AA99"></span>50-75</div>
+        <div class="lb"><span style="background-color: #117733"></span>75-100</div>
+      	</div>`;
+      break;
+    case 'Gradient':
+        cycleSlider.noUiSlider.disable();
+        document.getElementById("linecolourlegend").innerHTML = `<div class="l_r">
+        <div class="lb"><span style="background-color: #59ee19"></span>0-3</div>
+        <div class="lb"><span style="background-color: #37a009"></span>3-5</div>
+        <div class="lb"><span style="background-color: #FFC300"></span>5-7</div>
+        <div class="lb"><span style="background-color: #C70039"></span>7-10</div>
+        <div class="lb"><span style="background-color: #581845"></span>10+</div>
+      	</div>`;
+      break;
+    default:
+      cycleSlider.noUiSlider.enable();
+      document.getElementById("linecolourlegend").innerHTML = `<div class="l_r">
+        <div class="lb"><span style="background-color: #9C9C9C"></span>1</div>
+        <div class="lb"><span style="background-color: #FFFF73"></span>10</div>
+        <div class="lb"><span style="background-color: #AFFF00"></span>50</div>
+        <div class="lb"><span style="background-color: #00FFFF"></span>100</div>
+        <div class="lb"><span style="background-color: #30B0FF"></span>250</div>
+        <div class="lb"><span style="background-color: #2E5FFF"></span>500</div>
+        <div class="lb"><span style="background-color: #0000FF"></span>1000</div>
+        <div class="lb"><span style="background-color: #FF00C5"></span>2000+</div>
+      	</div>`;
+  }
+  
+  // Update the map if enabled
   if (checkBox.checked === true) {
     if (map.getLayer('rnet')) map.removeLayer('rnet');
     switch (layerId) {
       case 'none':
-        cycleSlider.noUiSlider.disable();
         
         if(layerWidth == 'none'){
           map.addLayer({
@@ -211,16 +252,9 @@ function switch_rnet() {
           
         }
         
-        
-        document.getElementById("rnetlegend").innerHTML = `<button onclick="show_rnet_legend(false)" style="float:right" aria-label="Hide legend"><i class="fas fa-times"></i></button>`;
-        
-        document.getElementById("linecolourlegend").innerHTML = `<div class="l_r">
-        <div class="lb"><span style="background-color: #304ce7"></span>&nbsp</div>
-      	</div>`;
-    	  
+       
         break;
       case 'Quietness':
-        cycleSlider.noUiSlider.disable();
         if(layerWidth == 'none'){
           map.addLayer({
           'id': 'rnet',
@@ -290,26 +324,8 @@ function switch_rnet() {
           
         }
         
-        
-        document.getElementById("rnetlegend").innerHTML = `<button onclick="show_rnet_legend(false)" style="float:right" aria-label="Hide legend"><i class="fas fa-times"></i></button>
-        <h4>Quietness</h4>
-        <div><span style="background-color: #882255;" class="legenddot"></span>0-25</div>
-    	  <div><span style="background-color: #CC6677;" class="legenddot"></span>25-50</div>
-    	  <div><span style="background-color: #44AA99;" class="legenddot"></span>50-75</div>
-    	  <div><span style="background-color: #117733;" class="legenddot"></span>75-100</div>`;
-    	  
-    	  document.getElementById("linecolourlegend").innerHTML = `<div class="l_r">
-  <div class="lb"><span style="background-color: #882255"></span>0-25</div>
-  <div class="lb"><span style="background-color: #CC6677"></span>25-50</div>
-  <div class="lb"><span style="background-color: #44AA99"></span>50-75</div>
-  <div class="lb"><span style="background-color: #117733"></span>75-100</div>
-	</div>`;
-    	  
-    	  
-    	  
         break;
       case 'Gradient':
-        cycleSlider.noUiSlider.disable();
         
         if(layerWidth == 'none'){
           
@@ -382,26 +398,9 @@ function switch_rnet() {
         });
           
         }
-        
-        document.getElementById("rnetlegend").innerHTML = `<button onclick="show_rnet_legend(false)" style="float:right" aria-label="Hide legend"><i class="fas fa-times"></i></button>
-        <h4>Gradient</h4>
-        <div><span style="background-color: #59ee19;" class="legenddot"></span>0-3</div>
-    	  <div><span style="background-color: #37a009;" class="legenddot"></span>3-5</div>
-    	  <div><span style="background-color: #FFC300;" class="legenddot"></span>5-7</div>
-    	  <div><span style="background-color: #C70039;" class="legenddot"></span>7-10</div>
-    	  <div><span style="background-color: #581845;" class="legenddot"></span>10+</div>`;
-    	  
-    	  document.getElementById("linecolourlegend").innerHTML = `<div class="l_r">
-        <div class="lb"><span style="background-color: #59ee19"></span>0-3</div>
-        <div class="lb"><span style="background-color: #37a009"></span>3-5</div>
-        <div class="lb"><span style="background-color: #FFC300"></span>5-7</div>
-        <div class="lb"><span style="background-color: #C70039"></span>7-10</div>
-        <div class="lb"><span style="background-color: #581845"></span>10+</div>
-      	</div>`;
-        
+
         break;
       default:
-        cycleSlider.noUiSlider.enable();
         if(layerWidth == 'none'){
           map.addLayer({
           'id': 'rnet',
@@ -480,41 +479,11 @@ function switch_rnet() {
         });
         }
       
-        document.getElementById("rnetlegend").innerHTML = `<button onclick="show_rnet_legend(false)" style="float:right" aria-label="Hide legend"><i class="fas fa-times"></i></button>
-        <h4>Number of Cyclists</h4>
-        <div><span style="background-color: #9C9C9C;" class="legenddot"></span>1</div>
-    	  <div><span style="background-color: #FFFF73;" class="legenddot"></span>10</div>
-    	  <div><span style="background-color: #AFFF00;" class="legenddot"></span>50</div>
-    	  <div><span style="background-color: #00FFFF;" class="legenddot"></span>100</div>
-    	  <div><span style="background-color: #30B0FF;" class="legenddot"></span>250</div>
-    	  <div><span style="background-color: #2E5FFF;" class="legenddot"></span>500</div>
-    	  <div><span style="background-color: #0000FF;" class="legenddot"></span>1000</div>
-    	  <div><span style="background-color: #FF00C5;" class="legenddot"></span>2000+</div>`;
-    	  
-    	  
-    	  document.getElementById("linecolourlegend").innerHTML = `<div class="l_r">
-        <div class="lb"><span style="background-color: #9C9C9C"></span>1</div>
-        <div class="lb"><span style="background-color: #FFFF73"></span>10</div>
-        <div class="lb"><span style="background-color: #AFFF00"></span>50</div>
-        <div class="lb"><span style="background-color: #00FFFF"></span>100</div>
-        <div class="lb"><span style="background-color: #30B0FF"></span>250</div>
-        <div class="lb"><span style="background-color: #2E5FFF"></span>500</div>
-        <div class="lb"><span style="background-color: #0000FF"></span>1000</div>
-        <div class="lb"><span style="background-color: #FF00C5"></span>2000+</div>
-      	</div>`;
-    	  
-    	  
-    	  
-    
     }
 
     
   } else {
-    document.getElementById("rnetlegend").innerHTML = ``;
     if (map.getLayer("rnet")) map.removeLayer("rnet");
-    document.getElementById("linecolourlegend").innerHTML = `<div class="l_r">
-    <div class="lb"><span style="background-color: #ffffff"></span>&nbsp</div>
-  	</div>`;
   }
 }
 
@@ -651,6 +620,60 @@ function switch_data_zones() {
   var checkBox = document.getElementById('data_zonescheckbox');
   var layerId = document.getElementById("data_zone_input").value;
   
+  // Update the Legend - Do this even if map layer is off
+  switch(layerId) {
+    case 'SIMD2020v2_Decile':
+      cycleSlider.noUiSlider.disable();
+      document.getElementById("dzlegend").innerHTML = `<div class="l_r">
+        <div class="lb"><span style="background-color: #a50026"></span>1st</div>
+        <div class="lb"><span style="background-color: #d73027"></span>2nd</div>
+        <div class="lb"><span style="background-color: #f46d43"></span>3rd</div>
+        <div class="lb"><span style="background-color: #fdae61"></span>4th</div>
+        <div class="lb"><span style="background-color: #fee090"></span>5th</div>
+        <div class="lb"><span style="background-color: #e0f3f8"></span>6th</div>
+        <div class="lb"><span style="background-color: #abd9e9"></span>7th</div>
+        <div class="lb"><span style="background-color: #74add1"></span>8th</div>
+        <div class="lb"><span style="background-color: #4575b4"></span>9th</div>
+        <div class="lb"><span style="background-color: #313695"></span>10th</div>
+      	</div>`;
+      break;
+    case 'Total_population':
+      cycleSlider.noUiSlider.disable();
+      document.getElementById("dzlegend").innerHTML = `<div class="l_r">
+        <div class="lb"><span style="background-color: #edf8fb"></span>500</div>
+        <div class="lb"><span style="background-color: #bfd3e6"></span>600</div>
+        <div class="lb"><span style="background-color: #9ebcda"></span>700</div>
+        <div class="lb"><span style="background-color: #8c96c6"></span>800</div>
+        <div class="lb"><span style="background-color: #8856a7"></span>900</div>
+        <div class="lb"><span style="background-color: #810f7c"></span>4000</div>
+      	</div>`;
+      break;
+    case 'broadband':
+        cycleSlider.noUiSlider.disable();
+        document.getElementById("dzlegend").innerHTML = `<div class="l_r">
+        <div class="lb"><span style="background-color: #fff7ec"></span>0%</div>
+        <div class="lb"><span style="background-color: #fee8c8"></span>2%</div>
+        <div class="lb"><span style="background-color: #fdd49e"></span>5%</div>
+        <div class="lb"><span style="background-color: #fdbb84"></span>10%</div>
+        <div class="lb"><span style="background-color: #d7301f"></span>50%</div>
+        <div class="lb"><span style="background-color: #7f0000"></span>100%</div>
+      	</div>`;
+      break;
+    default:
+      cycleSlider.noUiSlider.enable();
+      document.getElementById("dzlegend").innerHTML = `<div class="l_r">
+        <div class="lb"><span style="background-color: #053061"></span>3</div>
+        <div class="lb"><span style="background-color: #2166ac"></span>5</div>
+        <div class="lb"><span style="background-color: #4393c3"></span>7</div>
+        <div class="lb"><span style="background-color: #92c5de"></span>10</div>
+        <div class="lb"><span style="background-color: #f7f7f7"></span>15</div>
+        <div class="lb"><span style="background-color: #f4a582"></span>30</div>
+        <div class="lb"><span style="background-color: #b2182b"></span>60</div>
+        <div class="lb"><span style="background-color: #67001f"></span>200</div>
+      	</div>`;
+
+  }
+  
   if (checkBox.checked === true) {
     if (map.getLayer('data_zones')) map.removeLayer('data_zones');
     switch (layerId) {
@@ -711,7 +734,7 @@ function switch_data_zones() {
           'source-layer': 'data_zones',
           'paint': {
             'fill-color': ["step", ["get", layerId ],
-             "#fff7ec", 0,
+             "#fff7ec", 0.01,
               "#fee8c8", 2,
               "#fdd49e", 5,
               "#fdbb84", 10,

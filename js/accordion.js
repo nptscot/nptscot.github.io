@@ -30,7 +30,8 @@ function showrighbox(show){
       boxbutton.style.display = "block"; 
     }
 }
-    
+
+/*    
 function show_rnet_legend(show){
     var box = document.getElementById("rnetlegend");
     var boxbutton = document.getElementById("rnetshowlegend");
@@ -42,7 +43,7 @@ function show_rnet_legend(show){
       boxbutton.style.display = "block"; 
     }
 }
-
+*/
 
 function expandtopnav() {
   var x = document.getElementById("myTopnav");

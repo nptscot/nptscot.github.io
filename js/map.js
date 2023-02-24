@@ -69,13 +69,12 @@ map.addControl(new maplibregl.FullscreenControl(), 'top-left');
 map.addControl(new maplibregl.AttributionControl({
   compact: true,
   customAttribution: 'Contains OS data © Crown copyright 2021, Satelite map © ESRI 2023, © OpenStreetMap contributors'
-  
-}));
+}), 'bottom-left');
 
 map.addControl(new maplibregl.ScaleControl({
   maxWidth: 80,
   unit: 'metric'
-}),'bottom-right');
+}),'bottom-left');
 
 // Add Data Sources
 map.addSource('rnet', {
@@ -191,7 +190,7 @@ map.addLayer(
 
 // Setup other part of the website
 showrighbox(true); // Show the accordion hide the button 
-show_rnet_legend(true); // Show the legend hide the button 
+//show_rnet_legend(true); // Show the legend hide the button 
 toggleLayer('rnet'); // Start with the rnet on
 toggleLayer('zones');
 toggleLayer('data_zones');
