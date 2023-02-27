@@ -1,13 +1,14 @@
 // Setup Map
 var map = new maplibregl.Map({
 container: 'map',
-style: 'tiles/style_greyscale_nobuild.json' ,
+style: 'tiles/style_CDRC_nobuild.json' ,
 center: [-3.1382,55.9533],
 zoom: 8,
 maxZoom: 19,
 minZoom: 5,
 maxPitch: 85,
-hash: true
+hash: true,
+antialias: true
 });
 
 var hoveredStateId = null;
