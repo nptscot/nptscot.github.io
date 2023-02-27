@@ -68,6 +68,9 @@ function toggleLayer(layerName) {
     }
   } else {
     if (map.getLayer(layerName)) map.removeLayer(layerName);
+    if (layerName === 'data_zones'){
+      if (map.getLayer('dasymetric')) map.removeLayer('dasymetric');
+    }
   }
 }
 
@@ -620,6 +623,7 @@ function switch_data_zones() {
   var checkBox = document.getElementById('data_zonescheckbox');
   var layerId = document.getElementById("data_zone_input").value;
   
+  console.log("func");
   // Update the Legend - Do this even if map layer is off
   switch(layerId) {
     case 'SIMD2020v2_Decile':
@@ -676,8 +680,41 @@ function switch_data_zones() {
   
   if (checkBox.checked === true) {
     if (map.getLayer('data_zones')) map.removeLayer('data_zones');
+    if (map.getLayer('dasymetric')) map.removeLayer('dasymetric');
+    
     switch (layerId) {
       case 'SIMD2020v2_Decile':
+        map.addLayer({
+          'id': 'dasymetric',
+          'type': 'fill-extrusion',
+          'source': 'dasymetric',
+          'source-layer': 'dasymetric',
+          'paint': {
+            'fill-extrusion-color': ['step', ['get', layerId ],
+              "#a50026", 1.1,
+              "#d73027", 2.1,
+              "#f46d43", 3.1,
+              "#fdae61", 4.1,
+              "#fee090", 5.1,
+              "#e0f3f8", 6.1,
+              "#abd9e9", 7.1,
+              "#74add1", 8.1,
+              "#4575b4", 9.1,
+              "#313695", 10.1,
+              '#000000'],
+            'fill-extrusion-height': [
+              'interpolate',
+              ['linear'],
+              ['zoom'],
+              12,
+              1,
+              15,
+              8
+            ]
+          }
+        }, 'roads 0 Guided Busway Casing'
+        );
+        
         map.addLayer({
           'id': 'data_zones',
           'type': 'fill',
@@ -696,8 +733,8 @@ function switch_data_zones() {
               "#4575b4", 9.1,
               "#313695", 10.1,
               "#000000"],
-            'fill-opacity': 0.7,
-            'fill-outline-color': 'rgba(0, 0, 0, 0.2)'
+            'fill-opacity': 0.1,
+            'fill-outline-color': '#000000'
           }
         }, 'roads 0 Guided Busway Casing'
         );
@@ -705,6 +742,36 @@ function switch_data_zones() {
     	  
         break;
       case 'Total_population':
+        
+        map.addLayer({
+          'id': 'dasymetric',
+          'type': 'fill-extrusion',
+          'source': 'dasymetric',
+          'source-layer': 'dasymetric',
+          'paint': {
+            'fill-extrusion-color': ['step', ['get', layerId ],
+              "#edf8fb", 500,
+              "#bfd3e6", 600,
+              "#9ebcda", 700,
+              "#8c96c6", 800,
+              "#8856a7", 900,
+              "#810f7c", 4000,
+              '#000000'],
+            'fill-extrusion-height': [
+              'interpolate',
+              ['linear'],
+              ['zoom'],
+              12,
+              1,
+              15,
+              8
+            ]
+          }
+        }, 'roads 0 Guided Busway Casing'
+        );
+        
+        
+        
         map.addLayer({
           'id': 'data_zones',
           'type': 'fill',
@@ -719,14 +786,43 @@ function switch_data_zones() {
               "#8856a7", 900,
               "#810f7c", 4000,
               "#000000"],
-            'fill-opacity': 0.7,
-            'fill-outline-color': 'rgba(0, 0, 0, 0.2)'
+            'fill-opacity': 0.1,
+            'fill-outline-color': 'rgba(0, 0, 0, 0.9)'
           }
         }, 'roads 0 Guided Busway Casing'
         );
         
         break;
       case 'broadband':
+        
+        map.addLayer({
+          'id': 'dasymetric',
+          'type': 'fill-extrusion',
+          'source': 'dasymetric',
+          'source-layer': 'dasymetric',
+          'paint': {
+            'fill-extrusion-color': ['step', ['get', layerId ],
+              "#fff7ec", 0.01,
+              "#fee8c8", 2,
+              "#fdd49e", 5,
+              "#fdbb84", 10,
+              "#d7301f", 50,
+              "#7f0000", 100,
+              '#000000'],
+            'fill-extrusion-height': [
+              'interpolate',
+              ['linear'],
+              ['zoom'],
+              12,
+              1,
+              15,
+              8
+            ]
+          }
+        }, 'roads 0 Guided Busway Casing'
+        );
+        
+        
         map.addLayer({
           'id': 'data_zones',
           'type': 'fill',
@@ -741,14 +837,45 @@ function switch_data_zones() {
               "#d7301f", 50,
               "#7f0000", 100,
               "#000000"],
-            'fill-opacity': 0.7,
-            'fill-outline-color': 'rgba(0, 0, 0, 0.2)'
+            'fill-opacity': 0.1,
+            'fill-outline-color': 'rgba(0, 0, 0, 0.9)'
           }
         }, 'roads 0 Guided Busway Casing'
         );
         
         break;
       default:
+      
+        map.addLayer({
+          'id': 'dasymetric',
+          'type': 'fill-extrusion',
+          'source': 'dasymetric',
+          'source-layer': 'dasymetric',
+          'paint': {
+            'fill-extrusion-color': ['step', ['get', layerId ],
+              "#053061", 3,
+              "#2166ac", 5,
+              "#4393c3", 7,
+              "#92c5de", 10,
+              "#f7f7f7", 15,
+              "#f4a582", 30,
+              "#b2182b", 60,
+              "#67001f", 200,
+              '#000000'],
+            'fill-extrusion-height': [
+              'interpolate',
+              ['linear'],
+              ['zoom'],
+              12,
+              1,
+              15,
+              8
+            ]
+          }
+        }, 'roads 0 Guided Busway Casing'
+        );
+      
+      
         map.addLayer({
           'id': 'data_zones',
           'type': 'fill',
@@ -765,13 +892,15 @@ function switch_data_zones() {
               "#b2182b", 60,
               "#67001f", 200,
               "#000000"],
-            'fill-opacity': 0.7,
-            'fill-outline-color': 'rgba(0, 0, 0, 0.2)'
+            'fill-opacity': 0.1,
+            'fill-outline-color': 'rgba(0, 0, 0, 0.9)'
           }
         }, 'roads 0 Guided Busway Casing'
         );
       }
-    } else {
+  } else {
+    console.log("off");
     if (map.getLayer("data_zones")) map.removeLayer("data_zones");
+    if (map.getLayer('dasymetric')) map.removeLayer('dasymetric');
   }
 }

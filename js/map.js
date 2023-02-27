@@ -1,7 +1,7 @@
 // Setup Map
 var map = new maplibregl.Map({
 container: 'map',
-style: 'tiles/style_greyscale.json' ,
+style: 'tiles/style_greyscale_nobuild.json' ,
 center: [-3.1382,55.9533],
 zoom: 8,
 maxZoom: 19,
@@ -9,6 +9,8 @@ minZoom: 5,
 maxPitch: 85,
 hash: true
 });
+
+var hoveredStateId = null;
 
 // Geocoding API
 var geocoder_api = {
@@ -43,7 +45,7 @@ var geocoder_api = {
 map.addControl(
   new MaplibreGeocoder(geocoder_api, {
   maplibregl: maplibregl
-  })
+  }), 'top-left'
 );
 
 // pmtiles
@@ -82,6 +84,11 @@ map.addSource('rnet', {
 	'url': 'pmtiles://https://www.wisemover.co.uk/pmtiles/nptscot/rnet.pmtiles',
 });
 
+map.addSource('dasymetric', {
+	'type': 'vector',
+	'url': 'pmtiles://https://www.wisemover.co.uk/pmtiles/nptscot/dasymetric.pmtiles',
+});
+
 map.addSource('zones', {
 	'type': 'vector',
 	'tiles': [
@@ -94,12 +101,7 @@ map.addSource('zones', {
 
 map.addSource('data_zones', {
 	'type': 'vector',
-	'tiles': [
-	'https://www.wisemover.co.uk/tiles/data_zones/{z}/{x}/{y}.pbf'
-	],
-	'minzoom': 6,
-	'maxzoom': 12,
-	'bounds': [-8.649240,54.633160,-0.722602,60.861379]
+	'url': 'pmtiles://https://www.wisemover.co.uk/pmtiles/nptscot/data_zones.pmtiles',
 });
 
 map.addSource('la', {
@@ -187,6 +189,45 @@ map.addLayer(
 },
 'sea'
 );
+
+
+
+// When the user moves their mouse over the state-fill layer, we'll update the
+// feature state for the feature under the mouse.
+/*
+map.on('mousemove', 'data_zones', function (e) {
+  console.log(hoveredStateId);
+  if (e.features.length > 0) {
+    if (hoveredStateId) {
+      map.setFeatureState(
+        { sourceLayer: 'data_zones_boarder', source: 'data_zones', id: hoveredStateId },
+        { hover: false }
+      );
+    }
+    hoveredStateId = e.features[0].id;
+    console.log(e.features[0]);
+    map.setFeatureState(
+      { sourceLayer: 'data_zones_boarder', source: 'data_zones', id: hoveredStateId },
+      { hover: true }
+    );
+  }
+});
+ 
+// When the mouse leaves the state-fill layer, update the feature state of the
+// previously hovered feature.
+map.on('mouseleave', 'data_zones', function () {
+  if (hoveredStateId) {
+    map.setFeatureState(
+      { source: 'states', id: hoveredStateId },
+      { hover: false }
+    );
+  }
+  hoveredStateId = null;
+});
+
+*/
+
+
 
 // Setup other part of the website
 showrighbox(true); // Show the accordion hide the button 
