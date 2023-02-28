@@ -5,7 +5,7 @@ style: 'tiles/style_' + displayRadioValue(document.getElementById("basemapform")
 center: [-3.1382,55.9533],
 zoom: 8,
 maxZoom: 19,
-minZoom: 5,
+minZoom: 6,
 maxPitch: 85,
 hash: true,
 antialias: true
