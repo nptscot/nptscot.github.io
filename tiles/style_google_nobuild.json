@@ -1,6 +1,6 @@
 {
   "version": 8,
-  "name": "OS Open Zoomstack - PBCC",
+  "name": "google_nobuild",
   "metadata": {
     "mapbox:autocomposite": true,
     "mapbox:type": "template",
@@ -39,7 +39,7 @@
     {
       "id": "background",
       "type": "background",
-      "paint": {"background-color": "rgba(244, 244, 244, 1)"}
+      "paint": {"background-color": "#bbe2c6"}
     },
     {
       "id": "sea",
@@ -47,7 +47,7 @@
       "source": "composite",
       "source-layer": "sea",
       "layout": {},
-      "paint": {"fill-color": "rgba(221, 221, 221, 1)"}
+      "paint": {"fill-color": "#9cc0f9"}
     },
     {
       "id": "hillshading",
@@ -56,34 +56,12 @@
       "source-layer": "hillshadeSource"
     },
     {
-      "id": "national-parks",
+      "id": "surfacewater",
       "type": "fill",
       "source": "composite",
-      "source-layer": "national_parks",
-      "maxzoom": 12,
+      "source-layer": "surfacewater",
       "layout": {},
-      "paint": {
-        "fill-color": "rgba(233, 233, 233, 1)",
-        "fill-opacity": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          5,
-          0.6,
-          9,
-          0.5,
-          12,
-          0.1
-        ]
-      }
-    },
-    {
-      "id": "sites",
-      "type": "fill",
-      "source": "composite",
-      "source-layer": "sites",
-      "layout": {},
-      "paint": {"fill-color": "rgba(229, 229, 229, 1)", "fill-opacity": 0.7}
+      "paint": {"fill-color": "#9cc0f9"}
     },
     {
       "id": "greenspace",
@@ -92,40 +70,8 @@
       "source-layer": "greenspace",
       "layout": {},
       "paint": {
-        "fill-color": "#eaeee7",
-        "fill-opacity": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          5,
-          0.6,
-          9,
-          0.5,
-          12,
-          0.1
-        ],
+        "fill-color": "#a8dab5",
         "fill-antialias": false
-      }
-    },
-    {
-      "id": "greenspace outlines",
-      "type": "line",
-      "source": "composite",
-      "source-layer": "greenspace",
-      "layout": {"line-join": "round"},
-      "paint": {
-        "line-color": "#d5ddd0",
-        "line-width": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          10,
-          0.1,
-          15,
-          0.3,
-          18,
-          0.6
-        ]
       }
     },
     {
@@ -135,45 +81,7 @@
       "source-layer": "woodland",
       "layout": {},
       "paint": {
-        "fill-color": "rgba(223, 223, 223, 1)",
-        "fill-opacity": ["interpolate", ["linear"], ["zoom"], 6, 0.5, 12, 0.5]
-      }
-    },
-    {
-      "id": "surfacewater",
-      "type": "fill",
-      "source": "composite",
-      "source-layer": "surfacewater",
-      "layout": {},
-      "paint": {"fill-color": "rgba(211, 211, 211, 1)"}
-    },
-    {
-      "id": "foreshore",
-      "type": "fill",
-      "source": "composite",
-      "source-layer": "foreshore",
-      "layout": {},
-      "paint": {"fill-color": "rgba(232, 232, 233, 1)"}
-    },
-    {
-      "id": "waterlines",
-      "type": "line",
-      "source": "composite",
-      "source-layer": "waterlines",
-      "layout": {"line-join": "round"},
-      "paint": {
-        "line-color": "#c5cdd0",
-        "line-width": [
-          "match",
-          ["get", "type"],
-          ["National", "Regional", "District", "Local"],
-          1,
-          ["MHW"],
-          1.2,
-          ["MLW"],
-          0.7,
-          1
-        ]
+        "fill-color": "#a8dab5"
       }
     },
     {
@@ -315,7 +223,7 @@
           22,
           10
         ],
-        "line-color": "#e1e1e1"
+        "line-color": "#ffffff"
       }
     },
     {
@@ -389,7 +297,7 @@
           22,
           120
         ],
-        "line-color": "hsl(0, 0%, 100%)"
+        "line-color": "#ffffff"
       }
     },
     {
@@ -426,7 +334,7 @@
           22,
           120
         ],
-        "line-color": "hsl(0, 0%, 100%)"
+        "line-color": "#ffffff"
       }
     },
     {
@@ -463,7 +371,7 @@
           22,
           120
         ],
-        "line-color": "hsl(0, 0%, 100%)"
+        "line-color": "#ffffff"
       }
     },
     {
@@ -534,7 +442,7 @@
           22,
           140
         ],
-        "line-color": "#f2f0ed"
+        "line-color": "#ffffff"
       }
     },
     {
@@ -571,7 +479,7 @@
           22,
           160
         ],
-        "line-color": "#f2f0ed"
+        "line-color": "#ffffff"
       }
     },
     {
@@ -608,7 +516,7 @@
           22,
           160
         ],
-        "line-color": "#f2f0ed"
+        "line-color": "#ffffff"
       }
     },
     {
@@ -645,7 +553,7 @@
           22,
           160
         ],
-        "line-color": "#f2f0ed"
+        "line-color": "#ffffff"
       }
     },
     {
@@ -682,7 +590,7 @@
           22,
           160
         ],
-        "line-color": "#f2f0ed",
+        "line-color": "#ffffff",
         "line-opacity": ["interpolate", ["linear"], ["zoom"], 5, 0.4, 9, 1]
       }
     },
@@ -720,7 +628,7 @@
           22,
           160
         ],
-        "line-color": "#f2f0ed"
+        "line-color": "#ffffff"
       }
     },
     {
@@ -862,7 +770,7 @@
           22,
           10
         ],
-        "line-color": "#e1e1e1"
+        "line-color": "#ffffff"
       }
     },
     {
@@ -936,7 +844,7 @@
           22,
           120
         ],
-        "line-color": "hsl(0, 0%, 100%)"
+        "line-color": "#ffffff"
       }
     },
     {
@@ -973,7 +881,7 @@
           22,
           120
         ],
-        "line-color": "hsl(0, 0%, 100%)"
+        "line-color": "#ffffff"
       }
     },
     {
@@ -1010,7 +918,7 @@
           22,
           120
         ],
-        "line-color": "hsl(0, 0%, 100%)"
+        "line-color": "#ffffff"
       }
     },
     {
@@ -1081,7 +989,7 @@
           22,
           140
         ],
-        "line-color": "#f2f0ed"
+        "line-color": "#ffffff"
       }
     },
     {
@@ -1118,7 +1026,7 @@
           22,
           160
         ],
-        "line-color": "#f2f0ed"
+        "line-color": "#ffffff"
       }
     },
     {
@@ -1155,7 +1063,7 @@
           22,
           160
         ],
-        "line-color": "#f2f0ed"
+        "line-color": "#ffffff"
       }
     },
     {
@@ -1192,7 +1100,7 @@
           22,
           160
         ],
-        "line-color": "#f2f0ed"
+        "line-color": "#ffffff"
       }
     },
     {
@@ -1229,7 +1137,7 @@
           22,
           160
         ],
-        "line-color": "#f2f0ed",
+        "line-color": "#ffffff",
         "line-opacity": ["interpolate", ["linear"], ["zoom"], 5, 0.4, 9, 1]
       }
     },
@@ -1267,7 +1175,7 @@
           22,
           160
         ],
-        "line-color": "#f2f0ed"
+        "line-color": "#ffffff"
       }
     },
     {
@@ -1409,7 +1317,7 @@
           22,
           10
         ],
-        "line-color": "#e1e1e1"
+        "line-color": "#ffffff"
       }
     },
     {
@@ -1483,7 +1391,7 @@
           22,
           120
         ],
-        "line-color": "hsl(0, 0%, 100%)"
+        "line-color": "#ffffff"
       }
     },
     {
@@ -1520,7 +1428,7 @@
           22,
           120
         ],
-        "line-color": "hsl(0, 0%, 100%)"
+        "line-color": "#ffffff"
       }
     },
     {
@@ -1557,7 +1465,7 @@
           22,
           120
         ],
-        "line-color": "hsl(0, 0%, 100%)"
+        "line-color": "#ffffff"
       }
     },
     {
@@ -1846,206 +1754,6 @@
       }
     },
     {
-      "id": "motorway junction numbers",
-      "type": "symbol",
-      "metadata": {"mapbox:group": "e196265c0e550aaddd2885dc32fdb674"},
-      "source": "composite",
-      "source-layer": "names",
-      "minzoom": 13,
-      "filter": ["match", ["get", "type"], ["Motorway Junctions"], true, false],
-      "layout": {
-        "text-field": ["to-string", ["get", "name"]],
-        "text-size": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          13,
-          11,
-          16,
-          16,
-          22,
-          30
-        ],
-        "text-font": ["Source Sans Pro Regular"]
-      },
-      "paint": {
-        "text-color": "#ffffff",
-        "text-halo-color": "#9c9c9c",
-        "text-halo-width": 10
-      }
-    },
-    {
-      "id": "greenspace names",
-      "type": "symbol",
-      "metadata": {"mapbox:group": "e196265c0e550aaddd2885dc32fdb674"},
-      "source": "composite",
-      "source-layer": "names",
-      "minzoom": 13,
-      "filter": ["match", ["get", "type"], ["Greenspace"], true, false],
-      "layout": {
-        "text-field": ["to-string", ["get", "name"]],
-        "text-size": ["interpolate", ["linear"], ["zoom"], 13, 9, 14, 11],
-        "text-font": ["Source Sans Pro Regular"],
-        "text-line-height": 1
-      },
-      "paint": {
-        "text-color": "rgba(134, 134, 134, 1)",
-        "text-halo-color": "#f1efec",
-        "text-halo-width": 1,
-        "text-halo-blur": 1
-      }
-    },
-    {
-      "id": "sites names",
-      "type": "symbol",
-      "metadata": {"mapbox:group": "e196265c0e550aaddd2885dc32fdb674"},
-      "source": "composite",
-      "source-layer": "names",
-      "minzoom": 13,
-      "filter": ["match", ["get", "type"], ["Sites"], true, false],
-      "layout": {
-        "text-field": ["to-string", ["get", "name"]],
-        "text-size": ["interpolate", ["linear"], ["zoom"], 13, 9, 14, 11],
-        "text-font": ["Source Sans Pro Regular"],
-        "text-line-height": 1
-      },
-      "paint": {
-        "text-color": "#6a6f73",
-        "text-halo-color": "#f1efec",
-        "text-halo-width": 1,
-        "text-halo-blur": 1
-      }
-    },
-    {
-      "id": "landform names",
-      "type": "symbol",
-      "metadata": {"mapbox:group": "e196265c0e550aaddd2885dc32fdb674"},
-      "source": "composite",
-      "source-layer": "names",
-      "minzoom": 5,
-      "filter": ["match", ["get", "type"], ["Landform"], true, false],
-      "layout": {
-        "text-field": ["to-string", ["get", "name"]],
-        "text-size": ["interpolate", ["linear"], ["zoom"], 11, 9, 14, 11],
-        "text-font": ["Source Sans Pro Regular"],
-        "text-line-height": 1
-      },
-      "paint": {
-        "text-color": "#6a6f73",
-        "text-halo-color": "#f1efec",
-        "text-halo-width": 1,
-        "text-halo-blur": 1
-      }
-    },
-    {
-      "id": "landcover names",
-      "type": "symbol",
-      "metadata": {"mapbox:group": "e196265c0e550aaddd2885dc32fdb674"},
-      "source": "composite",
-      "source-layer": "names",
-      "minzoom": 5,
-      "filter": ["match", ["get", "type"], ["Landcover"], true, false],
-      "layout": {
-        "text-field": ["to-string", ["get", "name"]],
-        "text-size": ["interpolate", ["linear"], ["zoom"], 11, 9.5, 14, 12],
-        "text-font": ["Source Sans Pro Regular"],
-        "text-line-height": 1
-      },
-      "paint": {
-        "text-color": "#6a6f73",
-        "text-halo-color": "#f1efec",
-        "text-halo-width": 1,
-        "text-halo-blur": 1
-      }
-    },
-    {
-      "id": "water names",
-      "type": "symbol",
-      "metadata": {"mapbox:group": "e196265c0e550aaddd2885dc32fdb674"},
-      "source": "composite",
-      "source-layer": "names",
-      "minzoom": 12,
-      "filter": ["match", ["get", "type"], ["Water"], true, false],
-      "layout": {
-        "text-field": ["to-string", ["get", "name"]],
-        "text-size": ["interpolate", ["linear"], ["zoom"], 11, 9, 14, 11],
-        "text-font": ["Source Sans Pro Regular"],
-        "text-line-height": 1
-      },
-      "paint": {
-        "text-color": "#6c8499",
-        "text-halo-color": "#f1efec",
-        "text-halo-width": 1,
-        "text-halo-blur": 1
-      }
-    },
-    {
-      "id": "woodland names",
-      "type": "symbol",
-      "metadata": {"mapbox:group": "e196265c0e550aaddd2885dc32fdb674"},
-      "source": "composite",
-      "source-layer": "names",
-      "minzoom": 5,
-      "filter": ["match", ["get", "type"], ["Woodland"], true, false],
-      "layout": {
-        "text-field": ["to-string", ["get", "name"]],
-        "text-size": ["interpolate", ["linear"], ["zoom"], 11, 9.5, 14, 11.5],
-        "text-font": ["Source Sans Pro Regular"],
-        "text-line-height": 1,
-        "text-padding": ["interpolate", ["linear"], ["zoom"], 14, 10, 16, 2]
-      },
-      "paint": {
-        "text-color": "#89a489",
-        "text-halo-color": "#f1efec",
-        "text-halo-width": 1,
-        "text-halo-blur": 1
-      }
-    },
-    {
-      "id": "small settlement names",
-      "type": "symbol",
-      "metadata": {"mapbox:group": "e196265c0e550aaddd2885dc32fdb674"},
-      "source": "composite",
-      "source-layer": "names",
-      "minzoom": 5,
-      "filter": ["match", ["get", "type"], ["Small Settlements"], true, false],
-      "layout": {
-        "text-field": ["to-string", ["get", "name"]],
-        "text-size": ["interpolate", ["linear"], ["zoom"], 12, 9, 14, 11],
-        "text-font": ["Source Sans Pro Regular"],
-        "text-line-height": 1
-      },
-      "paint": {
-        "text-color": "#6a6f73",
-        "text-halo-color": "#f1efec",
-        "text-halo-width": 1,
-        "text-halo-blur": 1
-      }
-    },
-    {
-      "id": "suburban area names",
-      "type": "symbol",
-      "metadata": {"mapbox:group": "e196265c0e550aaddd2885dc32fdb674"},
-      "source": "composite",
-      "source-layer": "names",
-      "minzoom": 10,
-      "filter": ["match", ["get", "type"], ["Suburban Area"], true, false],
-      "layout": {
-        "text-field": ["to-string", ["get", "name"]],
-        "text-size": ["interpolate", ["linear"], ["zoom"], 10, 10.5, 14, 14],
-        "text-font": ["Source Sans Pro Regular"],
-        "text-line-height": 1,
-        "text-padding": ["interpolate", ["linear"], ["zoom"], 10, 10, 14, 2]
-      },
-      "paint": {
-        "text-color": "#6a6f73",
-        "text-halo-color": "#f1efec",
-        "text-halo-width": 1,
-        "text-halo-blur": 1,
-        "text-opacity": ["interpolate", ["linear"], ["zoom"], 10, 0.8, 14, 1]
-      }
-    },
-    {
       "id": "railwaystations",
       "type": "symbol",
       "metadata": {"mapbox:group": "e196265c0e550aaddd2885dc32fdb674"},
@@ -2096,7 +1804,7 @@
       },
       "paint": {
         "text-halo-color": "#ffffff",
-        "text-halo-width": 1,
+        "text-halo-width": 2,
         "text-halo-blur": 1,
         "text-color": "#6a6f73"
       }
@@ -2122,151 +1830,6 @@
         "text-halo-color": "hsl(0, 0%, 100%)",
         "text-halo-width": 1,
         "text-halo-blur": 1
-      }
-    },
-    {
-      "id": "village and hamlet names",
-      "type": "symbol",
-      "metadata": {"mapbox:group": "e196265c0e550aaddd2885dc32fdb674"},
-      "source": "composite",
-      "source-layer": "names",
-      "minzoom": 5,
-      "filter": ["match", ["get", "type"], ["Village", "Hamlet"], true, false],
-      "layout": {
-        "text-field": ["to-string", ["get", "name"]],
-        "text-size": ["interpolate", ["linear"], ["zoom"], 9, 9, 14, 15],
-        "text-font": ["Source Sans Pro Regular"],
-        "text-line-height": 1,
-        "text-padding": 2
-      },
-      "paint": {
-        "text-color": "#6a6f73",
-        "text-halo-color": "#f1efec",
-        "text-halo-width": 1,
-        "text-halo-blur": 1,
-        "text-opacity": 1
-      }
-    },
-    {
-      "id": "town names",
-      "type": "symbol",
-      "metadata": {"mapbox:group": "e196265c0e550aaddd2885dc32fdb674"},
-      "source": "composite",
-      "source-layer": "names",
-      "minzoom": 5,
-      "filter": ["match", ["get", "type"], ["Town"], true, false],
-      "layout": {
-        "text-field": ["to-string", ["get", "name"]],
-        "text-size": ["interpolate", ["linear"], ["zoom"], 7, 10, 14, 18],
-        "text-font": ["Source Sans Pro Regular"],
-        "text-line-height": 1,
-        "text-padding": 2
-      },
-      "paint": {
-        "text-color": "#6a6f73",
-        "text-halo-color": "#f1efec",
-        "text-halo-width": 1,
-        "text-halo-blur": 1,
-        "text-opacity": 1
-      }
-    },
-    {
-      "id": "city names",
-      "type": "symbol",
-      "metadata": {"mapbox:group": "e196265c0e550aaddd2885dc32fdb674"},
-      "source": "composite",
-      "source-layer": "names",
-      "minzoom": 5,
-      "filter": ["match", ["get", "type"], ["City"], true, false],
-      "layout": {
-        "text-field": ["to-string", ["get", "name"]],
-        "text-size": ["interpolate", ["linear"], ["zoom"], 6, 10, 14, 20],
-        "text-font": ["Source Sans Pro Regular"],
-        "text-line-height": 1,
-        "text-padding": 2,
-        "text-letter-spacing": 0.05
-      },
-      "paint": {
-        "text-color": "#55595c",
-        "text-halo-color": "#f1efec",
-        "text-halo-width": 1,
-        "text-halo-blur": 1,
-        "text-opacity": 1
-      }
-    },
-    {
-      "id": "national park names",
-      "type": "symbol",
-      "metadata": {"mapbox:group": "e196265c0e550aaddd2885dc32fdb674"},
-      "source": "composite",
-      "source-layer": "names",
-      "minzoom": 5,
-      "filter": ["match", ["get", "type"], ["National Park"], true, false],
-      "layout": {
-        "text-field": ["to-string", ["get", "name"]],
-        "text-size": ["interpolate", ["linear"], ["zoom"], 6, 8, 14, 15],
-        "text-font": ["Source Sans Pro Regular"],
-        "text-line-height": 1,
-        "text-padding": 2,
-        "text-letter-spacing": 0.06
-      },
-      "paint": {
-        "text-color": "rgba(134, 134, 134, 1)",
-        "text-halo-color": "#f1efec",
-        "text-halo-width": 1,
-        "text-halo-blur": 1,
-        "text-opacity": 0.8
-      }
-    },
-    {
-      "id": "capital city names",
-      "type": "symbol",
-      "metadata": {"mapbox:group": "e196265c0e550aaddd2885dc32fdb674"},
-      "source": "composite",
-      "source-layer": "names",
-      "minzoom": 5,
-      "filter": ["match", ["get", "type"], ["Capital"], true, false],
-      "layout": {
-        "text-field": ["to-string", ["get", "name"]],
-        "text-size": ["interpolate", ["linear"], ["zoom"], 5, 10.5, 14, 22],
-        "text-font": ["Source Sans Pro Regular"],
-        "text-line-height": 1,
-        "text-padding": 2,
-        "text-letter-spacing": 0.1,
-        "text-transform": "uppercase"
-      },
-      "paint": {
-        "text-color": "#55595c",
-        "text-halo-color": "#f1efec",
-        "text-halo-width": 1,
-        "text-halo-blur": 1,
-        "text-opacity": 1
-      }
-    },
-    {
-      "id": "country names",
-      "type": "symbol",
-      "metadata": {"mapbox:group": "e196265c0e550aaddd2885dc32fdb674"},
-      "source": "composite",
-      "source-layer": "names",
-      "minzoom": 5,
-      "maxzoom": 10,
-      "filter": ["match", ["get", "type"], ["Country"], true, false],
-      "layout": {
-        "text-field": ["to-string", ["get", "name"]],
-        "text-size": ["interpolate", ["linear"], ["zoom"], 5, 18, 10, 35],
-        "text-font": ["Source Sans Pro Regular"],
-        "text-line-height": 1,
-        "text-padding": 2,
-        "text-letter-spacing": 0.3,
-        "text-transform": "uppercase"
-      },
-      "paint": {
-        "text-color": "#55595c",
-        "text-halo-color": "#f1efec",
-        "text-halo-width": 1,
-        "text-halo-blur": 1,
-        "text-opacity": 0.35
       }
     }
   ],

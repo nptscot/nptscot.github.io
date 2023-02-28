@@ -1,7 +1,373 @@
+function switch_style(){
+  //var styleName = document.getElementById("style_select").value;
+  var styleName = displayRadioValue(document.getElementById("basemapform"));
+  var styleCurrent = map.getStyle().name;
+  if(styleCurrent != styleName){
+    console.log("Restyling from " + styleCurrent +" to "+ styleName);
+    map.setStyle('tiles/style_' + styleName + '.json');
+  }
+  
+  map.once('idle', function() {
+    // Add Data Sources
+    addDataSources();
+
+    // Reload layers
+    toggleLayer('rnet'); // Start with the rnet on
+    toggleLayer('zones');
+    toggleLayer('data_zones');
+    toggleLayer('la');
+    toggleLayer('wards');
+    toggleLayer('westminster');
+    toggleLayer('holyrood');
+    switch_placenames();
+    //toggleraster();
+    
+    // Sliders 
+    quietnessSlider.noUiSlider.on('update', function(){
+      switch_rnet()
+    })
+    gradientlider.noUiSlider.on('update', function(){
+      switch_rnet()
+    })
+    cycleSlider.noUiSlider.on('update', function(){
+      switch_rnet()
+    })
+  
+  });
+}
+
+function addDataSources () {
+  console.log("Adding sources");
+  if (!map.getSource('rnet')){
+      map.addSource('rnet', {
+    	'type': 'vector',
+    	'url': 'pmtiles://https://www.wisemover.co.uk/pmtiles/nptscot/rnet.pmtiles',
+      });
+    }
+    
+    if (!map.getSource('dasymetric')){
+      map.addSource('dasymetric', {
+    	'type': 'vector',
+    	'url': 'pmtiles://https://www.wisemover.co.uk/pmtiles/nptscot/dasymetric.pmtiles',
+      });
+    }
+    
+    if (!map.getSource('zones')){
+      map.addSource('zones', {
+      	'type': 'vector',
+      	'tiles': ['https://www.wisemover.co.uk/tiles/zones/{z}/{x}/{y}.pbf'],
+      	'minzoom': 6,
+      	'maxzoom': 12,
+      	'bounds': [-8.649240,54.633160,-0.722602,60.861379]
+      });
+    }
+    
+    if (!map.getSource('data_zones')){
+      map.addSource('data_zones', {
+    	  'type': 'vector',
+    	  'url': 'pmtiles://https://www.wisemover.co.uk/pmtiles/nptscot/data_zones.pmtiles',
+      });
+    }
+    
+    if (!map.getSource('la')){
+      map.addSource('la', {
+      	'type': 'vector',
+      	'tiles': ['https://www.wisemover.co.uk/tiles/la/{z}/{x}/{y}.pbf'],
+      	'minzoom': 6,
+      	'maxzoom': 12,
+      	'bounds': [-8.650007,49.864674,1.763680,60.860766]
+      });
+    }
+    
+    if (!map.getSource('wards')){
+      map.addSource('wards', {
+      	'type': 'vector',
+      	'tiles': [
+      	'https://www.wisemover.co.uk/tiles/wards/{z}/{x}/{y}.pbf'
+      	],
+      	'minzoom': 6,
+      	'maxzoom': 12,
+      	'bounds': [-8.650007,49.864674,1.763680,60.860766]
+      });
+    }
+    
+    if (!map.getSource('westminster')){
+      map.addSource('westminster', {
+      	'type': 'vector',
+      	'tiles': [
+      	'https://www.wisemover.co.uk/tiles/westminster/{z}/{x}/{y}.pbf'
+      	],
+      	'minzoom': 6,
+      	'maxzoom': 12,
+      	'bounds': [-8.650007,49.864674,1.763680,60.860766]
+      });
+    }
+    
+    if (!map.getSource('holyrood')){
+      map.addSource('holyrood', {
+      	'type': 'vector',
+      	'tiles': [
+      	'https://www.wisemover.co.uk/tiles/holyrood/{z}/{x}/{y}.pbf'
+      	],
+      	'minzoom': 6,
+      	'maxzoom': 12,
+      	'bounds': [-8.650007,49.864674,1.763680,60.860766]
+      });
+    }
+    
+    if (!map.getSource('placenames')){
+      map.addSource('placenames', {
+    	  'type': 'vector',
+    	  'url': 'pmtiles://https://www.wisemover.co.uk/pmtiles/nptscot/oszoom_names.pmtiles',
+      });
+    }
+    
+}
+
+
+function switch_placenames () {
+  var checkBox = document.getElementById('placenamescheckbox');
+  console.log("Switching place names")
+  
+  if (map.getLayer("motorway junction numbers")) map.removeLayer("motorway junction numbers");
+  if (map.getLayer("small settlement names")) map.removeLayer("small settlement names");
+  if (map.getLayer("suburban area names")) map.removeLayer("suburban area names");
+  if (map.getLayer("village and hamlet names")) map.removeLayer("village and hamlet names");
+  if (map.getLayer("town names")) map.removeLayer("town names");
+  if (map.getLayer("city names")) map.removeLayer("city names");
+  if (map.getLayer("national park names")) map.removeLayer("national park names");
+  if (map.getLayer("capital city names")) map.removeLayer("capital city names");
+  if (map.getLayer("country names")) map.removeLayer("country names");
+  
+  if (checkBox.checked === true) {
+    map.addLayer({
+      "id": "motorway junction numbers",
+      "type": "symbol",
+      "source": "placenames",
+      "source-layer": "names",
+      "minzoom": 13,
+      "filter": ["match", ["get", "type"], ["Motorway Junctions"], true, false],
+      "layout": {
+        "text-field": ["to-string", ["get", "name"]],
+        "text-size": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          13,
+          11,
+          16,
+          16,
+          22,
+          30
+        ],
+        "text-font": ["Source Sans Pro Regular"]
+      },
+      "paint": {
+        "text-color": "#000000",
+        "text-halo-color": "#ffffff",
+        "text-halo-width": 10
+      }
+    });
+    
+    map.addLayer({
+      "id": "small settlement names",
+      "type": "symbol",
+      "source": "placenames",
+      "source-layer": "names",
+      "minzoom": 5,
+      "filter": ["match", ["get", "type"], ["Small Settlements"], true, false],
+      "layout": {
+        "text-field": ["to-string", ["get", "name"]],
+        "text-size": ["interpolate", ["linear"], ["zoom"], 12, 9, 14, 11],
+        "text-font": ["Source Sans Pro Regular"],
+        "text-line-height": 1
+      },
+      "paint": {
+        "text-color": "#000000",
+        "text-halo-color": "#ffffff",
+        "text-halo-width": 2,
+        "text-halo-blur": 1
+      }
+    });
+    
+    map.addLayer({
+      "id": "suburban area names",
+      "type": "symbol",
+      "source": "placenames",
+      "source-layer": "names",
+      "minzoom": 10,
+      "filter": ["match", ["get", "type"], ["Suburban Area"], true, false],
+      "layout": {
+        "text-field": ["to-string", ["get", "name"]],
+        "text-size": ["interpolate", ["linear"], ["zoom"], 10, 10.5, 14, 14],
+        "text-font": ["Source Sans Pro Regular"],
+        "text-line-height": 1,
+        "text-padding": ["interpolate", ["linear"], ["zoom"], 10, 10, 14, 2]
+      },
+      "paint": {
+        "text-color": "#000000",
+        "text-halo-color": "#ffffff",
+        "text-halo-width": 2,
+        "text-halo-blur": 1,
+        "text-opacity": ["interpolate", ["linear"], ["zoom"], 10, 0.8, 14, 1]
+      }
+    });
+    
+    map.addLayer({
+      "id": "village and hamlet names",
+      "type": "symbol",
+      "source": "placenames",
+      "source-layer": "names",
+      "minzoom": 5,
+      "filter": ["match", ["get", "type"], ["Village", "Hamlet"], true, false],
+      "layout": {
+        "text-field": ["to-string", ["get", "name"]],
+        "text-size": ["interpolate", ["linear"], ["zoom"], 9, 9, 14, 15],
+        "text-font": ["Source Sans Pro Regular"],
+        "text-line-height": 1,
+        "text-padding": 2
+      },
+      "paint": {
+        "text-color": "#000000",
+        "text-halo-color": "#ffffff",
+        "text-halo-width": 2,
+        "text-halo-blur": 1,
+        "text-opacity": 1
+      }
+    });
+    
+    map.addLayer({
+      "id": "town names",
+      "type": "symbol",
+      "source": "placenames",
+      "source-layer": "names",
+      "minzoom": 5,
+      "filter": ["match", ["get", "type"], ["Town"], true, false],
+      "layout": {
+        "text-field": ["to-string", ["get", "name"]],
+        "text-size": ["interpolate", ["linear"], ["zoom"], 7, 10, 14, 18],
+        "text-font": ["Source Sans Pro Regular"],
+        "text-line-height": 1,
+        "text-padding": 2
+      },
+      "paint": {
+        "text-color": "#000000",
+        "text-halo-color": "#ffffff",
+        "text-halo-width": 1,
+        "text-halo-blur": 1,
+        "text-opacity": 1
+      }
+    });
+    
+    map.addLayer({
+      "id": "city names",
+      "type": "symbol",
+      "source": "placenames",
+      "source-layer": "names",
+      "minzoom": 5,
+      "filter": ["match", ["get", "type"], ["City"], true, false],
+      "layout": {
+        "text-field": ["to-string", ["get", "name"]],
+        "text-size": ["interpolate", ["linear"], ["zoom"], 6, 10, 14, 20],
+        "text-font": ["Source Sans Pro Regular"],
+        "text-line-height": 1,
+        "text-padding": 2,
+        "text-letter-spacing": 0.05
+      },
+      "paint": {
+        "text-color": "#000000",
+        "text-halo-color": "#ffffff",
+        "text-halo-width": 1,
+        "text-halo-blur": 1,
+        "text-opacity": 1
+      }
+    });
+    
+    map.addLayer({
+      "id": "national park names",
+      "type": "symbol",
+      "source": "placenames",
+      "source-layer": "names",
+      "minzoom": 5,
+      "filter": ["match", ["get", "type"], ["National Park"], true, false],
+      "layout": {
+        "text-field": ["to-string", ["get", "name"]],
+        "text-size": ["interpolate", ["linear"], ["zoom"], 6, 8, 14, 15],
+        "text-font": ["Source Sans Pro Regular"],
+        "text-line-height": 1,
+        "text-padding": 2,
+        "text-letter-spacing": 0.06
+      },
+      "paint": {
+        "text-color": "rgba(134, 134, 134, 1)",
+        "text-halo-color": "#ffffff",
+        "text-halo-width": 1,
+        "text-halo-blur": 1,
+        "text-opacity": 0.8
+      }
+    });
+    
+    map.addLayer({
+      "id": "capital city names",
+      "type": "symbol",
+      "source": "placenames",
+      "source-layer": "names",
+      "minzoom": 5,
+      "filter": ["match", ["get", "type"], ["Capital"], true, false],
+      "layout": {
+        "text-field": ["to-string", ["get", "name"]],
+        "text-size": ["interpolate", ["linear"], ["zoom"], 5, 10.5, 14, 22],
+        "text-font": ["Source Sans Pro Regular"],
+        "text-line-height": 1,
+        "text-padding": 2,
+        "text-letter-spacing": 0.1,
+        "text-transform": "uppercase"
+      },
+      "paint": {
+        "text-color": "#000000",
+        "text-halo-color": "#ffffff",
+        "text-halo-width": 1,
+        "text-halo-blur": 1,
+        "text-opacity": 1
+      }
+    });
+    
+    map.addLayer({
+      "id": "country names",
+      "type": "symbol",
+      "source": "placenames",
+      "source-layer": "names",
+      "minzoom": 5,
+      "maxzoom": 10,
+      "filter": ["match", ["get", "type"], ["Country"], true, false],
+      "layout": {
+        "text-field": ["to-string", ["get", "name"]],
+        "text-size": ["interpolate", ["linear"], ["zoom"], 5, 18, 10, 35],
+        "text-font": ["Source Sans Pro Regular"],
+        "text-line-height": 1,
+        "text-padding": 2,
+        "text-letter-spacing": 0.3,
+        "text-transform": "uppercase"
+      },
+      "paint": {
+        "text-color": "#55595c",
+        "text-halo-color": "#f1efec",
+        "text-halo-width": 1,
+        "text-halo-blur": 1,
+        "text-opacity": 0.35
+      }
+    });
+  }
+
+}
+
+
 function toggleLayer(layerName) {
+  //console.log("Toggling layer " + layerName)
   var checkBox = document.getElementById(layerName.concat('checkbox'));
   // If the checkbox is checked add the layer to the map
   if (checkBox.checked === true) {
+    if (map.getLayer(layerName)) map.removeLayer(layerName);
     switch (layerName) {
       case 'rnet':
         switch_rnet();
@@ -24,7 +390,7 @@ function toggleLayer(layerName) {
             'paint': {
               'line-color': 'rgba(107, 7, 7, 1)',
               'line-width': 2
-            }
+            } 
         });
         break;
       case 'wards':
@@ -82,47 +448,11 @@ function displayRadioValue(ele) {
   }
 }
 
-
-function toggleraster() {
-  var layerid = displayRadioValue(document.getElementById("basemapform"));
-
-  if (map.getLayer("satellite")) map.removeLayer("satellite");
-  if (map.getLayer("opencyclemap")) map.removeLayer("opencyclemap");
-  //console.log(layerid)
-  // Switch basemap
-  switch (layerid) {
-    case 'satellite':
-      map.addLayer({
-        'id': 'satellite',
-        'type': 'raster',
-        'source': 'satellite',
-      }, 'roads 0 Local Road'
-      );
-      
-      break;
-    case 'opencyclemap':
-      map.addLayer({
-        'id': 'opencyclemap',
-        'type': 'raster',
-        'source': 'opencyclemap',
-      }, 'roads 0 Local Road'
-      );
-      
-      break;
-    default:
-      // Do noting
-  }
-}
-
-
-
-function switch_rnet() {
+function switch_rnet() {  
+  console.log("Updating rnet")
   var checkBox = document.getElementById('rnetcheckbox');
   var layerId = document.getElementById("rnet_scenario_input").value;
   var layerType = document.getElementById("rnet_type_input").value;
-  //var sliderFlow = Number(document.getElementById("slide_flow").value);
-  //var sliderQuietness = Number(document.getElementById("slide_quietness").value);
-  //var sliderGradient = Number(document.getElementById("slide_gradient").value);
   var sliderQuietness_min = Number(quietnessSlider.noUiSlider.get()[0]);
   var sliderQuietness_max = Number(quietnessSlider.noUiSlider.get()[1]);
   var sliderGradient_min = Number(gradientlider.noUiSlider.get()[0]);
@@ -134,6 +464,7 @@ function switch_rnet() {
   var layerWidth = document.getElementById("rnet_width_input").value;
   var a = 1;
   var b = 1;
+  var layerWidth2 = layerWidth;
   switch(layerWidth){
     case 'Quietness':
       a = 0.01;
@@ -146,7 +477,7 @@ function switch_rnet() {
     default:
      a = 0.05;
      b = 0.5;
-     layerWidth = layerType + "_" + layerWidth;
+     layerWidth2 = layerType + "_" + layerWidth;
   }
   
   // Update the Legend - Do this even if map layer is off
@@ -193,233 +524,72 @@ function switch_rnet() {
   // Update the map if enabled
   if (checkBox.checked === true) {
     if (map.getLayer('rnet')) map.removeLayer('rnet');
+    
+    // Make the parts of the style
+    
+    var style_head = {
+      "id": "rnet",
+      "type": "line",
+      "source": "rnet",
+      "source-layer": "rnet"
+    };
+    
+    // Only filter cyclists if scenario set
+    if(layerId == 'none' | layerId == 'Quietness' | layerId == 'Gradient'){
+      var style_filter = {
+      "filter": ["all",
+              ['<=', "Quietness", sliderQuietness_max],
+              ['>=', "Quietness", sliderQuietness_min],
+              ['<=', "Gradient", sliderGradient_max],
+              ['>=', "Gradient", sliderGradient_min]
+           ]
+      };
+    } else {
+      var style_filter = {
+        'filter': ["all",
+              ['<=', layerType + "_" + layerId, sliderFlow_max],
+              ['>=', layerType + "_" + layerId, sliderFlow_min],
+              ['<=', "Quietness", sliderQuietness_max],
+              ['>=', "Quietness", sliderQuietness_min],
+              ['<=', "Gradient", sliderGradient_max],
+              ['>=', "Gradient", sliderGradient_min]
+           ],
+      };
+
+    }
+    
+    // Define line colour
     switch (layerId) {
       case 'none':
-        
-        if(layerWidth == 'none'){
-          map.addLayer({
-          'id': 'rnet',
-          'type': 'line',
-          'source': 'rnet',
-          'source-layer': 'rnet',
-          'filter': ["all",
-              ['<=', "Quietness", sliderQuietness_max],
-              ['>=', "Quietness", sliderQuietness_min],
-              ['<=', "Gradient", sliderGradient_max],
-              ['>=', "Gradient", sliderGradient_min]
-           ],
-          'paint': {
-            'line-color': "#304ce7",
-            "line-width": [
-              "interpolate",
-              ["linear"],
-              ["zoom"],
-              12, 2.1,
-              14, 5.25,
-              15, 7.5,
-              16, 18,
-              18, 52.5,
-              22, 150
-            ],
-          }
-        });
-        } else {
-          
-          map.addLayer({
-          'id': 'rnet',
-          'type': 'line',
-          'source': 'rnet',
-          'source-layer': 'rnet',
-          'filter': ["all",
-              ['<=', "Quietness", sliderQuietness_max],
-              ['>=', "Quietness", sliderQuietness_min],
-              ['<=', "Gradient", sliderGradient_max],
-              ['>=', "Gradient", sliderGradient_min]
-           ],
-          'paint': {
-            'line-color': "#304ce7",
-            'line-width': [
-                'interpolate', 
-                ['linear'], 
-                ['zoom'],
-                12, ["*", 2.1 , a, ["^", ["+", 1, ["get", layerWidth]], b]],
-                14, ["*", 5.25, a, ["^", ["+", 1, ["get", layerWidth]], b]],
-                15, ["*", 7.5 , a, ["^", ["+", 1, ["get", layerWidth]], b]],
-                16, ["*", 18  , a, ["^", ["+", 1, ["get", layerWidth]], b]],
-                18, ["*", 52.5, a, ["^", ["+", 1, ["get", layerWidth]], b]], 
-                22, ["*", 150 , a, ["^", ["+", 1, ["get", layerWidth]], b]]
-            ],
-          }
-        });
-        
-          
-        }
-        
-       
+        var style_line_colour = {
+          "line-color": "#304ce7"
+        };
         break;
       case 'Quietness':
-        if(layerWidth == 'none'){
-          map.addLayer({
-          'id': 'rnet',
-          'type': 'line',
-          'source': 'rnet',
-          'source-layer': 'rnet',
-          'filter': ["all",
-              ['<=', "Quietness", sliderQuietness_max],
-              ['>=', "Quietness", sliderQuietness_min],
-              ['<=', "Gradient", sliderGradient_max],
-              ['>=', "Gradient", sliderGradient_min]
-           ],
-          'paint': {
-            'line-color': ["step", ["get", layerId],
-              "#882255", 25,
-              "#CC6677", 50,
-              "#44AA99", 75,
-              "#117733", 101,
-              "#000000"],
-            "line-width": [
-              "interpolate",
-              ["linear"],
-              ["zoom"],
-              12, 2.1,
-              14, 5.25,
-              15, 7.5,
-              16, 18,
-              18, 52.5,
-              22, 150
-            ],
-          }
-        });
-        } else {
+        var style_line_colour = {
+          "line-color": ["step", ["get", "Quietness"],
+            "#882255", 25,
+            "#CC6677", 50,
+            "#44AA99", 75,
+            "#117733", 101,
+            "#000000"]
           
-          map.addLayer({
-          'id': 'rnet',
-          'type': 'line',
-          'source': 'rnet',
-          'source-layer': 'rnet',
-          'filter': ["all",
-              ['<=', "Quietness", sliderQuietness_max],
-              ['>=', "Quietness", sliderQuietness_min],
-              ['<=', "Gradient", sliderGradient_max],
-              ['>=', "Gradient", sliderGradient_min]
-           ],
-          'paint': {
-            'line-color': ["step", ["get", layerId],
-              "#882255", 25,
-              "#CC6677", 50,
-              "#44AA99", 75,
-              "#117733", 101,
-              "#000000"],
-            'line-width': [
-                'interpolate', 
-                ['linear'], 
-                ['zoom'],
-                12, ["*", 2.1 , a, ["^", ["+", 1, ["get", layerWidth]], b]],
-                14, ["*", 5.25, a, ["^", ["+", 1, ["get", layerWidth]], b]],
-                15, ["*", 7.5 , a, ["^", ["+", 1, ["get", layerWidth]], b]],
-                16, ["*", 18  , a, ["^", ["+", 1, ["get", layerWidth]], b]],
-                18, ["*", 52.5, a, ["^", ["+", 1, ["get", layerWidth]], b]], 
-                22, ["*", 150 , a, ["^", ["+", 1, ["get", layerWidth]], b]]
-            ],
-          }
-        });
-        
-          
-        }
-        
+        };
         break;
       case 'Gradient':
-        
-        if(layerWidth == 'none'){
-          
-          map.addLayer({
-          'id': 'rnet',
-          'type': 'line',
-          'source': 'rnet',
-          'source-layer': 'rnet',
-          'filter': ["all",
-              ['<=', "Quietness", sliderQuietness_max],
-              ['>=', "Quietness", sliderQuietness_min],
-              ['<=', "Gradient", sliderGradient_max],
-              ['>=', "Gradient", sliderGradient_min]
-           ],
-          'paint': {
-            'line-color': ["step", ["get", layerId],
+        var style_line_colour = {
+          "line-color": ["step", ["get", "Gradient"],
               "#59ee19", 3,
               "#37a009", 5,
               "#FFC300", 7,
               "#C70039", 10,
               "#581845", 100,
-              "#000000"],
-            "line-width": [
-              "interpolate",
-              ["linear"],
-              ["zoom"],
-              12, 2.1,
-              14, 5.25,
-              15, 7.5,
-              16, 18,
-              18, 52.5,
-              22, 150
-            ],
-          }
-        });
-        
-        } else {
-          
-          map.addLayer({
-          'id': 'rnet',
-          'type': 'line',
-          'source': 'rnet',
-          'source-layer': 'rnet',
-          'filter': ["all",
-              ['<=', "Quietness", sliderQuietness_max],
-              ['>=', "Quietness", sliderQuietness_min],
-              ['<=', "Gradient", sliderGradient_max],
-              ['>=', "Gradient", sliderGradient_min]
-          ],
-          'paint': {
-            'line-color': ["step", ["get", layerId],
-              "#59ee19", 3,
-              "#37a009", 5,
-              "#FFC300", 7,
-              "#C70039", 10,
-              "#581845", 100,
-              "#000000"],
-            'line-width': [
-                'interpolate', 
-                ['linear'], 
-                ['zoom'],
-                12, ["*", 2.1 , a, ["^", ["+", 1, ["get", layerWidth]], b]],
-                14, ["*", 5.25, a, ["^", ["+", 1, ["get", layerWidth]], b]],
-                15, ["*", 7.5 , a, ["^", ["+", 1, ["get", layerWidth]], b]],
-                16, ["*", 18  , a, ["^", ["+", 1, ["get", layerWidth]], b]],
-                18, ["*", 52.5, a, ["^", ["+", 1, ["get", layerWidth]], b]], 
-                22, ["*", 150 , a, ["^", ["+", 1, ["get", layerWidth]], b]]
-            ],
-          }
-        });
-          
-        }
-
+              "#000000"]
+        };
         break;
       default:
-        if(layerWidth == 'none'){
-          map.addLayer({
-          'id': 'rnet',
-          'type': 'line',
-          'source': 'rnet',
-          'source-layer': 'rnet',
-          'filter': ["all",
-              ['<=', layerType + "_" + layerId, sliderFlow_max],
-              ['>=', layerType + "_" + layerId, sliderFlow_min],
-              ['<=', "Quietness", sliderQuietness_max],
-              ['>=', "Quietness", sliderQuietness_min],
-              ['<=', "Gradient", sliderGradient_max],
-              ['>=', "Gradient", sliderGradient_min]
-           ],
-          'paint': {
-            'line-color': ["step", ["get", layerType + "_" + layerId],
+        var style_line_colour = {
+          "line-color": ["step", ["get", layerType + "_" + layerId],
               "rgba(0,0,0,0)", 1,
               "#9C9C9C", 10,
               "#FFFF73", 50,
@@ -429,61 +599,45 @@ function switch_rnet() {
               "#2E5FFF", 1000,
               "#0000FF", 2000,
               "#FF00C5"],
-            "line-width": [
-              "interpolate",
-              ["linear"],
-              ["zoom"],
-              12, 2.1,
-              14, 5.25,
-              15, 7.5,
-              16, 18,
-              18, 52.5,
-              22, 150
+        };
+    };
+    
+    // Define Line Width           
+    switch (layerWidth) {
+      case 'none':
+        var style_line_width = {
+          "line-width": [
+                  "interpolate",
+                  ["linear"],
+                  ["zoom"],
+                  12, 2.1,
+                  14, 5.25,
+                  15, 7.5,
+                  16, 18,
+                  18, 52.5,
+                  22, 150
+                ]
+        };
+        break;
+      default:
+        var style_line_width = {
+          "line-width": [
+                "interpolate", 
+                ["linear"], 
+                ["zoom"],
+                12, ["*", 2.1 , a, ["^", ["+", 1, ["get", layerWidth2]], b]],
+                14, ["*", 5.25, a, ["^", ["+", 1, ["get", layerWidth2]], b]],
+                15, ["*", 7.5 , a, ["^", ["+", 1, ["get", layerWidth2]], b]],
+                16, ["*", 18  , a, ["^", ["+", 1, ["get", layerWidth2]], b]],
+                18, ["*", 52.5, a, ["^", ["+", 1, ["get", layerWidth2]], b]], 
+                22, ["*", 150 , a, ["^", ["+", 1, ["get", layerWidth2]], b]]
             ],
-          }
-        });
-        } else {
-          map.addLayer({
-          'id': 'rnet',
-          'type': 'line',
-          'source': 'rnet',
-          'source-layer': 'rnet',
-          'filter': ["all",
-              ['<=', layerType + "_" + layerId, sliderFlow_max],
-              ['>=', layerType + "_" + layerId, sliderFlow_min],
-              ['<=', "Quietness", sliderQuietness_max],
-              ['>=', "Quietness", sliderQuietness_min],
-              ['<=', "Gradient", sliderGradient_max],
-              ['>=', "Gradient", sliderGradient_min]
-           ],
-          'paint': {
-            'line-color': ["step", ["get", layerType + "_" + layerId],
-              "rgba(0,0,0,0)", 1,
-              "#9C9C9C", 10,
-              "#FFFF73", 50,
-              "#AFFF00", 100,
-              "#00FFFF", 250,
-              "#30B0FF", 500,
-              "#2E5FFF", 1000,
-              "#0000FF", 2000,
-              "#FF00C5"],
-            'line-width': [
-                'interpolate', 
-                ['linear'], 
-                ['zoom'],
-                12, ["*", 2.1 , a, ["^", ["+", 1, ["get", layerWidth]], b]],
-                14, ["*", 5.25, a, ["^", ["+", 1, ["get", layerWidth]], b]],
-                15, ["*", 7.5 , a, ["^", ["+", 1, ["get", layerWidth]], b]],
-                16, ["*", 18  , a, ["^", ["+", 1, ["get", layerWidth]], b]],
-                18, ["*", 52.5, a, ["^", ["+", 1, ["get", layerWidth]], b]], 
-                22, ["*", 150 , a, ["^", ["+", 1, ["get", layerWidth]], b]]
-            ],
-          }
-        });
-        }
-      
-    }
-
+        };
+    };
+    
+    var style_paint = {"paint" : {...style_line_colour, ...style_line_width}};
+    var style_combined = {...style_head, ...style_filter, ...style_paint};
+    map.addLayer(style_combined);
     
   } else {
     if (map.getLayer("rnet")) map.removeLayer("rnet");
@@ -623,7 +777,6 @@ function switch_data_zones() {
   var checkBox = document.getElementById('data_zonescheckbox');
   var layerId = document.getElementById("data_zone_input").value;
   
-  console.log("func");
   // Update the Legend - Do this even if map layer is off
   switch(layerId) {
     case 'SIMD2020v2_Decile':

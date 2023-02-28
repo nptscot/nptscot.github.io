@@ -53,19 +53,3 @@ noUiSlider.create(quietnessSlider, {
         density: 10
     }
 });
-
-// Update map when sliders change
-map.on('load', function() {
-  quietnessSlider.noUiSlider.on('update', function(){
-    switch_rnet()
-  })
-  gradientlider.noUiSlider.on('update', function(){
-    switch_rnet()
-  })
-  cycleSlider.noUiSlider.on('update', function(){
-    switch_rnet()
-  })
-});
-
-
-
