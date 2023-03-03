@@ -21,7 +21,7 @@ balance_bicycle_go_dutch + '</th><th>' + quiet_bicycle_go_dutch + '</th><th>' + 
 '<p> Quietness: ' + Quietness + '</p>' +
 '<p><a target="_blank" href="http://maps.google.com/maps?q=&layer=c&cbll=' + 
 coordinates.lat + ',' + coordinates.lng +
-'&cbp=11,0,0,0,0">Google Street View</a><i class="fa fa-external-link" aria-hidden="true"></i></p><div>';
+'&cbp=11,0,0,0,0">Google Street View </a><i class="fa fa-external-link" aria-hidden="true"></i></p><div>';
 
 new maplibregl.Popup({maxWidth: '400px'})
 .setLngLat(coordinates)
