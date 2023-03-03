@@ -18,8 +18,11 @@ var description = '<div><p><h4>Road summary</h4></p><table><tr><th></th><th>Fast
 '</th><th>' + ebike_bicycle + '</th></tr><tr><th>Go Dutch</th><th>' + fast_bicycle_go_dutch + '</th><th>' +
 balance_bicycle_go_dutch + '</th><th>' + quiet_bicycle_go_dutch + '</th><th>' + ebike_bicycle_go_dutch + '</th></tr></table>' +
 '<p> Gradient: ' + Gradient + '</p>' +
-'<p> Quietness: ' + Quietness + '</p><div>';
- 
+'<p> Quietness: ' + Quietness + '</p>' +
+'<p><a target="_blank" href="http://maps.google.com/maps?q=&layer=c&cbll=' + 
+coordinates.lat + ',' + coordinates.lng +
+'&cbp=11,0,0,0,0">Google Street View</a><i class="fa fa-external-link" aria-hidden="true"></i></p><div>';
+
 new maplibregl.Popup({maxWidth: '400px'})
 .setLngLat(coordinates)
 .setHTML(description)
