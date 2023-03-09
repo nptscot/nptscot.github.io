@@ -127,25 +127,6 @@ Commuting patterns have changed since the pandemic, and not everyone commutes, t
 
 <!-- Layer Selection Panel -->
 <div id="rightbox" class="rightbox">
-  <button onclick="showrighbox(false)" style="float:right" aria-label="Hide layers"><i class="fas fa-times"></i></button>
-  <p style="margin-top:5px;margin-bottom:5px"><b>&nbsp Basemap</b></p>
-<p>
-  <form id="basemapform" onchange="switch_style()" class="basemap">
-  <input type="radio" id="bm1" value="greyscale_nobuild" name="basemap" class="radio-inline"checked/>
-    <label for="bm1"><img src="images/greyscale_50.png" title="OS Greyscale"/></label>
-  <input type="radio" id="bm2" value="satellite" name="basemap"class="radio-inline"/>
-    <label for="bm2"><img src="images/satellite_50.png" title="Satellite"/></label>
-  <input type="radio" id="bm3" value="opencyclemap" name="basemap"class="radio-inline"/>
-    <label for="bm3"><img src="images/opencyclemap_50.png" title="OpenCycleMap"/></label>
-  <!-- <input type="radio" id="bm4" value="CDRC_nobuild" name="basemap"class="radio-inline"/>
-    <label for="bm4"><img src="images/CDRC.PNG" title="CDRC"/></label> -->
-  <input type="radio" id="bm5" value="dark_nobuild" name="basemap"class="radio-inline"/>
-    <label for="bm5"><img src="images/dark.PNG" title="Dark"/></label>
-  <input type="radio" id="bm6" value="google_nobuild" name="basemap"class="radio-inline"/>
-    <label for="bm6"><img src="images/google.PNG" title="Google"/></label>
-</form>
-</p>
-<p><label><input type="checkbox" id="placenamescheckbox" onclick="switch_placenames()" checked>Place Names</label></p>
 
 <button class="accordion">Route Network</button>
 <div class="panel">
@@ -327,6 +308,25 @@ Commuting patterns have changed since the pandemic, and not everyone commutes, t
 
 </div>
 
+<button onclick="showrighbox(false)" style="float:right" aria-label="Hide layers"><i class="fas fa-times"></i></button>
+<p style="margin-top:5px;margin-bottom:5px"><b>&nbsp Basemap</b></p>
+<p>
+<form id="basemapform" onchange="switch_style()" class="basemap">
+<input type="radio" id="bm1" value="greyscale_nobuild" name="basemap" class="radio-inline"checked/>
+  <label for="bm1"><img src="images/greyscale_50.png" title="OS Greyscale"/></label>
+<input type="radio" id="bm2" value="satellite" name="basemap"class="radio-inline"/>
+  <label for="bm2"><img src="images/satellite_50.png" title="Satellite"/></label>
+<input type="radio" id="bm3" value="opencyclemap" name="basemap"class="radio-inline"/>
+  <label for="bm3"><img src="images/opencyclemap_50.png" title="OpenCycleMap"/></label>
+<!-- <input type="radio" id="bm4" value="CDRC_nobuild" name="basemap"class="radio-inline"/>
+  <label for="bm4"><img src="images/CDRC.PNG" title="CDRC"/></label> -->
+<input type="radio" id="bm5" value="dark_nobuild" name="basemap"class="radio-inline"/>
+  <label for="bm5"><img src="images/dark.PNG" title="Dark"/></label>
+<input type="radio" id="bm6" value="google_nobuild" name="basemap"class="radio-inline"/>
+  <label for="bm6"><img src="images/google.PNG" title="Google"/></label>
+</form>
+</p>
+<p><label><input type="checkbox" id="placenamescheckbox" onclick="switch_placenames()" checked>Place Names</label></p>
 
 </div>
 
