@@ -10,7 +10,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: bacongobbler/azure-blob-storage-upload@main
         with:
-          source_dir: ''
+          source_dir: '.'
           container_name: '$web'
           connection_string: ${{ secrets.ConnectionString }}
           sync: 'true'
