@@ -34,8 +34,8 @@
   <script src="https://unpkg.com/maplibre-gl@3.0.0-pre.4/dist/maplibre-gl.js"></script>
   <link href="https://unpkg.com/maplibre-gl@3.0.0-pre.4/dist/maplibre-gl.css" rel="stylesheet" />
   <script src="https://unpkg.com/pmtiles/dist/index.js"></script>
-  <script src="https://unpkg.com/@maplibre/maplibre-gl-geocoder@1.2.0/dist/maplibre-gl-geocoder.min.js"></script>
-  <link rel="stylesheet" href="https://unpkg.com/@maplibre/maplibre-gl-geocoder@1.2.0/dist/maplibre-gl-geocoder.css" type="text/css"/>
+  <script src="js/lib/geocoder/maplibre-gl-geocoder.min.js"></script>
+  <link rel="stylesheet" href="js/lib/geocoder/maplibre-gl-geocoder-small.css" type="text/css"/>
   
   <!-- Third Party Scrips -->
   <script src="https://kit.fontawesome.com/1f7357bc14.js" crossorigin="anonymous" async></script>
@@ -108,17 +108,34 @@ Commuting patterns have changed since the pandemic, and not everyone commutes, t
 </div>
 <script type="text/javascript" src="js/ga_optout.js"></script>
 
+
+
 <!-- Main Content -->
 <div class="content" style="overflow:hidden">
 <div id="map"></div>
 </div>
 
-<!-- Floating Objects 
-<div id="rnetlegend" class="rnetlegend"></div>
-<div id="rnetshowlegend" class="rnetshowlegend">
-  <button class="float_button" onclick="show_rnet_legend(true)" aria-label="Hide legend"><i class="fas fa-ellipsis-v"></i></button>
+<!-- Floating Objects -->
+<div id="basemapcontrol" class="basemapcontrol" style="display:none;">
+  <p style="margin-top:5px;margin-bottom:5px"><b>&nbsp Basemap</b></p>
+  <p>
+  <form id="basemapform" onchange="switch_style()" class="basemap">
+  <input type="radio" id="bm1" value="greyscale_nobuild" name="basemap" class="radio-inline"checked/>
+    <label for="bm1"><img src="images/greyscale_50.png" title="OS Greyscale"/></label>
+  <input type="radio" id="bm2" value="satellite" name="basemap"class="radio-inline"/>
+    <label for="bm2"><img src="images/satellite_50.png" title="Satellite"/></label>
+  <input type="radio" id="bm3" value="opencyclemap" name="basemap"class="radio-inline"/>
+    <label for="bm3"><img src="images/opencyclemap_50.png" title="OpenCycleMap"/></label>
+  <!-- <input type="radio" id="bm4" value="CDRC_nobuild" name="basemap"class="radio-inline"/>
+    <label for="bm4"><img src="images/CDRC.PNG" title="CDRC"/></label> -->
+  <input type="radio" id="bm5" value="dark_nobuild" name="basemap"class="radio-inline"/>
+    <label for="bm5"><img src="images/dark.PNG" title="Dark"/></label>
+  <input type="radio" id="bm6" value="google_nobuild" name="basemap"class="radio-inline"/>
+    <label for="bm6"><img src="images/google.PNG" title="Google"/></label>
+  </form>
+  </p>
+  <p><label class="switch"><input type="checkbox" id="placenamescheckbox" onclick="switch_placenames()" checked><span class="slider round"></span></label> Place Names</p>
 </div>
--->
 
 <!-- Show Layer Selection Panel  Button-->
 <div id="showrightbox" class="showrightbox">
@@ -127,6 +144,8 @@ Commuting patterns have changed since the pandemic, and not everyone commutes, t
 
 <!-- Layer Selection Panel -->
 <div id="rightbox" class="rightbox">
+
+<button onclick="showrighbox(false)" style="float:right" aria-label="Hide layers"><i class="fas fa-times"></i></button>
 
 <button class="accordion">Route Network</button>
 <div class="panel">
@@ -307,27 +326,6 @@ Commuting patterns have changed since the pandemic, and not everyone commutes, t
 	</div></div>
 
 </div>
-
-<button onclick="showrighbox(false)" style="float:right" aria-label="Hide layers"><i class="fas fa-times"></i></button>
-<p style="margin-top:5px;margin-bottom:5px"><b>&nbsp Basemap</b></p>
-<p>
-<form id="basemapform" onchange="switch_style()" class="basemap">
-<input type="radio" id="bm1" value="greyscale_nobuild" name="basemap" class="radio-inline"checked/>
-  <label for="bm1"><img src="images/greyscale_50.png" title="OS Greyscale"/></label>
-<input type="radio" id="bm2" value="satellite" name="basemap"class="radio-inline"/>
-  <label for="bm2"><img src="images/satellite_50.png" title="Satellite"/></label>
-<input type="radio" id="bm3" value="opencyclemap" name="basemap"class="radio-inline"/>
-  <label for="bm3"><img src="images/opencyclemap_50.png" title="OpenCycleMap"/></label>
-<!-- <input type="radio" id="bm4" value="CDRC_nobuild" name="basemap"class="radio-inline"/>
-  <label for="bm4"><img src="images/CDRC.PNG" title="CDRC"/></label> -->
-<input type="radio" id="bm5" value="dark_nobuild" name="basemap"class="radio-inline"/>
-  <label for="bm5"><img src="images/dark.PNG" title="Dark"/></label>
-<input type="radio" id="bm6" value="google_nobuild" name="basemap"class="radio-inline"/>
-  <label for="bm6"><img src="images/google.PNG" title="Google"/></label>
-</form>
-</p>
-<p><label><input type="checkbox" id="placenamescheckbox" onclick="switch_placenames()" checked>Place Names</label></p>
-
 </div>
 
 <!-- Help Box -->

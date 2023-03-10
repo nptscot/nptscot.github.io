@@ -31,6 +31,19 @@ function showrighbox(show){
     }
 }
 
+function showbasemapcontrol(show){
+    var box = document.getElementById("basemapcontrol");
+    
+    if(box.style.display == "none"){
+      box.style.display = "block";
+    } else {
+      box.style.display = "none";
+    }
+}
+
+
+
+
 /*    
 function show_rnet_legend(show){
     var box = document.getElementById("rnetlegend");

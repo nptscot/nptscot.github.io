@@ -157,7 +157,7 @@ a.smaller {
 .rightbox {
   background-color: #fff;
   border-radius: 3px;
-  top: 120px;
+  top: 60px;
   max-height: calc(100% - 150px);
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
   padding: 6px;
@@ -168,7 +168,7 @@ a.smaller {
   overflow:auto;
 }
 .showrightbox {
-  top: 120px;
+  top: 60px;
   position: absolute;
   right: 15px;
   z-index: 2;
@@ -312,10 +312,11 @@ p.help-end {
   cursor: pointer;
 }
 
+/*
 .mapboxgl-ctrl-geocoder{
   min-width: 289px !important;
 }
-
+*/
 
 /* Sliders */
 .slider-styled{
@@ -448,3 +449,86 @@ input[type="radio"][id^="bm"] {
   width: 100%;
   border: 1px solid black;
 }
+
+/* Basemap Control */
+.basemapcontrol {
+  background-color: #fff;
+  border-radius: 3px;
+  top: 260px;
+  max-height: calc(100% - 150px);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  padding: 6px;
+  position: absolute;
+  left: 45px;
+  z-index: 5;
+  width: 289px;
+  overflow:auto;
+}
+
+.basemapcontrol:hover {
+  display:block;
+}
+
+/* Checkbox slider */
+ /* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 30px;
+  height: 15px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 12px;
+  width: 12px;
+  left: 2px;
+  bottom: 2px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(14px);
+  -ms-transform: translateX(14px);
+  transform: translateX(14px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 15px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+} 
