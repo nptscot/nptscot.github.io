@@ -1,4 +1,8 @@
 name: Azure Blob Storage Upload
+on:
+  push: 
+    branches:
+      - production
 jobs:
   upload:
     runs-on: ubuntu-latest
