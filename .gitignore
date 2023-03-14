@@ -43,3 +43,6 @@ vignettes/*.pdf
 *.zip
 
 
+images/wip/
+images/AppImages
+*.bak

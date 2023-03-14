@@ -1,6 +1,6 @@
 name: Azure Blob Storage Upload
 on:
-  push:
+  push: 
     branches:
       - production
 jobs:
