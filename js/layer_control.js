@@ -41,14 +41,14 @@ function addDataSources () {
   if (!map.getSource('rnet')){
       map.addSource('rnet', {
     	'type': 'vector',
-    	'url': 'pmtiles://https://www.wisemover.co.uk/pmtiles/nptscot/rnet.pmtiles',
+    	'url': 'pmtiles://https://nptscot.blob.core.windows.net/pmtiles/rnet.pmtiles',
       });
     }
     
     if (!map.getSource('dasymetric')){
       map.addSource('dasymetric', {
     	'type': 'vector',
-    	'url': 'pmtiles://https://www.wisemover.co.uk/pmtiles/nptscot/dasymetric.pmtiles',
+    	'url': 'pmtiles://https://nptscot.blob.core.windows.net/pmtiles/dasymetric.pmtiles',
       });
     }
     
@@ -65,60 +65,42 @@ function addDataSources () {
     if (!map.getSource('data_zones')){
       map.addSource('data_zones', {
     	  'type': 'vector',
-    	  'url': 'pmtiles://https://www.wisemover.co.uk/pmtiles/nptscot/data_zones.pmtiles',
+    	  'url': 'pmtiles://https://nptscot.blob.core.windows.net/pmtiles/data_zones.pmtiles',
       });
     }
     
     if (!map.getSource('la')){
       map.addSource('la', {
-      	'type': 'vector',
-      	'tiles': ['https://www.wisemover.co.uk/tiles/la/{z}/{x}/{y}.pbf'],
-      	'minzoom': 6,
-      	'maxzoom': 12,
-      	'bounds': [-8.650007,49.864674,1.763680,60.860766]
+    	  'type': 'vector',
+    	  'url': 'pmtiles://https://nptscot.blob.core.windows.net/pmtiles/la.pmtiles',
       });
     }
     
     if (!map.getSource('wards')){
       map.addSource('wards', {
-      	'type': 'vector',
-      	'tiles': [
-      	'https://www.wisemover.co.uk/tiles/wards/{z}/{x}/{y}.pbf'
-      	],
-      	'minzoom': 6,
-      	'maxzoom': 12,
-      	'bounds': [-8.650007,49.864674,1.763680,60.860766]
+    	  'type': 'vector',
+    	  'url': 'pmtiles://https://nptscot.blob.core.windows.net/pmtiles/wards.pmtiles',
       });
     }
     
     if (!map.getSource('westminster')){
       map.addSource('westminster', {
-      	'type': 'vector',
-      	'tiles': [
-      	'https://www.wisemover.co.uk/tiles/westminster/{z}/{x}/{y}.pbf'
-      	],
-      	'minzoom': 6,
-      	'maxzoom': 12,
-      	'bounds': [-8.650007,49.864674,1.763680,60.860766]
+    	  'type': 'vector',
+    	  'url': 'pmtiles://https://nptscot.blob.core.windows.net/pmtiles/westminster.pmtiles',
       });
     }
     
     if (!map.getSource('holyrood')){
       map.addSource('holyrood', {
-      	'type': 'vector',
-      	'tiles': [
-      	'https://www.wisemover.co.uk/tiles/holyrood/{z}/{x}/{y}.pbf'
-      	],
-      	'minzoom': 6,
-      	'maxzoom': 12,
-      	'bounds': [-8.650007,49.864674,1.763680,60.860766]
+    	  'type': 'vector',
+    	  'url': 'pmtiles://https://nptscot.blob.core.windows.net/pmtiles/holyrood.pmtiles',
       });
     }
     
     if (!map.getSource('placenames')){
       map.addSource('placenames', {
     	  'type': 'vector',
-    	  'url': 'pmtiles://https://www.wisemover.co.uk/pmtiles/nptscot/oszoom_names.pmtiles',
+    	  'url': 'pmtiles://https://nptscot.blob.core.windows.net/pmtiles/oszoom_names.pmtiles',
       });
     }
     

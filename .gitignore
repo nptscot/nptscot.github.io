@@ -46,3 +46,4 @@ vignettes/*.pdf
 images/wip/
 images/AppImages
 *.bak
+js/lib/geocoder/maplibre-gl-geocoder.css

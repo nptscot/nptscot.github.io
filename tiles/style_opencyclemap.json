@@ -6,8 +6,8 @@
   "bearing": -0.44200633613297663,
   "pitch": 0,
   "light": {"intensity": 0.25, "color": "hsl(0, 0%, 100%)"},
-  "sprite": "https://nptscot.github.io/web/sprites/greyscale",
-  "glyphs": "https://www.carbon.place/fonts/{fontstack}/{range}.pbf",
+  "sprite": "https://nptscot.blob.core.windows.net/mapextras/sprites/greyscale",
+  "glyphs": "https://nptscot.blob.core.windows.net/mapextras/fonts/{fontstack}/{range}.pbf",
   "sources": {
     "satellite": {
       "type": "raster",
@@ -16,7 +16,7 @@
     },
     "terrainSource": {
       "type": "raster-dem",
-      "tiles": ["https://www.carbon.place/rastertiles/demwebp/{z}/{x}/{y}.webp"],
+      "tiles": ["https://nptscot.blob.core.windows.net/rastertiles/dem/{z}/{x}/{y}.webp"],
       "tileSize": 512,
       "minzoom": 0,
     	"maxzoom": 9,
