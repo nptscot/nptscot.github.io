@@ -17,7 +17,6 @@ function switch_style(){
     toggleLayer('data_zones');
     toggleLayer('la');
     toggleLayer('wards');
-    toggleLayer('westminster');
     toggleLayer('holyrood');
     switch_placenames();
     //toggleraster();
@@ -80,13 +79,6 @@ function addDataSources () {
       map.addSource('wards', {
     	  'type': 'vector',
     	  'url': 'pmtiles://https://nptscot.blob.core.windows.net/pmtiles/wards.pmtiles',
-      });
-    }
-    
-    if (!map.getSource('westminster')){
-      map.addSource('westminster', {
-    	  'type': 'vector',
-    	  'url': 'pmtiles://https://nptscot.blob.core.windows.net/pmtiles/westminster.pmtiles',
       });
     }
     
@@ -383,18 +375,6 @@ function toggleLayer(layerName) {
             'source-layer': 'wards',
             'paint': {
               'line-color': 'rgba(32, 107, 7, 1)',
-              'line-width': 2
-            }
-        });
-        break;
-      case 'westminster':
-        map.addLayer({
-            'id': 'westminster',
-            'type': 'line',
-            'source': 'westminster',
-            'source-layer': 'westminster',
-            'paint': {
-              'line-color': 'rgba(7, 54, 107, 1)',
               'line-width': 2
             }
         });
