@@ -12,6 +12,10 @@ hash: true,
 antialias: true
 });
 
+// Setup other part of the website
+showrighbox(true); // Show the accordion hide the button 
+document.getElementById("rnet_accordion").click();
+
 // Layer Control
 function addHomeButton(map) {
   class HomeButton {
@@ -77,8 +81,6 @@ var geocoder_api = {
 let protocol = new pmtiles.Protocol();
 maplibregl.addProtocol("pmtiles",protocol.tile);
 
-map.on('load', function() {
-
 // Add Controls to the Map
 map.addControl(
   new MaplibreGeocoder(geocoder_api, {
@@ -111,16 +113,11 @@ map.addControl(new maplibregl.ScaleControl({
 }),'bottom-left');
 
 addHomeButton(map);
+map.addControl(new maplibreGLMeasures.default({}), 'top-left');
 
-// Setup other part of the website
-showrighbox(true); // Show the accordion hide the button 
-document.getElementById("rnet_accordion").click();
 
+map.on('load', function() {
 switch_style();
-//addDataSources();
-//map.once('idle',switch_style());
-    
-
 });
 
 
