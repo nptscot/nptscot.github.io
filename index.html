@@ -163,7 +163,7 @@ Commuting patterns have changed since the pandemic, and not everyone commutes, t
     <select id="rnet_purpose_input" name="rnet_purpose_input" onchange="switch_rnet()" aria-label="Route network trip purpose">
       <option value="commute" selected>Commute</option>
     </select>
-    Trip purpose <button onclick="show_help('purpose')" aria-label="Help purpsose" class="helpbutton"><i class="fa fa-question-circle" aria-hidden="true"></i></button>
+    Trip purpose <button onclick="show_help('purpose')" aria-label="Help purpose" class="helpbutton"><i class="fa fa-question-circle" aria-hidden="true"></i></button>
   </p>
   
   <p>
@@ -175,10 +175,10 @@ Commuting patterns have changed since the pandemic, and not everyone commutes, t
   </p>
   
   <p>
-    <select id="rnet_type_input" name="rnet_type_input" onchange="switch_rnet()" aria-label="Route network trip purpose">
+    <select id="rnet_type_input" name="rnet_type_input" onchange="switch_rnet()" aria-label="Route network type">
       <option value="fastest"selected>Fastest</option>
       <option value="balanced">Balanced</option>
-      <option value="quietest">Quietest</option>
+      <option value="quietest">Cycle friendliness</option>
       <option value="ebike">Ebike</option>
       
     </select>
@@ -192,7 +192,7 @@ Commuting patterns have changed since the pandemic, and not everyone commutes, t
       <option value="Quietness" >Quietness</option>
       <option value="Gradient">Gradient</option>
   </select>
-  Line colour <button onclick="show_help('scenario')" aria-label="Help scenario" class="helpbutton"><i class="fa fa-question-circle" aria-hidden="true"></i></button>
+  Line colour <button onclick="show_help('colour')" aria-label="Help colour" class="helpbutton"><i class="fa fa-question-circle" aria-hidden="true"></i></button>
   </p>
   
   <div id="linecolourlegend" class="legend">
@@ -282,7 +282,7 @@ Commuting patterns have changed since the pandemic, and not everyone commutes, t
       <option value="PT_retail">Public transport time to retail centre</option>
       <option value="broadband">% without superfast broadband</option>
     </select>
-    <button onclick="show_help('SIMD')" aria-label="Help purpsose" class="helpbutton"><i class="fa fa-question-circle" aria-hidden="true"></i></button>
+    <button onclick="show_help('data_zones')" aria-label="Help purpsose" class="helpbutton"><i class="fa fa-question-circle" aria-hidden="true"></i></button>
   </p>
   
   <div id="dzlegend" class="legend">
