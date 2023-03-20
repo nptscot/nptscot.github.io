@@ -1,5 +1,5 @@
 // Set to the same value as the web property used on the site
-var gaProperty = 'G-Q11V10CDRV';
+var gaProperty = 'G-QZMHV92YXJ';
 
 // Disable tracking if the opt-out cookie exists.
 var disableStr = 'ga-disable-' + gaProperty;
@@ -39,7 +39,7 @@ function setCookie(cvalue) {
 }
 
 function getCookie() {
-  var name = "PBCCtrack=";
+  var name = "NPTtrack=";
   var ca = document.cookie.split(';');
   for(var i = 0; i < ca.length; i++) {
     var c = ca[i];
@@ -55,8 +55,9 @@ function getCookie() {
 
 function showCookieWarning(){
   var cookiewarning = document.getElementById("cookiewarning");
-  var PBCCcookie = getCookie();
-  if (PBCCcookie === "") {
+  var NPTcookie = getCookie();
+  console.log("Cookie status: '" + NPTcookie + "'");
+  if (NPTcookie === "") {
     cookiewarning.style.display = "block";
   } else {
     cookiewarning.style.display = "none";
