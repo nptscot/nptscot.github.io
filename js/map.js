@@ -113,7 +113,7 @@ map.addControl(new maplibregl.ScaleControl({
 }),'bottom-left');
 
 addHomeButton(map);
-map.addControl(new maplibreGLMeasures.default({}), 'top-left');
+//map.addControl(new maplibreGLMeasures.default({}), 'top-left');
 
 
 map.on('load', function() {
