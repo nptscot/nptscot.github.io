@@ -5,24 +5,29 @@
       xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
             http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 <url>
-  <loc>https://atumscot.github.io/web/</loc>
-  <lastmod>2021-06-23T14:31:50+00:00</lastmod>
+  <loc>https://www.npt.scot</loc>
+  <lastmod>2023-03-17T14:31:50+00:00</lastmod>
   <priority>1.00</priority>
 </url>
 <url>
-  <loc>https://atumscot.github.io/web/about/</loc>
-  <lastmod>2021-06-17T11:11:29+00:00</lastmod>
+  <loc>https://www.npt.scot/about/</loc>
+  <lastmod>2023-03-17T11:11:29+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://atumscot.github.io/web/data/</loc>
-  <lastmod>2021-06-23T17:11:41+00:00</lastmod>
+  <loc>https://www.npt.scot/data/</loc>
+  <lastmod>2023-03-17T17:11:41+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://atumscot.github.io/web/privacy/</loc>
-  <lastmod>2021-06-14T15:26:54+00:00</lastmod>
+  <loc>https://www.npt.scot/manual/</loc>
+  <lastmod>2023-03-17T17:11:41+00:00</lastmod>
   <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.npt.scot/privacy/</loc>
+  <lastmod>2023-03-17T15:26:54+00:00</lastmod>
+  <priority>0.60</priority>
 </url>
 
 </urlset>

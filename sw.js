@@ -2,6 +2,7 @@ const staticCacheName = 'site-static-v2';
 const assets = [
   '/data/',
   '/about/',
+  '/manual/',
   '/privacy/'
 ];
 
