@@ -517,7 +517,7 @@ input[type="radio"][id^="bm"] {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #0b38e6;
+  background-color: #e9e9ed;
   -webkit-transition: .4s;
   transition: .4s;
 }
@@ -539,7 +539,7 @@ input:checked + .slider {
 }
 
 input:focus + .slider {
-  box-shadow: 0 0 1px #0b38e6;
+  box-shadow: 0 0 1px #9c9c9c;
 }
 
 input:checked + .slider:before {
