@@ -6,10 +6,15 @@ function show_help(help) {
       const parser = new DOMParser();
       const otherPage = parser.parseFromString(html, 'text/html');
       const otherDiv = otherPage.querySelector('#' + help);
-      console.log(otherDiv.innerHTML);
-      document.getElementById("helpcontent").innerHTML = otherDiv.innerHTML;
+      //console.log(otherDiv.innerHTML);
+      if(otherDiv === null){
+        document.getElementById("helpcontent").innerHTML = `<p><b>Help Missing!</b></p>`;
+      } else {
+        document.getElementById("helpcontent").innerHTML = otherDiv.innerHTML;
+      }
+      
+      
     });
-  document.getElementById("help").style.display = "block";
   toggle_overlay(true)
-
+  document.getElementById("help").style.display = "block";
 }
