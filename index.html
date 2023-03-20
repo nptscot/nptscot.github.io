@@ -19,9 +19,9 @@
   <title>NPT Scotland</title>
   <!-- PWA support -->
   <link rel="manifest" href="manifest.webmanifest">
-  <link rel="apple-touch-icon" href="/images/icon192.png">
-  <meta name="apple-mobile-web-app-status-bar" content="#AC1A40">
-  <meta name="theme-color" content="#AC1A40">
+  <link rel="apple-touch-icon" href="/images/icons/192.png">
+  <meta name="apple-mobile-web-app-status-bar" content="#0b38e6">
+  <meta name="theme-color" content="#0b38e6">
   <script src="/app.js" defer></script>
   
   <!-- Set Up CSS 
@@ -31,27 +31,32 @@
   <link rel="stylesheet" href="css/modal.css">
   
   <!-- Set Up map -->
+  <script src="/js/lib/pmtiles/index.js"></script> <!-- v2.7.1 -->
+  <script src="/js/lib/geocoder/maplibre-gl-geocoder.min.js"></script>
+  <link rel="stylesheet" href="js/lib/geocoder/maplibre-gl-geocoder-small.css" type="text/css"/>
   <script src="https://unpkg.com/maplibre-gl@3.0.0-pre.4/dist/maplibre-gl.js"></script>
   <link href="https://unpkg.com/maplibre-gl@3.0.0-pre.4/dist/maplibre-gl.css" rel="stylesheet" />
-  <script src="https://unpkg.com/pmtiles/dist/index.js"></script>
-  <script src="js/lib/geocoder/maplibre-gl-geocoder.min.js"></script>
-  <link rel="stylesheet" href="js/lib/geocoder/maplibre-gl-geocoder-small.css" type="text/css"/>
   
-  <!-- Third Party Scrips -->
+  <!-- Third Party Scrips 
   <script src="https://kit.fontawesome.com/1f7357bc14.js" crossorigin="anonymous" async></script>
+  -->
   <link href="js/lib/noUiSlider_15_7_0/nouislider.min.css" rel="stylesheet">
   <script src="js/lib/noUiSlider_15_7_0/nouislider.min.js"></script>
   
+  <link href="/assets/fontawesome/css/fontawesome.min.css" rel="stylesheet">
+  <link href="/assets/fontawesome/css/solid.min.css" rel="stylesheet">
   
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXX"></script>
+  
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-QZMHV92YXJ"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
   
-    gtag('config', 'G-XXXXXXXXX');
+    gtag('config', 'G-QZMHV92YXJ');
   </script>
+
   
   <!-- Set Up Icon -->
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
@@ -68,6 +73,7 @@
 		</div>
 		   <a href="/about" title="About">About</a>
 		   <a href="/data" title="Data">Data</a>
+		   <a href="/manual" title="Manual">Manual</a>
 		   <a class="smaller" href="/privacy">Privacy &amp; accessibility</a>
 		   <a href="javascript:void(0);" class="icon" onclick="expandtopnav()" aria-label="Expand Menu">
     <i class="fa fa-bars"></i>
@@ -86,15 +92,15 @@
 <span id="closewelcome" class="closewelcome">&times;</span>
 <div>
 <h3>Welcome to NPT Scotland: v0.1 Fast Track</h3>
-<p>Last Updated: 2023-03-12</p>
-<p>Network Planning Tool for strategic cycle network planning: Fast Track layer.</p>
+<p>Network Planning Tool for strategic cycle network planning.</p>
 <p><b>This is an early version of the tool and the the results will change through the course of 2023.</b></p>
 You may need to clear your browser cache to see the latest updates.
-The results of this this Fast Track version are based only on the 2011 Census travel to work data.
+The results of this Fast Track version are based only on the 2011 Census travel to work data.
 Commuting patterns have changed since the pandemic, and not everyone commutes, the results should be interpreted accordingly. Future versions of the tool will include other trip purposes.
 <p>The results are publicly available. The main intended audience is local authorities undertaking cycle network planning to support more evidence-based and transparent investment, scheme location, and design decisions.</p>
-<p><b>Provide feedback:</b></p>
-<p>To report issues with the tool, open an issue in the public <a href="https://github.com/nptscot/npt/issues" target="_blank">issue tracker</a> (requires GitHub registering a GitHub account).</p>
+<p><b>Provide feedback</b></p>
+<p>To report issues or provide feedback, please use the <a href="https://forms.office.com/Pages/ResponsePage.aspx?id=qO3qvR3IzkWGPlIypTW3ywVZfmO0bwdAhK0UztpneQtUM1pCRlJQQjY1V0M3MUhBV0g0VTJRS1ZQVi4u" target="_blank">feedback form</a>.</p>
+<div id="updatedate"></div>
 </div>
 </div>
 
@@ -121,17 +127,17 @@ Commuting patterns have changed since the pandemic, and not everyone commutes, t
   <p>
   <form id="basemapform" onchange="switch_style()" class="basemap">
   <input type="radio" id="bm1" value="greyscale_nobuild" name="basemap" class="radio-inline"checked/>
-    <label for="bm1"><img src="images/greyscale_50.png" title="OS Greyscale"/></label>
+    <label for="bm1"><img src="images/greyscale_50.png" title="OS Greyscale" loading="lazy"/></label>
   <input type="radio" id="bm2" value="satellite" name="basemap"class="radio-inline"/>
-    <label for="bm2"><img src="images/satellite_50.png" title="Satellite"/></label>
+    <label for="bm2"><img src="images/satellite_50.png" title="Satellite" loading="lazy"/></label>
   <input type="radio" id="bm3" value="opencyclemap" name="basemap"class="radio-inline"/>
-    <label for="bm3"><img src="images/opencyclemap_50.png" title="OpenCycleMap"/></label>
+    <label for="bm3"><img src="images/opencyclemap_50.png" title="OpenCycleMap" loading="lazy"/></label>
   <!-- <input type="radio" id="bm4" value="CDRC_nobuild" name="basemap"class="radio-inline"/>
     <label for="bm4"><img src="images/CDRC.PNG" title="CDRC"/></label> -->
   <input type="radio" id="bm5" value="dark_nobuild" name="basemap"class="radio-inline"/>
-    <label for="bm5"><img src="images/dark.PNG" title="Dark"/></label>
+    <label for="bm5"><img src="images/dark.PNG" title="Dark" loading="lazy"/></label>
   <input type="radio" id="bm6" value="google_nobuild" name="basemap"class="radio-inline"/>
-    <label for="bm6"><img src="images/google.PNG" title="Google"/></label>
+    <label for="bm6"><img src="images/google.PNG" title="Outdoors" loading="lazy"/></label>
   </form>
   </p>
   <p><label class="switch"><input type="checkbox" id="placenamescheckbox" onclick="switch_placenames()" checked><span class="slider round"></span></label> Place Names</p>
@@ -146,8 +152,8 @@ Commuting patterns have changed since the pandemic, and not everyone commutes, t
 <div id="rightbox" class="rightbox">
 
 <button onclick="showrighbox(false)" style="float:right" aria-label="Hide layers"><i class="fas fa-times"></i></button>
-
-<button class="accordion">Route Network</button>
+<b> Layer Controls</b>
+<button class="accordion" id="rnet_accordion">Route Network</button>
 <div class="panel">
   <p><label><input type="checkbox" id="rnetcheckbox" onclick="toggleLayer('rnet')" checked>Show Layer</label></p>
   <p>
@@ -155,6 +161,14 @@ Commuting patterns have changed since the pandemic, and not everyone commutes, t
       <option value="commute" selected>Commute</option>
     </select>
     Trip purpose <button onclick="show_help('purpose')" aria-label="Help purpsose" class="helpbutton"><i class="fa fa-question-circle" aria-hidden="true"></i></button>
+  </p>
+  
+  <p>
+  <select id="rnet_scenario_input" name="rnet_scenario_input" onchange="switch_rnet()" aria-label="Route network scenario">
+      <option value="bicycle">Baseline (2011)</option>
+      <option value="bicycle_go_dutch" selected>Go Dutch</option>
+  </select>
+  Scenario <button onclick="show_help('scenario')" aria-label="Help scenario" class="helpbutton"><i class="fa fa-question-circle" aria-hidden="true"></i></button>
   </p>
   
   <p>
@@ -169,22 +183,10 @@ Commuting patterns have changed since the pandemic, and not everyone commutes, t
   </p>
   
   <p>
-  <select id="rnet_width_input" name="rnet_width_input" onchange="switch_rnet()" aria-label="Route network scenario">
+  <select id="rnet_colour_input" name="rnet_colour_input" onchange="switch_rnet()" aria-label="Route network colour">
       <option value="none" >None</option>
-      <option value="bicycle" selected>Baseline (2011)</option>
-      <option value="bicycle_go_dutch">Go Dutch</option>
-      <option value="Quietness">Quietness</option>
-      <option value="Gradient">Gradient</option>
-  </select>
-  Line width <button onclick="show_help('scenario')" aria-label="Help scenario" class="helpbutton"><i class="fa fa-question-circle" aria-hidden="true"></i></button>
-  </p>
-  
-  <p>
-  <select id="rnet_scenario_input" name="rnet_scenario_input" onchange="switch_rnet()" aria-label="Route network scenario">
-      <option value="none" >None</option>
-      <option value="bicycle" >Baseline (2011)</option>
-      <option value="bicycle_go_dutch">Go Dutch</option>
-      <option value="Quietness" selected>Quietness</option>
+      <option value="flow" selected>Number of cyclists</option>
+      <option value="Quietness" >Quietness</option>
       <option value="Gradient">Gradient</option>
   </select>
   Line colour <button onclick="show_help('scenario')" aria-label="Help scenario" class="helpbutton"><i class="fa fa-question-circle" aria-hidden="true"></i></button>
@@ -208,28 +210,18 @@ Commuting patterns have changed since the pandemic, and not everyone commutes, t
   <div id="slider-cycle" class="slider-styled" onchange="switch_rnet()"></div>
   <p>&nbsp</p>
   
-  <p>Gradient</p>
+  <p>Gradient (%)</p>
   <div id="slider-gradient" class="slider-styled" onchange="switch_rnet()"></div>
   <p>&nbsp</p>
   
-  <p>Quietness</p>
+  <p>Cycle friendliness (%)</p>
   <div id="slider-quietness" class="slider-styled" onchange="switch_rnet()"></div>
   <p>&nbsp</p>
   
   
 </div>
 
-<!---
-<button class="accordion">Routes</button>
-<div class="panel">
-  <p><label><input type="checkbox" id="routescheckbox" value="false" onclick="toggleLayer('routes')">Show Layer</label></p>
-  <select id="routes_input" name="routes_input" onchange="switch_routes()" aria-label="Routes layer">
-      <option value="bicycle" selected>Basline (2011)</option>
-      <option value="bicycle_go_dutch">Go Dutch</option>
-  </select>
-  
-</div>
--->
+<!--
 <button class="accordion">Zones</button>
 <div class="panel">
   <p><label><input type="checkbox" id="zonescheckbox" value="false" onclick="toggleLayer('zones')">Show Layer</label></p>
@@ -265,11 +257,8 @@ Commuting patterns have changed since the pandemic, and not everyone commutes, t
   </select>
   Variable <button onclick="show_help('scenario')" aria-label="Help scenario" class="helpbutton"><i class="fa fa-question-circle" aria-hidden="true"></i></button>
   </p>
-  
-  
-  
-  
 </div>
+-->
 
 <button class="accordion">Data Zones</button>
 <div class="panel">
@@ -277,7 +266,7 @@ Commuting patterns have changed since the pandemic, and not everyone commutes, t
 
   <p>
     <select id="data_zone_input" name="data_zone_input" onchange="switch_data_zones()" aria-label="Data zone layer">
-      <option value="Total_population" selected>Population (2020)</option>
+      <option value="population_density" selected>Population density (per hectare)</option>
       <option value="SIMD2020v2_Decile">Index of Muliple Deprivation (2020)</option>
       <option value="drive_petrol">Drive time to petrol station</option>
       <option value="drive_GP">Drive time to GP</option>
@@ -299,6 +288,7 @@ Commuting patterns have changed since the pandemic, and not everyone commutes, t
 	</div>
 	</div>
   
+  <p><label class="switch"><input type="checkbox" id="dasymetriccheckbox" onclick="switch_data_zones()" checked><span class="slider round"></span></label> Dasymetric</p>
   
 </div>
 
@@ -314,11 +304,17 @@ Commuting patterns have changed since the pandemic, and not everyone commutes, t
   <div class="legend"><div class="l_r">
   <div class="lb"><span style="background-color: #537bfc"></span></div>
 	</div></div>
-
-  <p><label><input type="checkbox" id="lacheckbox" value="false" onclick="toggleLayer('la')">Local Authority</label></p>
+	
+	<p><label><input type="checkbox" id="scot_regionscheckbox" value="false" onclick="toggleLayer('scot_regions')">Scottish Parliment Regions</label></p>
+  <div class="legend"><div class="l_r">
+  <div class="lb"><span style="background-color: #bab106"></span></div>
+	</div></div>
+	
+	<p><label><input type="checkbox" id="lacheckbox" value="false" onclick="toggleLayer('la')">Local Authorities</label></p>
   <div class="legend"><div class="l_r">
   <div class="lb"><span style="background-color: #6b0707"></span></div>
 	</div></div>
+	
 
 </div>
 </div>
@@ -372,7 +368,7 @@ Commuting patterns have changed since the pandemic, and not everyone commutes, t
 
 
 <script id="jquery" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" async></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.0" async></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.0" async defer></script>
 
 </body>
 </html>

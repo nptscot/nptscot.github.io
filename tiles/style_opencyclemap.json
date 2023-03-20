@@ -38,6 +38,11 @@
       "id": "roads 0 Guided Busway Casing",
       "type": "background",
       "paint": {"background-color": "rgba(0, 0, 0, 0)"}
+    },
+    {
+      "id": "placeholder_name",
+     "type": "background",
+      "paint": {"background-color": "rgba(0, 0, 0, 0)"}
     }
   ],
   "created": "2019-01-18T21:07:08.282Z",

@@ -7,12 +7,13 @@ noUiSlider.create(cycleSlider, {
     start: [0, 5000],
     connect: true,
     range: {
-        'min': [0, 10],
-        '12.5%': [10, 10],
-        '25%': [50, 10],
-        '37.5%': [100, 10],
-        '50%': [250, 10],
-        '75%': [1000, 10],
+        'min': [1, 10],
+        '12.5%': [10, 50],
+        '25%': [50, 50],
+        '37.5%': [100, 150],
+        '50%': [250, 250],
+        '65%': [500, 500],
+        '80%': [1000, 1000],
         'max': [5000] // TODO: Check Max Value
     },
     pips: {
@@ -31,8 +32,8 @@ noUiSlider.create(gradientlider, {
         '30%': [3, 1],
         '50%': [5, 1],
         '70%': [7, 1],
-        '80%': [10, 1],
-        'max': [35]
+        '90%': [9, 1],
+        'max': [10]
     },
     pips: {
         mode: 'range',
@@ -50,6 +51,22 @@ noUiSlider.create(quietnessSlider, {
     },
     pips: {
         mode: 'range',
-        density: 10
+        density: 10,
+        format: {to: updatePips}
     }
 });
+
+function updatePips( value, type ){
+
+    switch(value)   {
+      case 0:
+        var res = "Hostile"
+        break;
+      case 100:
+        var res = "Quiet"
+        break;
+    }
+    return res;
+}
+
+

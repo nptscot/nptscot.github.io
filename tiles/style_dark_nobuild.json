@@ -34,7 +34,7 @@
     }
     
   },
-  "sprite": "https://nptscot.blob.core.windows.net/mapextras/sprites/greyscale",
+  "sprite": "https://nptscot.blob.core.windows.net/mapextras/sprites/dark",
   "glyphs": "https://nptscot.blob.core.windows.net/mapextras/fonts/{fontstack}/{range}.pbf",
   "layers": [
     {
@@ -1902,6 +1902,15 @@
         "text-halo-color": "#4f4f4f",
         "text-halo-width": 1,
         "text-halo-blur": 1
+      }
+    },
+    {
+      "id": "placeholder_name",
+      "type": "symbol",
+      "source": "composite",
+      "source-layer": "airports",
+      "paint": {
+        "text-color": "#df27e6"
       }
     }
   ],

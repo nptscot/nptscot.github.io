@@ -13,13 +13,12 @@ function switch_style(){
 
     // Reload layers
     toggleLayer('rnet'); // Start with the rnet on
-    toggleLayer('zones');
+    //toggleLayer('zones');
     toggleLayer('data_zones');
     toggleLayer('la');
     toggleLayer('wards');
     toggleLayer('holyrood');
     switch_placenames();
-    //toggleraster();
     
     // Sliders 
     quietnessSlider.noUiSlider.on('update', function(){
@@ -38,63 +37,70 @@ function switch_style(){
 function addDataSources () {
   console.log("Adding sources");
   if (!map.getSource('rnet')){
-      map.addSource('rnet', {
+    map.addSource('rnet', {
     	'type': 'vector',
     	'url': 'pmtiles://https://nptscot.blob.core.windows.net/pmtiles/rnet.pmtiles',
-      });
-    }
+    });
+  }
     
-    if (!map.getSource('dasymetric')){
-      map.addSource('dasymetric', {
+  if (!map.getSource('dasymetric')){
+    map.addSource('dasymetric', {
+  	'type': 'vector',
+  	'url': 'pmtiles://https://nptscot.blob.core.windows.net/pmtiles/dasymetric.pmtiles',
+    });
+  }
+  
+  if (!map.getSource('zones')){
+    map.addSource('zones', {
     	'type': 'vector',
-    	'url': 'pmtiles://https://nptscot.blob.core.windows.net/pmtiles/dasymetric.pmtiles',
-      });
-    }
-    
-    if (!map.getSource('zones')){
-      map.addSource('zones', {
-      	'type': 'vector',
-      	'tiles': ['https://www.wisemover.co.uk/tiles/zones/{z}/{x}/{y}.pbf'],
-      	'minzoom': 6,
-      	'maxzoom': 12,
-      	'bounds': [-8.649240,54.633160,-0.722602,60.861379]
-      });
-    }
-    
-    if (!map.getSource('data_zones')){
-      map.addSource('data_zones', {
-    	  'type': 'vector',
-    	  'url': 'pmtiles://https://nptscot.blob.core.windows.net/pmtiles/data_zones.pmtiles',
-      });
-    }
-    
-    if (!map.getSource('la')){
-      map.addSource('la', {
-    	  'type': 'vector',
-    	  'url': 'pmtiles://https://nptscot.blob.core.windows.net/pmtiles/la.pmtiles',
-      });
-    }
-    
-    if (!map.getSource('wards')){
-      map.addSource('wards', {
-    	  'type': 'vector',
-    	  'url': 'pmtiles://https://nptscot.blob.core.windows.net/pmtiles/wards.pmtiles',
-      });
-    }
-    
-    if (!map.getSource('holyrood')){
-      map.addSource('holyrood', {
-    	  'type': 'vector',
-    	  'url': 'pmtiles://https://nptscot.blob.core.windows.net/pmtiles/holyrood.pmtiles',
-      });
-    }
-    
-    if (!map.getSource('placenames')){
-      map.addSource('placenames', {
-    	  'type': 'vector',
-    	  'url': 'pmtiles://https://nptscot.blob.core.windows.net/pmtiles/oszoom_names.pmtiles',
-      });
-    }
+    	'tiles': ['https://www.wisemover.co.uk/tiles/zones/{z}/{x}/{y}.pbf'],
+    	'minzoom': 6,
+    	'maxzoom': 12,
+    	'bounds': [-8.649240,54.633160,-0.722602,60.861379]
+    });
+  }
+  
+  if (!map.getSource('data_zones')){
+    map.addSource('data_zones', {
+  	  'type': 'vector',
+  	  'url': 'pmtiles://https://nptscot.blob.core.windows.net/pmtiles/data_zones.pmtiles',
+    });
+  }
+  
+  if (!map.getSource('la')){
+    map.addSource('la', {
+  	  'type': 'vector',
+  	  'url': 'pmtiles://https://nptscot.blob.core.windows.net/pmtiles/la.pmtiles',
+    });
+  }
+  
+  if (!map.getSource('wards')){
+    map.addSource('wards', {
+  	  'type': 'vector',
+  	  'url': 'pmtiles://https://nptscot.blob.core.windows.net/pmtiles/wards.pmtiles',
+    });
+  }
+  
+  if (!map.getSource('holyrood')){
+    map.addSource('holyrood', {
+  	  'type': 'vector',
+  	  'url': 'pmtiles://https://nptscot.blob.core.windows.net/pmtiles/holyrood.pmtiles',
+    });
+  }
+  
+  if (!map.getSource('scot_regions')){
+    map.addSource('scot_regions', {
+  	  'type': 'vector',
+  	  'url': 'pmtiles://https://nptscot.blob.core.windows.net/pmtiles/scot_regions.pmtiles',
+    });
+  }
+  
+  if (!map.getSource('placenames')){
+    map.addSource('placenames', {
+  	  'type': 'vector',
+  	  'url': 'pmtiles://https://nptscot.blob.core.windows.net/pmtiles/oszoom_names.pmtiles',
+    });
+  }
     
 }
 
@@ -337,7 +343,7 @@ function switch_placenames () {
 
 
 function toggleLayer(layerName) {
-  //console.log("Toggling layer " + layerName)
+  console.log("Toggling layer " + layerName)
   var checkBox = document.getElementById(layerName.concat('checkbox'));
   // If the checkbox is checked add the layer to the map
   if (checkBox.checked === true) {
@@ -365,7 +371,7 @@ function toggleLayer(layerName) {
               'line-color': 'rgba(107, 7, 7, 1)',
               'line-width': 2
             } 
-        });
+        },'placeholder_name');
         break;
       case 'wards':
         map.addLayer({
@@ -377,7 +383,19 @@ function toggleLayer(layerName) {
               'line-color': 'rgba(32, 107, 7, 1)',
               'line-width': 2
             }
-        });
+        },'placeholder_name');
+        break;
+      case 'scot_regions':
+        map.addLayer({
+            'id': 'scot_regions',
+            'type': 'line',
+            'source': 'scot_regions',
+            'source-layer': 'scot_regions',
+            'paint': {
+              'line-color': 'rgba(186, 177, 6, 1)',
+              'line-width': 2
+            }
+        },'placeholder_name');
         break;
       case 'holyrood':
         map.addLayer({
@@ -389,7 +407,7 @@ function toggleLayer(layerName) {
               'line-color': 'rgba(83, 123, 252, 1)',
               'line-width': 2
             }
-        });
+        },'placeholder_name');
         break;
       default:
         console.log('unknown layer selected');
@@ -397,7 +415,8 @@ function toggleLayer(layerName) {
   } else {
     if (map.getLayer(layerName)) map.removeLayer(layerName);
     if (layerName === 'data_zones'){
-      if (map.getLayer('dasymetric')) map.removeLayer('dasymetric');
+      //if (map.getLayer('dasymetric')) map.removeLayer('dasymetric');
+      switch_data_zones();
     }
   }
 }
@@ -413,7 +432,8 @@ function displayRadioValue(ele) {
 function switch_rnet() {  
   console.log("Updating rnet")
   var checkBox = document.getElementById('rnetcheckbox');
-  var layerId = document.getElementById("rnet_scenario_input").value;
+  var layerScenario = document.getElementById("rnet_scenario_input").value;
+  var layerColour = document.getElementById("rnet_colour_input").value;
   var layerType = document.getElementById("rnet_type_input").value;
   var sliderQuietness_min = Number(quietnessSlider.noUiSlider.get()[0]);
   var sliderQuietness_max = Number(quietnessSlider.noUiSlider.get()[1]);
@@ -421,13 +441,17 @@ function switch_rnet() {
   var sliderGradient_max = Number(gradientlider.noUiSlider.get()[1]);
   var sliderFlow_min = Number(cycleSlider.noUiSlider.get()[0]);
   var sliderFlow_max = Number(cycleSlider.noUiSlider.get()[1]);
+  
+  if(sliderGradient_max == 10){
+    sliderGradient_max = 35
+  }
 
   // Width
-  var layerWidth = document.getElementById("rnet_width_input").value;
+  //var layerWidth = document.getElementById("rnet_width_input").value;
   var a = 1;
   var b = 1;
-  var layerWidth2 = layerWidth;
-  switch(layerWidth){
+  var layerWidth2 = layerScenario;
+  switch(layerScenario){
     case 'Quietness':
       a = 0.01;
       break;
@@ -439,19 +463,19 @@ function switch_rnet() {
     default:
      a = 0.05;
      b = 0.5;
-     layerWidth2 = layerType + "_" + layerWidth;
+     layerWidth2 = layerType + "_" + layerScenario;
   }
   
   // Update the Legend - Do this even if map layer is off
-  switch(layerId) {
+  switch(layerColour) {
     case 'none':
-      cycleSlider.noUiSlider.disable();
+      //cycleSlider.noUiSlider.disable();
       document.getElementById("linecolourlegend").innerHTML = `<div class="l_r">
         <div class="lb"><span style="background-color: #304ce7"></span>&nbsp</div>
       	</div>`;
       break;
     case 'Quietness':
-      cycleSlider.noUiSlider.disable();
+      //cycleSlider.noUiSlider.disable();
       document.getElementById("linecolourlegend").innerHTML = `<div class="l_r">
         <div class="lb"><span style="background-color: #882255"></span>0-25</div>
         <div class="lb"><span style="background-color: #CC6677"></span>25-50</div>
@@ -460,7 +484,7 @@ function switch_rnet() {
       	</div>`;
       break;
     case 'Gradient':
-        cycleSlider.noUiSlider.disable();
+        //cycleSlider.noUiSlider.disable();
         document.getElementById("linecolourlegend").innerHTML = `<div class="l_r">
         <div class="lb"><span style="background-color: #59ee19"></span>0-3</div>
         <div class="lb"><span style="background-color: #37a009"></span>3-5</div>
@@ -470,7 +494,7 @@ function switch_rnet() {
       	</div>`;
       break;
     default:
-      cycleSlider.noUiSlider.enable();
+      //cycleSlider.noUiSlider.enable();
       document.getElementById("linecolourlegend").innerHTML = `<div class="l_r">
         <div class="lb"><span style="background-color: #9C9C9C"></span>1</div>
         <div class="lb"><span style="background-color: #FFFF73"></span>10</div>
@@ -497,6 +521,7 @@ function switch_rnet() {
     };
     
     // Only filter cyclists if scenario set
+    /*
     if(layerId == 'none' | layerId == 'Quietness' | layerId == 'Gradient'){
       var style_filter = {
       "filter": ["all",
@@ -507,10 +532,11 @@ function switch_rnet() {
            ]
       };
     } else {
+    */
       var style_filter = {
         'filter': ["all",
-              ['<=', layerType + "_" + layerId, sliderFlow_max],
-              ['>=', layerType + "_" + layerId, sliderFlow_min],
+              ['<=', layerType + "_" + layerScenario, sliderFlow_max],
+              ['>=', layerType + "_" + layerScenario, sliderFlow_min],
               ['<=', "Quietness", sliderQuietness_max],
               ['>=', "Quietness", sliderQuietness_min],
               ['<=', "Gradient", sliderGradient_max],
@@ -518,10 +544,10 @@ function switch_rnet() {
            ],
       };
 
-    }
+    //}
     
     // Define line colour
-    switch (layerId) {
+    switch (layerColour) {
       case 'none':
         var style_line_colour = {
           "line-color": "#304ce7"
@@ -551,7 +577,7 @@ function switch_rnet() {
         break;
       default:
         var style_line_colour = {
-          "line-color": ["step", ["get", layerType + "_" + layerId],
+          "line-color": ["step", ["get", layerType + "_" + layerScenario],
               "rgba(0,0,0,0)", 1,
               "#9C9C9C", 10,
               "#FFFF73", 50,
@@ -565,7 +591,7 @@ function switch_rnet() {
     };
     
     // Define Line Width           
-    switch (layerWidth) {
+    switch (layerScenario) {
       case 'none':
         var style_line_width = {
           "line-width": [
@@ -599,7 +625,7 @@ function switch_rnet() {
     
     var style_paint = {"paint" : {...style_line_colour, ...style_line_width}};
     var style_combined = {...style_head, ...style_filter, ...style_paint};
-    map.addLayer(style_combined);
+    map.addLayer(style_combined,'placeholder_name');
     
   } else {
     if (map.getLayer("rnet")) map.removeLayer("rnet");
@@ -738,11 +764,11 @@ function switch_zones() {
 function switch_data_zones() {
   var checkBox = document.getElementById('data_zonescheckbox');
   var layerId = document.getElementById("data_zone_input").value;
+  var daysymetricmode = document.getElementById('dasymetriccheckbox');
   
   // Update the Legend - Do this even if map layer is off
   switch(layerId) {
     case 'SIMD2020v2_Decile':
-      cycleSlider.noUiSlider.disable();
       document.getElementById("dzlegend").innerHTML = `<div class="l_r">
         <div class="lb"><span style="background-color: #a50026"></span>1st</div>
         <div class="lb"><span style="background-color: #d73027"></span>2nd</div>
@@ -756,19 +782,17 @@ function switch_data_zones() {
         <div class="lb"><span style="background-color: #313695"></span>10th</div>
       	</div>`;
       break;
-    case 'Total_population':
-      cycleSlider.noUiSlider.disable();
+    case 'population_density':
       document.getElementById("dzlegend").innerHTML = `<div class="l_r">
-        <div class="lb"><span style="background-color: #edf8fb"></span>500</div>
-        <div class="lb"><span style="background-color: #bfd3e6"></span>600</div>
-        <div class="lb"><span style="background-color: #9ebcda"></span>700</div>
-        <div class="lb"><span style="background-color: #8c96c6"></span>800</div>
-        <div class="lb"><span style="background-color: #8856a7"></span>900</div>
-        <div class="lb"><span style="background-color: #810f7c"></span>4000</div>
+        <div class="lb"><span style="background-color: #edf8fb"></span>10</div>
+        <div class="lb"><span style="background-color: #bfd3e6"></span>50</div>
+        <div class="lb"><span style="background-color: #9ebcda"></span>100</div>
+        <div class="lb"><span style="background-color: #8c96c6"></span>150</div>
+        <div class="lb"><span style="background-color: #8856a7"></span>200</div>
+        <div class="lb"><span style="background-color: #810f7c"></span>600</div>
       	</div>`;
       break;
     case 'broadband':
-        cycleSlider.noUiSlider.disable();
         document.getElementById("dzlegend").innerHTML = `<div class="l_r">
         <div class="lb"><span style="background-color: #fff7ec"></span>0%</div>
         <div class="lb"><span style="background-color: #fee8c8"></span>2%</div>
@@ -779,7 +803,6 @@ function switch_data_zones() {
       	</div>`;
       break;
     default:
-      cycleSlider.noUiSlider.enable();
       document.getElementById("dzlegend").innerHTML = `<div class="l_r">
         <div class="lb"><span style="background-color: #053061"></span>3</div>
         <div class="lb"><span style="background-color: #2166ac"></span>5</div>
@@ -793,229 +816,133 @@ function switch_data_zones() {
 
   }
   
+  var style_head_dy = {
+      'id': 'dasymetric',
+      'type': 'fill-extrusion',
+      'source': 'dasymetric',
+      'source-layer': 'dasymetric'
+  };
+  var style_head_dz = {
+      'id': 'data_zones',
+      'type': 'fill',
+      'source': 'data_zones',
+      'source-layer': 'data_zones'
+  };
+  var style_ex_dy = {
+      'fill-extrusion-height': [
+              'interpolate',
+              ['linear'],
+              ['zoom'],
+              12,
+              1,
+              15,
+              8
+            ]
+  };
+  
   if (checkBox.checked === true) {
     if (map.getLayer('data_zones')) map.removeLayer('data_zones');
     if (map.getLayer('dasymetric')) map.removeLayer('dasymetric');
     
+    if (daysymetricmode.checked === true) {
+      var fillopacity = 0.1
+    } else {
+      var fillopacity = 0.8
+    }
+    
     switch (layerId) {
       case 'SIMD2020v2_Decile':
-        map.addLayer({
-          'id': 'dasymetric',
-          'type': 'fill-extrusion',
-          'source': 'dasymetric',
-          'source-layer': 'dasymetric',
-          'paint': {
-            'fill-extrusion-color': ['step', ['get', layerId ],
-              "#a50026", 1.1,
-              "#d73027", 2.1,
-              "#f46d43", 3.1,
-              "#fdae61", 4.1,
-              "#fee090", 5.1,
-              "#e0f3f8", 6.1,
-              "#abd9e9", 7.1,
-              "#74add1", 8.1,
-              "#4575b4", 9.1,
-              "#313695", 10.1,
-              '#000000'],
-            'fill-extrusion-height': [
-              'interpolate',
-              ['linear'],
-              ['zoom'],
-              12,
-              1,
-              15,
-              8
-            ]
-          }
-        }, 'roads 0 Guided Busway Casing'
-        );
-        
-        map.addLayer({
-          'id': 'data_zones',
-          'type': 'fill',
-          'source': 'data_zones',
-          'source-layer': 'data_zones',
-          'paint': {
-            'fill-color': ["step", ["get", layerId ],
-              "#a50026", 1.1,
-              "#d73027", 2.1,
-              "#f46d43", 3.1,
-              "#fdae61", 4.1,
-              "#fee090", 5.1,
-              "#e0f3f8", 6.1,
-              "#abd9e9", 7.1,
-              "#74add1", 8.1,
-              "#4575b4", 9.1,
-              "#313695", 10.1,
-              "#000000"],
-            'fill-opacity': 0.1,
-            'fill-outline-color': '#000000'
-          }
-        }, 'roads 0 Guided Busway Casing'
-        );
-        
-    	  
+        var style_col = [
+              '#a50026', 1.1,
+              '#d73027', 2.1,
+              '#f46d43', 3.1,
+              '#fdae61', 4.1,
+              '#fee090', 5.1,
+              '#e0f3f8', 6.1,
+              '#abd9e9', 7.1,
+              '#74add1', 8.1,
+              '#4575b4', 9.1,
+              '#313695', 10.1,
+              '#000000'
+        ];
         break;
-      case 'Total_population':
-        
-        map.addLayer({
-          'id': 'dasymetric',
-          'type': 'fill-extrusion',
-          'source': 'dasymetric',
-          'source-layer': 'dasymetric',
-          'paint': {
-            'fill-extrusion-color': ['step', ['get', layerId ],
-              "#edf8fb", 500,
-              "#bfd3e6", 600,
-              "#9ebcda", 700,
-              "#8c96c6", 800,
-              "#8856a7", 900,
-              "#810f7c", 4000,
-              '#000000'],
-            'fill-extrusion-height': [
-              'interpolate',
-              ['linear'],
-              ['zoom'],
-              12,
-              1,
-              15,
-              8
-            ]
-          }
-        }, 'roads 0 Guided Busway Casing'
-        );
-        
-        
-        
-        map.addLayer({
-          'id': 'data_zones',
-          'type': 'fill',
-          'source': 'data_zones',
-          'source-layer': 'data_zones',
-          'paint': {
-            'fill-color': ["step", ["get", layerId ],
-             "#edf8fb", 500,
-              "#bfd3e6", 600,
-              "#9ebcda", 700,
-              "#8c96c6", 800,
-              "#8856a7", 900,
-              "#810f7c", 4000,
-              "#000000"],
-            'fill-opacity': 0.1,
-            'fill-outline-color': 'rgba(0, 0, 0, 0.9)'
-          }
-        }, 'roads 0 Guided Busway Casing'
-        );
-        
+      case 'population_density':
+        var style_col = [
+              '#edf8fb', 10,
+              '#bfd3e6', 50,
+              '#9ebcda', 100,
+              '#8c96c6', 150,
+              '#8856a7', 200,
+              '#810f7c', 600,
+              '#000000'
+        ];
         break;
       case 'broadband':
-        
-        map.addLayer({
-          'id': 'dasymetric',
-          'type': 'fill-extrusion',
-          'source': 'dasymetric',
-          'source-layer': 'dasymetric',
-          'paint': {
-            'fill-extrusion-color': ['step', ['get', layerId ],
-              "#fff7ec", 0.01,
-              "#fee8c8", 2,
-              "#fdd49e", 5,
-              "#fdbb84", 10,
-              "#d7301f", 50,
-              "#7f0000", 100,
-              '#000000'],
-            'fill-extrusion-height': [
-              'interpolate',
-              ['linear'],
-              ['zoom'],
-              12,
-              1,
-              15,
-              8
-            ]
-          }
-        }, 'roads 0 Guided Busway Casing'
-        );
-        
-        
-        map.addLayer({
-          'id': 'data_zones',
-          'type': 'fill',
-          'source': 'data_zones',
-          'source-layer': 'data_zones',
-          'paint': {
-            'fill-color': ["step", ["get", layerId ],
-             "#fff7ec", 0.01,
-              "#fee8c8", 2,
-              "#fdd49e", 5,
-              "#fdbb84", 10,
-              "#d7301f", 50,
-              "#7f0000", 100,
-              "#000000"],
-            'fill-opacity': 0.1,
-            'fill-outline-color': 'rgba(0, 0, 0, 0.9)'
-          }
-        }, 'roads 0 Guided Busway Casing'
-        );
-        
+        var style_col = [
+              '#fff7ec', 0.01,
+              '#fee8c8', 2,
+              '#fdd49e', 5,
+              '#fdbb84', 10,
+              '#d7301f', 50,
+              '#7f0000', 100,
+              '#000000'
+        ];
         break;
       default:
-      
-        map.addLayer({
-          'id': 'dasymetric',
-          'type': 'fill-extrusion',
-          'source': 'dasymetric',
-          'source-layer': 'dasymetric',
-          'paint': {
-            'fill-extrusion-color': ['step', ['get', layerId ],
-              "#053061", 3,
-              "#2166ac", 5,
-              "#4393c3", 7,
-              "#92c5de", 10,
-              "#f7f7f7", 15,
-              "#f4a582", 30,
-              "#b2182b", 60,
-              "#67001f", 200,
-              '#000000'],
-            'fill-extrusion-height': [
-              'interpolate',
-              ['linear'],
-              ['zoom'],
-              12,
-              1,
-              15,
-              8
-            ]
-          }
-        }, 'roads 0 Guided Busway Casing'
-        );
-      
-      
-        map.addLayer({
-          'id': 'data_zones',
-          'type': 'fill',
-          'source': 'data_zones',
-          'source-layer': 'data_zones',
-          'paint': {
-            'fill-color': ["step", ["get", layerId ],
-             "#053061", 3,
-              "#2166ac", 5,
-              "#4393c3", 7,
-              "#92c5de", 10,
-              "#f7f7f7", 15,
-              "#f4a582", 30,
-              "#b2182b", 60,
-              "#67001f", 200,
-              "#000000"],
-            'fill-opacity': 0.1,
-            'fill-outline-color': 'rgba(0, 0, 0, 0.9)'
-          }
-        }, 'roads 0 Guided Busway Casing'
-        );
+        var style_col = [
+              '#053061', 3,
+              '#2166ac', 5,
+              '#4393c3', 7,
+              '#92c5de', 10,
+              '#f7f7f7', 15,
+              '#f4a582', 30,
+              '#b2182b', 60,
+              '#67001f', 200,
+              '#000000'
+        ];
       }
+    
+    
+    if (daysymetricmode.checked === true) {
+      var style_paint_dy = {'paint' : { 'fill-extrusion-color': ['step', ['get', layerId ], ...style_col], ...style_ex_dy}};
+      var style_combined_dy = {...style_head_dy, ...style_paint_dy};
+    } else {
+      var style_paint_dy = {'paint' : { 'fill-extrusion-color': '#9c9898', ...style_ex_dy}};
+      var style_combined_dy = {...style_head_dy, ...style_paint_dy};
+    }
+    
+    map.addLayer(style_combined_dy, 'roads 0 Guided Busway Casing');
+    
+    var style_paint_dz = {'paint' : { 'fill-color': ['step', ['get', layerId ], ...style_col], 'fill-opacity': fillopacity,'fill-outline-color': '#000000'}};
+    var style_combined_dz = {...style_head_dz, ...style_paint_dz};
+    map.addLayer(style_combined_dz, 'roads 0 Guided Busway Casing');
   } else {
     console.log("off");
     if (map.getLayer("data_zones")) map.removeLayer("data_zones");
+    
+    // put buildings on when layer is off
     if (map.getLayer('dasymetric')) map.removeLayer('dasymetric');
+    
+    var styleName = displayRadioValue(document.getElementById("basemapform"));
+    switch (styleName) {
+      case 'greyscale_nobuild':
+        var style_paint_dy = {'paint' : { 'fill-extrusion-color': '#d1cfcf', ...style_ex_dy}};
+        var style_combined_dy = {...style_head_dy, ...style_paint_dy};
+        map.addLayer(style_combined_dy, 'roads 0 Guided Busway Casing');
+        break;
+      case 'google_nobuild':
+        var style_paint_dy = {'paint' : { 'fill-extrusion-color': '#f0eded', ...style_ex_dy}};
+        var style_combined_dy = {...style_head_dy, ...style_paint_dy};
+        map.addLayer(style_combined_dy, 'roads 0 Guided Busway Casing');
+        break;
+      case 'dark_nobuild':
+        var style_paint_dy = {'paint' : { 'fill-extrusion-color': '#000000', ...style_ex_dy}};
+        var style_combined_dy = {...style_head_dy, ...style_paint_dy};
+        map.addLayer(style_combined_dy, 'roads 0 Guided Busway Casing');
+        break;
+      default:
+        // No buildings on raster
+    }
+    
   }
 }

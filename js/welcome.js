@@ -2,6 +2,17 @@
 var span = document.getElementsByClassName("closewelcome")[0];
 var spanhelp = document.getElementsByClassName("closehelp")[0];
 
+function formatAsUKDate(date) {
+  date = new Date(date);
+  var day = date.getDate();
+  var month = date.getMonth() + 1;
+  var year = date.getFullYear();
+  return  day + '/' + month + '/' + year;
+}
+
+
+document.getElementById("updatedate").innerHTML = 'Last Updated: ' + formatAsUKDate(document.lastModified);
+
 // When the user clicks on <span> (x), close the welcome and help
 span.onclick = function() {
   document.getElementById("welcome").style.display = "none";
@@ -29,4 +40,7 @@ function toggle_overlay(on) {
     document.getElementById("overlay").style.display = "none";
   }
 }
+
+
+
 

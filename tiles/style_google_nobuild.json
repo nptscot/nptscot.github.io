@@ -1832,6 +1832,15 @@
         "text-halo-width": 1,
         "text-halo-blur": 1
       }
+    },
+    {
+      "id": "placeholder_name",
+      "type": "symbol",
+      "source": "composite",
+      "source-layer": "airports",
+      "paint": {
+        "text-color": "#df27e6"
+      }
     }
   ],
   "created": "2019-01-18T21:07:08.282Z",

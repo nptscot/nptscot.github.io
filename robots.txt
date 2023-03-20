@@ -2,4 +2,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://atumscot.github.io/web/sitemap.txt
+Sitemap: https://www.npt.scot/sitemap.txt
