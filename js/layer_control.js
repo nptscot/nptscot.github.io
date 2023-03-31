@@ -521,18 +521,6 @@ function switch_rnet() {
     };
     
     // Only filter cyclists if scenario set
-    /*
-    if(layerId == 'none' | layerId == 'Quietness' | layerId == 'Gradient'){
-      var style_filter = {
-      "filter": ["all",
-              ['<=', "Quietness", sliderQuietness_max],
-              ['>=', "Quietness", sliderQuietness_min],
-              ['<=', "Gradient", sliderGradient_max],
-              ['>=', "Gradient", sliderGradient_min]
-           ]
-      };
-    } else {
-    */
       var style_filter = {
         'filter': ["all",
               ['<=', layerType + "_" + layerScenario, sliderFlow_max],
@@ -544,8 +532,6 @@ function switch_rnet() {
            ],
       };
 
-    //}
-    
     // Define line colour
     switch (layerColour) {
       case 'none':

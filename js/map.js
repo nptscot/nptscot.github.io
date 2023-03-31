@@ -1,4 +1,6 @@
 // Setup Map
+//var antialias = document.getElementById('antialiascheckbox').checked;
+//console.log(antialias);
 var map = new maplibregl.Map({
 container: 'map',
 style: 'tiles/style_' + displayRadioValue(document.getElementById("basemapform")) + '.json',
@@ -9,7 +11,7 @@ maxZoom: 19,
 minZoom: 6,
 maxPitch: 85,
 hash: true,
-antialias: true
+antialias: false
 });
 
 // Setup other part of the website
