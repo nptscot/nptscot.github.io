@@ -48,42 +48,207 @@
 		</div>	
 </div>
 
-<div id="sourcediv" class="content" style="padding:15px; max-width:95%">
+<div id="sourcediv" class="content" style="padding:15px; width:95%; max-width: 800px;">
 <h1>NPT Manual</h1>
 
+<h2>Introduction</h2>
+<p>The Network Planning Tool for Scotland is a planning support system, research project, and web application to support strategic active travel network planning. The 2023 version is focused on cycle network planning. The Network Planning Tool builds on the <a href="https://www.pct.bike/">Propensity to Cycle Tool</a> for England and Wales, which is a publicly available web application providing evidence on levels of cycling and potential down to the road network nationwide (<a href="https://www.jtlu.org/index.php/jtlu/article/view/862">Lovelace et al. 2017</a>).</p>
+<p><strong>Note: the NPT is currently a prototype. Version 1 is expected to be completed by the end of 2023. The prototype version is provided to preview the tool and gather <a href="https://forms.office.com/Pages/ResponsePage.aspx?id=qO3qvR3IzkWGPlIypTW3ywVZfmO0bwdAhK0UztpneQtUM1pCRlJQQjY1V0M3MUhBV0g0VTJRS1ZQVi4u">feedback</a>. While the current version&rsquo;s results are comprehensive and objective, tool outputs may change without warning. The prototype version is based only on travel-to-work data, and the results should be interpreted accordingly.</strong></p>
+<p>The University of Leeds produces the NPT on behalf of Sustrans and Transport Scotland.</p>
+<p>&nbsp;</p>
+<h3>NPT Essentials</h3>
+<p>The NPT is Scotland&rsquo;s nationwide web-based strategic network planning tool that estimates cycling potential down to the street level.</p>
+<p>The NPT can be thought of as:</p>
+<p>i) the <a href="https://www.npt.scot/">map user interface</a>,&nbsp;</p>
+<p>ii) a series of open access <a href="https://www.npt.scot/data">data downloads</a> that can be analysed in GIS software or statistical software,&nbsp;</p>
+<p>iii) the <a href="https://github.com/nptscot/">code base</a> that can be modified to fix bugs, add new features, and develop new scenarios.</p>
+<p>The NPT is an open-source tool, meaning the source code is transparent and in the public domain for others to learn from and build on. The code underlying the project is available to be copied and improved by the community.</p>
+<p>The online interface can serve many needs, including gaining insight into the network of routes where cycling potential is highest and quantifying the benefits of cycling uptake. However, we recommend that intermediate and advanced users download data on zones, routes and route networks for in-house analysis.</p>
+<p>The NPT allows users to visualise results baseline data and how cycling would change under different scenarios. The journey purposes and scenarios are described in detail below.</p>
+<h2>Ways the access the NPT&nbsp;</h2>
+<p>The easiest way to access the NPT website is hosted at&nbsp;<a href="http://www.npt.scot">www.npt.scot</a>.</p>
+<h3>Progressive Web App</h3>
+<p>The NPT is a Progressive Web App (PWA), which can be installed on many devices, including your smartphone. The App provides the same features as the website. Still, it includes additional benefits such as pining the App to your device&rsquo;s home screen and full-screen support.</p>
+<p>How to install the NPT App</p>
+<h4>Android</h4>
+<ol>
+    <li>Visit&nbsp;<a href="http://www.npt.scot">www.npt.scot</a>&nbsp;using Google Chrome</li>
+    <li>Click the &ldquo;Add NPT to Home screen&rdquo; and follow the instructions</li>
+</ol>
+<p>If the &ldquo;Add NPT to Home screen&rdquo; option does not appear, you can also select the &ldquo;Install app&rdquo; option from the main chrome menu (&hellip;)</p>
+<h4>Windows 10 &amp; 11 and Linux</h4>
+<ol>
+    <li>Visit <a href="http://www.npt.scot">www.npt.scot</a>&nbsp;using Microsoft Edge or Chrome</li>
+    <li>In the address bar, click the App install button</li>
+    <li>Click install</li>
+</ol>
+<h4>iOS</h4>
+<ol>
+    <li>Visit&nbsp;<a href="http://www.npt.scot">www.npt.scot</a>&nbsp;using Safari</li>
+    <li>In the bottom menu bar, click the share button (middle button)</li>
+    <li>Click &ldquo;Add to Home Screen&rdquo;</li>
+    <li>Click &ldquo;Add&rdquo;</li>
+</ol>
+<h4>macOS</h4>
+<ol>
+    <li>Visit&nbsp;<a href="http://www.npt.scot">www.npt.scot</a>&nbsp;using Safari</li>
+    <li>In the address bar, click the App install button</li>
+    <li>Click install</li>
+</ol>
+<p>&nbsp;</p>
+<h2>NPT User Interface</h2>
+<h3>Map Controls</h3>
+<p><img src="/images/map_controls.png" alt="Map controls" class="responsive" style="max-width:565px"></p>
+<p>The map can be navigated using map controls on the top left of the screen.</p>
+<p>&nbsp;</p>
+<p>The NPT provides different basemaps. The example below shows the basemap selection options with the satellite basemap with 3D terrain enabled. You can hide the basemap selection option by clicking the change basemap button again.</p>
+<p><img src="/images/basemaps.png" alt="Basemap controls" class="responsive" style="max-width:648px"></p>
+<h3>Layer Controls</h3>
+<p><img src="/images/layer_controls.png" alt="Layer Controls" class="responsive" style="max-width:808px"></p>
+<p>The layer controls on the right side of the map control what information is shown on the map.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h2>Map Layers</h2>
+<p>The NPT allow you to view a broad range of data about cycling. This section describes each layer and its features.</p>
+<h3>Route Network</h3>
+<p>The route network is the primary layer in the NPT and the only one that is on by default when the tool loads. The route network estimates the number of cyclists on each road. It is designed to emphasise roads with lots of cycling potential and so aid planners in deciding where cycling infrastructure is needed.</p>
+<p>The route network provides a range of options and filters to allow you to view different networks based on different journey purposes and assumptions.</p>
 <div id="purpose">
-  <h3>Trip purpose</h3>
-  <p>People have many reasons to travel, and their reasons for travel often change their choice of destinations and routes. Therefore a cycling network designed for commuters may look very different to a network designed for children to travel to school. The trip purpose drop-down allows you to view different networks based on different trip purposes.</p>
-  <h4>Commute</h4>
-  <p>The commute network is based on the 2011 Census travel to work data. Commuters tend to favour radial routes from suburban residential areas into town and city centres where most jobs are concentrated.</p>
+<h4>Trip purpose</h4>
+<p>People have many reasons to travel, and their reasons for travel often change their choice of destinations and routes. Therefore, a cycling network designed for commuters may look very different to a network designed for children to travel to school. The trip purpose drop-down allows you to view different networks based on different trip purposes.</p>
+<h5>All &ndash; Coming soon</h5>
+<p>The default view is to show all journey purposes together. This provides an overview of total cycling demand.</p>
+<p>&nbsp;</p>
+<h5>Commute</h5>
+<p>The commute network is based on the 2011 Census travel to work data. Commuters tend to favour radial routes from suburban residential areas into town and city centres where most jobs are concentrated.</p>
+<h5>School &ndash; Coming soon</h5>
+<p>&nbsp;</p>
+<h5>Social, Shopping, and Personal &ndash; Coming soon</h5>
+<p>&nbsp;</p>
+<h5>What&rsquo;s missing from the NPT</h5>
+<p>The NPT does not currently consider leisure or recreational cycling. This is more complex to model as cyclists may not have a specific destination in mind.</p>
+<p>The NPT currently only considers direct journeys where the whole trip is by bicycle. It does not consider mixed-mode journeys such as cycling to the station and then taking a train to your final destination. This means that the NPT slightly underestimates cycling potential overall and may significantly underestimate cycling potential in specific places (such as around train stations).</p>
 </div>
 
 <div id="type">
-  <h3>Network type</h3>
-  <p>The network type reflects choices cyclists make about route choice. There is strong evidence that cyclists prefer the most direct route, and it reduces journey times and the physical effort of cycling. However, cyclists may make detours away from roads that are (or are perceived to be) dangerous. There is strong evidence that safety concerns are the main barrier to more people cycling.</p>
-  <h4>Fastests (prefered)</h4>
-  <p>The fastest network is based on cyclists taking the most direct (legal) routes. While cyclists prefer direct routes, this will often bring them onto busy and dangerous major roads, which are a barrier to cycling. Planners seeking to maximise cycling will build high-quality cycle infrastructure along busy roads, which form part of the fastest cycle route network.</p>
-  <h4>Quietest</h4>
-  <p>The quiet network assumes that cyclists will avoid busy roads and be willing to take significant detours. While directing cyclists away from busy roads and onto quieter back streets may seem like a good idea, it can have significant downsides. Quiet routes are always longer and often much harder to navigate as they weave around the back streets. Even if the routes are very safe, the longer and more complex journeys will discourage cycling. The NPT captures this effect, and the total number of cyclists on the quiet route network is less than on the fast route network.</p>
-  <p>Quiet networks work best when the directness penalty is small. For example, a city with a grid layout could alternate between roads designed for cars and streets designed for active travel. </p>
-  <p><img src="/images/amsterdam_networks.JPG" alt="Amsterdam car and cycle networks" class="responsive"></p>
-  <p>The image above (<a href="https://maps.amsterdam.nl/plushoofdnetten/" target="_blank">source</a>) shows how Amsterdam uses its grid layout to have parallel but separate networks for cars (red, orange, black) and bicycles (green). Notice how the cycling network is much denser than the car network, ensuring that cyclists almost always benefit from a more direct route.</p>
-  <h4>Balanced</h4>
-  <p>The balanced network is a trade-off between the fastest and quietest networks. It highlights places where cycling and car networks can be separated without penalising directness too much. Planners should not view quiet or balanced networks as ways to avoid building high-quality cycle infrastructure. Instead, consider if moving the cycle infrastructure one street over may unlock qualitative benefits for cyclists, such as more pleasant journies that are worth a small penalty in total journey time.</p>
-  <h4>EBikes</h4>
-  <p>The ebikes network is a variant of the fastest network that reduces the penalty for going up hills. Pedal cyclists incur a significant time and effort penalty from going uphill, so a longer but flatter route is often faster. A good ebike can enable cyclists to ride uphill at 15 mph without breaking a sweat. Thus ebike riders may choose shorter but hillier routes than pedal cyclists.</p>
-  <p>As ebikes increase a cyclist's range and carrying capacity while reducing effort and journey times, a world with many ebikes would expect higher levels of cycling than one with only pedal cycles.</p>
+<h4>Network type</h4>
+<p>The network type reflects choices cyclists make about route choice. There is strong evidence that cyclists prefer the most direct route, and it reduces journey times and the physical effort of cycling. However, cyclists may make detours away from roads that are (or are perceived to be) dangerous. There is strong evidence that safety concerns are the main barrier to more people cycling.</p>
+<p>Cyclestreets calculate the routes taken by cyclists, and each network type is based on one of their routeing <a href="https://www.cyclestreets.net/help/journey/howitworks/">algorithms</a>. The route choices are based on the current road infrastructure and don&rsquo;t account for planned improvements or missing links.</p>
+<p><img src="/images/rnet_types.png" alt="Route network types" class="responsive" style="max-width:1393px"></p>
+<p>Examples of the four network types in Edinburgh show how different assumptions about the routes cyclists take affect where the busiest parts (pink) of the network are.</p>
+<p>Note that the choice of network type does not just change the routes cyclists take but also the number of cyclists predicted under each scenario.&nbsp;</p>
+<h5>Fastest (preferred)</h5>
+<p>The fastest network is based on cyclists taking the most direct (legal) routes. While cyclists prefer direct routes, this will often bring them onto busy and dangerous major roads, which are a barrier to cycling. Planners seeking to maximise cycling will build high-quality cycle infrastructure along busy roads, which form part of the fastest cycle route network.</p>
+<h5>Quietest</h5>
+<p>The quiet network assumes that cyclists will avoid busy roads and be willing to take significant detours. While directing cyclists away from busy roads and onto quieter back streets may seem like a good idea, it can have significant downsides. Quiet routes are always longer and often much more challenging to navigate as they weave around the back streets. Even if the roads are safe, longer and more complex journeys discourage cycling. The NPT captures this effect, and the total number of cyclists on the quiet route network is less than on the fast route network.</p>
+<p>Quiet networks work best when the directness penalty is small. For example, a city with a grid layout could alternate between roads designed for cars and streets designed for active travel.</p>
+<p><img src="/images/amsterdam_networks.JPG" alt="Amsterdam car and cycle networks" class="responsive" style="max-width:790px"></p>
+<p>The image above (<a href="https://maps.amsterdam.nl/plushoofdnetten/">source</a>) shows how Amsterdam uses its grid layout to have parallel but separate networks for cars (red, orange, black) and bicycles (green). Notice how the cycling network is much denser than the car network, ensuring that cyclists almost always benefit from a more direct route.</p>
+<h5>Balanced</h5>
+<p>The balanced network is a trade-off between the fastest and quietest networks. It highlights places where cycling and car networks can be separated without penalising directness too much. Planners should not view quiet or balanced networks as ways to avoid building high-quality cycle infrastructure. Instead, consider if moving the cycle infrastructure one street over may unlock qualitative benefits for cyclists, such as more pleasant journeys that are worth a small penalty in total journey time.</p>
+<h5>EBikes</h5>
+<p>The ebikes network is a variant of the fastest network that reduces the penalty for going up hills. Pedal cyclists incur a significant time and effort penalty from going uphill. Hence, a longer but flatter route is often faster. A good ebike can enable cyclists to ride uphill at 15 mph without breaking a sweat. Thus ebike riders may choose shorter but hillier routes than pedal cyclists.</p>
+<p>As ebikes increase a cyclist&rsquo;s range and carrying capacity while reducing effort and journey times, a world with many ebikes would expect higher levels of cycling than one with only pedal cycles.</p>
+<p>&nbsp;</p>
 </div>
 
 <div id="scenario">
-  <h3>Scenarios</h3>
-  <p>The scenarios drop-down allows you to view different levels of cycling and other information about the road network</p>
-  <h4>Baseline (2011)</h4>
-  <p>The baseline scenario is based on the 2011 travel-to-work data and is intended to represent the current level of cycling. As such, it is intended to show where there is current demand to cycle infrastructure.</p>
-  <h4>Go Dutch</h4>
-  <p>The Go Dutch scenario imagines a future where people in the UK are as likely to travel by bike as people in the Netherlands while accounting for differences in trip distance and hilliness between locations. As such, the network shows where there could be future demand for cycling infrastructure.</p>
-  <p>Planners should seek to design cycle networks that meet the needs of both current and future cyclists. But they may phase the construction to prioritise roads that will meet the needs of current cyclists and enable new people to cycle.</p>
+<h4>Scenarios</h4>
+<p>The scenarios drop-down allows you to view different levels of cycling and other information about the road network</p>
+<h5>Baseline&nbsp;</h5>
+<p>The baseline scenario represents the current level of cycling. As such, it is intended to show where there is an existing demand for cycling infrastructure.</p>
+<h5>Go Dutch</h5>
+<p>The Go Dutch scenario imagines a future where people in the UK are as likely to travel by bike as people in the Netherlands while accounting for differences in trip distance and hilliness between locations. As such, the network shows where there could be future demand for cycling infrastructure.</p>
+<p>Planners should seek to design cycle networks that meet the needs of both current and future cyclists. But they may phase the construction to prioritise roads that will meet the needs of current cyclists and enable new people to cycle.</p>
+<h5>Ebike &ndash; Coming soon</h5>
+<p>&nbsp;</p>
 </div>
+
+<div id="colour">
+<h4>Line Colour</h4>
+<p>The line colour option allows you to visualise different characteristics of the route network. Below the line colour option is a contextual legend which shows the meaning of the colours on the map.</p>
+<h5>Number of cyclists</h5>
+<p><img src="/images/number_of_cyclists.png" alt="Number of cyclists" class="responsive" style="max-width:502px"></p>
+<p>The number of cyclists is the default view. It shows an estimate of the number of cyclists on each road for the selected trip purpose, network type, and scenario. The thickness of the lines in the route network is also defined by the number of cyclists, with thicker lines representing more cyclists.</p>
+<h5>Cycle friendliness</h5>
+<p><img src="/images/cycle_friendliness.png" alt="Cycle friendliness" class="responsive" style="max-width:497px"></p>
+<p>Cycle friendliness is a subjective measure representing the quality of a route segment (a section of road or path) for cycling, with a score between 0 (very low quality) and 100 (very high quality). It considers a <a href="https://www.cyclestreets.net/api/v1/journey/">range of factors</a>, using data derived from OpenStreetMap.</p>
+<p>Factors that contribute to a higher score of cycle friendliness include (as appropriate):</p>
+<ul>
+    <li>Whether the cycleway is shared with motor vehicles or pedestrians,</li>
+    <li>The type of road</li>
+    <li>Presence of cycle infrastructure</li>
+    <li>Speed limit</li>
+    <li>Surface quality</li>
+    <li>Cycle signage,&nbsp;</li>
+    <li>Any barriers or obstructions</li>
+    <li>Path width</li>
+    <li>Route legibility</li>
+</ul>
+<p>See&nbsp;<a href="https://www.cyclestreets.net/help/journey/howitworks/">CycleStreets</a> for further information, the term &lsquo;quietness&rsquo; is used for the same measure that we call &lsquo;cycle friendliness&rsquo;.</p>
+<p>&nbsp;</p>
+<h5>Gradient</h5>
+<p><img src="/images/gradient.png" alt="Gradient" class="responsive" style="max-width:499px"></p>
+<p>The average gradient of the road is shown as a percentage. Steeper roads are a barrier to cycling and affect route choice and the uptake of cycling in the scenarios.</p>
+</div>
+
+<h4>Popup</h4>
+<p>Clicking on any road in the route network shows the route network popup.</p>
+<p><img src="/images/rnet_popup.png" alt="Popup" class="responsive" style="max-width:645px"></p>
+<p>The popup provides a summary table for all the information available about the route network. The table displays the number of cyclists under each scenario and network type. Below the table, the average gradient of the road and its cycle friendliness score are shown, along with a link to view the road in Google Street View (where available).</p>
+
+<div id="filters">
+<h3>Route Network Filters</h3>
+<p><img src="/images/rnet_filters.png" alt="Route network filters" class="responsive" style="max-width:654px"></p>
+<p>The sliders allow you to show/hide parts of the route network. You can filter on three variables:</p>
+<p>&nbsp;</p>
+<h4>Numbers of cyclists</h4>
+<p>This filter is only available when &ldquo;Line colour&rdquo; is set to a cycling scenario.</p>
+<h4>Gradient</h4>
+<p>Set the maximum and minimum gradient of roads that are visible. Gradient measures the average gradient of the road segment as a percentage. E.g. 0% = flat, 100% = vertical cliff.</p>
+<h4>Cycle friendliness</h4>
+<p>Set the maximum and minimum quietness of roads that are visible. Quietness measures how cycle friendly the existing road is, from hostile (least friendly) to quiet (most friendly).</p>
+</div>
+
+<div id="data_zones">
+<h3>Data Zones</h3>
+<p>Data Zones are small statistical neighbourhoods created for the Census. In the NPT, they are used to provide contextual area-based information.</p>
+<p><img src="/images/data_zones.png" alt="Data zones" class="responsive"></p>
+<p>The data zone options are:</p>
+<ul>
+    <li>Population density (per hectare)</li>
+    <li>Index of Multiple Deprivation (2020)</li>
+    <li>Drive time to a petrol station</li>
+    <li>Drive time to GP</li>
+    <li>Drive time to post office</li>
+    <li>Drive time to a retail centre</li>
+    <li>Drive time to primary school</li>
+    <li>Drive time to secondary school</li>
+    <li>Public transport time to GP</li>
+    <li>Public transport time to a post office</li>
+    <li>Public transport time to a retail centre</li>
+    <li>% without superfast broadband</li>
+</ul>
+<p><strong>Dasymetric mode</strong></p>
+<p>By default, the data zones are shown as a <a href="https://en.wikipedia.org/wiki/Dasymetric_map">dasymetric map</a>. This means that the buildings within a zone are coloured to display information. If you turn off dasymetric mode, a simple <a href="https://en.wikipedia.org/wiki/Choropleth_map">choropleth map</a> is shown where the whole Data Zone is coloured. Note that the same underlying data is being visualised in both modes, and the differences between modes are merely aesthetic. However, dasymetric maps are intended to better represent the data by emphasising the true locations of people who are not uniformly distributed across the Data Zone.&nbsp;</p>
+<p><img src="/images/dasymetric.png" alt="Dasymetric maps" class="responsive"></p>
+<p>Dasymetric map (left) and choropleth map (right) for the Index of Multiple Deprivation in Edinburgh.</p>
+</div>
+
+<div id="admin_bounds">
+<h3>Administrative Boundaries</h3>
+<p>Four types of administrative boundaries can be shown on the map</p>
+<ul>
+    <li>Wards</li>
+    <li>Scottish Parliamentary Constituencies</li>
+    <li>Scottish Parliament Regions</li>
+    <li>Local Authority</li>
+</ul>
+<p>&nbsp;</p>
+</div>
+
+
+<!--
 
 <div id="ends">
   <h3>Trip ends</h3>
@@ -91,43 +256,8 @@
   <p></p>
 </div>
 
-<div id="filters">
-  <h3>Route Network Filters</h3>
-  <p>The sliders allow you to show/hide parts of the route network. You can filter on three variables:</p>
-  <h4>Numbers of cyclists</h4>
-  <p>This filter is only available when "Line colour" is set to a cycling scenario.</p>
-  <h4>Gradient</h4>
-  <p>Set the maximum and minimum gradient of roads that are visible. Gradient measures the average gradient of the road segment as a percentage. E.g. 0% = flat, 100% = vertical cliff.</p>
-  <h4>Quietness</h4>
-  <p>Set the maximum and minimum quietness of roads that are visible. Quietness measures how cycle friendly the existing road is from 0 (least friendly) to 100 most (friendly).</p>
-  <p></p>
-</div>
 
-<div id="data_zones">
-  <h3>Data zones</h3>
-</div>
-
-<div id="colour">
-  <h3>Line Colour</h3>
-  
-    <h4>Cycle friendliness</h4>
-  <p>The cycle friendliness score grades roads from 0-100 on how cycle friendly they are. The scores affect route choice. Therefore roads that are both important cycling routes and have a low friendliness score are barriers to cycling uptake and should be a priority for improved cycle infrastructure.</p>
-  <h4>Gradient</h4>
-  <p>The average gradient of the road is shown. Steeper roads are a barrier to cycling and affect route choice and the uptake of cycling in the scenarios.</p>
-</div>
-
-
-
-
-
-
-
-
-
-
- 
-
-</div>
+-->
 
 </body>
 </html>

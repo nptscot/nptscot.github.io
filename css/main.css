@@ -30,6 +30,7 @@ a:hover {
 }
 .content{
     width:100%;
+    margin: auto;
     height:calc(100% - 50px);
 }
 h1{
@@ -481,7 +482,7 @@ input[type="radio"][id^="bm"] {
   position: absolute;
   left: 45px;
   z-index: 5;
-  width: 289px;
+  width: 230px;
   overflow:auto;
 }
 
