@@ -67,6 +67,13 @@ function addDataSources () {
     });
   }
   
+  if (!map.getSource('schools')){
+    map.addSource('schools', {
+  	  'type': 'vector',
+  	  'url': 'pmtiles://https://nptscot.blob.core.windows.net/pmtiles/schools.pmtiles',
+    });
+  }
+  
   if (!map.getSource('la')){
     map.addSource('la', {
   	  'type': 'vector',
@@ -360,6 +367,31 @@ function toggleLayer(layerName) {
         break;
       case 'data_zones':
         switch_data_zones();
+        break;
+      case 'schools':
+        map.addLayer({
+            'id': 'schools',
+            'type': 'circle',
+            'source': 'schools',
+            'source-layer': 'schools',
+            'paint': {
+              "circle-color": [
+          			'match',
+          			['get', 'SchoolType'],
+          			'Primary','#313695',
+          			'Secondary','#a50026',
+          			/* other */ '#43f22c'
+          			],
+              // make circles larger as the user zooms
+              'circle-radius': {
+                'base': 5,
+                'stops': [
+                  [8, 6],
+                  [22, 180]
+                ]
+              },
+            } 
+        },'placeholder_name');
         break;
       case 'la':
         map.addLayer({
