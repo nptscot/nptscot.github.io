@@ -18,6 +18,7 @@ function switch_style(){
     toggleLayer('la');
     toggleLayer('wards');
     toggleLayer('holyrood');
+    toggleLayer('schools');
     switch_placenames();
     
     // Sliders 
