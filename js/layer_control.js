@@ -39,7 +39,7 @@ function addDataSources () {
   if (!map.getSource('rnet')){
     map.addSource('rnet', {
     	'type': 'vector',
-    	'url': 'pmtiles://https://nptscot.blob.core.windows.net/pmtiles/rnet.pmtiles',
+    	'url': 'pmtiles://https://nptscot.blob.core.windows.net/pmtiles/rnet-dev.pmtiles',
     });
   }
     
@@ -432,6 +432,7 @@ function displayRadioValue(ele) {
 function switch_rnet() {  
   console.log("Updating rnet")
   var checkBox = document.getElementById('rnetcheckbox');
+  var layerPurpose = document.getElementById("rnet_purpose_input").value;
   var layerScenario = document.getElementById("rnet_scenario_input").value;
   var layerColour = document.getElementById("rnet_colour_input").value;
   var layerType = document.getElementById("rnet_type_input").value;
@@ -463,7 +464,7 @@ function switch_rnet() {
     default:
      a = 0.05;
      b = 0.5;
-     layerWidth2 = layerType + "_" + layerScenario;
+     layerWidth2 = layerPurpose + "_" + layerType + "_" + layerScenario;
   }
   
   // Update the Legend - Do this even if map layer is off
@@ -523,8 +524,8 @@ function switch_rnet() {
     // Only filter cyclists if scenario set
       var style_filter = {
         'filter': ["all",
-              ['<=', layerType + "_" + layerScenario, sliderFlow_max],
-              ['>=', layerType + "_" + layerScenario, sliderFlow_min],
+              ['<=', layerPurpose + "_" + layerType + "_" + layerScenario, sliderFlow_max],
+              ['>=', layerPurpose + "_" + layerType + "_" + layerScenario, sliderFlow_min],
               ['<=', "Quietness", sliderQuietness_max],
               ['>=', "Quietness", sliderQuietness_min],
               ['<=', "Gradient", sliderGradient_max],
@@ -563,7 +564,7 @@ function switch_rnet() {
         break;
       default:
         var style_line_colour = {
-          "line-color": ["step", ["get", layerType + "_" + layerScenario],
+          "line-color": ["step", ["get", layerPurpose + "_" + layerType + "_" + layerScenario],
               "rgba(0,0,0,0)", 1,
               "#9C9C9C", 10,
               "#FFFF73", 50,

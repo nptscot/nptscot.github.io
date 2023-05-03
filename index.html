@@ -164,7 +164,9 @@ Commuting patterns have changed since the pandemic, and not everyone commutes, t
   <p><label><input type="checkbox" id="rnetcheckbox" onclick="toggleLayer('rnet')" checked>Show Layer</label></p>
   <p>
     <select id="rnet_purpose_input" name="rnet_purpose_input" onchange="switch_rnet()" aria-label="Route network trip purpose">
-      <option value="commute" selected>Commute</option>
+      <option value="all" selected>All</option>
+      <option value="commute" >Commute</option>
+      <option value="school" >School</option>
     </select>
     Trip purpose <button onclick="show_help('purpose')" aria-label="Help purpose" class="helpbutton"><i class="fa fa-question-circle" aria-hidden="true"></i></button>
   </p>
