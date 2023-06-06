@@ -40,7 +40,7 @@ function addDataSources () {
   if (!map.getSource('rnet')){
     map.addSource('rnet', {
     	'type': 'vector',
-    	'url': 'pmtiles://https://nptscot.blob.core.windows.net/pmtiles/rnet-dev.pmtiles',
+    	'url': 'pmtiles://https://nptscot.blob.core.windows.net/pmtiles/rnet_2023-06-04.pmtiles',
     });
   }
     
