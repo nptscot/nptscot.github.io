@@ -482,7 +482,9 @@ function switch_rnet() {
 
   // Width
   //var layerWidth = document.getElementById("rnet_width_input").value;
-  // TODO: Add line width toggle, and 
+  // TODO: Add line width toggle, and link 
+  
+  /*
   var a = 1;
   var b = 1;
   var layerWidth2 = layerScenario;
@@ -500,6 +502,8 @@ function switch_rnet() {
      b = 0.5;
      layerWidth2 = layerPurpose + "_" + layerType + "_" + layerScenario;
   }
+  */
+  var layerWidth2 = layerPurpose + "_" + layerType + "_" + layerScenario;
   
   // Update the Legend - Do this even if map layer is off
   switch(layerColour) {
@@ -611,39 +615,22 @@ function switch_rnet() {
         };
     };
     
-    // Define Line Width           
-    //switch (layerScenario) { // Disable variaible line width
-    switch ('none') {
-      case 'none':
-        var style_line_width = {
-          "line-width": [
-                  "interpolate",
-                  ["linear"],
-                  ["zoom"],
-                  12, 2.1,
-                  14, 5.25,
-                  15, 7.5,
-                  16, 18,
-                  18, 52.5,
-                  22, 150
-                ]
-        };
-        break;
-      default:
-        var style_line_width = {
+    // Define Line Width
+    // Implments the formula y = (3 / (1 + e^(-3(x/1000 - 1.6))) + 0.3
+    // For working this out I deserve a ****ing medal
+    var style_line_width = {
           "line-width": [
                 "interpolate", 
                 ["linear"], 
                 ["zoom"],
-                12, ["*", 2.1 , a, ["^", ["+", 1, ["get", layerWidth2]], b]],
-                14, ["*", 5.25, a, ["^", ["+", 1, ["get", layerWidth2]], b]],
-                15, ["*", 7.5 , a, ["^", ["+", 1, ["get", layerWidth2]], b]],
-                16, ["*", 18  , a, ["^", ["+", 1, ["get", layerWidth2]], b]],
-                18, ["*", 52.5, a, ["^", ["+", 1, ["get", layerWidth2]], b]], 
-                22, ["*", 150 , a, ["^", ["+", 1, ["get", layerWidth2]], b]]
+                12, ["*", 2.1, ["+", 0.3, ["/", 3, ["+", 1, ["^", 2.718, ["-", 2.94, ["*", ["get", layerWidth2], 0.0021]]]]]]],
+                14, ["*", 5.25,["+", 0.3, ["/", 3, ["+", 1, ["^", 2.718, ["-", 2.94, ["*", ["get", layerWidth2], 0.0021]]]]]]],
+                15, ["*", 7.5, ["+", 0.3, ["/", 3, ["+", 1, ["^", 2.718, ["-", 2.94, ["*", ["get", layerWidth2], 0.0021]]]]]]],
+                16, ["*", 18,  ["+", 0.3, ["/", 3, ["+", 1, ["^", 2.718, ["-", 2.94, ["*", ["get", layerWidth2], 0.0021]]]]]]],
+                18, ["*", 52.5,["+", 0.3, ["/", 3, ["+", 1, ["^", 2.718, ["-", 2.94, ["*", ["get", layerWidth2], 0.0021]]]]]]],
             ],
         };
-    };
+  
     
     var style_paint = {"paint" : {...style_line_colour, ...style_line_width}};
     var style_combined = {...style_head, ...style_filter, ...style_paint};
