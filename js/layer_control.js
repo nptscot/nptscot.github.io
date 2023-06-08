@@ -482,6 +482,7 @@ function switch_rnet() {
 
   // Width
   //var layerWidth = document.getElementById("rnet_width_input").value;
+  // TODO: Add line width toggle, and 
   var a = 1;
   var b = 1;
   var layerWidth2 = layerScenario;
@@ -611,7 +612,8 @@ function switch_rnet() {
     };
     
     // Define Line Width           
-    switch (layerScenario) {
+    //switch (layerScenario) { // Disable variaible line width
+    switch ('none') {
       case 'none':
         var style_line_width = {
           "line-width": [
