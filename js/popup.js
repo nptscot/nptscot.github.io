@@ -1,48 +1,40 @@
-// Click on Transit transitstops
+
+// Convert 3 to <9
+function suppresssmall(x) {
+  if(x < 10){
+   return "\u22649";
+  }
+  return x;
+}
+
+// Click on rnet for popup
 map.on('click', 'rnet', function (e) {
 var coordinates = e.lngLat;
-var all_fast_bicycle  = e.features[0].properties.all_fastest_bicycle ;
-var all_balance_bicycle = e.features[0].properties.all_balanced_bicycle;
-var all_quiet_bicycle = e.features[0].properties.all_quietest_bicycle;
-var all_ebike_bicycle = e.features[0].properties.all_ebike_bicycle;
-var all_fast_bicycle_go_dutch = e.features[0].properties.all_fastest_bicycle_go_dutch;
-var all_balance_bicycle_go_dutch = e.features[0].properties.all_balanced_bicycle_go_dutch;
-var all_quiet_bicycle_go_dutch = e.features[0].properties.all_quietest_bicycle_go_dutch;
-var all_ebike_bicycle_go_dutch = e.features[0].properties.all_ebike_bicycle_go_dutch;
 
-var commute_fast_bicycle  = e.features[0].properties.commute_fastest_bicycle ;
-var commute_balance_bicycle = e.features[0].properties.commute_balanced_bicycle;
-var commute_quiet_bicycle = e.features[0].properties.commute_quietest_bicycle;
-var commute_ebike_bicycle = e.features[0].properties.commute_ebike_bicycle;
-var commute_fast_bicycle_go_dutch = e.features[0].properties.commute_fastest_bicycle_go_dutch;
-var commute_balance_bicycle_go_dutch = e.features[0].properties.commute_balanced_bicycle_go_dutch;
-var commute_quiet_bicycle_go_dutch = e.features[0].properties.commute_quietest_bicycle_go_dutch;
-var commute_ebike_bicycle_go_dutch = e.features[0].properties.commute_ebike_bicycle_go_dutch;
+// Process all the properties
+// Processed gradinet and quietness but ignored
+const properties = e.features[0].properties;
+const prop = {};
 
-var school_fast_bicycle  = e.features[0].properties.school_fastest_bicycle ;
-var school_balance_bicycle = e.features[0].properties.school_balanced_bicycle;
-var school_quiet_bicycle = e.features[0].properties.school_quietest_bicycle;
-var school_ebike_bicycle = e.features[0].properties.school_ebike_bicycle;
-var school_fast_bicycle_go_dutch = e.features[0].properties.school_fastest_bicycle_go_dutch;
-var school_balance_bicycle_go_dutch = e.features[0].properties.school_balanced_bicycle_go_dutch;
-var school_quiet_bicycle_go_dutch = e.features[0].properties.school_quietest_bicycle_go_dutch;
-var school_ebike_bicycle_go_dutch = e.features[0].properties.school_ebike_bicycle_go_dutch;
+for (const property in properties) {
+  prop[property] = suppresssmall(properties[property]);
+}
 
 var Gradient = e.features[0].properties.Gradient;
 var Quietness = e.features[0].properties.Quietness;
 
 var description = '<div><p><h4>All</h4></p><table><tr><th></th><th>Fastest</th><th>Balanced</th><th>Quietest</th><th>Ebikes</th></tr>' +
-'<tr><th>Baseline</th><th>' + all_fast_bicycle + '</th><th>' + all_balance_bicycle + '</th><th>' + all_quiet_bicycle + 
-'</th><th>' + all_ebike_bicycle + '</th></tr><tr><th>Go Dutch</th><th>' + all_fast_bicycle_go_dutch + '</th><th>' +
-all_balance_bicycle_go_dutch + '</th><th>' + all_quiet_bicycle_go_dutch + '</th><th>' + all_ebike_bicycle_go_dutch + '</th></tr></table>' +
+'<tr><th>Baseline</th><th>' + prop.all_fastest_bicycle + '</th><th>' + prop.all_balanced_bicycle + '</th><th>' + prop.all_quietest_bicycle + 
+'</th><th>' + prop.all_ebike_bicycle + '</th></tr><tr><th>Go Dutch</th><th>' + prop.all_fastest_bicycle_go_dutch + '</th><th>' +
+prop.all_balanced_bicycle_go_dutch + '</th><th>' + prop.all_quietest_bicycle_go_dutch + '</th><th>' + prop.all_ebike_bicycle_go_dutch + '</th></tr></table>' +
 '<p><h4>Commute</h4></p><table><tr><th></th><th>Fastest</th><th>Balanced</th><th>Quietest</th><th>Ebikes</th></tr>' +
-'<tr><th>Baseline</th><th>' + commute_fast_bicycle + '</th><th>' + commute_balance_bicycle + '</th><th>' + commute_quiet_bicycle + 
-'</th><th>' + commute_ebike_bicycle + '</th></tr><tr><th>Go Dutch</th><th>' + commute_fast_bicycle_go_dutch + '</th><th>' +
-commute_balance_bicycle_go_dutch + '</th><th>' + commute_quiet_bicycle_go_dutch + '</th><th>' + commute_ebike_bicycle_go_dutch + '</th></tr></table>' +
+'<tr><th>Baseline</th><th>' + prop.commute_fastest_bicycle + '</th><th>' + prop.commute_balanced_bicycle + '</th><th>' + prop.commute_quietest_bicycle + 
+'</th><th>' + prop.commute_ebike_bicycle + '</th></tr><tr><th>Go Dutch</th><th>' + prop.commute_fastest_bicycle_go_dutch + '</th><th>' +
+prop.commute_balanced_bicycle_go_dutch + '</th><th>' + prop.commute_quietest_bicycle_go_dutch + '</th><th>' + prop.commute_ebike_bicycle_go_dutch + '</th></tr></table>' +
 '<p><h4>School</h4></p><table><tr><th></th><th>Fastest</th><th>Balanced</th><th>Quietest</th><th>Ebikes</th></tr>' +
-'<tr><th>Baseline</th><th>' + school_fast_bicycle + '</th><th>' + school_balance_bicycle + '</th><th>' + school_quiet_bicycle + 
-'</th><th>' + school_ebike_bicycle + '</th></tr><tr><th>Go Dutch</th><th>' + school_fast_bicycle_go_dutch + '</th><th>' +
-school_balance_bicycle_go_dutch + '</th><th>' + school_quiet_bicycle_go_dutch + '</th><th>' + school_ebike_bicycle_go_dutch + '</th></tr></table>' +
+'<tr><th>Baseline</th><th>' + prop.school_fastest_bicycle + '</th><th>' + prop.school_balanced_bicycle + '</th><th>' + prop.school_quietest_bicycle + 
+'</th><th>' + prop.school_ebike_bicycle + '</th></tr><tr><th>Go Dutch</th><th>' + prop.school_fastest_bicycle_go_dutch + '</th><th>' +
+prop.school_balanced_bicycle_go_dutch + '</th><th>' + prop.school_quietest_bicycle_go_dutch + '</th><th>' + prop.school_ebike_bicycle_go_dutch + '</th></tr></table>' +
 
 
 '<p> Gradient: ' + Gradient + '</p>' +
