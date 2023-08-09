@@ -25,8 +25,10 @@ map.on('click', 'data_zones', function(e) {
   
   // Block Modal when clicking on other layers
   let f = map.queryRenderedFeatures(e.point);
+  var layersToExclude = ['composite', 'dasymetric','placenames'];
+
   f = f.filter(function (el) {
-    return el.source != 'composite';
+    return !layersToExclude.includes(el.source);
   });
   
   if (f.length == 1) {
