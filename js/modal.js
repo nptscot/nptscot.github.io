@@ -21,7 +21,7 @@ window.onclick = function(event) {
 
 // How map triggers the modal 
 // On click open modal
-map.on('click', 'zones', function(e) {
+map.on('click', 'data_zones', function(e) {
   
   // Block Modal when clicking on other layers
   let f = map.queryRenderedFeatures(e.point);

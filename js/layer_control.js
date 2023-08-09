@@ -13,7 +13,6 @@ function switch_style(){
 
     // Reload layers
     toggleLayer('rnet'); // Start with the rnet on
-    //toggleLayer('zones');
     toggleLayer('data_zones');
     toggleLayer('la');
     toggleLayer('wards');
@@ -48,16 +47,6 @@ function addDataSources () {
     map.addSource('dasymetric', {
   	'type': 'vector',
   	'url': 'pmtiles://https://nptscot.blob.core.windows.net/pmtiles/dasymetric.pmtiles',
-    });
-  }
-  
-  if (!map.getSource('zones')){
-    map.addSource('zones', {
-    	'type': 'vector',
-    	'tiles': ['https://www.wisemover.co.uk/tiles/zones/{z}/{x}/{y}.pbf'],
-    	'minzoom': 6,
-    	'maxzoom': 12,
-    	'bounds': [-8.649240,54.633160,-0.722602,60.861379]
     });
   }
   
@@ -362,9 +351,6 @@ function toggleLayer(layerName) {
         break;
       case 'routes':
         switch_routes();
-        break;
-      case 'zones':
-        switch_zones();
         break;
       case 'data_zones':
         switch_data_zones();
@@ -683,6 +669,7 @@ function switch_routes() {
 }
 */
 
+/*
 function switch_zones() {
   var checkBox = document.getElementById('zonescheckbox');
   var zend = document.getElementById("zones_end_input").value;
@@ -768,7 +755,7 @@ function switch_zones() {
     if (map.getLayer("zones")) map.removeLayer("zones");
   }
 }
-
+*/
 
 function switch_data_zones() {
   var checkBox = document.getElementById('data_zonescheckbox');

@@ -11,7 +11,7 @@ maxZoom: 19,
 minZoom: 6,
 maxPitch: 85,
 hash: true,
-antialias: false
+antialias: true
 });
 
 // Setup other part of the website
