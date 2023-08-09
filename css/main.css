@@ -557,3 +557,13 @@ input:checked + .slider:before {
 .slider.round:before {
   border-radius: 50%;
 } 
+
+/* Map popup */
+
+.mappopup {
+  line-height: 10px;
+}
+
+.mappopup.h4 {
+  line-height: 12px;
+}

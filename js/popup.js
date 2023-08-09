@@ -23,22 +23,26 @@ for (const property in properties) {
 var Gradient = e.features[0].properties.Gradient;
 var Quietness = e.features[0].properties.Quietness;
 
-var description = '<div><p><h4>All</h4></p><table><tr><th></th><th>Fastest</th><th>Balanced</th><th>Quietest</th><th>Ebikes</th></tr>' +
-'<tr><th>Baseline</th><th>' + prop.all_fastest_bicycle + '</th><th>' + prop.all_balanced_bicycle + '</th><th>' + prop.all_quietest_bicycle + 
-'</th><th>' + prop.all_ebike_bicycle + '</th></tr><tr><th>Go Dutch</th><th>' + prop.all_fastest_bicycle_go_dutch + '</th><th>' +
-prop.all_balanced_bicycle_go_dutch + '</th><th>' + prop.all_quietest_bicycle_go_dutch + '</th><th>' + prop.all_ebike_bicycle_go_dutch + '</th></tr></table>' +
-'<p><h4>Commute</h4></p><table><tr><th></th><th>Fastest</th><th>Balanced</th><th>Quietest</th><th>Ebikes</th></tr>' +
-'<tr><th>Baseline</th><th>' + prop.commute_fastest_bicycle + '</th><th>' + prop.commute_balanced_bicycle + '</th><th>' + prop.commute_quietest_bicycle + 
-'</th><th>' + prop.commute_ebike_bicycle + '</th></tr><tr><th>Go Dutch</th><th>' + prop.commute_fastest_bicycle_go_dutch + '</th><th>' +
-prop.commute_balanced_bicycle_go_dutch + '</th><th>' + prop.commute_quietest_bicycle_go_dutch + '</th><th>' + prop.commute_ebike_bicycle_go_dutch + '</th></tr></table>' +
-'<p><h4>School</h4></p><table><tr><th></th><th>Fastest</th><th>Balanced</th><th>Quietest</th><th>Ebikes</th></tr>' +
-'<tr><th>Baseline</th><th>' + prop.school_fastest_bicycle + '</th><th>' + prop.school_balanced_bicycle + '</th><th>' + prop.school_quietest_bicycle + 
-'</th><th>' + prop.school_ebike_bicycle + '</th></tr><tr><th>Go Dutch</th><th>' + prop.school_fastest_bicycle_go_dutch + '</th><th>' +
-prop.school_balanced_bicycle_go_dutch + '</th><th>' + prop.school_quietest_bicycle_go_dutch + '</th><th>' + prop.school_ebike_bicycle_go_dutch + '</th></tr></table>' +
+var description = '<div class="mappopup"><h4>Fast/Direct network</h4>' + 
 
+'<table><tr><th></th><th>Baseline</th><th>Go Dutch</th><th>Ebikes</th></tr>' +
+'<tr><th>All</th><th>' + prop.all_fastest_bicycle + '</th><th>' + prop.all_fastest_bicycle_go_dutch + '</th><th>' + prop.all_fastest_bicycle_ebike + '</th></tr>' + 
+'<tr><th>Commute</th><th>' + prop.commute_fastest_bicycle + '</th><th>' + prop.commute_fastest_bicycle_go_dutch + '</th><th>' + prop.commute_fastest_bicycle_ebike + '</th></tr>' +
+'<tr><th>Primary</th><th>' + prop.primary_fastest_bicycle + '</th><th>' + prop.primary_fastest_bicycle_go_dutch + '</th><th>' + prop.primary_fastest_bicycle_ebike + '</th></tr>' +
+'<tr><th>Secondary</th><th>' + prop.secondary_fastest_bicycle + '</th><th>' + prop.secondary_fastest_bicycle_go_dutch + '</th><th>' + prop.secondary_fastest_bicycle_ebike + '</th></tr>' +
+'</table>' +
 
-'<p> Gradient: ' + Gradient + '</p>' +
-'<p> Quietness: ' + Quietness + '</p>' +
+'<h4>Quiet/Indirect network</h4>' + 
+
+'<table><tr><th></th><th>Baseline</th><th>Go Dutch</th><th>Ebikes</th></tr>' +
+'<tr><th>All</th><th>' + prop.all_quietest_bicycle + '</th><th>' + prop.all_quietest_bicycle_go_dutch + '</th><th>' + prop.all_quietest_bicycle_ebike + '</th></tr>' + 
+'<tr><th>Commute</th><th>' + prop.commute_quietest_bicycle + '</th><th>' + prop.commute_quietest_bicycle_go_dutch + '</th><th>' + prop.commute_quietest_bicycle_ebike + '</th></tr>' +
+'<tr><th>Primary</th><th>' + prop.primary_quietest_bicycle + '</th><th>' + prop.primary_quietest_bicycle_go_dutch + '</th><th>' + prop.primary_quietest_bicycle_ebike + '</th></tr>' +
+'<tr><th>Secondary</th><th>' + prop.secondary_quietest_bicycle + '</th><th>' + prop.secondary_quietest_bicycle_go_dutch + '</th><th>' + prop.secondary_quietest_bicycle_ebike + '</th></tr>' +
+'</table>' +
+
+'<p> Gradient: ' + Gradient + '%</p>' +
+'<p> Cycle friendliness: ' + Quietness + '%</p>' +
 '<p><a target="_blank" href="http://maps.google.com/maps?q=&layer=c&cbll=' + 
 coordinates.lat + ',' + coordinates.lng +
 '&cbp=11,0,0,0,0">Google Street View </a><i class="fa fa-external-link" aria-hidden="true"></i></p><div>';

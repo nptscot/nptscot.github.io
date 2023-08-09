@@ -166,7 +166,8 @@ Commuting patterns have changed since the pandemic, and not everyone commutes, t
     <select id="rnet_purpose_input" name="rnet_purpose_input" onchange="switch_rnet()" aria-label="Route network trip purpose">
       <option value="all" selected>All</option>
       <option value="commute" >Commute</option>
-      <option value="school" >School</option>
+      <option value="primary" >Primary School</option>
+      <option value="secondary" >Secondary School</option>
     </select>
     Trip purpose <button onclick="show_help('purpose')" aria-label="Help purpose" class="helpbutton"><i class="fa fa-question-circle" aria-hidden="true"></i></button>
   </p>
@@ -175,6 +176,7 @@ Commuting patterns have changed since the pandemic, and not everyone commutes, t
   <select id="rnet_scenario_input" name="rnet_scenario_input" onchange="switch_rnet()" aria-label="Route network scenario">
       <option value="bicycle">Baseline (2011)</option>
       <option value="bicycle_go_dutch" selected>Go Dutch</option>
+      <option value="bicycle_ebike" selected>Ebike</option>
   </select>
   Scenario <button onclick="show_help('scenario')" aria-label="Help scenario" class="helpbutton"><i class="fa fa-question-circle" aria-hidden="true"></i></button>
   </p>
@@ -183,8 +185,6 @@ Commuting patterns have changed since the pandemic, and not everyone commutes, t
     <select id="rnet_type_input" name="rnet_type_input" onchange="switch_rnet()" aria-label="Route network type">
       <option value="fastest"selected>Fast/Direct</option>
       <option value="quietest">Quiet/Indirect</option>
-      <option value="ebike">Ebike</option>
-      
     </select>
     Network type <button onclick="show_help('type')" aria-label="Help type" class="helpbutton"><i class="fa fa-question-circle" aria-hidden="true"></i></button>
   </p>
