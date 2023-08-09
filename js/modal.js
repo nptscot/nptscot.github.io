@@ -34,7 +34,7 @@ map.on('click', 'data_zones', function(e) {
     zone_modal.style.display = "block";
 	
     var sub = e.features[0].properties;
-  	var dataurl = 'https://www.wisemover.co.uk/json/' + sub.geo_code + '.json';
+  	var dataurl = 'https://nptscot.blob.core.windows.net/json/DataZone/' + sub.DataZone + '.json';
     var zonedata;
     $.getJSON(dataurl, function (json) {
         console.log( "downloaded zone json" );
@@ -74,45 +74,45 @@ makeChartsModeshare = function(sub){
 	}
   
   var bicycle = [
-    sub.orig_bicycle_fastest_commute, 
-    sub.orig_bicycle_go_dutch_fastest_commute, 
-    sub.dest_bicycle_fastest_commute, 
-    sub.dest_bicycle_go_dutch_fastest_commute
+    sub.comm_orig_bicycle, 
+    sub.comm_orig_bicycle_go_dutch_fastest, 
+    sub.comm_dest_bicycle, 
+    sub.comm_dest_bicycle_go_dutch_fastest
     ];
   
   var car_driver = [
-    sub.orig_car_driver_fastest_commute, 
-    sub.orig_car_driver_go_dutch_fastest_commute, 
-    sub.dest_car_driver_fastest_commute, 
-    sub.dest_car_driver_go_dutch_fastest_commute
+    sub.comm_orig_car_driver, 
+    sub.comm_orig_car_driver_go_dutch_fastest, 
+    sub.comm_dest_car_driver, 
+    sub.comm_dest_car_driver_go_dutch_fastest
     ];
     
   var car_passenger = [
-    sub.orig_car_passenger_fastest_commute, 
-    sub.orig_car_passenger_go_dutch_fastest_commute, 
-    sub.dest_car_passenger_fastest_commute, 
-    sub.dest_car_passenger_go_dutch_fastest_commute
+    sub.comm_orig_car_passenger, 
+    sub.comm_orig_car_passenger_go_dutch_fastest, 
+    sub.comm_dest_car_passenger, 
+    sub.comm_dest_car_passenger_go_dutch_fastest
     ];
     
   var public_transport = [
-    sub.orig_public_transport_fastest_commute, 
-    sub.orig_public_transport_go_dutch_fastest_commute, 
-    sub.dest_public_transport_fastest_commute, 
-    sub.dest_public_transport_go_dutch_fastest_commute
+    sub.comm_orig_public_transport, 
+    sub.comm_orig_public_transport_go_dutch_fastest, 
+    sub.comm_dest_public_transport, 
+    sub.comm_dest_public_transport_go_dutch_fastest
     ];
     
   var foot = [
-    sub.orig_foot_fastest_commute, 
-    sub.orig_foot_go_dutch_fastest_commute, 
-    sub.dest_foot_fastest_commute, 
-    sub.dest_foot_go_dutch_fastest_commute
+    sub.comm_orig_foot, 
+    sub.comm_orig_foot_go_dutch_fastest, 
+    sub.comm_dest_foot, 
+    sub.comm_dest_foot_go_dutch_fastest
     ];
     
   var other = [
-    sub.orig_other_fastest_commute, 
-    sub.orig_other_go_dutch_fastest_commute, 
-    sub.dest_other_fastest_commute, 
-    sub.dest_other_go_dutch_fastest_commute
+    sub.comm_orig_other, 
+    sub.comm_orig_other_go_dutch_fastest, 
+    sub.comm_dest_other, 
+    sub.comm_dest_other_go_dutch_fastest
     ];
   
   
