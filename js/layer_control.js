@@ -39,7 +39,7 @@ function addDataSources () {
   if (!map.getSource('rnet')){
     map.addSource('rnet', {
     	'type': 'vector',
-    	'url': 'pmtiles://tmp/rnet_2023-08-11.pmtiles',
+    	'url': 'pmtiles://rnet_2023-08-11.pmtiles',
     });
   }
     
