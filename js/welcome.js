@@ -3,11 +3,8 @@ var span = document.getElementsByClassName("closewelcome")[0];
 var spanhelp = document.getElementsByClassName("closehelp")[0];
 
 function formatAsUKDate(date) {
-  date = new Date(date);
-  var day = date.getDate();
-  var month = date.getMonth() + 1;
-  var year = date.getFullYear();
-  return  day + '/' + month + '/' + year;
+  const options = { year: 'numeric', month: 'long', day: 'numeric' };
+  return new Date(date).toLocaleDateString('en-GB', options);
 }
 
 
