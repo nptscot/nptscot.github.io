@@ -604,7 +604,7 @@ function switch_rnet() {
     };
     
     // Define Line Width
-    // Implments the formula y = (3 / (1 + e^(-3(x/1000 - 1.6))) + 0.3
+    // Implments the formula y = (3 / (1 + exp(-3*(x/1000 - 1.6))) + 0.3)
     // For working this out I deserve a ****ing medal
     var style_line_width = {
           "line-width": [
@@ -618,7 +618,6 @@ function switch_rnet() {
                 18, ["*", 52.5,["+", 0.3, ["/", 3, ["+", 1, ["^", 2.718, ["-", 2.94, ["*", ["get", layerWidth2], 0.0021]]]]]]],
             ],
         };
-  
     
     var style_paint = {"paint" : {...style_line_colour, ...style_line_width}};
     var style_combined = {...style_head, ...style_filter, ...style_paint};
