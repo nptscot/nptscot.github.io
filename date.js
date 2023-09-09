@@ -1,1 +1,1 @@
-document.getElementById("osmupdatedate").innerHTML = '5 August 2023'
+document.getElementById("osmupdatedate").innerHTML = '1 September 2023'
