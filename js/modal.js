@@ -82,18 +82,11 @@ makeChartsModeshare = function(sub){
     sub.comm_dest_bicycle_go_dutch_fastest
     ];
   
-  var car_driver = [
-    sub.comm_orig_car_driver, 
-    sub.comm_orig_car_driver_go_dutch_fastest, 
-    sub.comm_dest_car_driver, 
-    sub.comm_dest_car_driver_go_dutch_fastest
-    ];
-    
-  var car_passenger = [
-    sub.comm_orig_car_passenger, 
-    sub.comm_orig_car_passenger_go_dutch_fastest, 
-    sub.comm_dest_car_passenger, 
-    sub.comm_dest_car_passenger_go_dutch_fastest
+  var car = [
+    sub.comm_orig_car, 
+    sub.comm_orig_car_go_dutch_fastest, 
+    sub.comm_dest_car, 
+    sub.comm_dest_car_go_dutch_fastest
     ];
     
   var public_transport = [
@@ -110,11 +103,11 @@ makeChartsModeshare = function(sub){
     sub.comm_dest_foot_go_dutch_fastest
     ];
     
-  var other = [
-    sub.comm_orig_other, 
-    sub.comm_orig_other_go_dutch_fastest, 
-    sub.comm_dest_other, 
-    sub.comm_dest_other_go_dutch_fastest
+  var taxi = [
+    sub.comm_orig_taxi, 
+    sub.comm_orig_taxi_go_dutch_fastest, 
+    sub.comm_dest_taxi, 
+    sub.comm_dest_taxi_go_dutch_fastest
     ];
   
   
@@ -132,20 +125,12 @@ makeChartsModeshare = function(sub){
 				order: 1
 			},
 			{
-				label: 'Car driver',
-				data: car_driver,
+				label: 'Car',
+				data: car,
 				backgroundColor: 'rgba(227,26,28, 0.8)',
 				borderColor: 'rgba(227,26,28, 1)',
 				borderWidth: 1,
 				order: 5
-			},
-			{
-				label: 'Car passenger',
-				data: car_passenger,
-				backgroundColor: 'rgba(251,154,153, 0.8)',
-				borderColor: 'rgba(251,154,153, 1)',
-				borderWidth: 1,
-				order: 4
 			},
 			{
 				label: 'Public transport',
@@ -164,8 +149,8 @@ makeChartsModeshare = function(sub){
 				order: 2
 			},
 			{
-				label: 'Other',
-				data: other,
+				label: 'Taxi',
+				data: taxi,
 				backgroundColor: 'rgba(166,206,227, 0.8)',
 				borderColor: 'rgba(166,206,227, 1)',
 				borderWidth: 1,

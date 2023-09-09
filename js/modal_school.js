@@ -78,18 +78,20 @@ makeChartsModeshareSchool = function(sub){
 	}
 	
 	var currentShare = [
-	  sub.bicycle_Primary_fastest,
-	  sub.foot_Primary_fastest,
-	  sub.public_transport_Primary_fastest,
-	  sub.car_driver_Primary_fastest
+	  sub.bicycle_primary,
+	  sub.foot_primary,
+	  sub.public_transport_primary,
+	  sub.car_primary,
+	  sub.other_primary
 	];
 	
 	
 	var futureShare = [
-	  sub.bicycle_go_dutch_Primary_fastest,
-	  sub.foot_go_dutch_Primary_fastest,
-	  sub.public_transport_go_dutch_Primary_fastest,
-	  sub.car_driver_go_dutch_Primary_fastest
+	  sub.bicycle_go_dutch_primary_fastest,
+	  sub.foot_go_dutch_primary_fastest,
+	  sub.public_transport_go_dutch_primary_fastest,
+	  sub.car_go_dutch_primary_fastest,
+	  sub.other_go_dutch_primary_fastest
 	];
   
   
@@ -109,7 +111,8 @@ makeChartsModeshareSchool = function(sub){
 				'rgba(178,223,138, 1)',
 				'rgba(51,160,44, 1)',
 				'rgba(227,26,28, 1)',
-				'rgba(128,128,128, 1)'
+				'rgba(128,128,128, 1)',
+				'rgba(35,35,35, 1)'
 				],
 				weight: 0.2
 				
@@ -120,12 +123,13 @@ makeChartsModeshareSchool = function(sub){
 				'rgba(178,223,138, 1)',
 				'rgba(51,160,44, 1)',
 				'rgba(227,26,28, 1)',
-				'rgba(128,128,128, 1)'
+				'rgba(128,128,128, 1)',
+				'rgba(35,35,35, 1)'
 				]
 				
 			}],
 			
-			labels: ['Bicycle','Foot','Public Transport','Car']
+			labels: ['Bicycle','Foot','Public Transport','Car','Other']
 		},
 		options: {
 			responsive: true,
