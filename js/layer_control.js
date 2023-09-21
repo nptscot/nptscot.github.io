@@ -55,7 +55,7 @@ function addDataSources () {
   if (!map.getSource('data_zones')){
     map.addSource('data_zones', {
   	  'type': 'vector',
-  	  'url': 'pmtiles://https://nptscot.blob.core.windows.net/pmtiles/data_zones.pmtiles',
+  	  'url': 'pmtiles://https://nptscot.blob.core.windows.net/pmtiles/data_zones-2023-09-09.pmtiles',
     });
   }
   
