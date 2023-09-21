@@ -801,16 +801,16 @@ function switch_data_zones() {
       break;
     case 'pcycle':
         document.getElementById("dzlegend").innerHTML = `<div class="l_r">
-        <div class="lb"><span style="background-color: #A50026"></span>0-1%</div>
-        <div class="lb"><span style="background-color: #D73027"></span>2-3%</div>
-        <div class="lb"><span style="background-color: #F46D43"></span>4-6%</div>
-        <div class="lb"><span style="background-color: #FDAE61"></span>7-9%</div>
-        <div class="lb"><span style="background-color: #FEE090"></span>10-14%</div>
-        <div class="lb"><span style="background-color: #ffffbf"></span>15-19%</div>
-        <div class="lb"><span style="background-color: #C6DBEF"></span>20-24%</div>
-        <div class="lb"><span style="background-color: #ABD9E9"></span>25-29%</div>
-        <div class="lb"><span style="background-color: #74ADD1"></span>30-39%</div>
-        <div class="lb"><span style="background-color: #4575B4"></span>>40%</div>
+        <div class="lb"><span style="background-color: #A50026"></span>0-1</div>
+        <div class="lb"><span style="background-color: #D73027"></span>2-3</div>
+        <div class="lb"><span style="background-color: #F46D43"></span>4-6</div>
+        <div class="lb"><span style="background-color: #FDAE61"></span>7-9</div>
+        <div class="lb"><span style="background-color: #FEE090"></span>10-14</div>
+        <div class="lb"><span style="background-color: #ffffbf"></span>15-19</div>
+        <div class="lb"><span style="background-color: #C6DBEF"></span>20-24</div>
+        <div class="lb"><span style="background-color: #ABD9E9"></span>25-29</div>
+        <div class="lb"><span style="background-color: #74ADD1"></span>30-39</div>
+        <div class="lb"><span style="background-color: #4575B4"></span>>40</div>
       	</div>`;
       break;
     case 'pcycle_go_dutch':
