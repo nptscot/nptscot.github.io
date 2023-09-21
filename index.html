@@ -352,12 +352,45 @@ Commuting patterns have changed since the pandemic, and not everyone commutes, t
 </div>
 <div class="modal-body">
 
-  <p>Summary of people commuting into/outof this zone</p>
-  <div style="min-height:300px">
-      <div class="chart-container" style="height:400px">
-    			<canvas id="mode_commute_chart"></canvas>
-    	</div>
-  </div>
+  <div class="wrapper">
+  	  <div class="chart-text">
+  	    <h4>Commuters leaving</h4>
+  	    <p>The bar chart shows estimated mode shares under different scenarios for commuters leaving this zone. (i.e they live here and commute to another zone).</p>
+  	 </div>
+  	 	<div class="chart-container" >
+  			<canvas id="commuteOriginChart"></canvas>
+  		</div>
+	</div>
+  
+  <div class="wrapper">
+  	  <div class="chart-text">
+  	    <h4>Commuters arriving</h4>
+  	    <p>The bar chart shows estimated mode shares under different scenarios for commuters arriving this zone. (i.e they wprk here and live in another zone).</p>
+  	 </div>
+  	 	<div class="chart-container" >
+  			<canvas id="commuteDestinationChart"></canvas>
+  		</div>
+	</div>
+
+  <div class="wrapper">
+  	  <div class="chart-text">
+  	    <h4>Primary school children</h4>
+  	    <p>The bar chart shows estimated mode shares under different scenarios for primary school childen that live in this zone.</p>
+  	 </div>
+  	 	<div class="chart-container" >
+  			<canvas id="primaryOrginChart"></canvas>
+  		</div>
+	</div>
+
+  <div class="wrapper">
+  	  <div class="chart-text">
+  	    <h4>Secondary school children</h4>
+  	    <p>The bar chart shows estimated mode shares under different scenarios for secondary school childen that live in this zone.</p>
+  	 </div>
+  	 	<div class="chart-container" >
+  			<canvas id="secondaryOriginChart"></canvas>
+  		</div>
+	</div>
 
 </div>
 <div class="modal-footer">
@@ -380,22 +413,34 @@ Commuting patterns have changed since the pandemic, and not everyone commutes, t
   
   <div class="wrapper">
   	  <div class="chart-text">
-  	    <h4>Travel to School modal split</h4>
-  	    <p>Inner ring is current mode split for this school, outer ring is the go dutch mode split.</p>
+  	    <h4>Primary school modal split</h4>
+  	    <p>The bar chart shows extimated mode shares for primary school children under different scenarios.</p>
   	 </div>
   	 	<div class="chart-container" >
-  			<canvas id="t2sChart"></canvas>
+  			<canvas id="primaryChart"></canvas>
   		</div>
-		</div>
+	</div>
   
+  <div class="wrapper">
+  	  <div class="chart-text">
+  	    <h4>Secondary school modal split</h4>
+  	    <p>The bar chart shows extimated mode shares for seconday school children under different scenarios.</p>
+  	 </div>
+  	 	<div class="chart-container" >
+  			<canvas id="secondaryChart"></canvas>
+  		</div>
+	</div>
+	
+	<div class="wrapper">
+  	  <div class="chart-text">
+  	    <h4>Route Characteritics</h4>
+  	    <p>Summary of the route characteritics.</p>
+  	 </div>
+  	 	<div class="chart-container" >
+  			<canvas id="secondaryChart"></canvas>
+  		</div>
+	</div>
 
-  <!--
-  <div style="min-height:300px">
-      <div class="chart-container" style="height:400px">
-    			<canvas id="t2sChart"></canvas>
-    	</div>
-  </div>
-  -->
 
 </div>
 <div class="modal-footer">
