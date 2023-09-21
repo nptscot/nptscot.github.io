@@ -48,7 +48,7 @@ function addDataSources () {
   if (!map.getSource('dasymetric')){
     map.addSource('dasymetric', {
   	'type': 'vector',
-  	'url': 'pmtiles://https://nptscot.blob.core.windows.net/pmtiles/dasymetric.pmtiles',
+  	'url': 'pmtiles://https://nptscot.blob.core.windows.net/pmtiles/dasymetric-2023-09-09.pmtiles',
     });
   }
   
@@ -799,6 +799,34 @@ function switch_data_zones() {
         <div class="lb"><span style="background-color: #7f0000"></span>100%</div>
       	</div>`;
       break;
+    case 'pcycle':
+        document.getElementById("dzlegend").innerHTML = `<div class="l_r">
+        <div class="lb"><span style="background-color: #A50026"></span>0-1%</div>
+        <div class="lb"><span style="background-color: #D73027"></span>2-3%</div>
+        <div class="lb"><span style="background-color: #F46D43"></span>4-6%</div>
+        <div class="lb"><span style="background-color: #FDAE61"></span>7-9%</div>
+        <div class="lb"><span style="background-color: #FEE090"></span>10-14%</div>
+        <div class="lb"><span style="background-color: #ffffbf"></span>15-19%</div>
+        <div class="lb"><span style="background-color: #C6DBEF"></span>20-24%</div>
+        <div class="lb"><span style="background-color: #ABD9E9"></span>25-29%</div>
+        <div class="lb"><span style="background-color: #74ADD1"></span>30-39%</div>
+        <div class="lb"><span style="background-color: #4575B4"></span>>40%</div>
+      	</div>`;
+      break;
+    case 'pcycle_go_dutch':
+        document.getElementById("dzlegend").innerHTML = `<div class="l_r">
+        <div class="lb"><span style="background-color: #A50026"></span>0-1%</div>
+        <div class="lb"><span style="background-color: #D73027"></span>2-3%</div>
+        <div class="lb"><span style="background-color: #F46D43"></span>4-6%</div>
+        <div class="lb"><span style="background-color: #FDAE61"></span>7-9%</div>
+        <div class="lb"><span style="background-color: #FEE090"></span>10-14%</div>
+        <div class="lb"><span style="background-color: #ffffbf"></span>15-19%</div>
+        <div class="lb"><span style="background-color: #C6DBEF"></span>20-24%</div>
+        <div class="lb"><span style="background-color: #ABD9E9"></span>25-29%</div>
+        <div class="lb"><span style="background-color: #74ADD1"></span>30-39%</div>
+        <div class="lb"><span style="background-color: #4575B4"></span>>40%</div>
+      	</div>`;
+      break;
     default:
       document.getElementById("dzlegend").innerHTML = `<div class="l_r">
         <div class="lb"><span style="background-color: #053061"></span>3</div>
@@ -882,6 +910,37 @@ function switch_data_zones() {
               '#fdbb84', 10,
               '#d7301f', 50,
               '#7f0000', 100,
+              '#000000'
+        ];
+        break;
+        
+      case 'pcycle':
+        var style_col = [
+              '#A50026', 2,
+              '#D73027', 4,
+              '#F46D43', 7,
+              '#FDAE61', 10,
+              '#FEE090', 15,
+              '#ffffbf', 20,
+              '#C6DBEF', 25,
+              '#ABD9E9', 30,
+              '#74ADD1', 40,
+              '#4575B4', 100,
+              '#000000'
+        ];
+        break;
+      case 'pcycle_go_dutch':
+        var style_col = [
+              '#A50026', 2,
+              '#D73027', 4,
+              '#F46D43', 7,
+              '#FDAE61', 10,
+              '#FEE090', 15,
+              '#ffffbf', 20,
+              '#C6DBEF', 25,
+              '#ABD9E9', 30,
+              '#74ADD1', 40,
+              '#4575B4', 100,
               '#000000'
         ];
         break;
