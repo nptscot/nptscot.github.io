@@ -45,11 +45,11 @@ var description = '<div class="mappopup"><h4>Fast/Direct network</h4>' +
 '<p> Cycle friendliness: ' + Quietness + '%</p>' +
 '<p><a target="_blank" href="http://maps.google.com/maps?q=&layer=c&cbll=' + 
 coordinates.lat + ',' + coordinates.lng +
-'&cbp=11,0,0,0,0">Google Street View </a><i class="fa fa-external-link" aria-hidden="true"></i></p><div>';
+'&cbp=11,0,0,0,0">Google Street View </a><i class="fa fa-external-link" aria-hidden="true"></i></p>' +
 
 // Add link to https://www.openstreetmap.org/edit#map=20/latitude/longitude
-// With a message like "Data on this segment wrong or missing something? Update it on <a href="https://www.openstreetmap.org/edit#map=20/55.95145/-3.17960">OSM</a>."
-'<p>Data on this segment wrong or missing something? <a href="https://www.openstreetmap.org/edit#map=20/' + coordinates.lat + '/' + coordinates.lng + '">Update on OpenStreetMap</a>.</p>';
+// See https://github.com/nptscot/nptscot.github.io/issues/91
+'<p><a target="_blank" href="https://www.openstreetmap.org/edit#map=20/' + coordinates.lat + '/' + coordinates.lng + '">Update on OpenStreetMap</a><i class="fa fa-external-link" aria-hidden="true"></i></p></div></div>';
 
 new maplibregl.Popup({maxWidth: '400px'})
 .setLngLat(coordinates)
