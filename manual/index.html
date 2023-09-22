@@ -59,13 +59,13 @@
 
 
 <h2 id="introduction">Introduction</h2>
-<p>The Network Planning Tool for Scotland is a planning support system, research project, and web application to support strategic active travel network planning. The 2023 version is focused on cycle network planning. The Network Planning Tool builds on the <a href="https://www.pct.bike/">Propensity to Cycle Tool</a> for England and Wales, which is a publicly available web application providing evidence on levels of cycling and potential down to the road network nationwide (<a href="https://www.jtlu.org/index.php/jtlu/article/view/862">Lovelace et al. 2017</a>).</p>
-<p><strong>Note: the NPT is currently a prototype. Version 1 is expected to be completed by the end of 2023. The prototype version is provided to preview the tool and gather <a href="https://forms.office.com/Pages/ResponsePage.aspx?id=qO3qvR3IzkWGPlIypTW3ywVZfmO0bwdAhK0UztpneQtUM1pCRlJQQjY1V0M3MUhBV0g0VTJRS1ZQVi4u">feedback</a>. While the current version&rsquo;s results are comprehensive and objective, tool outputs may change without warning. The prototype version is based only on travel-to-work data, and the results should be interpreted accordingly.</strong></p>
+<p>The Network Planning Tool for Scotland is a planning support system, research project, and web application to support strategic cycle network planning. The Network Planning Tool builds on the <a href="https://www.pct.bike/">Propensity to Cycle Tool</a> for England and Wales, which is a publicly available web application providing evidence on levels of cycling and potential down to the road network nationwide (<a href="https://www.jtlu.org/index.php/jtlu/article/view/862">Lovelace et al. 2017</a>).</p>
+<p><strong>Note: the NPT is currently a prototype. Version 1 is expected to be completed by the end of 2023. The prototype version is provided to preview the tool and gather <a href="https://forms.office.com/Pages/ResponsePage.aspx?id=qO3qvR3IzkWGPlIypTW3ywVZfmO0bwdAhK0UztpneQtUM1pCRlJQQjY1V0M3MUhBV0g0VTJRS1ZQVi4u">feedback</a>. While the current version&rsquo;s results are comprehensive and objective, tool outputs may change without warning.</strong></p>
 <p>The University of Leeds produces the NPT on behalf of Sustrans and Transport Scotland.</p>
 <p>&nbsp;</p>
 <h3 id="essentials">NPT Essentials</h3>
 <p>The NPT is Scotland&rsquo;s nationwide web-based strategic network planning tool that estimates cycling potential down to the street level.</p>
-<p>The NPT can be thought of as:</p>
+<p>The NPT includes:</p>
 <p>i) the <a href="https://www.npt.scot/">map user interface</a>,&nbsp;</p>
 <p>ii) a series of open access <a href="https://www.npt.scot/data">data downloads</a> that can be analysed in GIS software or statistical software,&nbsp;</p>
 <p>iii) the <a href="https://github.com/nptscot/">code base</a> that can be modified to fix bugs, add new features, and develop new scenarios.</p>
@@ -124,18 +124,18 @@
 <h4>Trip purpose</h4>
 <p>People have many reasons to travel, and their reasons for travel often change their choice of destinations and routes. Therefore, a cycling network designed for commuters may look very different to a network designed for children to travel to school. The trip purpose drop-down allows you to view different networks based on different trip purposes.</p>
 <h5>All</h5>
-<p>This is the default view that displays all journey purposes combined, offering a comprehensive overview of the total cycling demand.</p>
+<p>This is the default view that displays all journey purposes that are part of the NPT (currently travel to work and travel to school) combined, offering an overview of total cycling potential.</p>
 <p>&nbsp;</p>
 <h5>Commute</h5>
-<p>The commute network, as the second option in the travel purpose dropdown list, is based on the 2011 Census travel to work data. Commuters tend to favour radial routes from suburban residential areas into town and city centres where most jobs are concentrated.</p>
+<p>The commute network, as the second option in the travel purpose dropdown list, is based on the 2011 Census travel to work data. Commuters tend to favour radial routes from suburban residential areas into town and city centres where most jobs are concentrated. This layer can help identify the core arterial network.</p>
 <h5>Primary School</h5>
-<p>The primary school network, as the third option in the travel purpose dropdown list, is dedicated to capturing the cycling patterns of those travelling to and from primary schools. It provides insights into the routes chosen by children and their guardians. Recognising these patterns is pivotal for urban planners, enabling them to emphasize and develop infrastructure that prioritises the safety of young cyclists. This ensures that journeys to primary schools are both safe and efficient for our youngest members of the community.</p>
+<p>The primary school network, as the third option in the travel purpose dropdown list, shows cycling potential for cycling to primary schools, whether by e-cargo, accompanied by adults, or as part of 'cycle buses'. It provides insights into the routes that could be taken by children and carers. Recognising these patterns is important for urban planners, enabling them to emphasize and develop infrastructure that prioritises the safety of young people. Schools tend to be located in residential areas, so the resulting primary and secondary networks tend to favour denser orbital routes that could be supported by modal filters and traffic management.</p>
 <h5>Secondary School</h5>
-<p>The secondary school network, as the forth option in the travel purpose dropdown list, is dedicated to understanding the cycling habits of those commuting to and from secondary schools. It offers insights into the pathways preferred by teenagers and their guardians. By identifying these trends, urban planners can focus on enhancing infrastructure that ensures the safety and efficiency of adolescent cyclists, facilitating their journeys to and from school in a secure manner.</p>
+<p>The secondary school network is the forth option in the travel purpose dropdown menu. It offers insights into the networks that could enable teenagers safe cycling options for everyday trips.</p>
 <h5>Social &ndash; Coming soon</h5>
-<p>The social network is dedicated to capturing the cycling patterns of individuals travelling to social hubs, parks, and recreational areas. It sheds light on the routes most frequented for leisure and social activities. Recognizing these patterns is essential for urban planners, allowing them to prioritize and develop infrastructure that enhances the cycling experience, ensuring that social outings on bikes are both enjoyable and safe.</p>
+<p>The social network is dedicated to capturing the cycling patterns of individuals travelling to social hubs, parks, and recreational areas. It sheds light on the routes most frequented for leisure and social activities. Recognising these patterns is essential for urban planners, allowing them to prioritize and develop infrastructure that enhances the cycling experience, ensuring that social outings on bikes are both enjoyable and safe.</p>
 <h5>Shopping &ndash; Coming soon</h5>
-<p>The shopping network is dedicated to highlighting the cycling behaviours of individuals travelling to shopping centres, markets, and retail districts. It provides insights into the most popular routes for shopping-related trips. With this knowledge, urban planners can emphasize the creation of infrastructure that caters to the needs of shoppers on bikes, ensuring convenient and safe access to retail areas.</p>
+<p>The shopping network is dedicated to highlighting the cycling behaviours of individuals travelling to shops. It provides insights into the most popular routes for shopping-related trips. With this knowledge, urban planners can emphasize the creation of infrastructure that caters to the needs of shoppers on bikes, ensuring convenient and safe access to retail areas.</p>
 <h5>Personal &ndash; Coming soon</h5>
 <p>The personal network is dedicated to capturing the cycling patterns of individuals undertaking personal errands, such as visiting banks, post offices, or attending medical appointments. It offers insights into the routes chosen for these personal tasks. Understanding these patterns is crucial for urban planners, enabling them to design and prioritize infrastructure that makes personal errands on bikes both efficient and secure.</p>
 <h5>What&rsquo;s missing from the NPT</h5>
@@ -268,9 +268,10 @@
 </div>
 
 <div id="admin_bounds">
-<h3 id="admin-bounds">Administrative Boundaries</h3>
-<p>Four types of administrative boundaries can be shown on the map</p>
+<h3 id="admin-bounds">Other Layers</h3>
+<p>The following additional layers can be shown on the map</p>
 <ul>
+    <li>Schools (click on a school to see current and potential future mode split data)</li>
     <li>Wards</li>
     <li>Scottish Parliamentary Constituencies</li>
     <li>Scottish Parliament Regions</li>
