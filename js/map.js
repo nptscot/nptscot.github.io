@@ -1,17 +1,24 @@
 // Setup Map
-//var antialias = document.getElementById('antialiascheckbox').checked;
-//console.log(antialias);
+
+// Anti Alias Check
+function switch_antialias(){
+  location.reload()
+};
+
+var antialias = document.getElementById('antialiascheckbox').checked;
+console.log('Antialias is ' + antialias);
+
+// Main map setup
 var map = new maplibregl.Map({
 container: 'map',
 style: 'tiles/style_' + displayRadioValue(document.getElementById("basemapform")) + '.json',
-//style: 'tiles/style_fastload.json',
 center: [-3.1382,55.9533],
 zoom: 8,
 maxZoom: 19,
 minZoom: 6,
 maxPitch: 85,
 hash: true,
-antialias: false
+antialias: antialias
 });
 
 // Setup other part of the website
@@ -121,8 +128,5 @@ addHomeButton(map);
 map.on('load', function() {
 switch_style();
 });
-
-
-
 
 

@@ -13,11 +13,11 @@ function switch_style(){
 
     // Reload layers
     toggleLayer('rnet'); // Start with the rnet on
-    //toggleLayer('zones');
     toggleLayer('data_zones');
     toggleLayer('la');
     toggleLayer('wards');
     toggleLayer('holyrood');
+    toggleLayer('schools');
     switch_placenames();
     
     // Sliders 
@@ -39,31 +39,30 @@ function addDataSources () {
   if (!map.getSource('rnet')){
     map.addSource('rnet', {
     	'type': 'vector',
-    	'url': 'pmtiles://https://nptscot.blob.core.windows.net/pmtiles/rnet.pmtiles',
+    	'url': 'pmtiles://https://nptscot.blob.core.windows.net/pmtiles/rnet-2023-09-09.pmtiles',
+      // // Local tiles:
+      // 'url': 'pmtiles://rnet.pmtiles',
     });
   }
     
   if (!map.getSource('dasymetric')){
     map.addSource('dasymetric', {
   	'type': 'vector',
-  	'url': 'pmtiles://https://nptscot.blob.core.windows.net/pmtiles/dasymetric.pmtiles',
-    });
-  }
-  
-  if (!map.getSource('zones')){
-    map.addSource('zones', {
-    	'type': 'vector',
-    	'tiles': ['https://www.wisemover.co.uk/tiles/zones/{z}/{x}/{y}.pbf'],
-    	'minzoom': 6,
-    	'maxzoom': 12,
-    	'bounds': [-8.649240,54.633160,-0.722602,60.861379]
+  	'url': 'pmtiles://https://nptscot.blob.core.windows.net/pmtiles/dasymetric-2023-09-09.pmtiles',
     });
   }
   
   if (!map.getSource('data_zones')){
     map.addSource('data_zones', {
   	  'type': 'vector',
-  	  'url': 'pmtiles://https://nptscot.blob.core.windows.net/pmtiles/data_zones.pmtiles',
+  	  'url': 'pmtiles://https://nptscot.blob.core.windows.net/pmtiles/data_zones-2023-09-09.pmtiles',
+    });
+  }
+  
+  if (!map.getSource('schools')){
+    map.addSource('schools', {
+  	  'type': 'vector',
+  	  'url': 'pmtiles://https://nptscot.blob.core.windows.net/pmtiles/schools.pmtiles',
     });
   }
   
@@ -355,11 +354,33 @@ function toggleLayer(layerName) {
       case 'routes':
         switch_routes();
         break;
-      case 'zones':
-        switch_zones();
-        break;
       case 'data_zones':
         switch_data_zones();
+        break;
+      case 'schools':
+        map.addLayer({
+            'id': 'schools',
+            'type': 'circle',
+            'source': 'schools',
+            'source-layer': 'schools',
+            'paint': {
+              "circle-color": [
+          			'match',
+          			['get', 'SchoolType'],
+          			'Primary','#313695',
+          			'Secondary','#a50026',
+          			/* other */ '#43f22c'
+          			],
+              // make circles larger as the user zooms
+              'circle-radius': {
+                'base': 5,
+                'stops': [
+                  [8, 6],
+                  [22, 180]
+                ]
+              },
+            } 
+        },'placeholder_name');
         break;
       case 'la':
         map.addLayer({
@@ -432,6 +453,7 @@ function displayRadioValue(ele) {
 function switch_rnet() {  
   console.log("Updating rnet")
   var checkBox = document.getElementById('rnetcheckbox');
+  var layerPurpose = document.getElementById("rnet_purpose_input").value;
   var layerScenario = document.getElementById("rnet_scenario_input").value;
   var layerColour = document.getElementById("rnet_colour_input").value;
   var layerType = document.getElementById("rnet_type_input").value;
@@ -448,6 +470,9 @@ function switch_rnet() {
 
   // Width
   //var layerWidth = document.getElementById("rnet_width_input").value;
+  // TODO: Add line width toggle, and link 
+  
+  /*
   var a = 1;
   var b = 1;
   var layerWidth2 = layerScenario;
@@ -463,8 +488,10 @@ function switch_rnet() {
     default:
      a = 0.05;
      b = 0.5;
-     layerWidth2 = layerType + "_" + layerScenario;
+     layerWidth2 = layerPurpose + "_" + layerType + "_" + layerScenario;
   }
+  */
+  var layerWidth2 = layerPurpose + "_" + layerType + "_" + layerScenario;
   
   // Update the Legend - Do this even if map layer is off
   switch(layerColour) {
@@ -523,8 +550,8 @@ function switch_rnet() {
     // Only filter cyclists if scenario set
       var style_filter = {
         'filter': ["all",
-              ['<=', layerType + "_" + layerScenario, sliderFlow_max],
-              ['>=', layerType + "_" + layerScenario, sliderFlow_min],
+              ['<=', layerPurpose + "_" + layerType + "_" + layerScenario, sliderFlow_max],
+              ['>=', layerPurpose + "_" + layerType + "_" + layerScenario, sliderFlow_min],
               ['<=', "Quietness", sliderQuietness_max],
               ['>=', "Quietness", sliderQuietness_min],
               ['<=', "Gradient", sliderGradient_max],
@@ -563,7 +590,7 @@ function switch_rnet() {
         break;
       default:
         var style_line_colour = {
-          "line-color": ["step", ["get", layerType + "_" + layerScenario],
+          "line-color": ["step", ["get", layerPurpose + "_" + layerType + "_" + layerScenario],
               "rgba(0,0,0,0)", 1,
               "#9C9C9C", 10,
               "#FFFF73", 50,
@@ -576,38 +603,21 @@ function switch_rnet() {
         };
     };
     
-    // Define Line Width           
-    switch (layerScenario) {
-      case 'none':
-        var style_line_width = {
-          "line-width": [
-                  "interpolate",
-                  ["linear"],
-                  ["zoom"],
-                  12, 2.1,
-                  14, 5.25,
-                  15, 7.5,
-                  16, 18,
-                  18, 52.5,
-                  22, 150
-                ]
-        };
-        break;
-      default:
-        var style_line_width = {
+    // Define Line Width
+    // Implments the formula y = (3 / (1 + exp(-3*(x/1000 - 1.6))) + 0.3)
+    // For working this out I deserve a ****ing medal
+    var style_line_width = {
           "line-width": [
                 "interpolate", 
                 ["linear"], 
                 ["zoom"],
-                12, ["*", 2.1 , a, ["^", ["+", 1, ["get", layerWidth2]], b]],
-                14, ["*", 5.25, a, ["^", ["+", 1, ["get", layerWidth2]], b]],
-                15, ["*", 7.5 , a, ["^", ["+", 1, ["get", layerWidth2]], b]],
-                16, ["*", 18  , a, ["^", ["+", 1, ["get", layerWidth2]], b]],
-                18, ["*", 52.5, a, ["^", ["+", 1, ["get", layerWidth2]], b]], 
-                22, ["*", 150 , a, ["^", ["+", 1, ["get", layerWidth2]], b]]
+                12, ["*", 2.1, ["+", 0.3, ["/", 3, ["+", 1, ["^", 2.718, ["-", 2.94, ["*", ["get", layerWidth2], 0.0021]]]]]]],
+                14, ["*", 5.25,["+", 0.3, ["/", 3, ["+", 1, ["^", 2.718, ["-", 2.94, ["*", ["get", layerWidth2], 0.0021]]]]]]],
+                15, ["*", 7.5, ["+", 0.3, ["/", 3, ["+", 1, ["^", 2.718, ["-", 2.94, ["*", ["get", layerWidth2], 0.0021]]]]]]],
+                16, ["*", 18,  ["+", 0.3, ["/", 3, ["+", 1, ["^", 2.718, ["-", 2.94, ["*", ["get", layerWidth2], 0.0021]]]]]]],
+                18, ["*", 52.5,["+", 0.3, ["/", 3, ["+", 1, ["^", 2.718, ["-", 2.94, ["*", ["get", layerWidth2], 0.0021]]]]]]],
             ],
         };
-    };
     
     var style_paint = {"paint" : {...style_line_colour, ...style_line_width}};
     var style_combined = {...style_head, ...style_filter, ...style_paint};
@@ -660,6 +670,7 @@ function switch_routes() {
 }
 */
 
+/*
 function switch_zones() {
   var checkBox = document.getElementById('zonescheckbox');
   var zend = document.getElementById("zones_end_input").value;
@@ -745,7 +756,7 @@ function switch_zones() {
     if (map.getLayer("zones")) map.removeLayer("zones");
   }
 }
-
+*/
 
 function switch_data_zones() {
   var checkBox = document.getElementById('data_zonescheckbox');
@@ -786,6 +797,34 @@ function switch_data_zones() {
         <div class="lb"><span style="background-color: #fdbb84"></span>10%</div>
         <div class="lb"><span style="background-color: #d7301f"></span>50%</div>
         <div class="lb"><span style="background-color: #7f0000"></span>100%</div>
+      	</div>`;
+      break;
+    case 'pcycle':
+        document.getElementById("dzlegend").innerHTML = `<div class="l_r">
+        <div class="lb"><span style="background-color: #A50026"></span>0-1</div>
+        <div class="lb"><span style="background-color: #D73027"></span>2-3</div>
+        <div class="lb"><span style="background-color: #F46D43"></span>4-6</div>
+        <div class="lb"><span style="background-color: #FDAE61"></span>7-9</div>
+        <div class="lb"><span style="background-color: #FEE090"></span>10-14</div>
+        <div class="lb"><span style="background-color: #ffffbf"></span>15-19</div>
+        <div class="lb"><span style="background-color: #C6DBEF"></span>20-24</div>
+        <div class="lb"><span style="background-color: #ABD9E9"></span>25-29</div>
+        <div class="lb"><span style="background-color: #74ADD1"></span>30-39</div>
+        <div class="lb"><span style="background-color: #4575B4"></span>>40</div>
+      	</div>`;
+      break;
+    case 'pcycle_go_dutch':
+        document.getElementById("dzlegend").innerHTML = `<div class="l_r">
+        <div class="lb"><span style="background-color: #A50026"></span>0-1</div>
+        <div class="lb"><span style="background-color: #D73027"></span>2-3</div>
+        <div class="lb"><span style="background-color: #F46D43"></span>4-6</div>
+        <div class="lb"><span style="background-color: #FDAE61"></span>7-9</div>
+        <div class="lb"><span style="background-color: #FEE090"></span>10-14</div>
+        <div class="lb"><span style="background-color: #ffffbf"></span>15-19</div>
+        <div class="lb"><span style="background-color: #C6DBEF"></span>20-24</div>
+        <div class="lb"><span style="background-color: #ABD9E9"></span>25-29</div>
+        <div class="lb"><span style="background-color: #74ADD1"></span>30-39</div>
+        <div class="lb"><span style="background-color: #4575B4"></span>>40</div>
       	</div>`;
       break;
     default:
@@ -871,6 +910,37 @@ function switch_data_zones() {
               '#fdbb84', 10,
               '#d7301f', 50,
               '#7f0000', 100,
+              '#000000'
+        ];
+        break;
+        
+      case 'pcycle':
+        var style_col = [
+              '#A50026', 2,
+              '#D73027', 4,
+              '#F46D43', 7,
+              '#FDAE61', 10,
+              '#FEE090', 15,
+              '#ffffbf', 20,
+              '#C6DBEF', 25,
+              '#ABD9E9', 30,
+              '#74ADD1', 40,
+              '#4575B4', 100,
+              '#000000'
+        ];
+        break;
+      case 'pcycle_go_dutch':
+        var style_col = [
+              '#A50026', 2,
+              '#D73027', 4,
+              '#F46D43', 7,
+              '#FDAE61', 10,
+              '#FEE090', 15,
+              '#ffffbf', 20,
+              '#C6DBEF', 25,
+              '#ABD9E9', 30,
+              '#74ADD1', 40,
+              '#4575B4', 100,
               '#000000'
         ];
         break;

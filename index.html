@@ -35,8 +35,8 @@
   <script src="/js/lib/geocoder/maplibre-gl-geocoder.min.js"></script>
   <!-- <script src="/js/lib/measures/maplibre-gl-measures.js"></script> -->
   <link rel="stylesheet" href="js/lib/geocoder/maplibre-gl-geocoder-small.css" type="text/css"/>
-  <script src="https://unpkg.com/maplibre-gl@3.0.0-pre.4/dist/maplibre-gl.js"></script>
-  <link href="https://unpkg.com/maplibre-gl@3.0.0-pre.4/dist/maplibre-gl.css" rel="stylesheet" />
+  <script src="https://unpkg.com/maplibre-gl@3.2.2/dist/maplibre-gl.js"></script>
+  <link href="https://unpkg.com/maplibre-gl@3.2.2/dist/maplibre-gl.css" rel="stylesheet" />
   
 
   <!-- Third Party Scrips 
@@ -101,9 +101,10 @@ You may need to clear your browser cache to see the latest updates.
 The results of this Fast Track version are based only on the 2011 Census travel to work data.
 Commuting patterns have changed since the pandemic, and not everyone commutes, the results should be interpreted accordingly. Future versions of the tool will include other trip purposes.
 <p>The results are publicly available. The main intended audience is local authorities undertaking cycle network planning to support more evidence-based and transparent investment, scheme location, and design decisions.</p>
-<p><b>Provide feedback</b></p>
 <p>To report issues or provide feedback, please use the <a href="https://forms.office.com/Pages/ResponsePage.aspx?id=qO3qvR3IzkWGPlIypTW3ywVZfmO0bwdAhK0UztpneQtUM1pCRlJQQjY1V0M3MUhBV0g0VTJRS1ZQVi4u" target="_blank">feedback form</a>.</p>
 <div id="updatedate"></div>
+<p>Date of OSM Data on which network results are based: <div id="osmupdatedate"></div></p> 
+
 </div>
 </div>
 
@@ -144,9 +145,7 @@ Commuting patterns have changed since the pandemic, and not everyone commutes, t
   </form>
   </p>
   <p><label class="switch"><input type="checkbox" id="placenamescheckbox" onclick="switch_placenames()" checked><span class="slider round"></span></label> Place Names</p>
-  <!--
-  <p><label class="switch"><input type="checkbox" id="antialiascheckbox" onclick="location.reload()" ><span class="slider round"></span></label> Antialias</p>
-  -->
+  <p><label class="switch"><input type="checkbox" id="antialiascheckbox" onclick="switch_antialias()" ><span class="slider round"></span></label> Anti-alias</p>
 </div>
 
 <!-- Show Layer Selection Panel  Button-->
@@ -164,7 +163,10 @@ Commuting patterns have changed since the pandemic, and not everyone commutes, t
   <p><label><input type="checkbox" id="rnetcheckbox" onclick="toggleLayer('rnet')" checked>Show Layer</label></p>
   <p>
     <select id="rnet_purpose_input" name="rnet_purpose_input" onchange="switch_rnet()" aria-label="Route network trip purpose">
-      <option value="commute" selected>Commute</option>
+      <option value="all" selected>All</option>
+      <option value="commute" >Commute</option>
+      <option value="primary" >Primary School</option>
+      <option value="secondary" >Secondary School</option>
     </select>
     Trip purpose <button onclick="show_help('purpose')" aria-label="Help purpose" class="helpbutton"><i class="fa fa-question-circle" aria-hidden="true"></i></button>
   </p>
@@ -173,17 +175,15 @@ Commuting patterns have changed since the pandemic, and not everyone commutes, t
   <select id="rnet_scenario_input" name="rnet_scenario_input" onchange="switch_rnet()" aria-label="Route network scenario">
       <option value="bicycle">Baseline (2011)</option>
       <option value="bicycle_go_dutch" selected>Go Dutch</option>
+      <option value="bicycle_ebike">Ebike</option>
   </select>
   Scenario <button onclick="show_help('scenario')" aria-label="Help scenario" class="helpbutton"><i class="fa fa-question-circle" aria-hidden="true"></i></button>
   </p>
   
   <p>
     <select id="rnet_type_input" name="rnet_type_input" onchange="switch_rnet()" aria-label="Route network type">
-      <option value="fastest"selected>Fastest</option>
-      <option value="balanced">Balanced</option>
-      <option value="quietest">Quietest</option>
-      <option value="ebike">Ebike</option>
-      
+      <option value="fastest"selected>Fast/Direct</option>
+      <option value="quietest">Quiet/Indirect</option>
     </select>
     Network type <button onclick="show_help('type')" aria-label="Help type" class="helpbutton"><i class="fa fa-question-circle" aria-hidden="true"></i></button>
   </p>
@@ -272,7 +272,9 @@ Commuting patterns have changed since the pandemic, and not everyone commutes, t
 
   <p>
     <select id="data_zone_input" name="data_zone_input" onchange="switch_data_zones()" aria-label="Data zone layer">
-      <option value="population_density" selected>Population density (per hectare)</option>
+      <option value="pcycle">% commuter cycling (baseline)</option>
+      <option value="pcycle_go_dutch" selected>% commuter cycling (Go Dutch)</option>
+      <option value="population_density">Population density (per hectare)</option>
       <option value="SIMD2020v2_Decile">Index of Multiple Deprivation (2020)</option>
       <option value="drive_petrol">Drive time to petrol station</option>
       <option value="drive_GP">Drive time to GP</option>
@@ -298,9 +300,16 @@ Commuting patterns have changed since the pandemic, and not everyone commutes, t
   
 </div>
 
-<button class="accordion">Administrative Boundaries</button>
+<button class="accordion">Other Layers</button>
 <div class="panel">
 
+  <p><label><input type="checkbox" id="schoolscheckbox" value="false" onclick="toggleLayer('schools')">Schools</label></p>
+  <div class="legend"><div class="l_r">
+  <div class="lb"><span style="background-color: #313695"></span>Primary</div>
+  <div class="lb"><span style="background-color: #a50026"></span>Seconday</div>
+  <div class="lb"><span style="background-color: #43f22c"></span>Other</div>
+	</div></div>
+  
   <p><label><input type="checkbox" id="wardscheckbox" value="false" onclick="toggleLayer('wards')">Wards</label></p>
   <div class="legend"><div class="l_r">
   <div class="lb"><span style="background-color: #206b07"></span></div>
@@ -334,7 +343,7 @@ Commuting patterns have changed since the pandemic, and not everyone commutes, t
 </div>
 
 
-<!-- The Modal -->
+<!-- The DataZone Modal -->
 <div id="zone_modal" class="modal">
 
 <!-- Modal content -->
@@ -345,12 +354,45 @@ Commuting patterns have changed since the pandemic, and not everyone commutes, t
 </div>
 <div class="modal-body">
 
-  <p>Summary of people commuting into/outof this zone</p>
-  <div style="min-height:300px">
-      <div class="chart-container" style="height:400px">
-    			<canvas id="mode_commute_chart"></canvas>
-    	</div>
-  </div>
+  <div class="wrapper">
+  	  <div class="chart-text">
+  	    <h4>Commuters leaving</h4>
+  	    <p>The bar chart shows estimated mode shares under different scenarios for commuters leaving this zone. (i.e they live here and commute to another zone).</p>
+  	 </div>
+  	 	<div class="chart-container" >
+  			<canvas id="commuteOriginChart"></canvas>
+  		</div>
+	</div>
+  
+  <div class="wrapper">
+  	  <div class="chart-text">
+  	    <h4>Commuters arriving</h4>
+  	    <p>The bar chart shows estimated mode shares under different scenarios for commuters arriving this zone. (i.e they wprk here and live in another zone).</p>
+  	 </div>
+  	 	<div class="chart-container" >
+  			<canvas id="commuteDestinationChart"></canvas>
+  		</div>
+	</div>
+
+  <div class="wrapper">
+  	  <div class="chart-text">
+  	    <h4>Primary school children</h4>
+  	    <p>The bar chart shows estimated mode shares under different scenarios for primary school childen that live in this zone.</p>
+  	 </div>
+  	 	<div class="chart-container" >
+  			<canvas id="primaryOrginChart"></canvas>
+  		</div>
+	</div>
+
+  <div class="wrapper">
+  	  <div class="chart-text">
+  	    <h4>Secondary school children</h4>
+  	    <p>The bar chart shows estimated mode shares under different scenarios for secondary school childen that live in this zone.</p>
+  	 </div>
+  	 	<div class="chart-container" >
+  			<canvas id="secondaryOriginChart"></canvas>
+  		</div>
+	</div>
 
 </div>
 <div class="modal-footer">
@@ -360,8 +402,58 @@ Commuting patterns have changed since the pandemic, and not everyone commutes, t
 
 </div>
 
+<!-- The School Modal -->
+<div id="school_modal" class="modal">
+
+<!-- Modal content -->
+<div class="modal-content">
+<div class="modal-header">
+    <span class="closeschoolmodal">&times;</span>
+    <div id="school-modal-title"><h2>School Summary</h2></div>
+</div>
+<div class="modal-body">
+  
+  <div class="wrapper">
+  	  <div class="chart-text">
+  	    <h4>Primary school modal split</h4>
+  	    <p>The bar chart shows extimated mode shares for primary school children under different scenarios.</p>
+  	 </div>
+  	 	<div class="chart-container" >
+  			<canvas id="primaryChart"></canvas>
+  		</div>
+	</div>
+  
+  <div class="wrapper">
+  	  <div class="chart-text">
+  	    <h4>Secondary school modal split</h4>
+  	    <p>The bar chart shows extimated mode shares for seconday school children under different scenarios.</p>
+  	 </div>
+  	 	<div class="chart-container" >
+  			<canvas id="secondaryChart"></canvas>
+  		</div>
+	</div>
+	
+	<div class="wrapper">
+  	  <div class="chart-text">
+  	    <h4>Route Characteritics</h4>
+  	    <p>Summary of the route characteritics.</p>
+  	 </div>
+  	 	<div class="chart-container" >
+  			<canvas id="secondaryChart"></canvas>
+  		</div>
+	</div>
+
+
+</div>
+<div class="modal-footer">
+</div>
+</div>
+
+
+</div>
 
 <script type="text/javascript" src="js/welcome.js"></script>
+<script type="text/javascript" src="date.js"></script>
 <script type="text/javascript" src="js/accordion.js"></script>
 <script type="text/javascript" src="js/layer_control.js"></script>
 <script type="text/javascript" src="js/map.js"></script>
@@ -370,6 +462,7 @@ Commuting patterns have changed since the pandemic, and not everyone commutes, t
 <script type="text/javascript" src="js/help.js" async></script>
 <script type="text/javascript" src="js/popup.js" async></script>
 <script type="text/javascript" src="js/modal.js" async></script>
+<script type="text/javascript" src="js/modal_school.js" async></script>
 <script type="text/javascript" src="js/sliders.js" async></script>
 
 

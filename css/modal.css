@@ -40,7 +40,7 @@
 }
 
 /* The Close Button */
-.closemodal {
+.closemodal, .closeschoolmodal {
   color: white;
   float: right;
   font-size: 28px;
@@ -48,7 +48,9 @@
 }
 
 .closemodal:hover,
-.closemodal:focus {
+.closemodal:focus,
+.closeschoolmodal:hover,
+.closeschoolmodal:focus {
   color: #000;
   text-decoration: none;
   cursor: pointer;

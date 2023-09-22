@@ -4,7 +4,7 @@ var quietnessSlider = document.getElementById('slider-quietness');
 
 //Define sliders
 noUiSlider.create(cycleSlider, {
-    start: [0, 5000],
+    start: [0, 20000],
     connect: true,
     range: {
         'min': [1, 10],
@@ -14,7 +14,7 @@ noUiSlider.create(cycleSlider, {
         '50%': [250, 250],
         '65%': [500, 500],
         '80%': [1000, 1000],
-        'max': [5000] // TODO: Check Max Value
+        'max': [20000] // TODO: Check Max Value
     },
     pips: {
         mode: 'range',

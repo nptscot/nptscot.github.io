@@ -1,24 +1,48 @@
-// Click on Transit transitstops
+
+// Convert 3 to <9
+function suppresssmall(x) {
+  if(x < 10){
+   return "\u22649";
+  }
+  return x;
+}
+
+// Click on rnet for popup
 map.on('click', 'rnet', function (e) {
 var coordinates = e.lngLat;
-var fast_bicycle  = e.features[0].properties.fastest_bicycle ;
-var balance_bicycle = e.features[0].properties.balanced_bicycle;
-var quiet_bicycle = e.features[0].properties.quietest_bicycle;
-var ebike_bicycle = e.features[0].properties.ebike_bicycle;
-var fast_bicycle_go_dutch = e.features[0].properties.fastest_bicycle_go_dutch;
-var balance_bicycle_go_dutch = e.features[0].properties.balanced_bicycle_go_dutch;
-var quiet_bicycle_go_dutch = e.features[0].properties.quietest_bicycle_go_dutch;
-var ebike_bicycle_go_dutch = e.features[0].properties.ebike_bicycle_go_dutch;
+
+// Process all the properties
+// Processed gradinet and quietness but ignored
+const properties = e.features[0].properties;
+const prop = {};
+
+for (const property in properties) {
+  prop[property] = suppresssmall(properties[property]);
+}
 
 var Gradient = e.features[0].properties.Gradient;
 var Quietness = e.features[0].properties.Quietness;
 
-var description = '<div><p><h4>Road summary</h4></p><table><tr><th></th><th>Fastest</th><th>Balanced</th><th>Quietest</th><th>Ebikes</th></tr>' +
-'<tr><th>Baseline</th><th>' + fast_bicycle + '</th><th>' + balance_bicycle + '</th><th>' + quiet_bicycle + 
-'</th><th>' + ebike_bicycle + '</th></tr><tr><th>Go Dutch</th><th>' + fast_bicycle_go_dutch + '</th><th>' +
-balance_bicycle_go_dutch + '</th><th>' + quiet_bicycle_go_dutch + '</th><th>' + ebike_bicycle_go_dutch + '</th></tr></table>' +
-'<p> Gradient: ' + Gradient + '</p>' +
-'<p> Quietness: ' + Quietness + '</p>' +
+var description = '<div class="mappopup"><h4>Fast/Direct network</h4>' + 
+
+'<table><tr><th></th><th>Baseline</th><th>Go Dutch</th><th>Ebikes</th></tr>' +
+'<tr><th>All</th><th>' + prop.all_fastest_bicycle + '</th><th>' + prop.all_fastest_bicycle_go_dutch + '</th><th>' + prop.all_fastest_bicycle_ebike + '</th></tr>' + 
+'<tr><th>Commute</th><th>' + prop.commute_fastest_bicycle + '</th><th>' + prop.commute_fastest_bicycle_go_dutch + '</th><th>' + prop.commute_fastest_bicycle_ebike + '</th></tr>' +
+'<tr><th>Primary</th><th>' + prop.primary_fastest_bicycle + '</th><th>' + prop.primary_fastest_bicycle_go_dutch + '</th><th>' + prop.primary_fastest_bicycle_ebike + '</th></tr>' +
+'<tr><th>Secondary</th><th>' + prop.secondary_fastest_bicycle + '</th><th>' + prop.secondary_fastest_bicycle_go_dutch + '</th><th>' + prop.secondary_fastest_bicycle_ebike + '</th></tr>' +
+'</table>' +
+
+'<h4>Quiet/Indirect network</h4>' + 
+
+'<table><tr><th></th><th>Baseline</th><th>Go Dutch</th><th>Ebikes</th></tr>' +
+'<tr><th>All</th><th>' + prop.all_quietest_bicycle + '</th><th>' + prop.all_quietest_bicycle_go_dutch + '</th><th>' + prop.all_quietest_bicycle_ebike + '</th></tr>' + 
+'<tr><th>Commute</th><th>' + prop.commute_quietest_bicycle + '</th><th>' + prop.commute_quietest_bicycle_go_dutch + '</th><th>' + prop.commute_quietest_bicycle_ebike + '</th></tr>' +
+'<tr><th>Primary</th><th>' + prop.primary_quietest_bicycle + '</th><th>' + prop.primary_quietest_bicycle_go_dutch + '</th><th>' + prop.primary_quietest_bicycle_ebike + '</th></tr>' +
+'<tr><th>Secondary</th><th>' + prop.secondary_quietest_bicycle + '</th><th>' + prop.secondary_quietest_bicycle_go_dutch + '</th><th>' + prop.secondary_quietest_bicycle_ebike + '</th></tr>' +
+'</table>' +
+
+'<p> Gradient: ' + Gradient + '%</p>' +
+'<p> Cycle friendliness: ' + Quietness + '%</p>' +
 '<p><a target="_blank" href="http://maps.google.com/maps?q=&layer=c&cbll=' + 
 coordinates.lat + ',' + coordinates.lng +
 '&cbp=11,0,0,0,0">Google Street View </a><i class="fa fa-external-link" aria-hidden="true"></i></p><div>';
