@@ -44,6 +44,13 @@ function addDataSources () {
       // 'url': 'pmtiles://rnet.pmtiles',
     });
   }
+  
+  if (!map.getSource('rnet-simplified')){
+    map.addSource('rnet-simplified', {
+    	'type': 'vector',
+    	'url': 'pmtiles://https://nptscot.blob.core.windows.net/pmtiles/rnet-simplified.pmtiles',
+    });
+  }
     
   if (!map.getSource('dasymetric')){
     map.addSource('dasymetric', {
@@ -463,6 +470,7 @@ function switch_rnet() {
   var sliderGradient_max = Number(gradientlider.noUiSlider.get()[1]);
   var sliderFlow_min = Number(cycleSlider.noUiSlider.get()[0]);
   var sliderFlow_max = Number(cycleSlider.noUiSlider.get()[1]);
+  var simplifiedmode = document.getElementById('rnetsimplifiedcheckbox');
   
   if(sliderGradient_max == 10){
     sliderGradient_max = 35
@@ -539,14 +547,22 @@ function switch_rnet() {
     if (map.getLayer('rnet')) map.removeLayer('rnet');
     
     // Make the parts of the style
-    
-    var style_head = {
-      "id": "rnet",
-      "type": "line",
-      "source": "rnet",
-      "source-layer": "rnet"
-    };
-    
+    if (simplifiedmode.checked === true) {
+      var style_head = {
+        "id": "rnet",
+        "type": "line",
+        "source": "rnet-simplified",
+        "source-layer": "rnet"
+      };
+    } else {
+      var style_head = {
+        "id": "rnet",
+        "type": "line",
+        "source": "rnet",
+        "source-layer": "rnet"
+      };
+    }
+
     // Only filter cyclists if scenario set
       var style_filter = {
         'filter': ["all",
