@@ -48,7 +48,7 @@ function addDataSources () {
   if (!map.getSource('rnet-simplified')){
     map.addSource('rnet-simplified', {
     	'type': 'vector',
-    	'url': 'pmtiles://https://nptscot.blob.core.windows.net/pmtiles/rnet-simplified.pmtiles',
+    	'url': 'pmtiles://https://nptscot.blob.core.windows.net/pmtiles/rnet-simplified-2023-10-12.pmtiles',
     });
   }
     
