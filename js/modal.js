@@ -22,6 +22,7 @@ window.onclick = function(event) {
   }
 };
 
+
 // How map triggers the modal 
 // On click open modal
 map.on('click', 'data_zones', function(e) {
@@ -46,8 +47,7 @@ map.on('click', 'data_zones', function(e) {
         zonedata = json[0];
     })
       .done(function() {
-        //Hide Spinner
-        //$('#loader').hide();
+        document.getElementById("zone-modal-title").innerHTML = "<h2>Zone Summary: " + sub.DataZone + "</h2>";
         // Define Charts
   		  makeChartsModeshare(zonedata);
       })
@@ -80,8 +80,67 @@ makeChartsModeshare = function(sub){
 		secondaryOriginChart.destroy();
 	}
   
+  function createArray(prefix, suffixes) {
+    return suffixes.map(suffix => sub[prefix + suffix]);
+  }
+  
+  var suffixes = [
+    '', 
+    '_go_dutch_fastest',
+    '_ebike_fastest',
+    '_go_dutch_quietest',
+    '_ebike_quietest'
+  ];
+
+  // Commute Origin
+  var bicycle_comm_orig = createArray('comm_orig_bicycle', suffixes);
+  var foot_comm_orig = createArray('comm_orig_foot', suffixes);
+  var car_comm_orig = createArray('comm_orig_car', suffixes);
+  var public_transport_comm_orig = createArray('comm_orig_public_transport', suffixes);
+  var taxi_comm_orig = createArray('comm_orig_taxi', suffixes);
+  
+  // Commute Destination
+  var bicycle_comm_dest = createArray('comm_dest_bicycle', suffixes);
+  var foot_comm_dest = createArray('comm_dest_foot', suffixes);
+  var car_comm_dest = createArray('comm_dest_car', suffixes);
+  var public_transport_comm_dest = createArray('comm_dest_public_transport', suffixes);
+  var taxi_comm_dest = createArray('comm_dest_taxi', suffixes);
+  
+  /*
+  var suffixes = [
+    '', 
+    '_go_dutch_primary_fastest',
+    '_ebike_primary_fastest',
+    '_go_dutch_primary_quietest',
+    '_ebike_primary_quietest'
+  ];
+  
+  // Primary Orig
+  var bicycle_primary_orig = createArray('schl_orig_bicycle', suffixes);
+  var foot_primary_orig = createArray('schl_orig_foot', suffixes);
+  var car_primary_orig = createArray('schl_orig_car', suffixes);
+  var public_transport_primary_orig = createArray('schl_orig_public_transport', suffixes);
+  var other_primary_orig = createArray('schl_orig_other', suffixes);
+  
+  var suffixes = [
+    '', 
+    '_go_dutch_secondary_fastest',
+    '_ebike_secondary_fastest',
+    '_go_dutch_secondary_quietest',
+    '_ebike_secondary_quietest'
+  ];
+
+  // Secondary Orig
+  var bicycle_secondary_orig = createArray('schl_orig_bicycle', suffixes);
+  var foot_secondary_orig = createArray('schl_orig_foot', suffixes);
+  var car_secondary_orig = createArray('schl_orig_car', suffixes);
+  var public_transport_secondary_orig = createArray('schl_orig_public_transport', suffixes);
+  var other_secondary_orig = createArray('schl_orig_other', suffixes);
+  */
+  
   
   // Commute Origin
+  /*
   var bicycle_comm_orig = [
     sub.comm_orig_bicycle, 
     sub.comm_orig_bicycle_go_dutch_fastest,
@@ -164,6 +223,8 @@ makeChartsModeshare = function(sub){
     sub.comm_dest_taxi_ebike_quietest
     ];
     
+  */
+  
   // Primary Orig
   var bicycle_primary_orig = [
     sub.bicycle_primary, 
@@ -245,6 +306,7 @@ makeChartsModeshare = function(sub){
     sub.schl_orig_other_go_dutch_secondary_quietest,
     sub.schl_orig_other_ebike_secondary_quietest
     ];
+  
   
 
   var commuteOrigin_ctx = document.getElementById('commuteOriginChart').getContext('2d');

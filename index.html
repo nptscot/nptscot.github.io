@@ -136,8 +136,6 @@ Commuting patterns have changed since the pandemic, and not everyone commutes, t
     <label for="bm2"><img src="images/satellite_50.png" title="Satellite" loading="lazy"/></label>
   <input type="radio" id="bm3" value="opencyclemap" name="basemap"class="radio-inline"/>
     <label for="bm3"><img src="images/opencyclemap_50.png" title="OpenCycleMap" loading="lazy"/></label>
-  <!-- <input type="radio" id="bm4" value="CDRC_nobuild" name="basemap"class="radio-inline"/>
-    <label for="bm4"><img src="images/CDRC.PNG" title="CDRC"/></label> -->
   <input type="radio" id="bm5" value="dark_nobuild" name="basemap"class="radio-inline"/>
     <label for="bm5"><img src="images/dark.PNG" title="Dark" loading="lazy"/></label>
   <input type="radio" id="bm6" value="google_nobuild" name="basemap"class="radio-inline"/>
@@ -205,7 +203,7 @@ Commuting patterns have changed since the pandemic, and not everyone commutes, t
 	</div>
 	
 	
-	<p><label class="switch"><input type="checkbox" id="rnetsimplifiedcheckbox" onclick="switch_rnet()"><span class="slider round"></span></label> Simplified</p>
+	<p><label class="switch"><input type="checkbox" id="rnetsimplifiedcheckbox" onclick="switch_rnet()"><span class="slider round"></span></label> Simplified <button onclick="show_help('simplified_rnet')" aria-label="Help simplified route network" class="helpbutton"><i class="fa fa-question-circle" aria-hidden="true"></i></button></p>
  
   
 
@@ -229,45 +227,6 @@ Commuting patterns have changed since the pandemic, and not everyone commutes, t
   
   
 </div>
-
-<!--
-<button class="accordion">Zones</button>
-<div class="panel">
-  <p><label><input type="checkbox" id="zonescheckbox" value="false" onclick="toggleLayer('zones')">Show Layer</label></p>
-
-  <p>
-    <select id="zones_end_input" name="zones_end_input" onchange="switch_zones()" aria-label="Zone end">
-      <option value="orig" selected>Origins</option>
-      <option value="dest">Destinations</option>
-    </select>
-    Trip end <button onclick="show_help('ends')" aria-label="Help purpsose" class="helpbutton"><i class="fa fa-question-circle" aria-hidden="true"></i></button>
-  </p>
-  
-  <p>
-    <select id="zones_purpose_input" name="zones_purpose_input" onchange="switch_zones()" aria-label="Zone trip purpose">
-      <option value="commute" selected>Commute</option>
-    </select>
-    Trip purpose <button onclick="show_help('purpose')" aria-label="Help purpsose" class="helpbutton"><i class="fa fa-question-circle" aria-hidden="true"></i></button>
-  </p>
-  
-  <p>
-    <select id="zones_type_input" name="zones_type_input" onchange="switch_zones()" aria-label="Zone trip type">
-      <option value="fastest"selected>Fastest</option>
-    </select>
-    Network type <button onclick="show_help('type')" aria-label="Help type" class="helpbutton"><i class="fa fa-question-circle" aria-hidden="true"></i></button>
-  </p>
-  
-  <p>
-  <select id="zones_scenario_input" name="zones_scenario_input" onchange="switch_zones()" aria-label="Zone variable">
-      <option value="pcycle_baseline" selected>Baseline (2011)</option>
-      <option value="pcycle_godutch">Go Dutch</option>
-      <option value="quietness_mean">Quietness</option>
-      <option value="hilliness_mean">Gradient</option>
-  </select>
-  Variable <button onclick="show_help('scenario')" aria-label="Help scenario" class="helpbutton"><i class="fa fa-question-circle" aria-hidden="true"></i></button>
-  </p>
-</div>
--->
 
 <button class="accordion">Data Zones</button>
 <div class="panel">
@@ -353,7 +312,7 @@ Commuting patterns have changed since the pandemic, and not everyone commutes, t
 <div class="modal-content">
 <div class="modal-header">
     <span class="closemodal">&times;</span>
-    <div id="modal-title"><h2>Area Summary</h2></div>
+    <div id="zone-modal-title"><h2>ZOne Summary</h2></div>
 </div>
 <div class="modal-body">
 

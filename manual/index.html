@@ -110,6 +110,7 @@
 <p>&nbsp;</p>
 <p>The NPT provides different basemaps. The example below shows the basemap selection options with the satellite basemap with 3D terrain enabled. You can hide the basemap selection option by clicking the change basemap button again.</p>
 <p><img src="/images/basemaps.png" alt="Basemap controls" class="responsive" style="max-width:648px"></p>
+<p>The Anti-alias option enables advanced renering options that make the map look smoother and clearer. However perfomance on low-end devices may be impared when using anti-aliasing.</p>
 <h3 id="layer-controls">Layer Controls</h3>
 <p><img src="/images/layer_controls.png" alt="Layer Controls" class="responsive" style="max-width:808px"></p>
 <p>The layer controls on the right side of the map control what information is shown on the map.</p>
@@ -150,8 +151,8 @@
 <p>However, until such a safe & direct network is created, cyclists may make detours away from roads that are (or are perceived to be) dangerous. There is strong evidence that safety concerns are the main barrier to more people cycling.</p>
 <p>Cyclestreets calculate the routes taken by cyclists, and each network type is based on one of their routeing <a href="https://www.cyclestreets.net/help/journey/howitworks/">algorithms</a>. The route choices are based on the current road infrastructure and don&rsquo;t account for planned improvements or missing links.</p>
 <p><img src="/images/rnet_types.png" alt="Route network types" class="responsive" style="max-width:1393px"></p>
-<p>Examples of the four network types in Edinburgh show how different assumptions about the routes cyclists take affect where the busiest parts (pink) of the network are.</p>
-<p>Note that the choice of network type does not just change the routes cyclists take but also the number of cyclists predicted under each scenario.&nbsp;</p>
+<p>Examples of the two network types in Edinburgh show how different assumptions about the routes cyclists take affect where the busiest parts (pink) of the network are.</p>
+<p>Note that the choice of network type does not just change the routes cyclists take but also the number of cyclists predicted under each scenario. This is because quiter routes are typically longer and hillers than the direct route which discorages cycling.</p>
 <h5>Fast/Direct (preferred)</h5>
 <p>This network type should be treated as the default.</p>
 <p>The fastest network is based on cyclists taking the most direct (legal) routes. While cyclists prefer direct routes, this will often bring them onto busy and dangerous major roads, which are a barrier to cycling. Planners seeking to maximise cycling will build high-quality cycle infrastructure along busy roads, which form part of the fastest cycle route network.</p>
@@ -179,11 +180,12 @@
 <!-- 
 <h5>Balanced</h5>
 <p>The balanced network is a trade-off between the fastest and quietest networks. It highlights places where cycling and car networks can be separated without penalising directness too much. Planners should not view quiet or balanced networks as ways to avoid building high-quality cycle infrastructure. Instead, consider if moving the cycle infrastructure one street over may unlock qualitative benefits for cyclists, such as more pleasant journeys that are worth a small penalty in total journey time.</p>
--->
+
 <h5>EBikes</h5>
 <p>The ebikes network is a variant of the fastest network that reduces the penalty for going up hills. Pedal cyclists incur a significant time and effort penalty from going uphill. Hence, a longer but flatter route is often faster. A good ebike can enable cyclists to ride uphill at 15 mph without breaking a sweat. Thus ebike riders may choose shorter but hillier routes than pedal cyclists.</p>
 <p>As ebikes increase a cyclist&rsquo;s range and carrying capacity while reducing effort and journey times, a world with many ebikes would expect higher levels of cycling than one with only pedal cycles.</p>
 <p>&nbsp;</p>
+-->
 </div>
 
 <div id="scenario">
@@ -194,7 +196,9 @@
 <h5>Go Dutch</h5>
 <p>The Go Dutch scenario imagines a future where people in the UK are as likely to travel by bike as people in the Netherlands while accounting for differences in trip distance and hilliness between locations. As such, the network shows where there could be future demand for cycling infrastructure.</p>
 <p>Planners should seek to design cycle networks that meet the needs of both current and future cyclists. But they may phase the construction to prioritise roads that will meet the needs of current cyclists and enable new people to cycle.</p>
-<h5>Ebike &ndash; Coming soon</h5>
+<h5>EBikes</h5>
+<p>The ebikes scenario is a variant of the Go Dutch scenario that assumes mass uptake of ebikes. The scenarios alters both the assumptions around cycling uptake and the routes choices made by cyclists, for example a reduced penalty for going up hills. Pedal cyclists incur a significant time and effort penalty from going uphill. Hence, a longer but flatter route is often faster. A good ebike can enable cyclists to ride uphill at 15 mph without breaking a sweat. Thus ebike riders may choose shorter but hillier routes than pedal cyclists.</p>
+<p>As ebikes increase a cyclist&rsquo;s range and carrying capacity while reducing effort and journey times, a world with many ebikes would expect higher levels of cycling than one with only pedal cycles.</p>
 <p>&nbsp;</p>
 </div>
 
@@ -226,6 +230,12 @@
 <p>The average gradient of the road is shown as a percentage. Steeper roads are a barrier to cycling and affect route choice and the uptake of cycling in the scenarios.</p>
 </div>
 
+<div id="simplified_rnet">
+<h4>Simplified Route Network</h4>
+<p>The simplified toggle enables the simplified route network. Major road corridors can be complex with multiple carriageways, cycle paths, and footways. It can be confusing to judge overall demand if the cyclists are split across multiple overlapping routes. The simplified network attempts to address this problem by combining parallel routes into a single line. This is a complex progress and some information is inevitably lost in the simplification process. Therefore we suggest using the simplified and complete route networks together to judge cycling demand.</p>
+<p><img src="/images/simplified.png" alt="Simplified Network" class="responsive" style="max-width:645px"></p>
+</div>
+
 <h4>Popup</h4>
 <p>Clicking on any road in the route network shows the route network popup.</p>
 <p><img src="/images/rnet_popup.png" alt="Popup" class="responsive" style="max-width:645px"></p>
@@ -237,7 +247,7 @@
 <p>The sliders allow you to show/hide parts of the route network. You can filter on three variables:</p>
 <p>&nbsp;</p>
 <h4>Numbers of cyclists</h4>
-<p>This filter is only available when &ldquo;Line colour&rdquo; is set to a cycling scenario.</p>
+<p>This filter selects based on the current scenario and route type.</p>
 <h4>Gradient</h4>
 <p>Set the maximum and minimum gradient of roads that are visible. Gradient measures the average gradient of the road segment as a percentage. E.g. 0% = flat, 100% = vertical cliff.</p>
 <h4>Cycle friendliness</h4>
@@ -250,6 +260,8 @@
 <p><img src="/images/data_zones.png" alt="Data zones" class="responsive"></p>
 <p>The data zone options are:</p>
 <ul>
+    <li>% commuter cycling (baseline)</li>
+    <li>% commuter cycling (Go Dutch)</li>
     <li>Population density (per hectare)</li>
     <li>Index of Multiple Deprivation (2020)</li>
     <li>Drive time to a petrol station</li>
@@ -267,6 +279,19 @@
 <p>By default, the data zones are shown as a <a href="https://en.wikipedia.org/wiki/Dasymetric_map">dasymetric map</a>. This means that the buildings within a zone are coloured to display information. If you turn off dasymetric mode, a simple <a href="https://en.wikipedia.org/wiki/Choropleth_map">choropleth map</a> is shown where the whole Data Zone is coloured. Note that the same underlying data is being visualised in both modes, and the differences between modes are merely aesthetic. However, dasymetric maps are intended to better represent the data by emphasising the true locations of people who are not uniformly distributed across the Data Zone.&nbsp;</p>
 <p><img src="/images/dasymetric.png" alt="Dasymetric maps" class="responsive"></p>
 <p>Dasymetric map (left) and choropleth map (right) for the Index of Multiple Deprivation in Edinburgh.</p>
+
+<h4>Data Zone popup</h4>
+<p>Clicking on any Data Zone shows the popup report for that zone. Four graphs are presented</p>
+<h5>Commuters leaving</h5>
+<p>The bar chart shows estimated mode shares under different scenarios for commuters leaving this zone. (i.e they live here and commute to another zone).</p>
+<h5>Commuters arriving</h5>
+<p>The bar chart shows estimated mode shares under different scenarios for commuters arriving this zone. (i.e they work here and live in another zone).</p>
+<h5>Primary school children</h5>
+<p>The bar chart shows estimated mode shares under different scenarios for primary school childen that live in this zone.</p>
+<h5>Secondary school children</h5>
+<p>The bar chart shows estimated mode shares under different scenarios for secondary school childen that live in this zone.</p>
+
+
 </div>
 
 <div id="admin_bounds">
@@ -280,6 +305,9 @@
     <li>Local Authority</li>
 </ul>
 <p>&nbsp;</p>
+<h4>Schools popup</h4>
+<p>Clicking on any school shows the schools popup</p>
+<p></p>
 </div>
 
 
