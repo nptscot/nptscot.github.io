@@ -30,6 +30,7 @@ var description = '<div class="mappopup"><h4>Fast/Direct network</h4>' +
 '<tr><th>Commute</th><th>' + prop.commute_fastest_bicycle + '</th><th>' + prop.commute_fastest_bicycle_go_dutch + '</th><th>' + prop.commute_fastest_bicycle_ebike + '</th></tr>' +
 '<tr><th>Primary</th><th>' + prop.primary_fastest_bicycle + '</th><th>' + prop.primary_fastest_bicycle_go_dutch + '</th><th>' + prop.primary_fastest_bicycle_ebike + '</th></tr>' +
 '<tr><th>Secondary</th><th>' + prop.secondary_fastest_bicycle + '</th><th>' + prop.secondary_fastest_bicycle_go_dutch + '</th><th>' + prop.secondary_fastest_bicycle_ebike + '</th></tr>' +
+'<tr><th>Utility</th><th>' + prop.utility_fastest_bicycle + '</th><th>' + prop.utility_fastest_bicycle_go_dutch + '</th><th>' + prop.utility_fastest_bicycle_ebike + '</th></tr>' +
 '</table>' +
 
 '<h4>Quiet/Indirect network</h4>' + 
@@ -39,6 +40,7 @@ var description = '<div class="mappopup"><h4>Fast/Direct network</h4>' +
 '<tr><th>Commute</th><th>' + prop.commute_quietest_bicycle + '</th><th>' + prop.commute_quietest_bicycle_go_dutch + '</th><th>' + prop.commute_quietest_bicycle_ebike + '</th></tr>' +
 '<tr><th>Primary</th><th>' + prop.primary_quietest_bicycle + '</th><th>' + prop.primary_quietest_bicycle_go_dutch + '</th><th>' + prop.primary_quietest_bicycle_ebike + '</th></tr>' +
 '<tr><th>Secondary</th><th>' + prop.secondary_quietest_bicycle + '</th><th>' + prop.secondary_quietest_bicycle_go_dutch + '</th><th>' + prop.secondary_quietest_bicycle_ebike + '</th></tr>' +
+'<tr><th>Utility</th><th>' + prop.utility_quietest_bicycle + '</th><th>' + prop.utility_quietest_bicycle_go_dutch + '</th><th>' + prop.utility_quietest_bicycle_ebike + '</th></tr>' +
 '</table>' +
 
 '<p> Gradient: ' + Gradient + '%</p>' +
