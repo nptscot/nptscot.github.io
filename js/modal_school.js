@@ -66,6 +66,36 @@ map.on('click', 'schools', function(e) {
 
 makeChartsModeshareSchool = function(sub){
   
+  function createArray(prefix, suffixes) {
+    return suffixes.map(suffix => sub[prefix + suffix]);
+  }
+  
+  var suffixes = [
+    '', 
+    '_go_dutch_fastest',
+    '_ebike_fastest',
+    '_go_dutch_quietest',
+    '_ebike_quietest'
+  ];
+  
+  
+  // School Primary Destination
+  var bicycle_primary = createArray('schl_primary_dest_bicycle', suffixes);
+  var foot_primary = createArray('schl_primary_dest_foot', suffixes);
+  var car_primary = createArray('schl_primary_dest_car', suffixes);
+  var public_transport_primary = createArray('schl_primary_dest_public_transport', suffixes);
+  var other_primary = createArray('schl_primary_dest_other', suffixes);
+  
+  // School Secondary Destination
+  var bicycle_secondary = createArray('schl_secondary_dest_bicycle', suffixes);
+  var foot_secondary = createArray('schl_secondary_dest_foot', suffixes);
+  var car_secondary = createArray('schl_secondary_dest_car', suffixes);
+  var public_transport_secondary = createArray('schl_secondary_dest_public_transport', suffixes);
+  var other_secondary = createArray('schl_secondary_dest_other', suffixes);
+  
+  
+  
+  /*
 	var bicycle_primary = [
 	  sub.bicycle_primary,
 	  sub.bicycle_go_dutch_primary_fastest,
@@ -146,17 +176,12 @@ makeChartsModeshareSchool = function(sub){
     sub.other_go_dutch_secondary_quietest,
     sub.other_ebike_secondary_quietest
 	];
-	
+	*/
   
   
   // Travel to School Modeshare
-	if(primaryChart){
-		primaryChart.destroy();
-	}
-	
-	if(secondaryChart){
-		secondaryChart.destroy();
-	}
+	if(primaryChart){primaryChart.destroy();}
+	if(secondaryChart){secondaryChart.destroy();}
 	
 	var primaryctx = document.getElementById('primaryChart').getContext('2d');
 	var secondaryctx = document.getElementById('secondaryChart').getContext('2d');
