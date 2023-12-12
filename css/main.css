@@ -75,6 +75,7 @@ h1{
     display: none;
     overflow: hidden;
 }
+
 .legenddot{
   border-radius: 50%; 
   display: inline-block; 
