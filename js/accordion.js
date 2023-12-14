@@ -42,22 +42,6 @@ function showbasemapcontrol(show){
 }
 
 
-
-
-/*    
-function show_rnet_legend(show){
-    var box = document.getElementById("rnetlegend");
-    var boxbutton = document.getElementById("rnetshowlegend");
-    if(show){
-      box.style.display = "block";
-      boxbutton.style.display = "none";
-    } else {
-      box.style.display = "none";
-      boxbutton.style.display = "block"; 
-    }
-}
-*/
-
 function expandtopnav() {
   var x = document.getElementById("myTopnav");
   if (x.className === "topnav") {

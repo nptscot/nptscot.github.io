@@ -24,31 +24,23 @@
   <meta name="theme-color" content="#0b38e6">
   <script src="/app.js" defer></script>
   
-  <!-- Set Up CSS 
-  <link rel="stylesheet" href="css/map_legend.css">
-  -->
-  <link rel="stylesheet" href="css/main.css">
-  <link rel="stylesheet" href="css/modal.css">
-  
   <!-- Set Up map -->
-  <script src="/js/lib/pmtiles/index.js"></script> <!-- v2.7.1 -->
+  <script src="/js/lib/pmtiles/index-2.11.0.js"></script> <!-- v2.7.1 -->
   <script src="/js/lib/geocoder/maplibre-gl-geocoder.min.js"></script>
-  <!-- <script src="/js/lib/measures/maplibre-gl-measures.js"></script> -->
   <link rel="stylesheet" href="js/lib/geocoder/maplibre-gl-geocoder-small.css" type="text/css"/>
-  <script src="https://unpkg.com/maplibre-gl@3.2.2/dist/maplibre-gl.js"></script>
-  <link href="https://unpkg.com/maplibre-gl@3.2.2/dist/maplibre-gl.css" rel="stylesheet" />
+  <script src="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.js"></script>
+  <link href="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.css" rel="stylesheet" />
+  
+  <!-- Set Up CSS -->
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/modal.css" defer>
   
 
-  <!-- Third Party Scrips 
-  <script src="/js/lib/measures/maplibre-gl-measures.js"></script>
-  <script src="https://kit.fontawesome.com/1f7357bc14.js" crossorigin="anonymous" async></script>
-  -->
   <link href="js/lib/noUiSlider_15_7_0/nouislider.min.css" rel="stylesheet">
   <script src="js/lib/noUiSlider_15_7_0/nouislider.min.js"></script>
   
-  <link href="/assets/fontawesome/css/fontawesome.min.css" rel="stylesheet">
+  <link href="/assets/fontawesome/css/fontawesome.css" rel="stylesheet">
   <link href="/assets/fontawesome/css/solid.min.css" rel="stylesheet">
-  
   
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-QZMHV92YXJ"></script>
@@ -154,7 +146,7 @@ Commuting patterns have changed since the pandemic, and not everyone commutes, t
 <!-- Layer Selection Panel -->
 <div id="rightbox" class="rightbox">
 
-<button onclick="showrighbox(false)" style="float:right" aria-label="Hide layers"><i class="fas fa-times"></i></button>
+<button onclick="showrighbox(false)" style="float:right; height:34px; width:34px; background-color:transparent; border:none;" aria-label="Hide layers"><i class="fas fa-times" style="font-size:20px"></i></button>
 <b> Layer Controls</b>
 <button class="accordion" id="rnet_accordion">Route Network</button>
 <div class="panel">
@@ -204,7 +196,7 @@ Commuting patterns have changed since the pandemic, and not everyone commutes, t
 	</div>
 	
 	
-	<p><label class="switch"><input type="checkbox" id="rnetsimplifiedcheckbox" onclick="switch_rnet()"><span class="slider round"></span></label> Simplified <button onclick="show_help('simplified_rnet')" aria-label="Help simplified route network" class="helpbutton"><i class="fa fa-question-circle" aria-hidden="true"></i></button></p>
+	<p><label class="switch"><input type="checkbox" id="rnetsimplifiedcheckbox" onclick="switch_rnet()" aria-label="Simplify route network"><span class="slider round"></span></label> Simplified <button onclick="show_help('simplified_rnet')" aria-label="Help simplified route network" class="helpbutton"><i class="fa fa-question-circle" aria-hidden="true"></i></button></p>
  
   
 
@@ -313,7 +305,7 @@ Commuting patterns have changed since the pandemic, and not everyone commutes, t
 <div class="modal-content">
 <div class="modal-header">
     <span class="closemodal">&times;</span>
-    <div id="zone-modal-title"><h2>ZOne Summary</h2></div>
+    <div id="zone-modal-title"><h2>Zone Summary</h2></div>
 </div>
 <div class="modal-body">
 
@@ -476,23 +468,21 @@ Commuting patterns have changed since the pandemic, and not everyone commutes, t
 
 
 </div>
-
-<script type="text/javascript" src="js/welcome.js"></script>
 <script type="text/javascript" src="date.js"></script>
+<script type="text/javascript" src="js/welcome.js"></script>
 <script type="text/javascript" src="js/accordion.js"></script>
 <script type="text/javascript" src="js/layer_control.js"></script>
 <script type="text/javascript" src="js/map.js"></script>
-<script type="text/javascript" src="js/map_later.js" async></script>
-<script type="text/javascript" src="js/ga_optout.js" async></script>
-<script type="text/javascript" src="js/help.js" async></script>
-<script type="text/javascript" src="js/popup.js" async></script>
-<script type="text/javascript" src="js/modal.js" async></script>
-<script type="text/javascript" src="js/modal_school.js" async></script>
-<script type="text/javascript" src="js/sliders.js" async></script>
+<script type="text/javascript" src="js/ga_optout.js" defer></script>
+<script type="text/javascript" src="js/help.js" defer></script>
+<script type="text/javascript" src="js/popup.js" defer></script>
+<script type="text/javascript" src="js/modal.js" defer></script>
+<script type="text/javascript" src="js/modal_school.js" defer></script>
+<script type="text/javascript" src="js/sliders.js" defer></script>
 
 
-<script id="jquery" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" async></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.0" async defer></script>
+<script id="jquery" src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1" defer></script>
 
 </body>
 </html>
