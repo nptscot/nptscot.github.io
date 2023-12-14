@@ -33,6 +33,8 @@ window.onclick = function(event) {
 // On click open modal
 map.on('click', 'data_zones', function(e) {
   
+  console.log("Click on Zones")
+  
   // Block Modal when clicking on other layers
   let f = map.queryRenderedFeatures(e.point);
   var layersToExclude = ['composite', 'dasymetric','placenames'];
@@ -41,7 +43,7 @@ map.on('click', 'data_zones', function(e) {
     return !layersToExclude.includes(el.source);
   });
   
-  if (f.length == 1) {
+  if (f[0].sourceLayer == "data_zones") {
     
     zone_modal.style.display = "block";
 	
@@ -79,10 +81,10 @@ makeChartsModeshare = function(sub){
 	if(secondaryOriginChart){secondaryOriginChart.destroy();}
 	if(shoppingOriginChart){shoppingOriginChart.destroy();}
 	if(shoppingDestinationChart){shoppingDestinationChart.destroy();}
-	if(leisureOriginChart){shoppingOriginChart.destroy();}
-	if(leisureDestinationChart){shoppingDestinationChart.destroy();}
-	if(visitingOriginChart){shoppingOriginChart.destroy();}
-	if(visitingDestinationChart){shoppingDestinationChart.destroy();}
+	if(leisureOriginChart){leisureOriginChart.destroy();}
+	if(leisureDestinationChart){leisureDestinationChart.destroy();}
+	if(visitingOriginChart){visitingOriginChart.destroy();}
+	if(visitingDestinationChart){visitingDestinationChart.destroy();}
   
   function createArray(prefix, suffixes) {
     return suffixes.map(suffix => sub[prefix + suffix]);

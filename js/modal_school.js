@@ -23,6 +23,8 @@ window.onclick = function(event) {
 // On click open modal
 map.on('click', 'schools', function(e) {
   
+  console.log("Click on schools")
+  
   // Block Modal when clicking on other layers
   let f = map.queryRenderedFeatures(e.point);
   var layersToExclude = ['composite', 'dasymetric','placenames'];
@@ -32,7 +34,10 @@ map.on('click', 'schools', function(e) {
     //return el.source != 'composite';
   });
   
-  if (f.length == 1) {
+  //console.log(f[0].sourceLayer)
+  
+  
+  if (f[0].sourceLayer == "schools") {
     
     school_modal.style.display = "block";
 	
