@@ -8,6 +8,16 @@ function switch_antialias(){
 var antialias = document.getElementById('antialiascheckbox').checked;
 console.log('Antialias is ' + antialias);
 
+// Check Basemap Choice
+function displayRadioValue(ele) {
+  for(i = 0; i < ele.length; i++) {
+      if(ele[i].checked){
+        return ele[i].value;
+      }
+  }
+}
+
+
 // Main map setup
 var map = new maplibregl.Map({
 container: 'map',
@@ -122,9 +132,5 @@ map.addControl(new maplibregl.ScaleControl({
 }),'bottom-left');
 
 addHomeButton(map);
-
-map.on('load', function() {
-  switch_style();
-});
 
 

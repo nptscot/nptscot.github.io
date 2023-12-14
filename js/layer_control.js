@@ -1,5 +1,4 @@
 function switch_style(){
-  //var styleName = document.getElementById("style_select").value;
   var styleName = displayRadioValue(document.getElementById("basemapform"));
   var styleCurrent = map.getStyle().name;
   if(styleCurrent != styleName){
@@ -449,14 +448,6 @@ function toggleLayer(layerName) {
   }
 }
 
-function displayRadioValue(ele) {
-  for(i = 0; i < ele.length; i++) {
-      if(ele[i].checked){
-        return ele[i].value;
-      }
-  }
-}
-
 function switch_rnet() {  
   console.log("Updating rnet")
   var checkBox = document.getElementById('rnetcheckbox');
@@ -869,3 +860,8 @@ function switch_data_zones() {
     
   }
 }
+
+// First load setup
+map.on('load', function() {
+  switch_style();
+});
