@@ -59,9 +59,8 @@
 
 
 <h2 id="introduction">Introduction</h2>
-<p>The Network Planning Tool for Scotland is a planning support system, research project, and web application to support strategic cycle network planning. The Network Planning Tool builds on the <a href="https://www.pct.bike/">Propensity to Cycle Tool</a> for England and Wales, which is a publicly available web application providing evidence on levels of cycling and potential down to the road network nationwide (<a href="https://www.jtlu.org/index.php/jtlu/article/view/862">Lovelace et al. 2017</a>).</p>
-<p><strong>Note: the NPT is currently a prototype. Version 1 is expected to be completed by the end of 2023. The prototype version is provided to preview the tool and gather <a href="https://forms.office.com/Pages/ResponsePage.aspx?id=qO3qvR3IzkWGPlIypTW3ywVZfmO0bwdAhK0UztpneQtUM1pCRlJQQjY1V0M3MUhBV0g0VTJRS1ZQVi4u">feedback</a>. While the current version&rsquo;s results are comprehensive and objective, tool outputs may change without warning.</strong></p>
-<p>The University of Leeds produces the NPT on behalf of Sustrans and Transport Scotland.</p>
+<p>Welcome to the Network Planning Tool (NPT) for Scotland, a cutting-edge web application designed for strategic cycle network planning. Developed by the University of Leeds, this tool is a collaborative effort with Sustrans and Transport Scotland. It extends the functionality of the <a href="https://www.pct.bike/">Propensity to Cycle Tool</a> for England and Wales, offering a detailed nationwide cycling potential analysis down to the street level (<a href="https://www.jtlu.org/index.php/jtlu/article/view/862">Lovelace et al. 2017</a>). As we officially launch Version 1, we invite users to explore its comprehensive features and contribute feedback for continuous improvement.</p>
+
 <p>&nbsp;</p>
 <h3 id="essentials">NPT Essentials</h3>
 <p>The NPT is Scotland&rsquo;s nationwide web-based strategic network planning tool that estimates cycling potential down to the street level.</p>
@@ -72,7 +71,7 @@
 <p>The NPT is an open-source tool, meaning the source code is transparent and in the public domain for others to learn from and build on. The code underlying the project is available to be copied and improved by the community.</p>
 <p>The online interface can serve many needs, including gaining insight into the network of routes where cycling potential is highest and quantifying the benefits of cycling uptake. However, we recommend that intermediate and advanced users download data on zones, routes and route networks for in-house analysis.</p>
 <p>The NPT allows users to visualise results baseline data and how cycling would change under different scenarios. The journey purposes and scenarios are described in detail below.</p>
-<h2 id="access">Ways the access the NPT&nbsp;</h2>
+<h2 id="access">Accessing the NPT&nbsp;</h2>
 <p>The easiest way to access the NPT website is hosted at&nbsp;<a href="http://www.npt.scot">www.npt.scot</a>.</p>
 <h3 id="progressive-web-app">Progressive Web App</h3>
 <p>The NPT is a Progressive Web App (PWA), which can be installed on many devices, including your smartphone. The App provides the same features as the website. Still, it includes additional benefits such as pining the App to your device&rsquo;s home screen and full-screen support.</p>
@@ -103,7 +102,8 @@
     <li>Click install</li>
 </ol>
 <p>&nbsp;</p>
-<h2 id="user-interface">NPT User Interface</h2>
+<h2 id="user-interface">NPT User Interface Guide</h2>
+<p>The NPT's user interface is intuitive, featuring map controls for easy navigation and layer controls to customize data visibility. Whether you're interested in the baseline cycling data or exploring various "what-if" scenarios like "Go Dutch" or ebike adoption, the tool provides a flexible platform for in-depth analysis.</p>
 <h3 id="map-controls">Map Controls</h3>
 <p><img src="/images/map_controls.png" alt="Map controls" class="responsive" style="max-width:565px"></p>
 <p>The map can be navigated using map controls on the top left of the screen.</p>
@@ -117,10 +117,10 @@
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 <h2 id="map-layers">Map Layers</h2>
-<p>The NPT allows you to view a broad range of data about cycling. This section describes each layer and its features.</p>
+<p>The NPT allows you to view a broad range of data about cycling by manipulating filters to showcase specific data points. This section describes each layer and its features.</p>
 <h3 id="route-network">Route Network</h3>
-<p>The route network is the primary layer in the NPT and the only one that is on by default when the tool loads. The route network estimates the number of cyclists on each road. It is designed to emphasise roads with lots of cycling potential and so aid planners in deciding where cycling infrastructure is needed.</p>
-<p>The route network provides a range of options and filters to allow you to view different networks based on different journey purposes and assumptions.</p>
+<p>The Route Network is the primary layer in the NPT and the only one that is on by default when the tool loads. The route network estimates the number of cyclists on each road. It is designed to emphasise roads with lots of cycling potential and so aid planners in deciding where cycling infrastructure is needed.</p>
+<p>The route network provides a range of options and filters to allow you to view different networks based on different journey purposes and assumptions. Whether you're considering daily commutes or leisurely excursions, the Route Network layer adapts to reflect different cycling possibilities and planning assumptions.</p>
 <div id="purpose">
 <h4>Trip purpose</h4>
 <p>People have many reasons to travel, and their reasons for travel often change their choice of destinations and routes. Therefore, a cycling network designed for commuters may look very different to a network designed for children to travel to school. The trip purpose drop-down allows you to view different networks based on different trip purposes.</p>
@@ -142,6 +142,20 @@
 <h5>What&rsquo;s missing from the NPT</h5>
 <p>The NPT does not currently consider leisure or recreational cycling. This is more complex to model as cyclists may not have a specific destination in mind.</p>
 <p>The NPT currently only considers direct journeys where the whole trip is by bicycle. It does not consider mixed-mode journeys such as cycling to the station and then taking a train to your final destination. This means that the NPT slightly underestimates cycling potential overall and may significantly underestimate cycling potential in specific places (such as around train stations).</p>
+</div>
+
+<div id="scenario">
+<h4>Scenarios</h4>
+<p>The scenarios drop-down allows you to view different levels of cycling and other information about the road network</p>
+<h5>Baseline&nbsp;</h5>
+<p>The baseline scenario represents the current level of cycling. As such, it is intended to show where there is an existing demand for cycling infrastructure.</p>
+<h5>Go Dutch</h5>
+<p>The Go Dutch scenario imagines a future where people in the UK are as likely to travel by bike as people in the Netherlands while accounting for differences in trip distance and hilliness between locations. As such, the network shows where there could be future demand for cycling infrastructure.</p>
+<p>Planners should seek to design cycle networks that meet the needs of both current and future cyclists. But they may phase the construction to prioritise roads that will meet the needs of current cyclists and enable new people to cycle.</p>
+<h5>EBikes</h5>
+<p>The ebikes scenario is a variant of the Go Dutch scenario that assumes mass uptake of ebikes. The scenarios alters both the assumptions around cycling uptake and the routes choices made by cyclists, for example a reduced penalty for going up hills. Pedal cyclists incur a significant time and effort penalty from going uphill. Hence, a longer but flatter route is often faster. A good ebike can enable cyclists to ride uphill at 15 mph without breaking a sweat. Thus ebike riders may choose shorter but hillier routes than pedal cyclists.</p>
+<p>As ebikes increase a cyclist&rsquo;s range and carrying capacity while reducing effort and journey times, a world with many ebikes would expect higher levels of cycling than one with only pedal cycles.</p>
+<p>&nbsp;</p>
 </div>
 
 <div id="type">
@@ -177,30 +191,8 @@
 <p>Quiet networks work best when the directness penalty is small. For example, a city with a grid layout could alternate between roads designed for cars and streets designed for active travel.</p>
 <p><img src="/images/amsterdam_networks.JPG" alt="Amsterdam car and cycle networks" class="responsive" style="max-width:790px"></p>
 <p>The image above (<a href="https://maps.amsterdam.nl/plushoofdnetten/">source</a>) shows how Amsterdam uses its grid layout to have parallel but separate networks for cars (red, orange, black) and bicycles (green). Notice how the cycling network is much denser than the car network, ensuring that cyclists almost always benefit from a more direct route.</p>
-<!-- 
-<h5>Balanced</h5>
-<p>The balanced network is a trade-off between the fastest and quietest networks. It highlights places where cycling and car networks can be separated without penalising directness too much. Planners should not view quiet or balanced networks as ways to avoid building high-quality cycle infrastructure. Instead, consider if moving the cycle infrastructure one street over may unlock qualitative benefits for cyclists, such as more pleasant journeys that are worth a small penalty in total journey time.</p>
-
-<h5>EBikes</h5>
-<p>The ebikes network is a variant of the fastest network that reduces the penalty for going up hills. Pedal cyclists incur a significant time and effort penalty from going uphill. Hence, a longer but flatter route is often faster. A good ebike can enable cyclists to ride uphill at 15 mph without breaking a sweat. Thus ebike riders may choose shorter but hillier routes than pedal cyclists.</p>
-<p>As ebikes increase a cyclist&rsquo;s range and carrying capacity while reducing effort and journey times, a world with many ebikes would expect higher levels of cycling than one with only pedal cycles.</p>
-<p>&nbsp;</p>
--->
 </div>
 
-<div id="scenario">
-<h4>Scenarios</h4>
-<p>The scenarios drop-down allows you to view different levels of cycling and other information about the road network</p>
-<h5>Baseline&nbsp;</h5>
-<p>The baseline scenario represents the current level of cycling. As such, it is intended to show where there is an existing demand for cycling infrastructure.</p>
-<h5>Go Dutch</h5>
-<p>The Go Dutch scenario imagines a future where people in the UK are as likely to travel by bike as people in the Netherlands while accounting for differences in trip distance and hilliness between locations. As such, the network shows where there could be future demand for cycling infrastructure.</p>
-<p>Planners should seek to design cycle networks that meet the needs of both current and future cyclists. But they may phase the construction to prioritise roads that will meet the needs of current cyclists and enable new people to cycle.</p>
-<h5>EBikes</h5>
-<p>The ebikes scenario is a variant of the Go Dutch scenario that assumes mass uptake of ebikes. The scenarios alters both the assumptions around cycling uptake and the routes choices made by cyclists, for example a reduced penalty for going up hills. Pedal cyclists incur a significant time and effort penalty from going uphill. Hence, a longer but flatter route is often faster. A good ebike can enable cyclists to ride uphill at 15 mph without breaking a sweat. Thus ebike riders may choose shorter but hillier routes than pedal cyclists.</p>
-<p>As ebikes increase a cyclist&rsquo;s range and carrying capacity while reducing effort and journey times, a world with many ebikes would expect higher levels of cycling than one with only pedal cycles.</p>
-<p>&nbsp;</p>
-</div>
 
 <div id="colour">
 <h4>Line Colour</h4>
@@ -232,14 +224,16 @@
 
 <div id="simplified_rnet">
 <h4>Simplified Route Network</h4>
-<p>The simplified toggle enables the simplified route network. Major road corridors can be complex with multiple carriageways, cycle paths, and footways. It can be confusing to judge overall demand if the cyclists are split across multiple overlapping routes. The simplified network attempts to address this problem by combining parallel routes into a single line. This is a complex progress and some information is inevitably lost in the simplification process. Therefore we suggest using the simplified and complete route networks together to judge cycling demand.</p>
+<p>The NPT includes a 'Simplified' toggle that streamlines the route network display. Major road corridors can be complex with multiple carriageways, cycle paths, and footways. It can be confusing to judge overall demand if the cyclists are split across multiple overlapping routes. The simplified network attempts to address this problem by combining parallel routes into a single line. However, this consolidation is intricate and may lead to a loss of detail. For a comprehensive analysis, it's advisable to consider both the simplified and the full route networks in tandem when evaluating cycling demand. This dual approach helps balance the big-picture overview with the nuanced details of specific routes.
+</p>
 <p><img src="/images/simplified.png" alt="Simplified Network" class="responsive" style="max-width:645px"></p>
 </div>
 
 <h4>Popup</h4>
-<p>Clicking on any road in the route network shows the route network popup.</p>
+<p>Clicking on any segment within the route network on the map will display a pop-up window.</p>
 <p><img src="/images/rnet_popup.png" alt="Popup" class="responsive" style="max-width:645px"></p>
-<p>The popup provides a summary table for all the information available about the route network. The table displays the number of cyclists under each scenario and network type. Below the table, the average gradient of the road and its cycle friendliness score are shown, along with a link to view the road in Google Street View (where available).</p>
+<p>The popup provides a summary table for all the information available about the route network. The table displays the number of cyclists for each scenario—such as baseline, Go Dutch, and e-bikes—and distinguishes between the Fast/Direct and Quiet/Indirect network types. Below the table, the average gradient of the road and its cycle friendliness score are shown, which assesses the suitability of the road for cycling. Additionally, there's an option to directly access the Google Street View of the road, if available, for a more grounded perspective.</p>
+
 
 <div id="filters">
 <h3 id="route-network-filters">Route Network Filters</h3>
@@ -247,7 +241,7 @@
 <p>The sliders allow you to show/hide parts of the route network. You can filter on three variables:</p>
 <p>&nbsp;</p>
 <h4>Numbers of cyclists</h4>
-<p>This filter selects based on the current scenario and route type.</p>
+<p>Tailor the map to display routes with a particular range of cycling traffic, reflecting the selected scenario and route type.</p>
 <h4>Gradient</h4>
 <p>Set the maximum and minimum gradient of roads that are visible. Gradient measures the average gradient of the road segment as a percentage. E.g. 0% = flat, 100% = vertical cliff.</p>
 <h4>Cycle friendliness</h4>
@@ -296,18 +290,18 @@
 
 <div id="admin_bounds">
 <h3 id="admin-bounds">Other Layers</h3>
-<p>The following additional layers can be shown on the map</p>
+<p>The NPT provides several supplementary map layers that enhance the contextual understanding of the cycling network</p>
 <ul>
-    <li>Schools (click on a school to see current and potential future mode split data)</li>
-    <li>Wards</li>
-    <li>Scottish Parliamentary Constituencies</li>
-    <li>Scottish Parliament Regions</li>
-    <li>Local Authority</li>
+    <li>Schools (click on a school to see current and potential future mode split data): Revealing the locations of primary, secondary, and other educational institutions, this layer allows users to click on individual schools to review the present and potential future distribution of travel modes among students</li>
+    <li>Wards: This layer overlays the boundaries of local electoral wards onto the map</li>
+    <li>Scottish Parliamentary Constituencies: Users can display the geographic divisions for Scottish parliamentary representation</li>
+    <li>Scottish Parliament Regions: This adds another political layer, showing the larger regions that make up the Scottish parliamentary electoral system.</li>
+    <li>Local Authority: Highlight the administrative areas within Scotland, aiding in planning and analysis at a local government level.</li>
 </ul>
-<p>&nbsp;</p>
+<!-- <p>&nbsp;</p>
 <h4>Schools popup</h4>
 <p>Clicking on any school shows the schools popup</p>
-<p></p>
+<p></p> -->
 </div>
 
 
