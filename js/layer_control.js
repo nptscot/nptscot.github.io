@@ -38,7 +38,7 @@ function addDataSources () {
   if (!map.getSource('rnet')){
     map.addSource('rnet', {
     	'type': 'vector',
-    	'url': 'pmtiles://https://nptscot.blob.core.windows.net/pmtiles/rnet-2023-12-06.pmtiles',
+    	'url': 'pmtiles://https://nptscot.blob.core.windows.net/pmtiles/rnet-2023-12-17.pmtiles',
       // Local tiles:
       //'url': 'pmtiles://utilitytrips/rnet.pmtiles',
     });
@@ -47,28 +47,28 @@ function addDataSources () {
   if (!map.getSource('rnet-simplified')){
     map.addSource('rnet-simplified', {
     	'type': 'vector',
-    	'url': 'pmtiles://https://nptscot.blob.core.windows.net/pmtiles/rnet-simplified-2023-12-06.pmtiles',
+    	'url': 'pmtiles://https://nptscot.blob.core.windows.net/pmtiles/rnet-simplified-2023-12-17.pmtiles',
     });
   }
     
   if (!map.getSource('dasymetric')){
     map.addSource('dasymetric', {
   	'type': 'vector',
-  	'url': 'pmtiles://https://nptscot.blob.core.windows.net/pmtiles/dasymetric-2023-12-06.pmtiles',
+  	'url': 'pmtiles://https://nptscot.blob.core.windows.net/pmtiles/dasymetric-2023-12-17.pmtiles',
     });
   }
   
   if (!map.getSource('data_zones')){
     map.addSource('data_zones', {
   	  'type': 'vector',
-  	  'url': 'pmtiles://https://nptscot.blob.core.windows.net/pmtiles/data_zones-2023-12-06.pmtiles',
+  	  'url': 'pmtiles://https://nptscot.blob.core.windows.net/pmtiles/data_zones-2023-12-17.pmtiles',
     });
   }
   
   if (!map.getSource('schools')){
     map.addSource('schools', {
   	  'type': 'vector',
-  	  'url': 'pmtiles://https://nptscot.blob.core.windows.net/pmtiles/schools-2023-12-06.pmtiles',
+  	  'url': 'pmtiles://https://nptscot.blob.core.windows.net/pmtiles/schools-2023-12-17.pmtiles',
     });
   }
   
