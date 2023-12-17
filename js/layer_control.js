@@ -54,7 +54,7 @@ function addDataSources () {
   if (!map.getSource('dasymetric')){
     map.addSource('dasymetric', {
   	'type': 'vector',
-  	'url': 'pmtiles://https://nptscot.blob.core.windows.net/pmtiles/dasymetric-2023-12-06.pmtiles',
+  	'url': 'pmtiles://https://nptscot.blob.core.windows.net/pmtiles/dasymetric-2023-12-17.pmtiles',
     });
   }
   
