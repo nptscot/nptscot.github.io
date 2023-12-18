@@ -504,13 +504,13 @@ function switch_rnet() {
       //cycleSlider.noUiSlider.enable();
       document.getElementById("linecolourlegend").innerHTML = `<div class="l_r">
         <div class="lb"><span style="background-color: #9C9C9C"></span>1</div>
-        <div class="lb"><span style="background-color: #FFFF73"></span>10</div>
-        <div class="lb"><span style="background-color: #AFFF00"></span>50</div>
-        <div class="lb"><span style="background-color: #00FFFF"></span>100</div>
-        <div class="lb"><span style="background-color: #30B0FF"></span>250</div>
-        <div class="lb"><span style="background-color: #2E5FFF"></span>500</div>
-        <div class="lb"><span style="background-color: #0000FF"></span>1000</div>
-        <div class="lb"><span style="background-color: #FF00C5"></span>2000+</div>
+        <div class="lb"><span style="background-color: #FFFF73"></span>50</div>
+        <div class="lb"><span style="background-color: #AFFF00"></span>100</div>
+        <div class="lb"><span style="background-color: #00FFFF"></span>250</div>
+        <div class="lb"><span style="background-color: #30B0FF"></span>500</div>
+        <div class="lb"><span style="background-color: #2E5FFF"></span>1000</div>
+        <div class="lb"><span style="background-color: #0000FF"></span>2000</div>
+        <div class="lb"><span style="background-color: #FF00C5"></span>3000+</div>
       	</div>`;
   }
   
@@ -580,13 +580,13 @@ function switch_rnet() {
         var style_line_colour = {
           "line-color": ["step", ["get", layerPurpose + "_" + layerType + "_" + layerScenario],
               "rgba(0,0,0,0)", 1,
-              "#9C9C9C", 10,
-              "#FFFF73", 50,
-              "#AFFF00", 100,
-              "#00FFFF", 250,
-              "#30B0FF", 500,
-              "#2E5FFF", 1000,
-              "#0000FF", 2000,
+              "#9C9C9C", 50,
+              "#FFFF73", 100,
+              "#AFFF00", 250,
+              "#00FFFF", 500,
+              "#30B0FF", 1000,
+              "#2E5FFF", 2000,
+              "#0000FF", 3000,
               "#FF00C5"],
         };
     };
