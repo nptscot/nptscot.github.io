@@ -23,13 +23,32 @@ for (const property in properties) {
 var Gradient = e.features[0].properties.Gradient;
 var Quietness = e.features[0].properties.Quietness;
 
-var description = '<div class="mappopup"><h4>Fast/Direct network</h4>' + 
+var layerPurpose = document.getElementById("rnet_purpose_input").value;
+var layerScenario = document.getElementById("rnet_scenario_input").value;
+var layerType = document.getElementById("rnet_type_input").value;
 
+var layername = layerPurpose + "_" + layerType + "_" + layerScenario
+
+var ncycle = suppresssmall(e.features[0].properties[layername]);
+
+var description = '<div class="mappopup">' + 
+'<p> Cyclists: ' + ncycle + '</p>' +
+'<p> Gradient: ' + Gradient + '%</p>' +
+'<p> Cycle friendliness: ' + Quietness + '%</p>' +
+'<p><a target="_blank" href="http://maps.google.com/maps?q=&layer=c&cbll=' + 
+coordinates.lat + ',' + coordinates.lng +
+'&cbp=11,0,0,0,0">Google Street View </a><i class="fa fa-external-link" aria-hidden="true"></i>' +
+'<a target="_blank" href="https://www.openstreetmap.org/#map=19/' + coordinates.lat + '/' + coordinates.lng + '"> OpenStreetMap </a><i class="fa fa-external-link" aria-hidden="true"></i></p>' +
+
+'<button class="accordion" id="popupaccordion" onclick="popupAccordion();">All Network Details</button>' +
+'<div class="panel" id ="popuppanel">' +
+'<h4>Fast/Direct network</h4>' +
 '<table><tr><th></th><th>Baseline</th><th>Go Dutch</th><th>Ebikes</th></tr>' +
 '<tr><th>All</th><th>' + prop.all_fastest_bicycle + '</th><th>' + prop.all_fastest_bicycle_go_dutch + '</th><th>' + prop.all_fastest_bicycle_ebike + '</th></tr>' + 
 '<tr><th>Commute</th><th>' + prop.commute_fastest_bicycle + '</th><th>' + prop.commute_fastest_bicycle_go_dutch + '</th><th>' + prop.commute_fastest_bicycle_ebike + '</th></tr>' +
 '<tr><th>Primary</th><th>' + prop.primary_fastest_bicycle + '</th><th>' + prop.primary_fastest_bicycle_go_dutch + '</th><th>' + prop.primary_fastest_bicycle_ebike + '</th></tr>' +
 '<tr><th>Secondary</th><th>' + prop.secondary_fastest_bicycle + '</th><th>' + prop.secondary_fastest_bicycle_go_dutch + '</th><th>' + prop.secondary_fastest_bicycle_ebike + '</th></tr>' +
+'<tr><th>Utility</th><th>' + prop.utility_fastest_bicycle + '</th><th>' + prop.utility_fastest_bicycle_go_dutch + '</th><th>' + prop.utility_fastest_bicycle_ebike + '</th></tr>' +
 '</table>' +
 
 '<h4>Quiet/Indirect network</h4>' + 
@@ -39,14 +58,17 @@ var description = '<div class="mappopup"><h4>Fast/Direct network</h4>' +
 '<tr><th>Commute</th><th>' + prop.commute_quietest_bicycle + '</th><th>' + prop.commute_quietest_bicycle_go_dutch + '</th><th>' + prop.commute_quietest_bicycle_ebike + '</th></tr>' +
 '<tr><th>Primary</th><th>' + prop.primary_quietest_bicycle + '</th><th>' + prop.primary_quietest_bicycle_go_dutch + '</th><th>' + prop.primary_quietest_bicycle_ebike + '</th></tr>' +
 '<tr><th>Secondary</th><th>' + prop.secondary_quietest_bicycle + '</th><th>' + prop.secondary_quietest_bicycle_go_dutch + '</th><th>' + prop.secondary_quietest_bicycle_ebike + '</th></tr>' +
+'<tr><th>Utility</th><th>' + prop.utility_quietest_bicycle + '</th><th>' + prop.utility_quietest_bicycle_go_dutch + '</th><th>' + prop.utility_quietest_bicycle_ebike + '</th></tr>' +
 '</table>' +
+  
+  
+  
+  
+'</div>'
 
-'<p> Gradient: ' + Gradient + '%</p>' +
-'<p> Cycle friendliness: ' + Quietness + '%</p>' +
-'<p><a target="_blank" href="http://maps.google.com/maps?q=&layer=c&cbll=' + 
-coordinates.lat + ',' + coordinates.lng +
-'&cbp=11,0,0,0,0">Google Street View </a><i class="fa fa-external-link" aria-hidden="true"></i></p><div>';
 
+
+ 
 new maplibregl.Popup({maxWidth: '400px'})
 .setLngLat(coordinates)
 .setHTML(description)
@@ -63,4 +85,20 @@ map.getCanvas().style.cursor = 'pointer';
 map.on('mouseleave', 'rnet', function () {
 map.getCanvas().style.cursor = '';
 });
+
+
+// Popup accordion
+popupAccordion = function(){
+  var acc = document.getElementById("popupaccordion");
+  acc.classList.toggle("active");
+  var panel = document.getElementById("popuppanel");
+  if (panel.style.display === "block") {
+      panel.style.display = "none";
+  } else {
+      panel.style.display = "block";
+  }
+}
+
+
+
 

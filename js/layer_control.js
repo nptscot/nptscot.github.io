@@ -1,5 +1,4 @@
 function switch_style(){
-  //var styleName = document.getElementById("style_select").value;
   var styleName = displayRadioValue(document.getElementById("basemapform"));
   var styleCurrent = map.getStyle().name;
   if(styleCurrent != styleName){
@@ -39,30 +38,37 @@ function addDataSources () {
   if (!map.getSource('rnet')){
     map.addSource('rnet', {
     	'type': 'vector',
-    	'url': 'pmtiles://https://nptscot.blob.core.windows.net/pmtiles/rnet-2023-09-09.pmtiles',
-      // // Local tiles:
-      // 'url': 'pmtiles://rnet.pmtiles',
+    	'url': 'pmtiles://https://nptscot.blob.core.windows.net/pmtiles/rnet-2023-12-17.pmtiles',
+      // Local tiles:
+      //'url': 'pmtiles://utilitytrips/rnet.pmtiles',
+    });
+  }
+  
+  if (!map.getSource('rnet-simplified')){
+    map.addSource('rnet-simplified', {
+    	'type': 'vector',
+    	'url': 'pmtiles://https://nptscot.blob.core.windows.net/pmtiles/rnet_simplified-2023-12-17.pmtiles',
     });
   }
     
   if (!map.getSource('dasymetric')){
     map.addSource('dasymetric', {
   	'type': 'vector',
-  	'url': 'pmtiles://https://nptscot.blob.core.windows.net/pmtiles/dasymetric-2023-09-09.pmtiles',
+  	'url': 'pmtiles://https://nptscot.blob.core.windows.net/pmtiles/dasymetric-2023-12-17.pmtiles',
     });
   }
   
   if (!map.getSource('data_zones')){
     map.addSource('data_zones', {
   	  'type': 'vector',
-  	  'url': 'pmtiles://https://nptscot.blob.core.windows.net/pmtiles/data_zones-2023-09-09.pmtiles',
+  	  'url': 'pmtiles://https://nptscot.blob.core.windows.net/pmtiles/data_zones-2023-12-17.pmtiles',
     });
   }
   
   if (!map.getSource('schools')){
     map.addSource('schools', {
   	  'type': 'vector',
-  	  'url': 'pmtiles://https://nptscot.blob.core.windows.net/pmtiles/schools.pmtiles',
+  	  'url': 'pmtiles://https://nptscot.blob.core.windows.net/pmtiles/schools-2023-12-17.pmtiles',
     });
   }
   
@@ -442,14 +448,6 @@ function toggleLayer(layerName) {
   }
 }
 
-function displayRadioValue(ele) {
-  for(i = 0; i < ele.length; i++) {
-      if(ele[i].checked){
-        return ele[i].value;
-      }
-  }
-}
-
 function switch_rnet() {  
   console.log("Updating rnet")
   var checkBox = document.getElementById('rnetcheckbox');
@@ -463,6 +461,7 @@ function switch_rnet() {
   var sliderGradient_max = Number(gradientlider.noUiSlider.get()[1]);
   var sliderFlow_min = Number(cycleSlider.noUiSlider.get()[0]);
   var sliderFlow_max = Number(cycleSlider.noUiSlider.get()[1]);
+  var simplifiedmode = document.getElementById('rnetsimplifiedcheckbox');
   
   if(sliderGradient_max == 10){
     sliderGradient_max = 35
@@ -472,25 +471,6 @@ function switch_rnet() {
   //var layerWidth = document.getElementById("rnet_width_input").value;
   // TODO: Add line width toggle, and link 
   
-  /*
-  var a = 1;
-  var b = 1;
-  var layerWidth2 = layerScenario;
-  switch(layerScenario){
-    case 'Quietness':
-      a = 0.01;
-      break;
-    case 'Gradient':
-      a = 0.2;
-      break;
-    case 'none':
-      break;
-    default:
-     a = 0.05;
-     b = 0.5;
-     layerWidth2 = layerPurpose + "_" + layerType + "_" + layerScenario;
-  }
-  */
   var layerWidth2 = layerPurpose + "_" + layerType + "_" + layerScenario;
   
   // Update the Legend - Do this even if map layer is off
@@ -524,13 +504,13 @@ function switch_rnet() {
       //cycleSlider.noUiSlider.enable();
       document.getElementById("linecolourlegend").innerHTML = `<div class="l_r">
         <div class="lb"><span style="background-color: #9C9C9C"></span>1</div>
-        <div class="lb"><span style="background-color: #FFFF73"></span>10</div>
-        <div class="lb"><span style="background-color: #AFFF00"></span>50</div>
-        <div class="lb"><span style="background-color: #00FFFF"></span>100</div>
-        <div class="lb"><span style="background-color: #30B0FF"></span>250</div>
-        <div class="lb"><span style="background-color: #2E5FFF"></span>500</div>
-        <div class="lb"><span style="background-color: #0000FF"></span>1000</div>
-        <div class="lb"><span style="background-color: #FF00C5"></span>2000+</div>
+        <div class="lb"><span style="background-color: #FFFF73"></span>50</div>
+        <div class="lb"><span style="background-color: #AFFF00"></span>100</div>
+        <div class="lb"><span style="background-color: #00FFFF"></span>250</div>
+        <div class="lb"><span style="background-color: #30B0FF"></span>500</div>
+        <div class="lb"><span style="background-color: #2E5FFF"></span>1000</div>
+        <div class="lb"><span style="background-color: #0000FF"></span>2000</div>
+        <div class="lb"><span style="background-color: #FF00C5"></span>3000+</div>
       	</div>`;
   }
   
@@ -539,14 +519,22 @@ function switch_rnet() {
     if (map.getLayer('rnet')) map.removeLayer('rnet');
     
     // Make the parts of the style
-    
-    var style_head = {
-      "id": "rnet",
-      "type": "line",
-      "source": "rnet",
-      "source-layer": "rnet"
-    };
-    
+    if (simplifiedmode.checked === true) {
+      var style_head = {
+        "id": "rnet",
+        "type": "line",
+        "source": "rnet-simplified",
+        "source-layer": "rnet"
+      };
+    } else {
+      var style_head = {
+        "id": "rnet",
+        "type": "line",
+        "source": "rnet",
+        "source-layer": "rnet"
+      };
+    }
+
     // Only filter cyclists if scenario set
       var style_filter = {
         'filter': ["all",
@@ -592,13 +580,13 @@ function switch_rnet() {
         var style_line_colour = {
           "line-color": ["step", ["get", layerPurpose + "_" + layerType + "_" + layerScenario],
               "rgba(0,0,0,0)", 1,
-              "#9C9C9C", 10,
-              "#FFFF73", 50,
-              "#AFFF00", 100,
-              "#00FFFF", 250,
-              "#30B0FF", 500,
-              "#2E5FFF", 1000,
-              "#0000FF", 2000,
+              "#9C9C9C", 50,
+              "#FFFF73", 100,
+              "#AFFF00", 250,
+              "#00FFFF", 500,
+              "#30B0FF", 1000,
+              "#2E5FFF", 2000,
+              "#0000FF", 3000,
               "#FF00C5"],
         };
     };
@@ -627,136 +615,6 @@ function switch_rnet() {
     if (map.getLayer("rnet")) map.removeLayer("rnet");
   }
 }
-
-/*
-function switch_routes() {
-  var checkBox = document.getElementById('routescheckbox');
-  var layerId = document.getElementById("routes_input").value;
-  if (checkBox.checked === true) {
-    if (map.getLayer('routes')) map.removeLayer('routes');
-    map.addLayer({
-      'id': 'routes',
-      'type': 'line',
-      'source': 'routes',
-      'source-layer': 'routes',
-      'paint': {
-        'line-color': ["step", ["get", layerId],
-          "rgba(0,0,0,0)", 1,
-          "rgba(156,156,156,0.8)", 10,
-          "rgba(255,255,115,0.8)", 50,
-          "rgba(175,255,0,0.8)", 100,
-          "rgba(0,255,255,0.8)", 250,
-          "rgba(48,176,255,0.8)", 500,
-          "rgba(46,95,255,0.8)", 1000,
-          "rgba(0,0,255,0.8)", 2000,
-          "rgba(255,0,197,0.8)"],
-        "line-width": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          12, 2.1,
-          14, 5.25,
-          15, 7.5,
-          16, 18,
-          18, 52.5,
-          22, 150
-        ],
-      }
-    });
-
-  } else {
-    if (map.getLayer("routes")) map.removeLayer("routes");
-  }
-}
-*/
-
-/*
-function switch_zones() {
-  var checkBox = document.getElementById('zonescheckbox');
-  var zend = document.getElementById("zones_end_input").value;
-  var zpurpose = document.getElementById("zones_purpose_input").value;
-  var ztype = document.getElementById("zones_type_input").value;
-  var zscenario = document.getElementById("zones_scenario_input").value;
-  var layerId = zend + "_" + zscenario + "_" + ztype + "_" + zpurpose
-  
-  if (checkBox.checked === true) {
-    if (map.getLayer('zones')) map.removeLayer('zones');
-    switch (zscenario) {
-      case 'quietness_mean':
-        map.addLayer({
-          'id': 'zones',
-          'type': 'fill',
-          'source': 'zones',
-          'source-layer': 'zones',
-          'paint': {
-            'fill-color': ["step", ["get", layerId ],
-              "#882255", 25,
-              "#CC6677", 50,
-              "#44AA99", 75,
-              "#117733", 101,
-              "#000000"],
-            'fill-opacity': 0.7,
-            'fill-outline-color': 'rgba(0, 0, 0, 0.2)'
-          }
-        }, 'roads 0 Guided Busway Casing'
-        );
-        
-    	  
-        break;
-      case 'hilliness_mean':
-        map.addLayer({
-          'id': 'zones',
-          'type': 'fill',
-          'source': 'zones',
-          'source-layer': 'zones',
-          'paint': {
-            'fill-color': ["step", ["get", layerId ],
-             "#feebe2", 0,
-              "#fcc5c0", 2,
-              "#fa9fb5", 4,
-              "#f768a1", 6,
-              "#dd3497", 8,
-              "#ae017e", 10,
-              "#7a0177", 100,
-              "#000000"],
-            'fill-opacity': 0.7,
-            'fill-outline-color': 'rgba(0, 0, 0, 0.2)'
-          }
-        }, 'roads 0 Guided Busway Casing'
-        );
-        
-        break;
-      default:
-      
-        map.addLayer({
-          'id': 'zones',
-          'type': 'fill',
-          'source': 'zones',
-          'source-layer': 'zones',
-          'paint': {
-            'fill-color': ["step", ["get", layerId ],
-             "#A50026", 0,
-              "#D73027", 2,
-              "#F46D43", 4,
-              "#FDAE61", 7,
-              "#FEE090", 10,
-              "#ffffbf", 15,
-              "#C6DBEF", 20,
-              "#ABD9E9", 25,
-              "#74ADD1", 30,
-              "#4575B4", 40,
-              "#000000"],
-            'fill-opacity': 0.7,
-            'fill-outline-color': 'rgba(0, 0, 0, 0.2)'
-          }
-        }, 'roads 0 Guided Busway Casing'
-        );
-      }
-    } else {
-    if (map.getLayer("zones")) map.removeLayer("zones");
-  }
-}
-*/
 
 function switch_data_zones() {
   var checkBox = document.getElementById('data_zonescheckbox');
@@ -1002,3 +860,8 @@ function switch_data_zones() {
     
   }
 }
+
+// First load setup
+map.on('load', function() {
+  switch_style();
+});

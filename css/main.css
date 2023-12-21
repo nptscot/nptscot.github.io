@@ -75,6 +75,7 @@ h1{
     display: none;
     overflow: hidden;
 }
+
 .legenddot{
   border-radius: 50%; 
   display: inline-block; 
@@ -567,3 +568,10 @@ input:checked + .slider:before {
 .mappopup.h4 {
   line-height: 12px;
 }
+
+/* Bigger Buttons */
+.maplibregl-ctrl-group button {
+  height: 35px;
+  width: 35px;
+}
+
