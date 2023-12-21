@@ -8,7 +8,7 @@ function formatAsUKDate(date) {
 }
 
 
-document.getElementById("updatedate").innerHTML = 'Last Updated: ' + formatAsUKDate(document.lastModified);
+document.getElementById("updatedate").innerHTML = 'Last Updated: ' + formatAsUKDate(document.lastModified) + '. You may need to <a href="https://www.minitool.com/news/f5-vs-ctrl-f5.html">clear your browser cache</a> to see the latest updates.';
 
 // When the user clicks on <span> (x), close the welcome and help
 span.onclick = function() {
