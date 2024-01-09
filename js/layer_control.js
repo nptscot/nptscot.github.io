@@ -420,6 +420,21 @@ function toggleLayer(layerName) {
   }
 }
 
+function createLegend (legendColours, selected, selector)
+{
+  // Create the legend HTML
+  // #!# Should be a list, not nested divs
+  let legendHtml = '<div class="l_r">';
+  selected = (legendColours.hasOwnProperty (selected) ? selected : '_');
+  legendColours[selected].forEach(legendColour => {
+    legendHtml += `<div class="lb"><span style="background-color: ${legendColour[1]}"></span>${legendColour[0]}</div>`;
+  })
+  legendHtml += '</div>';
+  
+  // Set the legend
+  document.getElementById(selector).innerHTML = legendHtml;
+}
+
 function switch_rnet() {  
   console.log("Updating rnet")
   var checkBox = document.getElementById('rnetcheckbox');
@@ -446,45 +461,39 @@ function switch_rnet() {
   var layerWidth2 = layerPurpose + "_" + layerType + "_" + layerScenario;
   
   // Update the Legend - Do this even if map layer is off
-  switch(layerColour) {
-    case 'none':
-      //cycleSlider.noUiSlider.disable();
-      document.getElementById("linecolourlegend").innerHTML = `<div class="l_r">
-        <div class="lb"><span style="background-color: #304ce7"></span>&nbsp</div>
-      	</div>`;
-      break;
-    case 'Quietness':
-      //cycleSlider.noUiSlider.disable();
-      document.getElementById("linecolourlegend").innerHTML = `<div class="l_r">
-        <div class="lb"><span style="background-color: #882255"></span>0-25</div>
-        <div class="lb"><span style="background-color: #CC6677"></span>25-50</div>
-        <div class="lb"><span style="background-color: #44AA99"></span>50-75</div>
-        <div class="lb"><span style="background-color: #117733"></span>75-100</div>
-      	</div>`;
-      break;
-    case 'Gradient':
-        //cycleSlider.noUiSlider.disable();
-        document.getElementById("linecolourlegend").innerHTML = `<div class="l_r">
-        <div class="lb"><span style="background-color: #59ee19"></span>0-3</div>
-        <div class="lb"><span style="background-color: #37a009"></span>3-5</div>
-        <div class="lb"><span style="background-color: #FFC300"></span>5-7</div>
-        <div class="lb"><span style="background-color: #C70039"></span>7-10</div>
-        <div class="lb"><span style="background-color: #581845"></span>10+</div>
-      	</div>`;
-      break;
-    default:
-      //cycleSlider.noUiSlider.enable();
-      document.getElementById("linecolourlegend").innerHTML = `<div class="l_r">
-        <div class="lb"><span style="background-color: #9C9C9C"></span>1</div>
-        <div class="lb"><span style="background-color: #FFFF73"></span>50</div>
-        <div class="lb"><span style="background-color: #AFFF00"></span>100</div>
-        <div class="lb"><span style="background-color: #00FFFF"></span>250</div>
-        <div class="lb"><span style="background-color: #30B0FF"></span>500</div>
-        <div class="lb"><span style="background-color: #2E5FFF"></span>1000</div>
-        <div class="lb"><span style="background-color: #0000FF"></span>2000</div>
-        <div class="lb"><span style="background-color: #FF00C5"></span>3000+</div>
-      	</div>`;
-  }
+  const legendColours = {
+    'none': [
+      ['&nbsp;', '#304ce7']
+    ],
+    'flow': [
+      ['1',      '#9C9C9C'],
+      ['50',     '#FFFF73'],
+      ['100',    '#AFFF00'],
+      ['250',    '#00FFFF'],
+      ['500',    '#30B0FF'],
+      ['1000',   '#2E5FFF'],
+      ['2000',   '#0000FF'],
+      ['3000+',  '#FF00C5'],
+    ],
+    'Quietness': [
+      ['0-25',   '#882255'],
+      ['25-50',  '#CC6677'],
+      ['50-75',  '#44AA99'],
+      ['75-100', '#117733'],
+    ],
+    'Gradient': [
+      ['0-3',    '#59ee19'],
+      ['3-5',    '#37a009'],
+      ['5-7',    '#FFC300'],
+      ['7-10',   '#C70039'],
+      ['10+',    '#581845'],
+    ]
+  };
+  
+  // Update the Legend - Do this even if map layer is off
+  createLegend (legendColours, layerColour, 'linecolourlegend');
+  
+
   
   // Update the map if enabled
   if (checkBox.checked === true) {
@@ -593,83 +602,75 @@ function switch_data_zones() {
   var layerId = document.getElementById("data_zone_input").value;
   var daysymetricmode = document.getElementById('dasymetriccheckbox');
   
+  
+  const legendColours = {
+    'SIMD2020v2_Decile': [
+      ['1st', '#a50026'],
+      ['2nd', '#d73027'],
+      ['3rd', '#f46d43'],
+      ['4th', '#fdae61'],
+      ['5th', '#fee090'],
+      ['6th', '#e0f3f8'],
+      ['7th', '#abd9e9'],
+      ['8th', '#74add1'],
+      ['9th', '#4575b4'],
+      ['10th', '#313695'],
+    ],
+    'population_density': [
+      ['10', '#edf8fb'],
+      ['50', '#bfd3e6'],
+      ['100', '#9ebcda'],
+      ['150', '#8c96c6'],
+      ['200', '#8856a7'],
+      ['600', '#810f7c'],
+    ],
+    'broadband': [
+      ['0%', '#fff7ec'],
+      ['2%', '#fee8c8'],
+      ['5%', '#fdd49e'],
+      ['10%', '#fdbb84'],
+      ['50%', '#d7301f'],
+      ['100%', '#7f0000'],
+    ],
+    'pcycle': [
+      ['0-1', '#A50026'],
+      ['2-3', '#D73027'],
+      ['4-6', '#F46D43'],
+      ['7-9', '#FDAE61'],
+      ['10-14', '#FEE090'],
+      ['15-19', '#ffffbf'],
+      ['20-24', '#C6DBEF'],
+      ['25-29', '#ABD9E9'],
+      ['30-39', '#74ADD1'],
+      ['40', '#4575B4'],
+    ],
+    'pcycle_go_dutch': [    // Actually same as pcycle
+      ['0-1', '#A50026'],
+      ['2-3', '#D73027'],
+      ['4-6', '#F46D43'],
+      ['7-9', '#FDAE61'],
+      ['10-14', '#FEE090'],
+      ['15-19', '#ffffbf'],
+      ['20-24', '#C6DBEF'],
+      ['25-29', '#ABD9E9'],
+      ['30-39', '#74ADD1'],
+      ['40', '#4575B4'],
+    ],
+    '_': [  // Default; is time in minutes
+      ['3', '#053061'],
+      ['5', '#2166ac'],
+      ['7', '#4393c3'],
+      ['10', '#92c5de'],
+      ['15', '#f7f7f7'],
+      ['30', '#f4a582'],
+      ['60', '#b2182b'],
+      ['200', '#67001f'],
+    ],
+  };
+  
   // Update the Legend - Do this even if map layer is off
-  switch(layerId) {
-    case 'SIMD2020v2_Decile':
-      document.getElementById("dzlegend").innerHTML = `<div class="l_r">
-        <div class="lb"><span style="background-color: #a50026"></span>1st</div>
-        <div class="lb"><span style="background-color: #d73027"></span>2nd</div>
-        <div class="lb"><span style="background-color: #f46d43"></span>3rd</div>
-        <div class="lb"><span style="background-color: #fdae61"></span>4th</div>
-        <div class="lb"><span style="background-color: #fee090"></span>5th</div>
-        <div class="lb"><span style="background-color: #e0f3f8"></span>6th</div>
-        <div class="lb"><span style="background-color: #abd9e9"></span>7th</div>
-        <div class="lb"><span style="background-color: #74add1"></span>8th</div>
-        <div class="lb"><span style="background-color: #4575b4"></span>9th</div>
-        <div class="lb"><span style="background-color: #313695"></span>10th</div>
-      	</div>`;
-      break;
-    case 'population_density':
-      document.getElementById("dzlegend").innerHTML = `<div class="l_r">
-        <div class="lb"><span style="background-color: #edf8fb"></span>10</div>
-        <div class="lb"><span style="background-color: #bfd3e6"></span>50</div>
-        <div class="lb"><span style="background-color: #9ebcda"></span>100</div>
-        <div class="lb"><span style="background-color: #8c96c6"></span>150</div>
-        <div class="lb"><span style="background-color: #8856a7"></span>200</div>
-        <div class="lb"><span style="background-color: #810f7c"></span>600</div>
-      	</div>`;
-      break;
-    case 'broadband':
-        document.getElementById("dzlegend").innerHTML = `<div class="l_r">
-        <div class="lb"><span style="background-color: #fff7ec"></span>0%</div>
-        <div class="lb"><span style="background-color: #fee8c8"></span>2%</div>
-        <div class="lb"><span style="background-color: #fdd49e"></span>5%</div>
-        <div class="lb"><span style="background-color: #fdbb84"></span>10%</div>
-        <div class="lb"><span style="background-color: #d7301f"></span>50%</div>
-        <div class="lb"><span style="background-color: #7f0000"></span>100%</div>
-      	</div>`;
-      break;
-    case 'pcycle':
-        document.getElementById("dzlegend").innerHTML = `<div class="l_r">
-        <div class="lb"><span style="background-color: #A50026"></span>0-1</div>
-        <div class="lb"><span style="background-color: #D73027"></span>2-3</div>
-        <div class="lb"><span style="background-color: #F46D43"></span>4-6</div>
-        <div class="lb"><span style="background-color: #FDAE61"></span>7-9</div>
-        <div class="lb"><span style="background-color: #FEE090"></span>10-14</div>
-        <div class="lb"><span style="background-color: #ffffbf"></span>15-19</div>
-        <div class="lb"><span style="background-color: #C6DBEF"></span>20-24</div>
-        <div class="lb"><span style="background-color: #ABD9E9"></span>25-29</div>
-        <div class="lb"><span style="background-color: #74ADD1"></span>30-39</div>
-        <div class="lb"><span style="background-color: #4575B4"></span>>40</div>
-      	</div>`;
-      break;
-    case 'pcycle_go_dutch':
-        document.getElementById("dzlegend").innerHTML = `<div class="l_r">
-        <div class="lb"><span style="background-color: #A50026"></span>0-1</div>
-        <div class="lb"><span style="background-color: #D73027"></span>2-3</div>
-        <div class="lb"><span style="background-color: #F46D43"></span>4-6</div>
-        <div class="lb"><span style="background-color: #FDAE61"></span>7-9</div>
-        <div class="lb"><span style="background-color: #FEE090"></span>10-14</div>
-        <div class="lb"><span style="background-color: #ffffbf"></span>15-19</div>
-        <div class="lb"><span style="background-color: #C6DBEF"></span>20-24</div>
-        <div class="lb"><span style="background-color: #ABD9E9"></span>25-29</div>
-        <div class="lb"><span style="background-color: #74ADD1"></span>30-39</div>
-        <div class="lb"><span style="background-color: #4575B4"></span>>40</div>
-      	</div>`;
-      break;
-    default:
-      document.getElementById("dzlegend").innerHTML = `<div class="l_r">
-        <div class="lb"><span style="background-color: #053061"></span>3</div>
-        <div class="lb"><span style="background-color: #2166ac"></span>5</div>
-        <div class="lb"><span style="background-color: #4393c3"></span>7</div>
-        <div class="lb"><span style="background-color: #92c5de"></span>10</div>
-        <div class="lb"><span style="background-color: #f7f7f7"></span>15</div>
-        <div class="lb"><span style="background-color: #f4a582"></span>30</div>
-        <div class="lb"><span style="background-color: #b2182b"></span>60</div>
-        <div class="lb"><span style="background-color: #67001f"></span>200</div>
-      	</div>`;
-
-  }
+  createLegend (legendColours, layerId, 'dzlegend');
+  
   
   var style_head_dy = {
       'id': 'dasymetric',
