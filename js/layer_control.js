@@ -35,78 +35,50 @@ function switch_style(){
 
 function addDataSources () {
   console.log("Adding sources");
-  if (!map.getSource('rnet')){
-    map.addSource('rnet', {
-    	'type': 'vector',
-    	'url': 'pmtiles://https://nptscot.blob.core.windows.net/pmtiles/rnet-2023-12-17.pmtiles',
-      // Local tiles:
-      //'url': 'pmtiles://utilitytrips/rnet.pmtiles',
-    });
-  }
   
-  if (!map.getSource('rnet-simplified')){
-    map.addSource('rnet-simplified', {
-    	'type': 'vector',
-    	'url': 'pmtiles://https://nptscot.blob.core.windows.net/pmtiles/rnet_simplified-2023-12-17.pmtiles',
-    });
-  }
+  // Define sources
+  // #!# Move to central definition JSON
+  // #!# Cases with path have inconsistent naming which would be good to align, then remove 'path' support
+  const serverUrl = 'https://nptscot.blob.core.windows.net/pmtiles/';
+  const sources = [
+    ['rnet', {dateBased: '2023-12-17', localUrl: 'utilitytrips/'}],
+    ['rnet-simplified', {path: 'rnet_simplified', dateBased: '2023-12-17'}],
+    ['dasymetric', {path: 'dasymetric-simplified', dateBased: '2023-12-17'}],
+    ['data_zones', {dateBased: '2023-12-17'}],
+    ['schools', {dateBased: '2023-12-17'}],
+    ['la'],
+    ['wards'],
+    ['holyrood'],
+    ['wards'],
+    ['scot_regions'],
+    ['placenames'],
+  ];
+  
+  const enableLocal = false;  // Temporarily set to true to switch to localUrl cases below
+  
+  // Add sources
+  sources.forEach (source => {
+    const [sourceId, attributes = {}] = source;
     
-  if (!map.getSource('dasymetric')){
-    map.addSource('dasymetric', {
-  	'type': 'vector',
-  	'url': 'pmtiles://https://nptscot.blob.core.windows.net/pmtiles/dasymetric-2023-12-17.pmtiles',
-    });
-  }
-  
-  if (!map.getSource('data_zones')){
-    map.addSource('data_zones', {
-  	  'type': 'vector',
-  	  'url': 'pmtiles://https://nptscot.blob.core.windows.net/pmtiles/data_zones-2023-12-17.pmtiles',
-    });
-  }
-  
-  if (!map.getSource('schools')){
-    map.addSource('schools', {
-  	  'type': 'vector',
-  	  'url': 'pmtiles://https://nptscot.blob.core.windows.net/pmtiles/schools-2023-12-17.pmtiles',
-    });
-  }
-  
-  if (!map.getSource('la')){
-    map.addSource('la', {
-  	  'type': 'vector',
-  	  'url': 'pmtiles://https://nptscot.blob.core.windows.net/pmtiles/la.pmtiles',
-    });
-  }
-  
-  if (!map.getSource('wards')){
-    map.addSource('wards', {
-  	  'type': 'vector',
-  	  'url': 'pmtiles://https://nptscot.blob.core.windows.net/pmtiles/wards.pmtiles',
-    });
-  }
-  
-  if (!map.getSource('holyrood')){
-    map.addSource('holyrood', {
-  	  'type': 'vector',
-  	  'url': 'pmtiles://https://nptscot.blob.core.windows.net/pmtiles/holyrood.pmtiles',
-    });
-  }
-  
-  if (!map.getSource('scot_regions')){
-    map.addSource('scot_regions', {
-  	  'type': 'vector',
-  	  'url': 'pmtiles://https://nptscot.blob.core.windows.net/pmtiles/scot_regions.pmtiles',
-    });
-  }
-  
-  if (!map.getSource('placenames')){
-    map.addSource('placenames', {
-  	  'type': 'vector',
-  	  'url': 'pmtiles://https://nptscot.blob.core.windows.net/pmtiles/oszoom_names.pmtiles',
-    });
-  }
+    // Construct the URL
+    let url = 'pmtiles://';
+    if (enableLocal && attributes.localUrl) {
+      url += attributes.localUrl;
+    } else {
+      url += serverUrl;
+      url += (attributes.path || sourceId);
+    }
+    url += (attributes.dateBased ? '-' + attributes.dateBased : '');
+    url += '.pmtiles';
     
+    // Add the source, if it does not already exist
+    if (!map.getSource(sourceId)){
+      map.addSource(sourceId, {
+        'type': 'vector',
+        'url': url,
+      });
+    }
+  });
 }
 
 
