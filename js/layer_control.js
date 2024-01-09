@@ -500,21 +500,12 @@ function switch_rnet() {
     if (map.getLayer('rnet')) map.removeLayer('rnet');
     
     // Make the parts of the style
-    if (simplifiedmode.checked === true) {
-      var style_head = {
-        "id": "rnet",
-        "type": "line",
-        "source": "rnet-simplified",
-        "source-layer": "rnet"
-      };
-    } else {
-      var style_head = {
-        "id": "rnet",
-        "type": "line",
-        "source": "rnet",
-        "source-layer": "rnet"
-      };
-    }
+    var style_head = {
+      "id": "rnet",
+      "type": "line",
+      "source": (simplifiedmode.checked === true ? "rnet-simplified" : "rnet"),
+      "source-layer": "rnet"
+    };
 
     // Only filter cyclists if scenario set
       var style_filter = {
