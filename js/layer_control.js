@@ -1,3 +1,146 @@
+const definitions = {
+  
+  dzLegendColours: {
+    'SIMD2020v2_Decile': [
+      ['1st', '#a50026'],
+      ['2nd', '#d73027'],
+      ['3rd', '#f46d43'],
+      ['4th', '#fdae61'],
+      ['5th', '#fee090'],
+      ['6th', '#e0f3f8'],
+      ['7th', '#abd9e9'],
+      ['8th', '#74add1'],
+      ['9th', '#4575b4'],
+      ['10th', '#313695'],
+    ],
+    'population_density': [
+      ['10', '#edf8fb'],
+      ['50', '#bfd3e6'],
+      ['100', '#9ebcda'],
+      ['150', '#8c96c6'],
+      ['200', '#8856a7'],
+      ['600', '#810f7c'],
+    ],
+    'broadband': [
+      ['0%', '#fff7ec'],
+      ['2%', '#fee8c8'],
+      ['5%', '#fdd49e'],
+      ['10%', '#fdbb84'],
+      ['50%', '#d7301f'],
+      ['100%', '#7f0000'],
+    ],
+    'pcycle': [
+      ['0-1', '#A50026'],
+      ['2-3', '#D73027'],
+      ['4-6', '#F46D43'],
+      ['7-9', '#FDAE61'],
+      ['10-14', '#FEE090'],
+      ['15-19', '#ffffbf'],
+      ['20-24', '#C6DBEF'],
+      ['25-29', '#ABD9E9'],
+      ['30-39', '#74ADD1'],
+      ['40', '#4575B4'],
+    ],
+    'pcycle_go_dutch': [    // Actually same as pcycle
+      ['0-1', '#A50026'],
+      ['2-3', '#D73027'],
+      ['4-6', '#F46D43'],
+      ['7-9', '#FDAE61'],
+      ['10-14', '#FEE090'],
+      ['15-19', '#ffffbf'],
+      ['20-24', '#C6DBEF'],
+      ['25-29', '#ABD9E9'],
+      ['30-39', '#74ADD1'],
+      ['40', '#4575B4'],
+    ],
+    '_': [  // Default; is time in minutes
+      ['3', '#053061'],
+      ['5', '#2166ac'],
+      ['7', '#4393c3'],
+      ['10', '#92c5de'],
+      ['15', '#f7f7f7'],
+      ['30', '#f4a582'],
+      ['60', '#b2182b'],
+      ['200', '#67001f'],
+    ],
+  },
+  
+  // #!# These are presumably restatements of dzLegendColours
+  dzStyle_cols: {
+    'SIMD2020v2_Decile': [
+      '#a50026', 1.1,
+      '#d73027', 2.1,
+      '#f46d43', 3.1,
+      '#fdae61', 4.1,
+      '#fee090', 5.1,
+      '#e0f3f8', 6.1,
+      '#abd9e9', 7.1,
+      '#74add1', 8.1,
+      '#4575b4', 9.1,
+      '#313695', 10.1,
+      '#000000'
+    ],
+    'population_density': [
+      '#edf8fb', 10,
+      '#bfd3e6', 50,
+      '#9ebcda', 100,
+      '#8c96c6', 150,
+      '#8856a7', 200,
+      '#810f7c', 600,
+      '#000000'
+    ],
+    'broadband': [
+      '#fff7ec', 0.01,
+      '#fee8c8', 2,
+      '#fdd49e', 5,
+      '#fdbb84', 10,
+      '#d7301f', 50,
+      '#7f0000', 100,
+      '#000000'
+    ],
+    'pcycle': [
+      '#A50026', 2,
+      '#D73027', 4,
+      '#F46D43', 7,
+      '#FDAE61', 10,
+      '#FEE090', 15,
+      '#ffffbf', 20,
+      '#C6DBEF', 25,
+      '#ABD9E9', 30,
+      '#74ADD1', 40,
+      '#4575B4', 100,
+      '#000000'
+    ],
+    'pcycle_go_dutch': [
+      '#A50026', 2,
+      '#D73027', 4,
+      '#F46D43', 7,
+      '#FDAE61', 10,
+      '#FEE090', 15,
+      '#ffffbf', 20,
+      '#C6DBEF', 25,
+      '#ABD9E9', 30,
+      '#74ADD1', 40,
+      '#4575B4', 100,
+      '#000000'
+    ],
+    '_': [    // Default
+      '#053061', 3,
+      '#2166ac', 5,
+      '#4393c3', 7,
+      '#92c5de', 10,
+      '#f7f7f7', 15,
+      '#f4a582', 30,
+      '#b2182b', 60,
+      '#67001f', 200,
+      '#000000'
+    ]
+  }
+};
+
+
+
+
 function switch_style(){
   var styleName = displayRadioValue(document.getElementById("basemapform"));
   var styleCurrent = map.getStyle().name;
@@ -589,79 +732,6 @@ function switch_rnet() {
 }
 
 function switch_data_zones() {
-  var dataZonesCheckBox = document.getElementById('data_zonescheckbox');
-  var layerId = document.getElementById("data_zone_input").value;
-  var daysymetricmode = document.getElementById('dasymetriccheckbox');
-  
-  
-  const legendColours = {
-    'SIMD2020v2_Decile': [
-      ['1st', '#a50026'],
-      ['2nd', '#d73027'],
-      ['3rd', '#f46d43'],
-      ['4th', '#fdae61'],
-      ['5th', '#fee090'],
-      ['6th', '#e0f3f8'],
-      ['7th', '#abd9e9'],
-      ['8th', '#74add1'],
-      ['9th', '#4575b4'],
-      ['10th', '#313695'],
-    ],
-    'population_density': [
-      ['10', '#edf8fb'],
-      ['50', '#bfd3e6'],
-      ['100', '#9ebcda'],
-      ['150', '#8c96c6'],
-      ['200', '#8856a7'],
-      ['600', '#810f7c'],
-    ],
-    'broadband': [
-      ['0%', '#fff7ec'],
-      ['2%', '#fee8c8'],
-      ['5%', '#fdd49e'],
-      ['10%', '#fdbb84'],
-      ['50%', '#d7301f'],
-      ['100%', '#7f0000'],
-    ],
-    'pcycle': [
-      ['0-1', '#A50026'],
-      ['2-3', '#D73027'],
-      ['4-6', '#F46D43'],
-      ['7-9', '#FDAE61'],
-      ['10-14', '#FEE090'],
-      ['15-19', '#ffffbf'],
-      ['20-24', '#C6DBEF'],
-      ['25-29', '#ABD9E9'],
-      ['30-39', '#74ADD1'],
-      ['40', '#4575B4'],
-    ],
-    'pcycle_go_dutch': [    // Actually same as pcycle
-      ['0-1', '#A50026'],
-      ['2-3', '#D73027'],
-      ['4-6', '#F46D43'],
-      ['7-9', '#FDAE61'],
-      ['10-14', '#FEE090'],
-      ['15-19', '#ffffbf'],
-      ['20-24', '#C6DBEF'],
-      ['25-29', '#ABD9E9'],
-      ['30-39', '#74ADD1'],
-      ['40', '#4575B4'],
-    ],
-    '_': [  // Default; is time in minutes
-      ['3', '#053061'],
-      ['5', '#2166ac'],
-      ['7', '#4393c3'],
-      ['10', '#92c5de'],
-      ['15', '#f7f7f7'],
-      ['30', '#f4a582'],
-      ['60', '#b2182b'],
-      ['200', '#67001f'],
-    ],
-  };
-  
-  // Update the Legend - Do this even if map layer is off
-  createLegend (legendColours, layerId, 'dzlegend');
-  
   
   var style_head_dy = {
       'id': 'dasymetric',
@@ -687,86 +757,23 @@ function switch_data_zones() {
             ]
   };
   
+  var dataZonesCheckBox = document.getElementById('data_zonescheckbox');
+  var layerId = document.getElementById("data_zone_input").value;
+  var daysymetricmode = document.getElementById('dasymetriccheckbox');
   
-if (map.getLayer('data_zones')) map.removeLayer('data_zones');
-if (map.getLayer('dasymetric')) map.removeLayer('dasymetric');
+  // Update the Legend - Do this even if map layer is off
+  createLegend (definitions.dzLegendColours, layerId, 'dzlegend');
   
-if (dataZonesCheckBox.checked === true) {
+  
+  
+  if (map.getLayer('data_zones')) map.removeLayer('data_zones');
+  if (map.getLayer('dasymetric')) map.removeLayer('dasymetric');
+  
+  if (dataZonesCheckBox.checked === true) {
     
-    const style_cols = {
-      'SIMD2020v2_Decile': [
-        '#a50026', 1.1,
-        '#d73027', 2.1,
-        '#f46d43', 3.1,
-        '#fdae61', 4.1,
-        '#fee090', 5.1,
-        '#e0f3f8', 6.1,
-        '#abd9e9', 7.1,
-        '#74add1', 8.1,
-        '#4575b4', 9.1,
-        '#313695', 10.1,
-        '#000000'
-      ],
-      'population_density': [
-        '#edf8fb', 10,
-        '#bfd3e6', 50,
-        '#9ebcda', 100,
-        '#8c96c6', 150,
-        '#8856a7', 200,
-        '#810f7c', 600,
-        '#000000'
-      ],
-      'broadband': [
-        '#fff7ec', 0.01,
-        '#fee8c8', 2,
-        '#fdd49e', 5,
-        '#fdbb84', 10,
-        '#d7301f', 50,
-        '#7f0000', 100,
-        '#000000'
-      ],
-      'pcycle': [
-        '#A50026', 2,
-        '#D73027', 4,
-        '#F46D43', 7,
-        '#FDAE61', 10,
-        '#FEE090', 15,
-        '#ffffbf', 20,
-        '#C6DBEF', 25,
-        '#ABD9E9', 30,
-        '#74ADD1', 40,
-        '#4575B4', 100,
-        '#000000'
-      ],
-      'pcycle_go_dutch': [
-        '#A50026', 2,
-        '#D73027', 4,
-        '#F46D43', 7,
-        '#FDAE61', 10,
-        '#FEE090', 15,
-        '#ffffbf', 20,
-        '#C6DBEF', 25,
-        '#ABD9E9', 30,
-        '#74ADD1', 40,
-        '#4575B4', 100,
-        '#000000'
-      ],
-      '_': [    // Default
-        '#053061', 3,
-        '#2166ac', 5,
-        '#4393c3', 7,
-        '#92c5de', 10,
-        '#f7f7f7', 15,
-        '#f4a582', 30,
-        '#b2182b', 60,
-        '#67001f', 200,
-        '#000000'
-      ]
-    };
-  
     // Determine the style column
-    var style_col_selected = style_cols.hasOwnProperty(layerId) ? layerId : '_';
-    var style_col = style_cols[style_col_selected];
+    var style_col_selected = definitions.dzStyle_cols.hasOwnProperty(layerId) ? layerId : '_';
+    var style_col = definitions.dzStyle_cols[style_col_selected];
     
     var fillExtrusionColor = (daysymetricmode.checked === true ? ['step', ['get', layerId ], ...style_col] : '#9c9898');
     var style_paint_dy = {'paint' : { 'fill-extrusion-color': fillExtrusionColor, ...style_ex_dy}};
