@@ -589,7 +589,7 @@ function switch_rnet() {
 }
 
 function switch_data_zones() {
-  var checkBox = document.getElementById('data_zonescheckbox');
+  var dataZonesCheckBox = document.getElementById('data_zonescheckbox');
   var layerId = document.getElementById("data_zone_input").value;
   var daysymetricmode = document.getElementById('dasymetriccheckbox');
   
@@ -687,139 +687,114 @@ function switch_data_zones() {
             ]
   };
   
-  if (checkBox.checked === true) {
-    if (map.getLayer('data_zones')) map.removeLayer('data_zones');
-    if (map.getLayer('dasymetric')) map.removeLayer('dasymetric');
+  
+if (map.getLayer('data_zones')) map.removeLayer('data_zones');
+if (map.getLayer('dasymetric')) map.removeLayer('dasymetric');
+  
+if (dataZonesCheckBox.checked === true) {
     
-    if (daysymetricmode.checked === true) {
-      var fillopacity = 0.1
-    } else {
-      var fillopacity = 0.8
-    }
+    const style_cols = {
+      'SIMD2020v2_Decile': [
+        '#a50026', 1.1,
+        '#d73027', 2.1,
+        '#f46d43', 3.1,
+        '#fdae61', 4.1,
+        '#fee090', 5.1,
+        '#e0f3f8', 6.1,
+        '#abd9e9', 7.1,
+        '#74add1', 8.1,
+        '#4575b4', 9.1,
+        '#313695', 10.1,
+        '#000000'
+      ],
+      'population_density': [
+        '#edf8fb', 10,
+        '#bfd3e6', 50,
+        '#9ebcda', 100,
+        '#8c96c6', 150,
+        '#8856a7', 200,
+        '#810f7c', 600,
+        '#000000'
+      ],
+      'broadband': [
+        '#fff7ec', 0.01,
+        '#fee8c8', 2,
+        '#fdd49e', 5,
+        '#fdbb84', 10,
+        '#d7301f', 50,
+        '#7f0000', 100,
+        '#000000'
+      ],
+      'pcycle': [
+        '#A50026', 2,
+        '#D73027', 4,
+        '#F46D43', 7,
+        '#FDAE61', 10,
+        '#FEE090', 15,
+        '#ffffbf', 20,
+        '#C6DBEF', 25,
+        '#ABD9E9', 30,
+        '#74ADD1', 40,
+        '#4575B4', 100,
+        '#000000'
+      ],
+      'pcycle_go_dutch': [
+        '#A50026', 2,
+        '#D73027', 4,
+        '#F46D43', 7,
+        '#FDAE61', 10,
+        '#FEE090', 15,
+        '#ffffbf', 20,
+        '#C6DBEF', 25,
+        '#ABD9E9', 30,
+        '#74ADD1', 40,
+        '#4575B4', 100,
+        '#000000'
+      ],
+      '_': [    // Default
+        '#053061', 3,
+        '#2166ac', 5,
+        '#4393c3', 7,
+        '#92c5de', 10,
+        '#f7f7f7', 15,
+        '#f4a582', 30,
+        '#b2182b', 60,
+        '#67001f', 200,
+        '#000000'
+      ]
+    };
+  
+    // Determine the style column
+    var style_col_selected = style_cols.hasOwnProperty(layerId) ? layerId : '_';
+    var style_col = style_cols[style_col_selected];
     
-    switch (layerId) {
-      case 'SIMD2020v2_Decile':
-        var style_col = [
-              '#a50026', 1.1,
-              '#d73027', 2.1,
-              '#f46d43', 3.1,
-              '#fdae61', 4.1,
-              '#fee090', 5.1,
-              '#e0f3f8', 6.1,
-              '#abd9e9', 7.1,
-              '#74add1', 8.1,
-              '#4575b4', 9.1,
-              '#313695', 10.1,
-              '#000000'
-        ];
-        break;
-      case 'population_density':
-        var style_col = [
-              '#edf8fb', 10,
-              '#bfd3e6', 50,
-              '#9ebcda', 100,
-              '#8c96c6', 150,
-              '#8856a7', 200,
-              '#810f7c', 600,
-              '#000000'
-        ];
-        break;
-      case 'broadband':
-        var style_col = [
-              '#fff7ec', 0.01,
-              '#fee8c8', 2,
-              '#fdd49e', 5,
-              '#fdbb84', 10,
-              '#d7301f', 50,
-              '#7f0000', 100,
-              '#000000'
-        ];
-        break;
-        
-      case 'pcycle':
-        var style_col = [
-              '#A50026', 2,
-              '#D73027', 4,
-              '#F46D43', 7,
-              '#FDAE61', 10,
-              '#FEE090', 15,
-              '#ffffbf', 20,
-              '#C6DBEF', 25,
-              '#ABD9E9', 30,
-              '#74ADD1', 40,
-              '#4575B4', 100,
-              '#000000'
-        ];
-        break;
-      case 'pcycle_go_dutch':
-        var style_col = [
-              '#A50026', 2,
-              '#D73027', 4,
-              '#F46D43', 7,
-              '#FDAE61', 10,
-              '#FEE090', 15,
-              '#ffffbf', 20,
-              '#C6DBEF', 25,
-              '#ABD9E9', 30,
-              '#74ADD1', 40,
-              '#4575B4', 100,
-              '#000000'
-        ];
-        break;
-      default:
-        var style_col = [
-              '#053061', 3,
-              '#2166ac', 5,
-              '#4393c3', 7,
-              '#92c5de', 10,
-              '#f7f7f7', 15,
-              '#f4a582', 30,
-              '#b2182b', 60,
-              '#67001f', 200,
-              '#000000'
-        ];
-      }
-    
-    
-    if (daysymetricmode.checked === true) {
-      var style_paint_dy = {'paint' : { 'fill-extrusion-color': ['step', ['get', layerId ], ...style_col], ...style_ex_dy}};
-      var style_combined_dy = {...style_head_dy, ...style_paint_dy};
-    } else {
-      var style_paint_dy = {'paint' : { 'fill-extrusion-color': '#9c9898', ...style_ex_dy}};
-      var style_combined_dy = {...style_head_dy, ...style_paint_dy};
-    }
-    
+    var fillExtrusionColor = (daysymetricmode.checked === true ? ['step', ['get', layerId ], ...style_col] : '#9c9898');
+    var style_paint_dy = {'paint' : { 'fill-extrusion-color': fillExtrusionColor, ...style_ex_dy}};
+    var style_combined_dy = {...style_head_dy, ...style_paint_dy};
     map.addLayer(style_combined_dy, 'roads 0 Guided Busway Casing');
     
+    var fillopacity = (daysymetricmode.checked === true ? 0.1 : 0.8);
     var style_paint_dz = {'paint' : { 'fill-color': ['step', ['get', layerId ], ...style_col], 'fill-opacity': fillopacity,'fill-outline-color': '#000000'}};
     var style_combined_dz = {...style_head_dz, ...style_paint_dz};
     map.addLayer(style_combined_dz, 'roads 0 Guided Busway Casing');
-  } else {
-    console.log("off");
-    if (map.getLayer("data_zones")) map.removeLayer("data_zones");
+  
+  } else {  // dataZonesCheckBox not checked
+    console.log("Data zones layer off");
     
     // put buildings on when layer is off
-    if (map.getLayer('dasymetric')) map.removeLayer('dasymetric');
     
+    const styleExtrusionColours = {
+      'greyscale_nobuild': '#d1cfcf',
+      'google_nobuild': '#f0eded',
+      'dark_nobuild': '#000000',
+      // No buildings on raster
+    };
     var styleName = displayRadioValue(document.getElementById("basemapform"));
-    switch (styleName) {
-      case 'greyscale_nobuild':
-        var style_paint_dy = {'paint' : { 'fill-extrusion-color': '#d1cfcf', ...style_ex_dy}};
-        var style_combined_dy = {...style_head_dy, ...style_paint_dy};
-        map.addLayer(style_combined_dy, 'roads 0 Guided Busway Casing');
-        break;
-      case 'google_nobuild':
-        var style_paint_dy = {'paint' : { 'fill-extrusion-color': '#f0eded', ...style_ex_dy}};
-        var style_combined_dy = {...style_head_dy, ...style_paint_dy};
-        map.addLayer(style_combined_dy, 'roads 0 Guided Busway Casing');
-        break;
-      case 'dark_nobuild':
-        var style_paint_dy = {'paint' : { 'fill-extrusion-color': '#000000', ...style_ex_dy}};
-        var style_combined_dy = {...style_head_dy, ...style_paint_dy};
-        map.addLayer(style_combined_dy, 'roads 0 Guided Busway Casing');
-        break;
-      default:
-        // No buildings on raster
+    if (styleExtrusionColours.hasOwnProperty (styleName)) {
+      var fillExtrusionColor = styleExtrusionColours[styleName];
+      var style_paint_dy = {'paint' : { 'fill-extrusion-color': fillExtrusionColor, ...style_ex_dy}};
+      var style_combined_dy = {...style_head_dy, ...style_paint_dy};
+      map.addLayer(style_combined_dy, 'roads 0 Guided Busway Casing');
     }
     
   }
