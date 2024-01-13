@@ -570,10 +570,13 @@ function toggleLayer(layerName) {
   
   // Handle rnet layer
   if (layerName == 'rnet') {
+    if (map.getLayer(layerName)) {
+      map.removeLayer(layerName);
+    }
     if (checkBox.checked) {
       switch_rnet();
-      return;
     }
+    return;
   }
   
   // Handle other layers (if the requested layer is defined)
