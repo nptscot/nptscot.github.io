@@ -1,4 +1,24 @@
+const settings = {
+  tileserverUrl: 'https://nptscot.blob.core.windows.net/pmtiles/',
+  tileserverTempLocal: false,  // Temporarily set to true to switch to localUrl cases below
+}
+
 const definitions = {
+  
+  // #!# Cases with path have inconsistent naming which would be good to align, then remove 'path' support
+  sources: [
+    ['rnet', {dateBased: '2023-12-17', localUrl: 'utilitytrips/'}],
+    ['rnet-simplified', {path: 'rnet_simplified', dateBased: '2023-12-17'}],
+    ['dasymetric', {dateBased: '2023-12-17'}],
+    ['data_zones', {dateBased: '2023-12-17'}],
+    ['schools', {dateBased: '2023-12-17'}],
+    ['la'],
+    ['wards'],
+    ['holyrood'],
+    ['wards'],
+    ['scot_regions'],
+    ['placenames', {path: 'oszoom_names'}],
+  ],
   
   dzLegendColours: {
     'SIMD2020v2_Decile': [
@@ -179,36 +199,16 @@ function switch_style(){
 function addDataSources () {
   console.log("Adding sources");
   
-  // Define sources
-  // #!# Move to central definition JSON
-  // #!# Cases with path have inconsistent naming which would be good to align, then remove 'path' support
-  const serverUrl = 'https://nptscot.blob.core.windows.net/pmtiles/';
-  const sources = [
-    ['rnet', {dateBased: '2023-12-17', localUrl: 'utilitytrips/'}],
-    ['rnet-simplified', {path: 'rnet_simplified', dateBased: '2023-12-17'}],
-    ['dasymetric', {dateBased: '2023-12-17'}],
-    ['data_zones', {dateBased: '2023-12-17'}],
-    ['schools', {dateBased: '2023-12-17'}],
-    ['la'],
-    ['wards'],
-    ['holyrood'],
-    ['wards'],
-    ['scot_regions'],
-    ['placenames', {path: 'oszoom_names'}],
-  ];
-  
-  const enableLocal = false;  // Temporarily set to true to switch to localUrl cases below
-  
   // Add sources
-  sources.forEach (source => {
+  definitions.sources.forEach (source => {
     const [sourceId, attributes = {}] = source;
     
     // Construct the URL
     let url = 'pmtiles://';
-    if (enableLocal && attributes.localUrl) {
+    if (settings.tileserverTempLocal && attributes.localUrl) {
       url += attributes.localUrl;
     } else {
-      url += serverUrl;
+      url += settings.tileserverUrl;
       url += (attributes.path || sourceId);
     }
     url += (attributes.dateBased ? '-' + attributes.dateBased : '');
