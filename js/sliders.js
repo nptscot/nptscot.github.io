@@ -1,6 +1,6 @@
-var sliders = {
-    cycle: document.getElementById('slider-cycle'),
-    gradient: document.getElementById('slider-gradient'),
+const sliders = {
+    cycle:     document.getElementById('slider-cycle'),
+    gradient:  document.getElementById('slider-gradient'),
     quietness: document.getElementById('slider-quietness')
 };
 
@@ -71,4 +71,11 @@ function updatePips( value, type ){
     return res;
 }
 
+// Define handlers to proxy the result to hidden input fields, with value "<numStart>-<numFinish>"
+Object.entries(sliders).forEach (([key, slider]) => {
+    slider.noUiSlider.on ('update', function() {
+        document.getElementById('rnet_slider-' + key).value = Number(slider.noUiSlider.get()[0]) + '-' + Number(slider.noUiSlider.get()[1]);
+        document.getElementById('rnet_slider-' + key).dispatchEvent(new Event('change'));
+    });
+});
 
