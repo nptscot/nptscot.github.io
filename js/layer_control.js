@@ -496,6 +496,7 @@ function switch_style(){
     document.querySelectorAll('.updatelayer').forEach((input) => {
       input.addEventListener('change', function(e) {
         layerId = e.target.id;
+        layerId = layerId.replace (/simplifiedcheckbox$/, '');    // Simplification checkbox, e.g. rnetsimplifiedcheckboxn => rnet
         layerId = layerId.replace (/checkbox$/, '');      // Checkboxes, e.g. data_zonescheckbox => data_zones
         layerId = layerId.replace (/_slider-.+$/, '');    // Slider hidden inputs, e.g. rnet_slider-quietness => rnet
         layerId = layerId.replace (/_[^_]+_input$/, '');  // Dropdowns, e.g. rnet_purpose_input => rnet
