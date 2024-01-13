@@ -492,14 +492,15 @@ function switch_style(){
     // Manage placenames
     placenames();
     
-    // Handle layer checkboxes and sliders
+    // Handle layer change controls, each marked with the updatelayer class
     document.querySelectorAll('.updatelayer').forEach((input) => {
       input.addEventListener('change', function(e) {
         layerId = e.target.id;
-        layerId = layerId.replace (/simplifiedcheckbox$/, '');    // Simplification checkbox, e.g. rnetsimplifiedcheckboxn => rnet
-        layerId = layerId.replace (/checkbox$/, '');      // Checkboxes, e.g. data_zonescheckbox => data_zones
-        layerId = layerId.replace (/_slider-.+$/, '');    // Slider hidden inputs, e.g. rnet_slider-quietness => rnet
-        layerId = layerId.replace (/_[^_]+_input$/, '');  // Dropdowns, e.g. rnet_purpose_input => rnet
+        layerId = layerId.replace (/simplifiedcheckbox$/, '');  // Simplification checkbox, e.g. rnetsimplifiedcheckboxn => rnet
+        layerId = layerId.replace (/checkbox$/, '');            // Checkboxes, e.g. data_zonescheckbox => data_zones
+        layerId = layerId.replace (/_slider-.+$/, '');          // Slider hidden inputs, e.g. rnet_slider-quietness => rnet
+        layerId = layerId.replace (/_selector$/, '');           // Dropdowns, e.g. data_zones_selector => data_zones   #!# Should be input, but currently data_zones_input would clash with rnet_*_input on next line
+        layerId = layerId.replace (/_[^_]+_input$/, '');        // Dropdowns, e.g. rnet_purpose_input => rnet
         toggleLayer(layerId);
       });
     });
