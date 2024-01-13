@@ -621,7 +621,7 @@ function createLegend (legendColours, selected, selector)
 
 
 function switch_rnet() {  
-
+  
   console.log("Updating rnet")
 
   // Remove layer if present
@@ -629,43 +629,42 @@ function switch_rnet() {
     map.removeLayer('rnet');
   }
   
-  var checkBox = document.getElementById('rnetcheckbox');
-  var layerPurpose = document.getElementById("rnet_purpose_input").value;
-  var layerScenario = document.getElementById("rnet_scenario_input").value;
+  // Layer colour
   var layerColour = document.getElementById("rnet_colour_input").value;
-  var layerType = document.getElementById("rnet_type_input").value;
-  var sliderQuietness = document.getElementById('rnet_slider-quietness').value.split ('-');
-  var sliderQuietness_min = Number(sliderQuietness[0]);
-  var sliderQuietness_max = Number(sliderQuietness[1]);
-  var sliderGradient = document.getElementById('rnet_slider-gradient').value.split ('-');
-  var sliderGradient_min = Number(sliderGradient[0]);
-  var sliderGradient_max = Number(sliderGradient[1]);
-  var sliderFlow = document.getElementById('rnet_slider-cycle').value.split ('-');
-  var sliderFlow_min = Number(sliderFlow[0]);
-  var sliderFlow_max = Number(sliderFlow[1]);
-  var simplifiedmode = document.getElementById('rnetsimplifiedcheckbox');
-  
-  // Treat gradient of 10 as actually >10
-  if(sliderGradient_max == 10){
-    sliderGradient_max = 35;
-  }
-
-  // Width
-  //var layerWidth = document.getElementById("rnet_width_input").value;
-  // TODO: Add line width toggle, and link 
-  
-  var layerWidth2 = layerPurpose + "_" + layerType + "_" + layerScenario;
   
   // Update the Legend - Do this even if map layer is off
   createLegend (definitions.routeNetworkLegendColours, layerColour, 'linecolourlegend');
   
   // Update the map if enabled
-  if (checkBox.checked) {
+  const layerEnabled = document.getElementById('rnetcheckbox').checked;
+  if (layerEnabled) {
+    
+    // Route network filters
+    var sliderQuietness = document.getElementById('rnet_slider-quietness').value.split ('-');
+    var sliderQuietness_min = Number(sliderQuietness[0]);
+    var sliderQuietness_max = Number(sliderQuietness[1]);
+    var sliderGradient = document.getElementById('rnet_slider-gradient').value.split ('-');
+    var sliderGradient_min = Number(sliderGradient[0]);
+    var sliderGradient_max = Number(sliderGradient[1]);
+    var sliderFlow = document.getElementById('rnet_slider-cycle').value.split ('-');
+    var sliderFlow_min = Number(sliderFlow[0]);
+    var sliderFlow_max = Number(sliderFlow[1]);
+    
+    // Treat gradient of 10 as actually >10
+    if (sliderGradient_max == 10){
+      sliderGradient_max = 35;
+    }
+    
+    // Determine the layer width field
+    var layerPurpose = document.getElementById("rnet_purpose_input").value;
+    var layerScenario = document.getElementById("rnet_scenario_input").value;
+    var layerType = document.getElementById("rnet_type_input").value;
+    var layerWidthField = layerPurpose + '_' + layerType + '_' + layerScenario;
     
     // Only filter cyclists if scenario set
     var filter = ["all",
-      ['<=', layerWidth2, sliderFlow_max],
-      ['>=', layerWidth2, sliderFlow_min],
+      ['<=', layerWidthField, sliderFlow_max],
+      ['>=', layerWidthField, sliderFlow_min],
       ['<=', "Quietness", sliderQuietness_max],
       ['>=', "Quietness", sliderQuietness_min],
       ['<=', "Gradient", sliderGradient_max],
@@ -676,7 +675,7 @@ function switch_rnet() {
     var line_colours = {
       'none': "#304ce7",
       'flow': [
-        "step", ["get", layerWidth2],
+        "step", ["get", layerWidthField],
         "rgba(0,0,0,0)", 1,
         "#9C9C9C", 50,
         "#FFFF73", 100,
@@ -713,19 +712,22 @@ function switch_rnet() {
       "interpolate",
       ["linear"],
       ["zoom"],
-      12, ["*", 2.1, ["+", 0.3, ["/", 3, ["+", 1, ["^", 2.718, ["-", 2.94, ["*", ["get", layerWidth2], 0.0021]]]]]]],
-      14, ["*", 5.25,["+", 0.3, ["/", 3, ["+", 1, ["^", 2.718, ["-", 2.94, ["*", ["get", layerWidth2], 0.0021]]]]]]],
-      15, ["*", 7.5, ["+", 0.3, ["/", 3, ["+", 1, ["^", 2.718, ["-", 2.94, ["*", ["get", layerWidth2], 0.0021]]]]]]],
-      16, ["*", 18,  ["+", 0.3, ["/", 3, ["+", 1, ["^", 2.718, ["-", 2.94, ["*", ["get", layerWidth2], 0.0021]]]]]]],
-      18, ["*", 52.5,["+", 0.3, ["/", 3, ["+", 1, ["^", 2.718, ["-", 2.94, ["*", ["get", layerWidth2], 0.0021]]]]]]],
+      12, ["*", 2.1, ["+", 0.3, ["/", 3, ["+", 1, ["^", 2.718, ["-", 2.94, ["*", ["get", layerWidthField], 0.0021]]]]]]],
+      14, ["*", 5.25,["+", 0.3, ["/", 3, ["+", 1, ["^", 2.718, ["-", 2.94, ["*", ["get", layerWidthField], 0.0021]]]]]]],
+      15, ["*", 7.5, ["+", 0.3, ["/", 3, ["+", 1, ["^", 2.718, ["-", 2.94, ["*", ["get", layerWidthField], 0.0021]]]]]]],
+      16, ["*", 18,  ["+", 0.3, ["/", 3, ["+", 1, ["^", 2.718, ["-", 2.94, ["*", ["get", layerWidthField], 0.0021]]]]]]],
+      18, ["*", 52.5,["+", 0.3, ["/", 3, ["+", 1, ["^", 2.718, ["-", 2.94, ["*", ["get", layerWidthField], 0.0021]]]]]]],
     ];
+    
+    // Simplified mode
+    var simplifiedMode = document.getElementById('rnetsimplifiedcheckbox').checked;
     
     // Assemble the style definition
     var style = {
       "id": "rnet",
-      "type": "line",
-      "source": (simplifiedmode.checked ? "rnet-simplified" : "rnet"),
+      "source": (simplifiedMode ? "rnet-simplified" : "rnet"),
       "source-layer": "rnet",
+      "type": "line",
       "filter": filter,
       "paint" : {
         "line-color": line_colours[layerColour],
@@ -735,7 +737,6 @@ function switch_rnet() {
     
     // Add the layer
     map.addLayer(style, 'placeholder_name');
-
   }
 }
 
