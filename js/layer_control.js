@@ -12,11 +12,10 @@ const definitions = {
     ['dasymetric', {dateBased: '2023-12-17'}],
     ['data_zones', {dateBased: '2023-12-17'}],
     ['schools', {dateBased: '2023-12-17'}],
-    ['la'],
     ['wards'],
     ['holyrood'],
-    ['wards'],
     ['scot_regions'],
+    ['la'],
     ['placenames', {path: 'oszoom_names'}],
   ],
   
@@ -44,16 +43,6 @@ const definitions = {
         },
       } 
     },
-    la: {
-      'id': 'la',
-      'type': 'line',
-      'source': 'la',
-      'source-layer': 'la',
-      'paint': {
-        'line-color': 'rgba(107, 7, 7, 1)',
-        'line-width': 2
-      } 
-    },
     wards: {
       'id': 'wards',
       'type': 'line',
@@ -61,6 +50,16 @@ const definitions = {
       'source-layer': 'wards',
       'paint': {
         'line-color': 'rgba(32, 107, 7, 1)',
+        'line-width': 2
+      }
+    },
+    holyrood: {
+      'id': 'holyrood',
+      'type': 'line',
+      'source': 'holyrood',
+      'source-layer': 'holyrood',
+      'paint': {
+        'line-color': 'rgba(83, 123, 252, 1)',
         'line-width': 2
       }
     },
@@ -74,15 +73,15 @@ const definitions = {
         'line-width': 2
       }
     },
-    holyrood: {
-      'id': 'holyrood',
+    la: {
+      'id': 'la',
       'type': 'line',
-      'source': 'holyrood',
-      'source-layer': 'holyrood',
+      'source': 'la',
+      'source-layer': 'la',
       'paint': {
-        'line-color': 'rgba(83, 123, 252, 1)',
+        'line-color': 'rgba(107, 7, 7, 1)',
         'line-width': 2
-      }
+      } 
     }
   },
   
@@ -483,10 +482,12 @@ function switch_style(){
     // Reload layers
     toggleLayer('rnet'); // Start with the rnet on
     toggleLayer('data_zones');
-    toggleLayer('la');
+    
+    toggleLayer('schools');
     toggleLayer('wards');
     toggleLayer('holyrood');
-    toggleLayer('schools');
+    toggleLayer('scot_regions');
+    toggleLayer('la');
     
     // Manage placenames
     placenames();
@@ -559,7 +560,7 @@ function toggleLayer(layerName) {
   
   console.log("Toggling layer " + layerName)
 
-  // Data zones: always switch for that checkbox
+  // Handle data zones layer
   if (layerName == 'data_zones'){
     switch_data_zones();
     return;
