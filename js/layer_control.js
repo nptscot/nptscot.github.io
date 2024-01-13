@@ -483,11 +483,10 @@ function switch_style(){
     toggleLayer('rnet'); // Start with the rnet on
     toggleLayer('data_zones');
     
-    toggleLayer('schools');
-    toggleLayer('wards');
-    toggleLayer('holyrood');
-    toggleLayer('scot_regions');
-    toggleLayer('la');
+    // Other layers
+    Object.keys (definitions.otherLayers).forEach (layerId => {
+      toggleLayer(layerId);
+    });
     
     // Manage placenames
     placenames();
