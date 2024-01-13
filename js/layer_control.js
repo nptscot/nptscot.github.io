@@ -495,8 +495,10 @@ function switch_style(){
     document.querySelectorAll('.updatelayer').forEach((input) => {
       input.addEventListener('change', function(e) {
         layerId = e.target.id;
+        // #!# The input IDs should be standardised, to replace this list of regexp matches
         layerId = layerId.replace (/simplifiedcheckbox$/, '');  // Simplification checkbox, e.g. rnetsimplifiedcheckboxn => rnet
         layerId = layerId.replace (/checkbox$/, '');            // Checkboxes, e.g. data_zonescheckbox => data_zones
+        layerId = layerId.replace (/_checkbox_.+$/, '');         // Checkboxes, e.g. data_zones_checkbox_dasymetric => data_zones
         layerId = layerId.replace (/_slider-.+$/, '');          // Slider hidden inputs, e.g. rnet_slider-quietness => rnet
         layerId = layerId.replace (/_selector$/, '');           // Dropdowns, e.g. data_zones_selector => data_zones   #!# Should be input, but currently data_zones_input would clash with rnet_*_input on next line
         layerId = layerId.replace (/_[^_]+_input$/, '');        // Dropdowns, e.g. rnet_purpose_input => rnet
@@ -774,7 +776,7 @@ function switch_data_zones() {
   
   var dataZonesCheckBox = document.getElementById('data_zonescheckbox');
   var layerId = document.getElementById("data_zone_input").value;
-  var daysymetricmode = document.getElementById('dasymetriccheckbox');
+  var daysymetricmode = document.getElementById('data_zones_checkbox_dasymetric');
   
   // Update the Legend - Do this even if map layer is off
   createLegend (definitions.dzLegendColours, layerId, 'dzlegend');
