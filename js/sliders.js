@@ -1,9 +1,11 @@
-var cycleSlider = document.getElementById('slider-cycle');
-var gradientlider = document.getElementById('slider-gradient');
-var quietnessSlider = document.getElementById('slider-quietness');
+var sliders = {
+    cycle: document.getElementById('slider-cycle'),
+    gradient: document.getElementById('slider-gradient'),
+    quietness: document.getElementById('slider-quietness')
+};
 
 //Define sliders
-noUiSlider.create(cycleSlider, {
+noUiSlider.create(sliders.cycle, {
     start: [0, 20000],
     connect: true,
     range: {
@@ -22,7 +24,7 @@ noUiSlider.create(cycleSlider, {
     }
 });
 
-noUiSlider.create(gradientlider, {
+noUiSlider.create(sliders.gradient, {
     start: [0, 35],
     step: 2,
     connect: true,
@@ -41,7 +43,7 @@ noUiSlider.create(gradientlider, {
     }
 });
 
-noUiSlider.create(quietnessSlider, {
+noUiSlider.create(sliders.quietness, {
     start: [0, 100],
     step: 10,
     connect: true,

@@ -492,14 +492,14 @@ function switch_style(){
     // Manage placenames
     placenames();
     
-    // Sliders 
-    quietnessSlider.noUiSlider.on('update', function(){
+    // Sliders
+    sliders.quietness.noUiSlider.on('update', function(){
       toggleLayer('rnet');
     });
-    gradientlider.noUiSlider.on('update', function(){
+    sliders.gradient.noUiSlider.on('update', function(){
       toggleLayer('rnet');
     });
-    cycleSlider.noUiSlider.on('update', function(){
+    sliders.cycle.noUiSlider.on('update', function(){
       toggleLayer('rnet');
     });
     
@@ -638,12 +638,12 @@ function switch_rnet() {
   var layerScenario = document.getElementById("rnet_scenario_input").value;
   var layerColour = document.getElementById("rnet_colour_input").value;
   var layerType = document.getElementById("rnet_type_input").value;
-  var sliderQuietness_min = Number(quietnessSlider.noUiSlider.get()[0]);
-  var sliderQuietness_max = Number(quietnessSlider.noUiSlider.get()[1]);
-  var sliderGradient_min = Number(gradientlider.noUiSlider.get()[0]);
-  var sliderGradient_max = Number(gradientlider.noUiSlider.get()[1]);
-  var sliderFlow_min = Number(cycleSlider.noUiSlider.get()[0]);
-  var sliderFlow_max = Number(cycleSlider.noUiSlider.get()[1]);
+  var sliderQuietness_min = Number(sliders.quietness.noUiSlider.get()[0]);
+  var sliderQuietness_max = Number(sliders.quietness.noUiSlider.get()[1]);
+  var sliderGradient_min = Number(sliders.gradient.noUiSlider.get()[0]);
+  var sliderGradient_max = Number(sliders.gradient.noUiSlider.get()[1]);
+  var sliderFlow_min = Number(sliders.cycle.noUiSlider.get()[0]);
+  var sliderFlow_max = Number(sliders.cycle.noUiSlider.get()[1]);
   var simplifiedmode = document.getElementById('rnetsimplifiedcheckbox');
   
   if(sliderGradient_max == 10){
