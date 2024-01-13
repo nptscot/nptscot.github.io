@@ -557,19 +557,28 @@ function placenames () {
 function toggleLayer(layerName) {
   
   console.log("Toggling layer " + layerName)
-  var checkBox = document.getElementById(layerName.concat('checkbox'));
+
+  // Remove layer if present
+  if (map.getLayer(layerName)) {
+    map.removeLayer(layerName);
+  }
+  
+  // Always switch data zones for that checkbox
+  if (layerName === 'data_zones'){
+    switch_data_zones();
+    return;
+  }
+  
   // If the checkbox is checked add the layer to the map
+  var checkBox = document.getElementById(layerName.concat('checkbox'));
   if (checkBox.checked === true) {
-    if (map.getLayer(layerName)) map.removeLayer(layerName);
+    
     switch (layerName) {
       case 'rnet':
         switch_rnet();
         break;
       case 'routes':
         switch_routes();
-        break;
-      case 'data_zones':
-        switch_data_zones();
         break;
       case 'schools':
       case 'wards':
@@ -580,12 +589,6 @@ function toggleLayer(layerName) {
         break;
       default:
         console.log('unknown layer selected');
-    }
-  } else {
-    if (map.getLayer(layerName)) map.removeLayer(layerName);
-    if (layerName === 'data_zones'){
-      //if (map.getLayer('dasymetric')) map.removeLayer('dasymetric');
-      switch_data_zones();
     }
   }
 }
