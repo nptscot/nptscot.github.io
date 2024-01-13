@@ -155,6 +155,218 @@ const definitions = {
       '#67001f', 200,
       '#000000'
     ]
+  },
+  
+  placenameLayers: {
+    'motorway junction numbers': {
+      "id": "motorway junction numbers",
+      "type": "symbol",
+      "source": "placenames",
+      "source-layer": "names",
+      "minzoom": 13,
+      "filter": ["match", ["get", "type"], ["Motorway Junctions"], true, false],
+      "layout": {
+        "text-field": ["to-string", ["get", "name"]],
+        "text-size": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          13,
+          11,
+          16,
+          16,
+          22,
+          30
+        ],
+        "text-font": ["Source Sans Pro Regular"]
+      },
+      "paint": {
+        "text-color": "#000000",
+        "text-halo-color": "#ffffff",
+        "text-halo-width": 10
+      }
+    },
+    'small settlement names': {
+      "id": "small settlement names",
+      "type": "symbol",
+      "source": "placenames",
+      "source-layer": "names",
+      "minzoom": 5,
+      "filter": ["match", ["get", "type"], ["Small Settlements"], true, false],
+      "layout": {
+        "text-field": ["to-string", ["get", "name"]],
+        "text-size": ["interpolate", ["linear"], ["zoom"], 12, 9, 14, 11],
+        "text-font": ["Source Sans Pro Regular"],
+        "text-line-height": 1
+      },
+      "paint": {
+        "text-color": "#000000",
+        "text-halo-color": "#ffffff",
+        "text-halo-width": 2,
+        "text-halo-blur": 1
+      }
+    },
+    'suburban area names': {
+      "id": "suburban area names",
+      "type": "symbol",
+      "source": "placenames",
+      "source-layer": "names",
+      "minzoom": 10,
+      "filter": ["match", ["get", "type"], ["Suburban Area"], true, false],
+      "layout": {
+        "text-field": ["to-string", ["get", "name"]],
+        "text-size": ["interpolate", ["linear"], ["zoom"], 10, 10.5, 14, 14],
+        "text-font": ["Source Sans Pro Regular"],
+        "text-line-height": 1,
+        "text-padding": ["interpolate", ["linear"], ["zoom"], 10, 10, 14, 2]
+      },
+      "paint": {
+        "text-color": "#000000",
+        "text-halo-color": "#ffffff",
+        "text-halo-width": 2,
+        "text-halo-blur": 1,
+        "text-opacity": ["interpolate", ["linear"], ["zoom"], 10, 0.8, 14, 1]
+      }
+    },
+    'village and hamlet names': {
+      "id": "village and hamlet names",
+      "type": "symbol",
+      "source": "placenames",
+      "source-layer": "names",
+      "minzoom": 5,
+      "filter": ["match", ["get", "type"], ["Village", "Hamlet"], true, false],
+      "layout": {
+        "text-field": ["to-string", ["get", "name"]],
+        "text-size": ["interpolate", ["linear"], ["zoom"], 9, 9, 14, 15],
+        "text-font": ["Source Sans Pro Regular"],
+        "text-line-height": 1,
+        "text-padding": 2
+      },
+      "paint": {
+        "text-color": "#000000",
+        "text-halo-color": "#ffffff",
+        "text-halo-width": 2,
+        "text-halo-blur": 1,
+        "text-opacity": 1
+      }
+    },
+    'town names': {
+      "id": "town names",
+      "type": "symbol",
+      "source": "placenames",
+      "source-layer": "names",
+      "minzoom": 5,
+      "filter": ["match", ["get", "type"], ["Town"], true, false],
+      "layout": {
+        "text-field": ["to-string", ["get", "name"]],
+        "text-size": ["interpolate", ["linear"], ["zoom"], 7, 10, 14, 18],
+        "text-font": ["Source Sans Pro Regular"],
+        "text-line-height": 1,
+        "text-padding": 2
+      },
+      "paint": {
+        "text-color": "#000000",
+        "text-halo-color": "#ffffff",
+        "text-halo-width": 1,
+        "text-halo-blur": 1,
+        "text-opacity": 1
+      }
+    },
+    'city names': {
+      "id": "city names",
+      "type": "symbol",
+      "source": "placenames",
+      "source-layer": "names",
+      "minzoom": 5,
+      "filter": ["match", ["get", "type"], ["City"], true, false],
+      "layout": {
+        "text-field": ["to-string", ["get", "name"]],
+        "text-size": ["interpolate", ["linear"], ["zoom"], 6, 10, 14, 20],
+        "text-font": ["Source Sans Pro Regular"],
+        "text-line-height": 1,
+        "text-padding": 2,
+        "text-letter-spacing": 0.05
+      },
+      "paint": {
+        "text-color": "#000000",
+        "text-halo-color": "#ffffff",
+        "text-halo-width": 1,
+        "text-halo-blur": 1,
+        "text-opacity": 1
+      }
+    },
+    'national park names': {
+      "id": "national park names",
+      "type": "symbol",
+      "source": "placenames",
+      "source-layer": "names",
+      "minzoom": 5,
+      "filter": ["match", ["get", "type"], ["National Park"], true, false],
+      "layout": {
+        "text-field": ["to-string", ["get", "name"]],
+        "text-size": ["interpolate", ["linear"], ["zoom"], 6, 8, 14, 15],
+        "text-font": ["Source Sans Pro Regular"],
+        "text-line-height": 1,
+        "text-padding": 2,
+        "text-letter-spacing": 0.06
+      },
+      "paint": {
+        "text-color": "rgba(134, 134, 134, 1)",
+        "text-halo-color": "#ffffff",
+        "text-halo-width": 1,
+        "text-halo-blur": 1,
+        "text-opacity": 0.8
+      }
+    },
+    'capital city names': {
+      "id": "capital city names",
+      "type": "symbol",
+      "source": "placenames",
+      "source-layer": "names",
+      "minzoom": 5,
+      "filter": ["match", ["get", "type"], ["Capital"], true, false],
+      "layout": {
+        "text-field": ["to-string", ["get", "name"]],
+        "text-size": ["interpolate", ["linear"], ["zoom"], 5, 10.5, 14, 22],
+        "text-font": ["Source Sans Pro Regular"],
+        "text-line-height": 1,
+        "text-padding": 2,
+        "text-letter-spacing": 0.1,
+        "text-transform": "uppercase"
+      },
+      "paint": {
+        "text-color": "#000000",
+        "text-halo-color": "#ffffff",
+        "text-halo-width": 1,
+        "text-halo-blur": 1,
+        "text-opacity": 1
+      }
+    },
+    'country names': {
+      "id": "country names",
+      "type": "symbol",
+      "source": "placenames",
+      "source-layer": "names",
+      "minzoom": 5,
+      "maxzoom": 10,
+      "filter": ["match", ["get", "type"], ["Country"], true, false],
+      "layout": {
+        "text-field": ["to-string", ["get", "name"]],
+        "text-size": ["interpolate", ["linear"], ["zoom"], 5, 18, 10, 35],
+        "text-font": ["Source Sans Pro Regular"],
+        "text-line-height": 1,
+        "text-padding": 2,
+        "text-letter-spacing": 0.3,
+        "text-transform": "uppercase"
+      },
+      "paint": {
+        "text-color": "#55595c",
+        "text-halo-color": "#f1efec",
+        "text-halo-width": 1,
+        "text-halo-blur": 1,
+        "text-opacity": 0.35
+      }
+    }
   }
 };
 
@@ -226,239 +438,22 @@ function addDataSources () {
 
 
 function switch_placenames () {
-  var checkBox = document.getElementById('placenamescheckbox');
   console.log("Switching place names")
   
-  if (map.getLayer("motorway junction numbers")) map.removeLayer("motorway junction numbers");
-  if (map.getLayer("small settlement names")) map.removeLayer("small settlement names");
-  if (map.getLayer("suburban area names")) map.removeLayer("suburban area names");
-  if (map.getLayer("village and hamlet names")) map.removeLayer("village and hamlet names");
-  if (map.getLayer("town names")) map.removeLayer("town names");
-  if (map.getLayer("city names")) map.removeLayer("city names");
-  if (map.getLayer("national park names")) map.removeLayer("national park names");
-  if (map.getLayer("capital city names")) map.removeLayer("capital city names");
-  if (map.getLayer("country names")) map.removeLayer("country names");
+  // Remove existing if present
+  Object.entries(definitions.placenameLayers).forEach(([layerId, layer]) => {
+    if (map.getLayer(layerId)) {
+      map.removeLayer(layerId);
+    }
+  });
   
+  // Add when checkbox enabled
+  var checkBox = document.getElementById('placenamescheckbox');
   if (checkBox.checked === true) {
-    map.addLayer({
-      "id": "motorway junction numbers",
-      "type": "symbol",
-      "source": "placenames",
-      "source-layer": "names",
-      "minzoom": 13,
-      "filter": ["match", ["get", "type"], ["Motorway Junctions"], true, false],
-      "layout": {
-        "text-field": ["to-string", ["get", "name"]],
-        "text-size": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          13,
-          11,
-          16,
-          16,
-          22,
-          30
-        ],
-        "text-font": ["Source Sans Pro Regular"]
-      },
-      "paint": {
-        "text-color": "#000000",
-        "text-halo-color": "#ffffff",
-        "text-halo-width": 10
-      }
-    });
-    
-    map.addLayer({
-      "id": "small settlement names",
-      "type": "symbol",
-      "source": "placenames",
-      "source-layer": "names",
-      "minzoom": 5,
-      "filter": ["match", ["get", "type"], ["Small Settlements"], true, false],
-      "layout": {
-        "text-field": ["to-string", ["get", "name"]],
-        "text-size": ["interpolate", ["linear"], ["zoom"], 12, 9, 14, 11],
-        "text-font": ["Source Sans Pro Regular"],
-        "text-line-height": 1
-      },
-      "paint": {
-        "text-color": "#000000",
-        "text-halo-color": "#ffffff",
-        "text-halo-width": 2,
-        "text-halo-blur": 1
-      }
-    });
-    
-    map.addLayer({
-      "id": "suburban area names",
-      "type": "symbol",
-      "source": "placenames",
-      "source-layer": "names",
-      "minzoom": 10,
-      "filter": ["match", ["get", "type"], ["Suburban Area"], true, false],
-      "layout": {
-        "text-field": ["to-string", ["get", "name"]],
-        "text-size": ["interpolate", ["linear"], ["zoom"], 10, 10.5, 14, 14],
-        "text-font": ["Source Sans Pro Regular"],
-        "text-line-height": 1,
-        "text-padding": ["interpolate", ["linear"], ["zoom"], 10, 10, 14, 2]
-      },
-      "paint": {
-        "text-color": "#000000",
-        "text-halo-color": "#ffffff",
-        "text-halo-width": 2,
-        "text-halo-blur": 1,
-        "text-opacity": ["interpolate", ["linear"], ["zoom"], 10, 0.8, 14, 1]
-      }
-    });
-    
-    map.addLayer({
-      "id": "village and hamlet names",
-      "type": "symbol",
-      "source": "placenames",
-      "source-layer": "names",
-      "minzoom": 5,
-      "filter": ["match", ["get", "type"], ["Village", "Hamlet"], true, false],
-      "layout": {
-        "text-field": ["to-string", ["get", "name"]],
-        "text-size": ["interpolate", ["linear"], ["zoom"], 9, 9, 14, 15],
-        "text-font": ["Source Sans Pro Regular"],
-        "text-line-height": 1,
-        "text-padding": 2
-      },
-      "paint": {
-        "text-color": "#000000",
-        "text-halo-color": "#ffffff",
-        "text-halo-width": 2,
-        "text-halo-blur": 1,
-        "text-opacity": 1
-      }
-    });
-    
-    map.addLayer({
-      "id": "town names",
-      "type": "symbol",
-      "source": "placenames",
-      "source-layer": "names",
-      "minzoom": 5,
-      "filter": ["match", ["get", "type"], ["Town"], true, false],
-      "layout": {
-        "text-field": ["to-string", ["get", "name"]],
-        "text-size": ["interpolate", ["linear"], ["zoom"], 7, 10, 14, 18],
-        "text-font": ["Source Sans Pro Regular"],
-        "text-line-height": 1,
-        "text-padding": 2
-      },
-      "paint": {
-        "text-color": "#000000",
-        "text-halo-color": "#ffffff",
-        "text-halo-width": 1,
-        "text-halo-blur": 1,
-        "text-opacity": 1
-      }
-    });
-    
-    map.addLayer({
-      "id": "city names",
-      "type": "symbol",
-      "source": "placenames",
-      "source-layer": "names",
-      "minzoom": 5,
-      "filter": ["match", ["get", "type"], ["City"], true, false],
-      "layout": {
-        "text-field": ["to-string", ["get", "name"]],
-        "text-size": ["interpolate", ["linear"], ["zoom"], 6, 10, 14, 20],
-        "text-font": ["Source Sans Pro Regular"],
-        "text-line-height": 1,
-        "text-padding": 2,
-        "text-letter-spacing": 0.05
-      },
-      "paint": {
-        "text-color": "#000000",
-        "text-halo-color": "#ffffff",
-        "text-halo-width": 1,
-        "text-halo-blur": 1,
-        "text-opacity": 1
-      }
-    });
-    
-    map.addLayer({
-      "id": "national park names",
-      "type": "symbol",
-      "source": "placenames",
-      "source-layer": "names",
-      "minzoom": 5,
-      "filter": ["match", ["get", "type"], ["National Park"], true, false],
-      "layout": {
-        "text-field": ["to-string", ["get", "name"]],
-        "text-size": ["interpolate", ["linear"], ["zoom"], 6, 8, 14, 15],
-        "text-font": ["Source Sans Pro Regular"],
-        "text-line-height": 1,
-        "text-padding": 2,
-        "text-letter-spacing": 0.06
-      },
-      "paint": {
-        "text-color": "rgba(134, 134, 134, 1)",
-        "text-halo-color": "#ffffff",
-        "text-halo-width": 1,
-        "text-halo-blur": 1,
-        "text-opacity": 0.8
-      }
-    });
-    
-    map.addLayer({
-      "id": "capital city names",
-      "type": "symbol",
-      "source": "placenames",
-      "source-layer": "names",
-      "minzoom": 5,
-      "filter": ["match", ["get", "type"], ["Capital"], true, false],
-      "layout": {
-        "text-field": ["to-string", ["get", "name"]],
-        "text-size": ["interpolate", ["linear"], ["zoom"], 5, 10.5, 14, 22],
-        "text-font": ["Source Sans Pro Regular"],
-        "text-line-height": 1,
-        "text-padding": 2,
-        "text-letter-spacing": 0.1,
-        "text-transform": "uppercase"
-      },
-      "paint": {
-        "text-color": "#000000",
-        "text-halo-color": "#ffffff",
-        "text-halo-width": 1,
-        "text-halo-blur": 1,
-        "text-opacity": 1
-      }
-    });
-    
-    map.addLayer({
-      "id": "country names",
-      "type": "symbol",
-      "source": "placenames",
-      "source-layer": "names",
-      "minzoom": 5,
-      "maxzoom": 10,
-      "filter": ["match", ["get", "type"], ["Country"], true, false],
-      "layout": {
-        "text-field": ["to-string", ["get", "name"]],
-        "text-size": ["interpolate", ["linear"], ["zoom"], 5, 18, 10, 35],
-        "text-font": ["Source Sans Pro Regular"],
-        "text-line-height": 1,
-        "text-padding": 2,
-        "text-letter-spacing": 0.3,
-        "text-transform": "uppercase"
-      },
-      "paint": {
-        "text-color": "#55595c",
-        "text-halo-color": "#f1efec",
-        "text-halo-width": 1,
-        "text-halo-blur": 1,
-        "text-opacity": 0.35
-      }
+    Object.entries(definitions.placenameLayers).forEach(([layerId, layer]) => {
+      map.addLayer(layer);
     });
   }
-
 }
 
 
