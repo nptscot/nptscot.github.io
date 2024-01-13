@@ -577,9 +577,6 @@ function toggleLayer(layerName) {
       case 'rnet':
         switch_rnet();
         break;
-      case 'routes':
-        switch_routes();
-        break;
       case 'schools':
       case 'wards':
       case 'holyrood':
