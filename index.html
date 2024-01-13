@@ -146,7 +146,7 @@
 <b> Layer Controls</b>
 <button class="accordion" id="rnet_accordion">Route Network</button>
 <div class="panel">
-  <p><label><input type="checkbox" id="rnetcheckbox" onclick="toggleLayer('rnet')" checked>Show Layer</label></p>
+  <p><label><input type="checkbox" id="rnetcheckbox" class="layercheckbox" checked>Show Layer</label></p>
   <p>
     <select id="rnet_purpose_input" name="rnet_purpose_input" onchange="switch_rnet()" aria-label="Route network trip purpose">
       <option value="all" selected>All</option>
@@ -219,7 +219,7 @@
 
 <button class="accordion">Data Zones</button>
 <div class="panel">
-  <p><label><input type="checkbox" id="data_zonescheckbox" value="false" onclick="toggleLayer('data_zones')">Show Layer</label></p>
+  <p><label><input type="checkbox" id="data_zonescheckbox" class="layercheckbox" value="false">Show Layer</label></p>
 
   <p>
     <select id="data_zone_input" name="data_zone_input" onchange="switch_data_zones()" aria-label="Data zone layer">
@@ -254,29 +254,29 @@
 <button class="accordion">Other Layers</button>
 <div class="panel">
 
-  <p><label><input type="checkbox" id="schoolscheckbox" value="false" onclick="toggleLayer('schools')">Schools</label></p>
+  <p><label><input type="checkbox" id="schoolscheckbox" class="layercheckbox" value="false">Schools</label></p>
   <div class="legend"><div class="l_r">
   <div class="lb"><span style="background-color: #313695"></span>Primary</div>
   <div class="lb"><span style="background-color: #a50026"></span>Seconday</div>
   <div class="lb"><span style="background-color: #43f22c"></span>Other</div>
 	</div></div>
   
-  <p><label><input type="checkbox" id="wardscheckbox" value="false" onclick="toggleLayer('wards')">Wards</label></p>
+  <p><label><input type="checkbox" id="wardscheckbox" class="layercheckbox" value="false">Wards</label></p>
   <div class="legend"><div class="l_r">
   <div class="lb"><span style="background-color: #206b07"></span></div>
 	</div></div>
   
-  <p><label><input type="checkbox" id="holyroodcheckbox" value="false" onclick="toggleLayer('holyrood')">Scottish Parliament Constituencies</label></p>
+  <p><label><input type="checkbox" id="holyroodcheckbox" class="layercheckbox" value="false">Scottish Parliament Constituencies</label></p>
   <div class="legend"><div class="l_r">
   <div class="lb"><span style="background-color: #537bfc"></span></div>
 	</div></div>
 	
-	<p><label><input type="checkbox" id="scot_regionscheckbox" value="false" onclick="toggleLayer('scot_regions')">Scottish Parliament Regions</label></p>
+	<p><label><input type="checkbox" id="scot_regionscheckbox" class="layercheckbox" value="false">Scottish Parliament Regions</label></p>
   <div class="legend"><div class="l_r">
   <div class="lb"><span style="background-color: #bab106"></span></div>
 	</div></div>
 	
-	<p><label><input type="checkbox" id="lacheckbox" value="false" onclick="toggleLayer('la')">Local Authorities</label></p>
+	<p><label><input type="checkbox" id="lacheckbox" class="layercheckbox" value="false">Local Authorities</label></p>
   <div class="legend"><div class="l_r">
   <div class="lb"><span style="background-color: #6b0707"></span></div>
 	</div></div>

@@ -502,7 +502,15 @@ function switch_style(){
     cycleSlider.noUiSlider.on('update', function(){
       switch_rnet()
     })
-  
+    
+    // Handle layer checkboxes
+    document.querySelectorAll('.layercheckbox').forEach((input) => {
+      input.addEventListener('input', function(e) {
+        layerId = e.target.id.replace ('checkbox', '');
+        toggleLayer(layerId);
+      });
+    });
+    
   });
 }
 
