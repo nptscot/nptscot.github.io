@@ -86,6 +86,35 @@ const definitions = {
     }
   },
   
+  routeNetworkLegendColours: {
+    'none': [
+      ['&nbsp;', '#304ce7']
+    ],
+    'flow': [
+      ['1',      '#9C9C9C'],
+      ['50',     '#FFFF73'],
+      ['100',    '#AFFF00'],
+      ['250',    '#00FFFF'],
+      ['500',    '#30B0FF'],
+      ['1000',   '#2E5FFF'],
+      ['2000',   '#0000FF'],
+      ['3000+',  '#FF00C5'],
+    ],
+    'Quietness': [
+      ['0-25',   '#882255'],
+      ['25-50',  '#CC6677'],
+      ['50-75',  '#44AA99'],
+      ['75-100', '#117733'],
+    ],
+    'Gradient': [
+      ['0-3',    '#59ee19'],
+      ['3-5',    '#37a009'],
+      ['5-7',    '#FFC300'],
+      ['7-10',   '#C70039'],
+      ['10+',    '#581845'],
+    ]
+  },
+  
   dzLegendColours: {
     'SIMD2020v2_Decile': [
       ['1st', '#a50026'],
@@ -600,39 +629,7 @@ function switch_rnet() {
   var layerWidth2 = layerPurpose + "_" + layerType + "_" + layerScenario;
   
   // Update the Legend - Do this even if map layer is off
-  const legendColours = {
-    'none': [
-      ['&nbsp;', '#304ce7']
-    ],
-    'flow': [
-      ['1',      '#9C9C9C'],
-      ['50',     '#FFFF73'],
-      ['100',    '#AFFF00'],
-      ['250',    '#00FFFF'],
-      ['500',    '#30B0FF'],
-      ['1000',   '#2E5FFF'],
-      ['2000',   '#0000FF'],
-      ['3000+',  '#FF00C5'],
-    ],
-    'Quietness': [
-      ['0-25',   '#882255'],
-      ['25-50',  '#CC6677'],
-      ['50-75',  '#44AA99'],
-      ['75-100', '#117733'],
-    ],
-    'Gradient': [
-      ['0-3',    '#59ee19'],
-      ['3-5',    '#37a009'],
-      ['5-7',    '#FFC300'],
-      ['7-10',   '#C70039'],
-      ['10+',    '#581845'],
-    ]
-  };
-  
-  // Update the Legend - Do this even if map layer is off
-  createLegend (legendColours, layerColour, 'linecolourlegend');
-  
-
+  createLegend (definitions.routeNetworkLegendColours, layerColour, 'linecolourlegend');
   
   // Update the map if enabled
   if (checkBox.checked === true) {
