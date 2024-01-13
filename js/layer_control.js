@@ -537,31 +537,19 @@ function addDataSources () {
 // Function to manage display of placenames
 function placenames () {
   
-  // Define handler function
-  const switch_placenames = function ()
-  {
-    console.log("Switching place names");
-    
-    // Remove existing if present
-    Object.entries(definitions.placenameLayers).forEach(([layerId, layer]) => {
-      if (map.getLayer(layerId)) {
-        map.removeLayer(layerId);
-      }
-    });
-    
-    // Add when checkbox enabled
-    var checkBox = document.getElementById('placenamescheckbox');
-    if (checkBox.checked === true) {
-      Object.entries(definitions.placenameLayers).forEach(([layerId, layer]) => {
-        map.addLayer(layer);
-      });
-    }
-  }
+  // Add each layer, respecting the initial checkbox setting
+  Object.entries(definitions.placenameLayers).forEach(([layerId, layer]) => {
+    var checkbox = document.getElementById('placenamescheckbox');
+    layer.visibility = (checkbox.checked ? 'visible' : 'none');
+    map.addLayer(layer);
+  });  
   
-  // Enable at start, and listen for checkbox changes
-  switch_placenames ();
+  // Listen for checkbox changes
   document.getElementById('placenamescheckbox').addEventListener ('click', (e) => {
-    switch_placenames ();
+    var checkbox = document.getElementById('placenamescheckbox');
+    Object.entries(definitions.placenameLayers).forEach(([layerId, layer]) => {
+      map.setLayoutProperty(layerId, 'visibility', (checkbox.checked ? 'visible' : 'none'));
+    });
   });
 }
 
