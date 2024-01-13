@@ -538,7 +538,7 @@ function addDataSources () {
 // Function to manage display of placenames
 function placenames () {
   
-  // Add each layer, respecting the initial checkbox setting
+  // Add each layer, respecting the initial checkbox state
   Object.entries(definitions.placenameLayers).forEach(([layerId, layer]) => {
     var checkbox = document.getElementById('placenamescheckbox');
     layer.visibility = (checkbox.checked ? 'visible' : 'none');
@@ -566,14 +566,14 @@ function toggleLayer(layerName) {
   }
   
   // Get checkbox value
-  var checkBox = document.getElementById(layerName.concat('checkbox'));
+  var checkbox = document.getElementById(layerName.concat('checkbox'));
   
   // Handle rnet layer
   if (layerName == 'rnet') {
     if (map.getLayer(layerName)) {
       map.removeLayer(layerName);
     }
-    if (checkBox.checked) {
+    if (checkbox.checked) {
       switch_rnet();
     }
     return;
@@ -581,17 +581,26 @@ function toggleLayer(layerName) {
   
   // Handle other layers (if the requested layer is defined)
   if (definitions.otherLayers[layerName]) {
-      if (map.getLayer(layerName)) {
-        map.removeLayer(layerName);
-      }
-      if (checkBox.checked) {
-        map.addLayer(definitions.otherLayers[layerName], 'placeholder_name');
-    }
+    switch_otherLayer (layerName, checkbox.checked);
     return;
   }
   
   // Unknown layer
   console.log('Unknown layer selected');
+}
+
+
+// Function to manage switching of simple layers
+function switch_otherLayer (layerName, defaultVisible)
+{
+  // Add the layer (if not already present), respecting the initial checkbox state
+  if (!map.getLayer(layerName)) {
+    definitions.otherLayers[layerName].visibility = (defaultVisible ? 'visible' : 'none');
+    map.addLayer(definitions.otherLayers[layerName], 'placeholder_name');
+  }
+  
+  // Set the visibility, based on the checkbox value
+  map.setLayoutProperty(layerName, 'visibility', (defaultVisible ? 'visible' : 'none'));
 }
 
 
