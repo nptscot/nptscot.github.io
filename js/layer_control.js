@@ -504,9 +504,9 @@ function switch_style(){
     });
     
     // Handle layer checkboxes
-    document.querySelectorAll('.layercheckbox').forEach((input) => {
-      input.addEventListener('input', function(e) {
-        layerId = e.target.id.replace ('checkbox', '');
+    document.querySelectorAll('.updatelayer').forEach((input) => {
+      input.addEventListener('change', function(e) {
+        layerId = e.target.id.replace (/checkbox$/, '');
         toggleLayer(layerId);
       });
     });
