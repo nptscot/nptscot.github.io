@@ -186,7 +186,7 @@ function addDataSources () {
   const sources = [
     ['rnet', {dateBased: '2023-12-17', localUrl: 'utilitytrips/'}],
     ['rnet-simplified', {path: 'rnet_simplified', dateBased: '2023-12-17'}],
-    ['dasymetric', {path: 'dasymetric-simplified', dateBased: '2023-12-17'}],
+    ['dasymetric', {dateBased: '2023-12-17'}],
     ['data_zones', {dateBased: '2023-12-17'}],
     ['schools', {dateBased: '2023-12-17'}],
     ['la'],
@@ -194,7 +194,7 @@ function addDataSources () {
     ['holyrood'],
     ['wards'],
     ['scot_regions'],
-    ['placenames'],
+    ['placenames', {path: 'oszoom_names'}],
   ];
   
   const enableLocal = false;  // Temporarily set to true to switch to localUrl cases below
