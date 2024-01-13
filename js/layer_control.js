@@ -99,13 +99,13 @@ const definitions = {
       ['2000',   '#0000FF'],
       ['3000+',  '#FF00C5'],
     ],
-    'Quietness': [
+    'quietness': [
       ['0-25',   '#882255'],
       ['25-50',  '#CC6677'],
       ['50-75',  '#44AA99'],
       ['75-100', '#117733'],
     ],
-    'Gradient': [
+    'gradient': [
       ['0-3',    '#59ee19'],
       ['3-5',    '#37a009'],
       ['5-7',    '#FFC300'],
@@ -468,6 +468,7 @@ const definitions = {
 
 
 function switch_style(){
+  
   var styleName = displayRadioValue(document.getElementById("basemapform"));
   var styleCurrent = map.getStyle().name;
   if(styleCurrent != styleName){
@@ -476,7 +477,7 @@ function switch_style(){
   }
   
   map.once('idle', function() {
-    // Add Data Sources
+    // Add data sources
     addDataSources();
 
     // Reload layers
@@ -644,8 +645,9 @@ function switch_rnet() {
   var sliderFlow_max = Number(sliderFlow[1]);
   var simplifiedmode = document.getElementById('rnetsimplifiedcheckbox');
   
+  // Treat gradient of 10 as actually >10
   if(sliderGradient_max == 10){
-    sliderGradient_max = 35
+    sliderGradient_max = 35;
   }
 
   // Width
@@ -669,81 +671,74 @@ function switch_rnet() {
     };
 
     // Only filter cyclists if scenario set
-      var style_filter = {
-        'filter': ["all",
-              ['<=', layerPurpose + "_" + layerType + "_" + layerScenario, sliderFlow_max],
-              ['>=', layerPurpose + "_" + layerType + "_" + layerScenario, sliderFlow_min],
-              ['<=', "Quietness", sliderQuietness_max],
-              ['>=', "Quietness", sliderQuietness_min],
-              ['<=', "Gradient", sliderGradient_max],
-              ['>=', "Gradient", sliderGradient_min]
-           ],
-      };
+    var style_filter = {
+      'filter': ["all",
+        ['<=', layerWidth2, sliderFlow_max],
+        ['>=', layerWidth2, sliderFlow_min],
+        ['<=', "Quietness", sliderQuietness_max],
+        ['>=', "Quietness", sliderQuietness_min],
+        ['<=', "Gradient", sliderGradient_max],
+        ['>=', "Gradient", sliderGradient_min]
+      ],
+    };
 
     // Define line colour
-    switch (layerColour) {
-      case 'none':
-        var style_line_colour = {
-          "line-color": "#304ce7"
-        };
-        break;
-      case 'Quietness':
-        var style_line_colour = {
-          "line-color": ["step", ["get", "Quietness"],
-            "#882255", 25,
-            "#CC6677", 50,
-            "#44AA99", 75,
-            "#117733", 101,
+    var style_line_colours = {
+      'none': {
+        "line-color": "#304ce7"
+      },
+      'flow': {
+        "line-color": ["step", ["get", layerWidth2],
+            "rgba(0,0,0,0)", 1,
+            "#9C9C9C", 50,
+            "#FFFF73", 100,
+            "#AFFF00", 250,
+            "#00FFFF", 500,
+            "#30B0FF", 1000,
+            "#2E5FFF", 2000,
+            "#0000FF", 3000,
+            "#FF00C5"],
+      },
+      'quietness': {
+        "line-color": ["step", ["get", "Quietness"],
+          "#882255", 25,
+          "#CC6677", 50,
+          "#44AA99", 75,
+          "#117733", 101,
+          "#000000"]
+      },
+      'gradient': {
+        "line-color": ["step", ["get", "Gradient"],
+            "#59ee19", 3,
+            "#37a009", 5,
+            "#FFC300", 7,
+            "#C70039", 10,
+            "#581845", 100,
             "#000000"]
-          
-        };
-        break;
-      case 'Gradient':
-        var style_line_colour = {
-          "line-color": ["step", ["get", "Gradient"],
-              "#59ee19", 3,
-              "#37a009", 5,
-              "#FFC300", 7,
-              "#C70039", 10,
-              "#581845", 100,
-              "#000000"]
-        };
-        break;
-      default:
-        var style_line_colour = {
-          "line-color": ["step", ["get", layerPurpose + "_" + layerType + "_" + layerScenario],
-              "rgba(0,0,0,0)", 1,
-              "#9C9C9C", 50,
-              "#FFFF73", 100,
-              "#AFFF00", 250,
-              "#00FFFF", 500,
-              "#30B0FF", 1000,
-              "#2E5FFF", 2000,
-              "#0000FF", 3000,
-              "#FF00C5"],
-        };
+      }
     };
     
-    // Define Line Width
-    // Implments the formula y = (3 / (1 + exp(-3*(x/1000 - 1.6))) + 0.3)
-    // For working this out I deserve a ****ing medal
+    // Define line width
+    // Implements the formula y = (3 / (1 + exp(-3*(x/1000 - 1.6))) + 0.3)
+    // This code was hard to work out!
     var style_line_width = {
-          "line-width": [
-                "interpolate", 
-                ["linear"], 
-                ["zoom"],
-                12, ["*", 2.1, ["+", 0.3, ["/", 3, ["+", 1, ["^", 2.718, ["-", 2.94, ["*", ["get", layerWidth2], 0.0021]]]]]]],
-                14, ["*", 5.25,["+", 0.3, ["/", 3, ["+", 1, ["^", 2.718, ["-", 2.94, ["*", ["get", layerWidth2], 0.0021]]]]]]],
-                15, ["*", 7.5, ["+", 0.3, ["/", 3, ["+", 1, ["^", 2.718, ["-", 2.94, ["*", ["get", layerWidth2], 0.0021]]]]]]],
-                16, ["*", 18,  ["+", 0.3, ["/", 3, ["+", 1, ["^", 2.718, ["-", 2.94, ["*", ["get", layerWidth2], 0.0021]]]]]]],
-                18, ["*", 52.5,["+", 0.3, ["/", 3, ["+", 1, ["^", 2.718, ["-", 2.94, ["*", ["get", layerWidth2], 0.0021]]]]]]],
-            ],
-        };
+      "line-width": [
+        "interpolate",
+        ["linear"],
+        ["zoom"],
+        12, ["*", 2.1, ["+", 0.3, ["/", 3, ["+", 1, ["^", 2.718, ["-", 2.94, ["*", ["get", layerWidth2], 0.0021]]]]]]],
+        14, ["*", 5.25,["+", 0.3, ["/", 3, ["+", 1, ["^", 2.718, ["-", 2.94, ["*", ["get", layerWidth2], 0.0021]]]]]]],
+        15, ["*", 7.5, ["+", 0.3, ["/", 3, ["+", 1, ["^", 2.718, ["-", 2.94, ["*", ["get", layerWidth2], 0.0021]]]]]]],
+        16, ["*", 18,  ["+", 0.3, ["/", 3, ["+", 1, ["^", 2.718, ["-", 2.94, ["*", ["get", layerWidth2], 0.0021]]]]]]],
+        18, ["*", 52.5,["+", 0.3, ["/", 3, ["+", 1, ["^", 2.718, ["-", 2.94, ["*", ["get", layerWidth2], 0.0021]]]]]]],
+      ],
+    };
     
+    var style_line_colour = style_line_colours[layerColour];
     var style_paint = {"paint" : {...style_line_colour, ...style_line_width}};
     var style_combined = {...style_head, ...style_filter, ...style_paint};
-    map.addLayer(style_combined,'placeholder_name');
-    
+    map.addLayer(style_combined, 'placeholder_name');
+
   }
 }
 
@@ -764,14 +759,12 @@ function switch_data_zones() {
   };
   var style_ex_dy = {
       'fill-extrusion-height': [
-              'interpolate',
-              ['linear'],
-              ['zoom'],
-              12,
-              1,
-              15,
-              8
-            ]
+        'interpolate',
+        ['linear'],
+        ['zoom'],
+        12, 1,
+        15, 8
+      ]
   };
   
   var dataZonesCheckBox = document.getElementById('data_zonescheckbox');
