@@ -492,21 +492,12 @@ function switch_style(){
     // Manage placenames
     placenames();
     
-    // Sliders
-    document.getElementById('rnet_slider-quietness').addEventListener('change', function(){
-      toggleLayer('rnet');
-    });
-    document.getElementById('rnet_slider-gradient').addEventListener('change', function(){
-      toggleLayer('rnet');
-    });
-    document.getElementById('rnet_slider-cycle').addEventListener('change', function(){
-      toggleLayer('rnet');
-    });
-    
-    // Handle layer checkboxes
+    // Handle layer checkboxes and sliders
     document.querySelectorAll('.updatelayer').forEach((input) => {
       input.addEventListener('change', function(e) {
-        layerId = e.target.id.replace (/checkbox$/, '');
+        layerId = e.target.id;
+        layerId = layerId.replace (/checkbox$/, '');    // Checkboxes, e.g. data_zonescheckbox => data_zones
+        layerId = layerId.replace (/_slider-.+$/, '');  // Slider hidden inputs, e.g. rnet_slider-quietness => rnet
         toggleLayer(layerId);
       });
     });
