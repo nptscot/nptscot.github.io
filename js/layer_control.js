@@ -563,29 +563,27 @@ function toggleLayer(layerName) {
     map.removeLayer(layerName);
   }
   
-  // Always switch data zones for that checkbox
-  if (layerName === 'data_zones'){
+  // Data zones: always switch for that checkbox
+  if (layerName == 'data_zones'){
     switch_data_zones();
     return;
   }
   
-  // If the checkbox is checked add the layer to the map
+  // Get checkbox value
   var checkBox = document.getElementById(layerName.concat('checkbox'));
-  if (checkBox.checked === true) {
-    
-    switch (layerName) {
-      case 'rnet':
-        switch_rnet();
-        break;
-      case 'schools':
-      case 'wards':
-      case 'holyrood':
-      case 'scot_regions':
-      case 'la':
-        map.addLayer(definitions.otherLayers[layerName], 'placeholder_name');
-        break;
-      default:
-        console.log('unknown layer selected');
+  
+  // Handle rnet layer
+  if (layerName == 'rnet') {
+    if (checkBox.checked) {
+      switch_rnet();
+      return;
+    }
+  }
+  
+  // Handle other layers
+  if (checkBox.checked) {
+    if (definitions.otherLayers[layerName]) {
+      map.addLayer(definitions.otherLayers[layerName], 'placeholder_name');
     }
   }
 }
