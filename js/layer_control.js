@@ -487,7 +487,9 @@ function switch_style(){
     toggleLayer('wards');
     toggleLayer('holyrood');
     toggleLayer('schools');
-    switch_placenames();
+    
+    // Manage placenames
+    placenames();
     
     // Sliders 
     quietnessSlider.noUiSlider.on('update', function(){
@@ -532,23 +534,35 @@ function addDataSources () {
 }
 
 
-function switch_placenames () {
-  console.log("Switching place names")
+// Function to manage display of placenames
+function placenames () {
   
-  // Remove existing if present
-  Object.entries(definitions.placenameLayers).forEach(([layerId, layer]) => {
-    if (map.getLayer(layerId)) {
-      map.removeLayer(layerId);
-    }
-  });
-  
-  // Add when checkbox enabled
-  var checkBox = document.getElementById('placenamescheckbox');
-  if (checkBox.checked === true) {
+  // Define handler function
+  const switch_placenames = function ()
+  {
+    console.log("Switching place names");
+    
+    // Remove existing if present
     Object.entries(definitions.placenameLayers).forEach(([layerId, layer]) => {
-      map.addLayer(layer);
+      if (map.getLayer(layerId)) {
+        map.removeLayer(layerId);
+      }
     });
+    
+    // Add when checkbox enabled
+    var checkBox = document.getElementById('placenamescheckbox');
+    if (checkBox.checked === true) {
+      Object.entries(definitions.placenameLayers).forEach(([layerId, layer]) => {
+        map.addLayer(layer);
+      });
+    }
   }
+  
+  // Enable at start, and listen for checkbox changes
+  switch_placenames ();
+  document.getElementById('placenamescheckbox').addEventListener ('click', (e) => {
+    switch_placenames ();
+  });
 }
 
 
