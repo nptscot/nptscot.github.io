@@ -20,6 +20,72 @@ const definitions = {
     ['placenames', {path: 'oszoom_names'}],
   ],
   
+  otherLayers: {
+    schools: {
+      'id': 'schools',
+      'type': 'circle',
+      'source': 'schools',
+      'source-layer': 'schools',
+      'paint': {
+        "circle-color": [
+          'match',
+          ['get', 'SchoolType'],
+          'Primary','#313695',
+          'Secondary','#a50026',
+          /* other */ '#43f22c'
+          ],
+        // make circles larger as the user zooms
+        'circle-radius': {
+          'base': 5,
+          'stops': [
+            [8, 6],
+            [22, 180]
+          ]
+        },
+      } 
+    },
+    la: {
+      'id': 'la',
+      'type': 'line',
+      'source': 'la',
+      'source-layer': 'la',
+      'paint': {
+        'line-color': 'rgba(107, 7, 7, 1)',
+        'line-width': 2
+      } 
+    },
+    wards: {
+      'id': 'wards',
+      'type': 'line',
+      'source': 'wards',
+      'source-layer': 'wards',
+      'paint': {
+        'line-color': 'rgba(32, 107, 7, 1)',
+        'line-width': 2
+      }
+    },
+    scot_regions: {
+      'id': 'scot_regions',
+      'type': 'line',
+      'source': 'scot_regions',
+      'source-layer': 'scot_regions',
+      'paint': {
+        'line-color': 'rgba(186, 177, 6, 1)',
+        'line-width': 2
+      }
+    },
+    holyrood: {
+      'id': 'holyrood',
+      'type': 'line',
+      'source': 'holyrood',
+      'source-layer': 'holyrood',
+      'paint': {
+        'line-color': 'rgba(83, 123, 252, 1)',
+        'line-width': 2
+      }
+    }
+  },
+  
   dzLegendColours: {
     'SIMD2020v2_Decile': [
       ['1st', '#a50026'],
@@ -458,6 +524,7 @@ function switch_placenames () {
 
 
 function toggleLayer(layerName) {
+  
   console.log("Toggling layer " + layerName)
   var checkBox = document.getElementById(layerName.concat('checkbox'));
   // If the checkbox is checked add the layer to the map
@@ -474,77 +541,11 @@ function toggleLayer(layerName) {
         switch_data_zones();
         break;
       case 'schools':
-        map.addLayer({
-            'id': 'schools',
-            'type': 'circle',
-            'source': 'schools',
-            'source-layer': 'schools',
-            'paint': {
-              "circle-color": [
-          			'match',
-          			['get', 'SchoolType'],
-          			'Primary','#313695',
-          			'Secondary','#a50026',
-          			/* other */ '#43f22c'
-          			],
-              // make circles larger as the user zooms
-              'circle-radius': {
-                'base': 5,
-                'stops': [
-                  [8, 6],
-                  [22, 180]
-                ]
-              },
-            } 
-        },'placeholder_name');
-        break;
-      case 'la':
-        map.addLayer({
-            'id': 'la',
-            'type': 'line',
-            'source': 'la',
-            'source-layer': 'la',
-            'paint': {
-              'line-color': 'rgba(107, 7, 7, 1)',
-              'line-width': 2
-            } 
-        },'placeholder_name');
-        break;
       case 'wards':
-        map.addLayer({
-            'id': 'wards',
-            'type': 'line',
-            'source': 'wards',
-            'source-layer': 'wards',
-            'paint': {
-              'line-color': 'rgba(32, 107, 7, 1)',
-              'line-width': 2
-            }
-        },'placeholder_name');
-        break;
-      case 'scot_regions':
-        map.addLayer({
-            'id': 'scot_regions',
-            'type': 'line',
-            'source': 'scot_regions',
-            'source-layer': 'scot_regions',
-            'paint': {
-              'line-color': 'rgba(186, 177, 6, 1)',
-              'line-width': 2
-            }
-        },'placeholder_name');
-        break;
       case 'holyrood':
-        map.addLayer({
-            'id': 'holyrood',
-            'type': 'line',
-            'source': 'holyrood',
-            'source-layer': 'holyrood',
-            'paint': {
-              'line-color': 'rgba(83, 123, 252, 1)',
-              'line-width': 2
-            }
-        },'placeholder_name');
+      case 'scot_regions':
+      case 'la':
+        map.addLayer(definitions.otherLayers[layerName], 'placeholder_name');
         break;
       default:
         console.log('unknown layer selected');
