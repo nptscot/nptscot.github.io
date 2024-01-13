@@ -565,23 +565,15 @@ function toggleLayer(layerName) {
     return;
   }
   
-  // Get checkbox value
-  var checkbox = document.getElementById(layerName.concat('checkbox'));
-  
   // Handle rnet layer
   if (layerName == 'rnet') {
-    if (map.getLayer(layerName)) {
-      map.removeLayer(layerName);
-    }
-    if (checkbox.checked) {
-      switch_rnet();
-    }
+    switch_rnet();
     return;
   }
   
   // Handle other layers (if the requested layer is defined)
   if (definitions.otherLayers[layerName]) {
-    switch_otherLayer (layerName, checkbox.checked);
+    switch_otherLayer (layerName);
     return;
   }
   
@@ -591,16 +583,19 @@ function toggleLayer(layerName) {
 
 
 // Function to manage switching of simple layers
-function switch_otherLayer (layerName, defaultVisible)
+function switch_otherLayer (layerName)
 {
+  // Get checkbox
+  const visible = document.getElementById(layerName.concat('checkbox')).checked;
+  
   // Add the layer (if not already present), respecting the initial checkbox state
   if (!map.getLayer(layerName)) {
-    definitions.otherLayers[layerName].visibility = (defaultVisible ? 'visible' : 'none');
+    definitions.otherLayers[layerName].visibility = (visible ? 'visible' : 'none');
     map.addLayer(definitions.otherLayers[layerName], 'placeholder_name');
   }
   
   // Set the visibility, based on the checkbox value
-  map.setLayoutProperty(layerName, 'visibility', (defaultVisible ? 'visible' : 'none'));
+  map.setLayoutProperty(layerName, 'visibility', (visible ? 'visible' : 'none'));
 }
 
 
@@ -621,7 +616,14 @@ function createLegend (legendColours, selected, selector)
 
 
 function switch_rnet() {  
+
   console.log("Updating rnet")
+
+  // Remove layer if present
+  if (map.getLayer('rnet')) {
+    map.removeLayer('rnet');
+  }
+  
   var checkBox = document.getElementById('rnetcheckbox');
   var layerPurpose = document.getElementById("rnet_purpose_input").value;
   var layerScenario = document.getElementById("rnet_scenario_input").value;
@@ -647,9 +649,6 @@ function switch_rnet() {
   
   // Update the Legend - Do this even if map layer is off
   createLegend (definitions.routeNetworkLegendColours, layerColour, 'linecolourlegend');
-  
-  // Remove layer if present
-  if (map.getLayer('rnet')) map.removeLayer('rnet');
   
   // Update the map if enabled
   if (checkBox.checked === true) {
