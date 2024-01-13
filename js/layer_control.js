@@ -494,14 +494,14 @@ function switch_style(){
     
     // Sliders 
     quietnessSlider.noUiSlider.on('update', function(){
-      switch_rnet()
-    })
+      toggleLayer('rnet');
+    });
     gradientlider.noUiSlider.on('update', function(){
-      switch_rnet()
-    })
+      toggleLayer('rnet');
+    });
     cycleSlider.noUiSlider.on('update', function(){
-      switch_rnet()
-    })
+      toggleLayer('rnet');
+    });
     
     // Handle layer checkboxes
     document.querySelectorAll('.layercheckbox').forEach((input) => {
