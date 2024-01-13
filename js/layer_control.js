@@ -505,6 +505,7 @@ function switch_style(){
   });
 }
 
+
 function addDataSources () {
   console.log("Adding sources");
   
@@ -558,11 +559,6 @@ function toggleLayer(layerName) {
   
   console.log("Toggling layer " + layerName)
 
-  // Remove layer if present
-  if (map.getLayer(layerName)) {
-    map.removeLayer(layerName);
-  }
-  
   // Data zones: always switch for that checkbox
   if (layerName == 'data_zones'){
     switch_data_zones();
@@ -580,13 +576,21 @@ function toggleLayer(layerName) {
     }
   }
   
-  // Handle other layers
-  if (checkBox.checked) {
-    if (definitions.otherLayers[layerName]) {
-      map.addLayer(definitions.otherLayers[layerName], 'placeholder_name');
+  // Handle other layers (if the requested layer is defined)
+  if (definitions.otherLayers[layerName]) {
+      if (map.getLayer(layerName)) {
+        map.removeLayer(layerName);
+      }
+      if (checkBox.checked) {
+        map.addLayer(definitions.otherLayers[layerName], 'placeholder_name');
     }
+    return;
   }
+  
+  // Unknown layer
+  console.log('Unknown layer selected');
 }
+
 
 function createLegend (legendColours, selected, selector)
 {
@@ -602,6 +606,7 @@ function createLegend (legendColours, selected, selector)
   // Set the legend
   document.getElementById(selector).innerHTML = legendHtml;
 }
+
 
 function switch_rnet() {  
   console.log("Updating rnet")
@@ -631,9 +636,11 @@ function switch_rnet() {
   // Update the Legend - Do this even if map layer is off
   createLegend (definitions.routeNetworkLegendColours, layerColour, 'linecolourlegend');
   
+  // Remove layer if present
+  if (map.getLayer('rnet')) map.removeLayer('rnet');
+  
   // Update the map if enabled
   if (checkBox.checked === true) {
-    if (map.getLayer('rnet')) map.removeLayer('rnet');
     
     // Make the parts of the style
     var style_head = {
@@ -719,10 +726,9 @@ function switch_rnet() {
     var style_combined = {...style_head, ...style_filter, ...style_paint};
     map.addLayer(style_combined,'placeholder_name');
     
-  } else {
-    if (map.getLayer("rnet")) map.removeLayer("rnet");
   }
 }
+
 
 function switch_data_zones() {
   
