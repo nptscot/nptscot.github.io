@@ -1,4 +1,4 @@
-dataZonesModal = function (chartDefinitions) {
+var chartsModal = function (chartDefinitions) {
 
 	// Define the modal
 	var location_modal = document.getElementById(chartDefinitions.location_modal_id);
@@ -182,4 +182,57 @@ var chartDefinitions = {
 	]
 };
 
-dataZonesModal(chartDefinitions);
+chartsModal (chartDefinitions);
+
+
+
+// Travel to School Modeshare
+var chartDefinitionsSchools = {
+	
+	// UI elements
+	mapLayerId: 'schools',
+	location_modal_id: "school_modal",
+	location_modal_close: 'closeschoolmodal',
+
+	// Data fields
+	dataUrl: 'https://nptscot.blob.core.windows.net/json/School/%id.json',
+	propertiesField: 'SeedCode',
+	titleField: 'SchoolName',
+
+	// Title
+	titleId: 'school-modal-title',
+	titlePrefix: '',
+
+	charts: [
+		['primaryChart', 'schl_primary_dest', 'Number of Children'], // School Primary Destination
+		['secondaryChart', 'schl_primary_dest', 'Number of Children'], // School Secondary Destination  #!# Data doesn't seem to be present/showing
+	],
+
+	modes: [
+		// Label, field (e.g. bicycle => comm_orig_bicycle_ebike_fastest), background colour, border colour
+		['Bicycle', 'bicycle', 'rgba(51,160,44, 0.8)', 'rgba(51,160,44, 1)'],
+		['Foot', 'foot', 'rgba(178,223,138, 0.8)', 'rgba(178,223,138, 1)'],
+		['Public transport', 'public_transport', 'rgba(56,108,176, 0.8)', 'rgba(56,108,176, 1)'],
+		['Car', 'car', 'rgba(227,26,28, 0.8)', 'rgba(227,26,28, 1)'],
+		['Other', 'other', 'rgba(166,206,227, 0.8)', 'rgba(166,206,227, 1)'], // #!# NB the main modal has taxi rather than other
+	],
+
+	suffixes: [
+		'',
+		'_go_dutch_fastest',
+		'_ebike_fastest',
+		'_go_dutch_quietest',
+		'_ebike_quietest'
+	],
+
+	labels: [
+		'Baseline',
+		'Go Dutch (Fastest)',
+		'Ebike (Fastest)',
+		'Go Dutch (Quietest)',
+		'Ebike (Quietest)'
+	]
+};
+
+
+chartsModal (chartDefinitionsSchools);
