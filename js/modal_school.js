@@ -1,66 +1,28 @@
-// Travel to School Modeshare
+schoolsModal = function (chartDefinitions) {
 
-schoolsModal = function () {
-
-	var chartDefinitions = {
-  
-	  charts: [
-		['primaryChart', 'schl_primary_dest', 'Number of Children'], // School Primary Destination
-		['secondaryChart', 'schl_primary_dest', 'Number of Children'], // School Secondary Destination  #!# Data doesn't seem to be present/showing
-	  ],
-  
-	  modes: [
-		// Label, field (e.g. bicycle => comm_orig_bicycle_ebike_fastest), background colour, border colour
-		['Bicycle', 'bicycle', 'rgba(51,160,44, 0.8)', 'rgba(51,160,44, 1)'],
-		['Foot', 'foot', 'rgba(178,223,138, 0.8)', 'rgba(178,223,138, 1)'],
-		['Public transport', 'public_transport', 'rgba(56,108,176, 0.8)', 'rgba(56,108,176, 1)'],
-		['Car', 'car', 'rgba(227,26,28, 0.8)', 'rgba(227,26,28, 1)'],
-		['Other', 'other', 'rgba(166,206,227, 0.8)', 'rgba(166,206,227, 1)'], // #!# NB the main modal has taxi rather than other
-	  ],
-  
-	  suffixes: [
-		'',
-		'_go_dutch_fastest',
-		'_ebike_fastest',
-		'_go_dutch_quietest',
-		'_ebike_quietest'
-	  ],
-  
-	  labels: [
-		'Baseline',
-		'Go Dutch (Fastest)',
-		'Ebike (Fastest)',
-		'Go Dutch (Quietest)',
-		'Ebike (Quietest)'
-	  ]
-	};
-  
-  
-	// Declare charts collection
-	var charts = {};
-  
 	// Define the modal
-	var school_modal = document.getElementById("school_modal");
+	var location_modal = document.getElementById(chartDefinitions.location_modal_id);
 	// Get the <span> element that closes the modal
-	var span_modal = document.getElementsByClassName("closeschoolmodal")[0];
+	var span_modal = document.getElementsByClassName(chartDefinitions.location_modal_close)[0];
   
 	// When the user clicks on <span> (x), close the modal
 	span_modal.onclick = function () {
-	  school_modal.style.display = "none";
+		location_modal.style.display = "none";
 	};
   
 	// When the user clicks anywhere outside of the modal, close it
+	// #!# This has crosstalk with the other modal implementation
 	window.onclick = function (event) {
-	  if (event.target == school_modal) {
-		school_modal.style.display = "none";
+		if (event.target == location_modal) {
+		location_modal.style.display = "none";
 	  }
 	};
   
 	// How map triggers the modal 
 	// On click open modal
-	map.on('click', 'schools', function (e) {
+	map.on('click', chartDefinitions.mapLayerId, function (e) {
   
-	  console.log("Click on schools")
+	  console.log("Click on location")
   
 	  // Block Modal when clicking on other layers
 	  let f = map.queryRenderedFeatures(e.point);
@@ -72,42 +34,39 @@ schoolsModal = function () {
 	  });
   
 	  //console.log(f[0].sourceLayer)
+	  if (f[0].sourceLayer == chartDefinitions.mapLayerId) {
   
-  
-	  if (f[0].sourceLayer == "schools") {
-  
-		school_modal.style.display = "block";
+		location_modal.style.display = "block";
   
 		var sub = e.features[0].properties;
-		var dataurl = 'https://nptscot.blob.core.windows.net/json/School/' + sub.SeedCode + '.json';
-		var schooldata;
+		var dataurl = chartDefinitions.dataUrl.replace ('%id', sub[chartDefinitions.propertiesField]);
+		var locationData;
 		$.getJSON(dataurl, function (json) {
-			console.log("downloaded school json");
-			schooldata = json[0];
+			console.log("downloaded location json");
+			locationData = json[0];
 		  })
 		  .done(function () {
 			//Hide Spinner
 			//$('#loader').hide();
-			document.getElementById("school-modal-title").innerHTML = "<h2>" + sub.SchoolName + "</h2>";
+			document.getElementById(chartDefinitions.titleId).innerHTML = "<h2>" + chartDefinitions.titlePrefix + sub[chartDefinitions.titleField] + "</h2>";
 			// Define Charts
-			makeChartsModeshareSchool(schooldata);
+			createCharts(locationData);
 		  })
 		  .fail(function () {
-			alert("Failed to get data for this school, please try refreshing the page");
+			alert("Failed to get data for this location, please try refreshing the page");
 		  });
   
 		//return;
 	  }
-  
 	});
   
-  
-	makeChartsModeshareSchool = function (sub) {
+	var charts = {};
+	function createCharts (sub) {
   
 	  // Clear existing if present
-	  Object.keys(charts).forEach(chartId => {
-		if (charts[chartId]) {
-		  charts[chartId].destroy();
+	  Object.keys(charts).forEach(i => {
+		if (charts[i]) {
+          charts[i].destroy();
 		}
 	  });
   
@@ -116,7 +75,7 @@ schoolsModal = function () {
 	  }
   
 	  function createChart(id, prefix, labelString) {
-  
+		
 		// Assemble the datasets
 		var datasets = [];
 		chartDefinitions.modes.forEach(mode => {
@@ -143,9 +102,6 @@ schoolsModal = function () {
 				  display: true,
 				  text: labelString
 				},
-				scaleLabel: {
-				  display: true
-				},
 				ticks: {
 				  beginAtZero: true,
 				}
@@ -157,7 +113,7 @@ schoolsModal = function () {
 			responsive: true,
 			maintainAspectRatio: false
 		  }
-		})
+		});
 	  }
   
 	  // Create each chart
@@ -167,4 +123,55 @@ schoolsModal = function () {
 	};
   }
   
-  schoolsModal();
+  
+ 
+// Travel to School Modeshare
+var chartDefinitionsSchools = {
+	
+	// UI elements
+	mapLayerId: 'schools',
+	location_modal_id: "school_modal",
+	location_modal_close: 'closeschoolmodal',
+
+	// Data fields
+	dataUrl: 'https://nptscot.blob.core.windows.net/json/School/%id.json',
+	propertiesField: 'SeedCode',
+	titleField: 'SchoolName',
+
+	// Title
+	titleId: 'school-modal-title',
+	titlePrefix: '',
+
+	charts: [
+		['primaryChart', 'schl_primary_dest', 'Number of Children'], // School Primary Destination
+		['secondaryChart', 'schl_primary_dest', 'Number of Children'], // School Secondary Destination  #!# Data doesn't seem to be present/showing
+	],
+
+	modes: [
+		// Label, field (e.g. bicycle => comm_orig_bicycle_ebike_fastest), background colour, border colour
+		['Bicycle', 'bicycle', 'rgba(51,160,44, 0.8)', 'rgba(51,160,44, 1)'],
+		['Foot', 'foot', 'rgba(178,223,138, 0.8)', 'rgba(178,223,138, 1)'],
+		['Public transport', 'public_transport', 'rgba(56,108,176, 0.8)', 'rgba(56,108,176, 1)'],
+		['Car', 'car', 'rgba(227,26,28, 0.8)', 'rgba(227,26,28, 1)'],
+		['Other', 'other', 'rgba(166,206,227, 0.8)', 'rgba(166,206,227, 1)'], // #!# NB the main modal has taxi rather than other
+	],
+
+	suffixes: [
+		'',
+		'_go_dutch_fastest',
+		'_ebike_fastest',
+		'_go_dutch_quietest',
+		'_ebike_quietest'
+	],
+
+	labels: [
+		'Baseline',
+		'Go Dutch (Fastest)',
+		'Ebike (Fastest)',
+		'Go Dutch (Quietest)',
+		'Ebike (Quietest)'
+	]
+};
+
+
+schoolsModal(chartDefinitionsSchools);
