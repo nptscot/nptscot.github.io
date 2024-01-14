@@ -105,43 +105,37 @@ makeChartsModeshare = function(sub){
 				data: createArray(prefix + '_bicycle', suffixes),
 				backgroundColor: 'rgba(51,160,44, 0.8)',
 				borderColor: 'rgba(51,160,44, 1)',
-				borderWidth: 1,
-				order: 1
-			},
-			{
-				label: 'Car',
-				data: createArray(prefix + '_car', suffixes),
-				backgroundColor: 'rgba(227,26,28, 0.8)',
-				borderColor: 'rgba(227,26,28, 1)',
-				borderWidth: 1,
-				order: 5
-			},
-			{
-				label: 'Public transport',
-				data: createArray(prefix + '_public_transport', suffixes) ,
-				backgroundColor: 'rgba(56,108,176, 0.8)',
-				borderColor: 'rgba(56,108,176, 1)',
-				borderWidth: 1,
-				order: 3
+				borderWidth: 1
 			},
 			{
 				label: 'Foot',
 				data: createArray(prefix + '_foot', suffixes),
 				backgroundColor: 'rgba(178,223,138, 0.8)',
 				borderColor: 'rgba(178,223,138, 1)',
-				borderWidth: 1,
-				order: 2
+				borderWidth: 1
+			},
+			{
+				label: 'Public transport',
+				data: createArray(prefix + '_public_transport', suffixes) ,
+				backgroundColor: 'rgba(56,108,176, 0.8)',
+				borderColor: 'rgba(56,108,176, 1)',
+				borderWidth: 1
+			},
+			{
+				label: 'Car',
+				data: createArray(prefix + '_car', suffixes),
+				backgroundColor: 'rgba(227,26,28, 0.8)',
+				borderColor: 'rgba(227,26,28, 1)',
+				borderWidth: 1
 			},
 			{
 				label: 'Taxi',
 				data: createArray(prefix + '_taxi', suffixes),
 				backgroundColor: 'rgba(166,206,227, 0.8)',
 				borderColor: 'rgba(166,206,227, 1)',
-				borderWidth: 1,
-				order: 6
+				borderWidth: 1
 			}
-			
-			]
+		  ]
 		},
 		options: {
 			scales: {
