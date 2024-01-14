@@ -10,7 +10,7 @@ var leisureDestinationChart;
 var visitingOriginChart;
 var visitingDestinationChart;
 
-// Deinfe the modal
+// Define the modal
 
 var zone_modal = document.getElementById("zone_modal");
 // Get the <span> element that closes the modal
@@ -96,6 +96,14 @@ makeChartsModeshare = function(sub){
     '_ebike_fastest',
     '_go_dutch_quietest',
     '_ebike_quietest'
+  ];
+  
+  const labels = [
+    'Baseline',
+    'Go Dutch (Fastest)',
+    'Ebike (Fastest)',
+    'Go Dutch (Quietest)',
+    'Ebike (Quietest)'
   ];
 
   // Commute Origin
@@ -183,7 +191,7 @@ makeChartsModeshare = function(sub){
 	commuteOriginChart = new Chart(commuteOrigin_ctx, {
 		type: 'bar',
 		data: {
-			labels: ['Baseline','Go Dutch (Fastest)','Ebike (Fastest)','Go Dutch (Quietest)','Ebike (Quietest)'],
+			labels: labels,
 			datasets: [{
 				label: 'Bicycle',
 				data: bicycle_comm_orig,
@@ -252,7 +260,7 @@ makeChartsModeshare = function(sub){
   commuteDestinationChart = new Chart(commuteDestination_ctx, {
 		type: 'bar',
 		data: {
-			labels: ['Baseline','Go Dutch (Fastest)','Ebike (Fastest)','Go Dutch (Quietest)','Ebike (Quietest)'],
+			labels: labels,
 			datasets: [{
 				label: 'Bicycle',
 				data: bicycle_comm_dest,
@@ -321,7 +329,7 @@ makeChartsModeshare = function(sub){
 	primaryOrginChart = new Chart(primaryOrgin_ctx, {
 		type: 'bar',
 		data: {
-			labels: ['Baseline','Go Dutch (Fastest)','Ebike (Fastest)','Go Dutch (Quietest)','Ebike (Quietest)'],
+			labels: labels,
 			datasets: [{
 				label: 'Bicycle',
 				data: bicycle_primary_orig,
@@ -390,7 +398,7 @@ makeChartsModeshare = function(sub){
 	secondaryOriginChart = new Chart(secondaryOrigin_ctx, {
 		type: 'bar',
 		data: {
-			labels: ['Baseline','Go Dutch (Fastest)','Ebike (Fastest)','Go Dutch (Quietest)','Ebike (Quietest)'],
+			labels: labels,
 			datasets: [{
 				label: 'Bicycle',
 				data: bicycle_secondary_orig,
@@ -460,7 +468,7 @@ makeChartsModeshare = function(sub){
 	shoppingOriginChart = new Chart(shoppingOrigin_ctx, {
 		type: 'bar',
 		data: {
-			labels: ['Baseline','Go Dutch (Fastest)','Ebike (Fastest)','Go Dutch (Quietest)','Ebike (Quietest)'],
+			labels: labels,
 			datasets: [{
 				label: 'Bicycle',
 				data: bicycle_shopping_orig,
@@ -529,7 +537,7 @@ makeChartsModeshare = function(sub){
   shoppingDestinationChart = new Chart(shoppingDestination_ctx, {
 		type: 'bar',
 		data: {
-			labels: ['Baseline','Go Dutch (Fastest)','Ebike (Fastest)','Go Dutch (Quietest)','Ebike (Quietest)'],
+			labels: labels,
 			datasets: [{
 				label: 'Bicycle',
 				data: bicycle_shopping_dest,
@@ -598,7 +606,7 @@ makeChartsModeshare = function(sub){
 	leisureOriginChart = new Chart(leisureOrigin_ctx, {
 		type: 'bar',
 		data: {
-			labels: ['Baseline','Go Dutch (Fastest)','Ebike (Fastest)','Go Dutch (Quietest)','Ebike (Quietest)'],
+			labels: labels,
 			datasets: [{
 				label: 'Bicycle',
 				data: bicycle_leisure_orig,
@@ -667,7 +675,7 @@ makeChartsModeshare = function(sub){
   leisureDestinationChart = new Chart(leisureDestination_ctx, {
 		type: 'bar',
 		data: {
-			labels: ['Baseline','Go Dutch (Fastest)','Ebike (Fastest)','Go Dutch (Quietest)','Ebike (Quietest)'],
+			labels: labels,
 			datasets: [{
 				label: 'Bicycle',
 				data: bicycle_leisure_dest,
@@ -736,7 +744,7 @@ makeChartsModeshare = function(sub){
 	visitingOriginChart = new Chart(visitingOrigin_ctx, {
 		type: 'bar',
 		data: {
-			labels: ['Baseline','Go Dutch (Fastest)','Ebike (Fastest)','Go Dutch (Quietest)','Ebike (Quietest)'],
+			labels: labels,
 			datasets: [{
 				label: 'Bicycle',
 				data: bicycle_visiting_orig,
@@ -805,7 +813,7 @@ makeChartsModeshare = function(sub){
   visitingDestinationChart = new Chart(visitingDestination_ctx, {
 		type: 'bar',
 		data: {
-			labels: ['Baseline','Go Dutch (Fastest)','Ebike (Fastest)','Go Dutch (Quietest)','Ebike (Quietest)'],
+			labels: labels,
 			datasets: [{
 				label: 'Bicycle',
 				data: bicycle_visiting_dest,

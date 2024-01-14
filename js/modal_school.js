@@ -78,6 +78,12 @@ makeChartsModeshareSchool = function(sub){
     '_ebike_quietest'
   ];
   
+  const labels = [
+    'Baseline',
+    'Go Dutch (Fastest)','Ebike (Fastest)',
+    'Go Dutch (Quietest)','Ebike (Quietest)'
+  ];
+  
   // School Primary Destination
   var bicycle_primary = createArray('schl_primary_dest_bicycle', suffixes);
   var foot_primary = createArray('schl_primary_dest_foot', suffixes);
@@ -102,9 +108,7 @@ makeChartsModeshareSchool = function(sub){
 	primaryChart = new Chart(primaryctx, {
 		type: 'bar',
 		data: {
-			labels: ['Baseline',
-			         'Go Dutch (Fastest)','Ebike (Fastest)',
-			         'Go Dutch (Quietest)','Ebike (Quietest)'],
+			labels: labels,
 			datasets: [{
 				label: 'Bicycle',
 				data: bicycle_primary,
@@ -176,9 +180,7 @@ makeChartsModeshareSchool = function(sub){
 	secondaryChart = new Chart(secondaryctx, {
 		type: 'bar',
 		data: {
-			labels: ['Baseline',
-			         'Go Dutch (Fastest)','Ebike (Fastest)',
-			         'Go Dutch (Quietest)','Ebike (Quietest)'],
+			labels: labels,
 			datasets: [{
 				label: 'Bicycle',
 				data: bicycle_secondary,
