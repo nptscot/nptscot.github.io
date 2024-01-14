@@ -4,7 +4,6 @@ const chartDefinitions = {
   // UI elements
   mapLayerId: 'data_zones',
   location_modal_id: "zone_modal",
-  location_modal_close: 'closemodal',
 
   // Data fields
   dataUrl: 'https://nptscot.blob.core.windows.net/json/DataZone/%id.json',
@@ -55,7 +54,6 @@ const chartDefinitionsSchools = {
   // UI elements
   mapLayerId: 'schools',
   location_modal_id: "school_modal",
-  location_modal_close: 'closeschoolmodal',
 
   // Data fields
   dataUrl: 'https://nptscot.blob.core.windows.net/json/School/%id.json',
@@ -207,7 +205,7 @@ const chartsModal = function (chartDefinitions) {
   function handleModalClosure() {
     
     // When the user clicks on <span> (x), close the modal
-    const closeButton = document.getElementsByClassName(chartDefinitions.location_modal_close)[0];
+    const closeButton = document.querySelector('#' + chartDefinitions.location_modal_id + ' .modal-close');
     closeButton.addEventListener('click', function () {
       location_modal.style.display = 'none';
     });
