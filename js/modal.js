@@ -130,7 +130,7 @@ const chartsModal = function (chartDefinitions) {
         //console.log (locationData);
 
         //Hide Spinner
-        //$('#loader').hide();
+        //document.getElementById('loader').style.display = 'none';
 
         // Set the title
         const title = chartDefinitions.titlePrefix + featureProperties[chartDefinitions.titleField];
