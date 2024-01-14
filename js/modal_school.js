@@ -96,16 +96,15 @@ makeChartsModeshareSchool = function(sub){
     'Go Dutch (Quietest)','Ebike (Quietest)'
   ];
   
-
-
-	// School Primary Destination
-	charts.primaryChart = new Chart(document.getElementById('primaryChart').getContext('2d'), {
+  function createChart (id, prefix, labelString)
+  {
+	return new Chart(document.getElementById(id).getContext('2d'), {
 		type: 'bar',
 		data: {
 			labels: labels,
 			datasets: [{
 				label: 'Bicycle',
-				data: createArray('schl_primary_dest_bicycle', suffixes),
+				data: createArray(prefix + '_bicycle', suffixes),
 				backgroundColor: 'rgba(51,160,44, 0.8)',
 				borderColor: 'rgba(51,160,44, 1)',
 				borderWidth: 1,
@@ -113,7 +112,7 @@ makeChartsModeshareSchool = function(sub){
 			},
 			{
 				label: 'Car',
-				data: createArray('schl_primary_dest_car', suffixes),
+				data: createArray(prefix + '_car', suffixes),
 				backgroundColor: 'rgba(227,26,28, 0.8)',
 				borderColor: 'rgba(227,26,28, 1)',
 				borderWidth: 1,
@@ -121,7 +120,7 @@ makeChartsModeshareSchool = function(sub){
 			},
 			{
 				label: 'Public transport',
-				data: createArray('schl_primary_dest_public_transport', suffixes) ,
+				data: createArray(prefix + '_public_transport', suffixes) ,
 				backgroundColor: 'rgba(56,108,176, 0.8)',
 				borderColor: 'rgba(56,108,176, 1)',
 				borderWidth: 1,
@@ -129,7 +128,7 @@ makeChartsModeshareSchool = function(sub){
 			},
 			{
 				label: 'Foot',
-				data: createArray('schl_primary_dest_foot', suffixes),
+				data: createArray(prefix + '_foot', suffixes),
 				backgroundColor: 'rgba(178,223,138, 0.8)',
 				borderColor: 'rgba(178,223,138, 1)',
 				borderWidth: 1,
@@ -137,7 +136,7 @@ makeChartsModeshareSchool = function(sub){
 			},
 			{
 				label: 'Other',
-				data: createArray('schl_primary_dest_other', suffixes),
+				data: createArray(prefix + '_other', suffixes),
 				backgroundColor: 'rgba(166,206,227, 0.8)',
 				borderColor: 'rgba(166,206,227, 1)',
 				borderWidth: 1,
@@ -152,7 +151,7 @@ makeChartsModeshareSchool = function(sub){
 				  stacked: true,
 				  title: {
             display: true,
-            text: 'Number of Children'
+            text: labelString
           },
 				  scaleLabel: {
             display: true
@@ -169,80 +168,18 @@ makeChartsModeshareSchool = function(sub){
 			responsive: true,
 			maintainAspectRatio: false
 		}
-	});
+	})
+  }
+
 	
-	// School Secondary Destination
-	// #!# Data doesn't seem to be present/showing
-	charts.secondaryChart = new Chart(document.getElementById('secondaryChart').getContext('2d'), {
-		type: 'bar',
-		data: {
-			labels: labels,
-			datasets: [{
-				label: 'Bicycle',
-				data: createArray('schl_secondary_dest_bicycle', suffixes),
-				backgroundColor: 'rgba(51,160,44, 0.8)',
-				borderColor: 'rgba(51,160,44, 1)',
-				borderWidth: 1,
-				order: 1
-			},
-			{
-				label: 'Car',
-				data: createArray('schl_secondary_dest_car', suffixes),
-				backgroundColor: 'rgba(227,26,28, 0.8)',
-				borderColor: 'rgba(227,26,28, 1)',
-				borderWidth: 1,
-				order: 5
-			},
-			{
-				label: 'Public transport',
-				data: createArray('schl_secondary_dest_public_transport', suffixes) ,
-				backgroundColor: 'rgba(56,108,176, 0.8)',
-				borderColor: 'rgba(56,108,176, 1)',
-				borderWidth: 1,
-				order: 3
-			},
-			{
-				label: 'Foot',
-				data: createArray('schl_secondary_dest_foot', suffixes),
-				backgroundColor: 'rgba(178,223,138, 0.8)',
-				borderColor: 'rgba(178,223,138, 1)',
-				borderWidth: 1,
-				order: 2
-			},
-			{
-				label: 'Other',
-				data: createArray('schl_secondary_dest_other', suffixes),
-				backgroundColor: 'rgba(166,206,227, 0.8)',
-				borderColor: 'rgba(166,206,227, 1)',
-				borderWidth: 1,
-				order: 6
-			}
-			
-			]
-		},
-		options: {
-			scales: {
-				y: {
-				  stacked: true,
-				  title: {
-            display: true,
-            text: 'Number of Children'
-          },
-				  scaleLabel: {
-            display: true
-          },
-					ticks: {
-						beginAtZero: true,
-						
-					}
-				},
-				x: {
-				  stacked: true
-				},
-			},
-			responsive: true,
-			maintainAspectRatio: false
-		}
+	  // Define chart parameters
+	chartDefinitions = [
+		['primaryChart', 'schl_primary_dest', 'Number of Children'],	// School Primary Destination
+		['secondaryChart', 'schl_primary_dest', 'Number of Children'],	// School Secondary Destination  #!# Data doesn't seem to be present/showing
+	];
+	
+	chartDefinitions.forEach ((chartDefinition, i) => {
+		charts[i] = createChart (chartDefinition[0], chartDefinition[1], chartDefinition[2]);
 	});
 	
 };
