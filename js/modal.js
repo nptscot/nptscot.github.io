@@ -123,12 +123,11 @@ const chartsModal = function (chartDefinitions) {
     const dataUrl = chartDefinitions.dataUrl.replace('%id', locationId);
 
     // Get the data
-    let locationData;
-    $.getJSON(dataUrl, function (json) {
-        console.log('Downloaded location json for location ' + locationId);
-        locationData = json[0];
-      })
-      .done(function () {
+    fetch(dataUrl)
+      .then (function (response) {return response.json ();})
+      .then (function (json) {
+        const locationData = json[0];
+        //console.log (locationData);
 
         //Hide Spinner
         //$('#loader').hide();
@@ -140,8 +139,8 @@ const chartsModal = function (chartDefinitions) {
         // Create the charts
         createCharts(locationData);
       })
-      .fail(function () {
-        alert("Failed to get data for this location. Please try refreshing the page.");
+      .catch (function (error) {
+        alert('Failed to get data for this location. Please try refreshing the page.');
       });
   });
 
