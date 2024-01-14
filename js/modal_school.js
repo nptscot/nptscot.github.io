@@ -98,47 +98,34 @@ makeChartsModeshareSchool = function(sub){
   
   function createChart (id, prefix, labelString)
   {
+	const modes = [
+		// Label, field (e.g. bicycle => comm_orig_bicycle_ebike_fastest), background colour, border colour
+		['Bicycle', 'bicycle', 'rgba(51,160,44, 0.8)', 'rgba(51,160,44, 1)'],
+		['Foot', 'foot', 'rgba(178,223,138, 0.8)', 'rgba(178,223,138, 1)'],
+		['Public transport', 'public_transport', 'rgba(56,108,176, 0.8)', 'rgba(56,108,176, 1)'],
+		['Car', 'car', 'rgba(227,26,28, 0.8)', 'rgba(227,26,28, 1)'],
+		['Other', 'other', 'rgba(166,206,227, 0.8)', 'rgba(166,206,227, 1)'],	// #!# NB the main modal has taxi rather than other
+	];
+	
+	// Assemble the datasets
+	var datasets = [];
+	modes.forEach (mode => {
+		datasets.push (
+			{
+				label: mode[0],
+				data: createArray(prefix + '_' + mode[1], suffixes),
+				backgroundColor: mode[2],
+				borderColor: mode[3],
+				borderWidth: 1
+			}
+		)
+	});
+	
 	return new Chart(document.getElementById(id).getContext('2d'), {
 		type: 'bar',
 		data: {
 			labels: labels,
-			datasets: [{
-				label: 'Bicycle',
-				data: createArray(prefix + '_bicycle', suffixes),
-				backgroundColor: 'rgba(51,160,44, 0.8)',
-				borderColor: 'rgba(51,160,44, 1)',
-				borderWidth: 1
-			},
-			{
-				label: 'Foot',
-				data: createArray(prefix + '_foot', suffixes),
-				backgroundColor: 'rgba(178,223,138, 0.8)',
-				borderColor: 'rgba(178,223,138, 1)',
-				borderWidth: 1
-			},
-			{
-				label: 'Public transport',
-				data: createArray(prefix + '_public_transport', suffixes) ,
-				backgroundColor: 'rgba(56,108,176, 0.8)',
-				borderColor: 'rgba(56,108,176, 1)',
-				borderWidth: 1
-			},
-			{
-				label: 'Car',
-				data: createArray(prefix + '_car', suffixes),
-				backgroundColor: 'rgba(227,26,28, 0.8)',
-				borderColor: 'rgba(227,26,28, 1)',
-				borderWidth: 1
-			},
-			{
-				label: 'Other',
-				data: createArray(prefix + '_other', suffixes),
-				backgroundColor: 'rgba(166,206,227, 0.8)',
-				borderColor: 'rgba(166,206,227, 1)',
-				borderWidth: 1
-			}
-			
-			]
+			datasets: datasets
 		},
 		options: {
 			scales: {
