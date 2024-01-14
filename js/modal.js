@@ -115,7 +115,7 @@ const chartsModal = function (chartDefinitions) {
     }
     
     // Display the modal
-    location_modal.style.display = "block";
+    location_modal.style.display = 'block';
 
     // Assemble the JSON data file URL
     const featureProperties = e.features[0].properties;
@@ -219,7 +219,14 @@ const chartsModal = function (chartDefinitions) {
       }
     });
 
-    // #!# Also support escape key as implied close
+    // Treat escape key as implied close
+    window.addEventListener('keyup', function (event) {
+      if (event.key == 'Escape') {
+        if (location_modal.style.display == 'block') {
+          location_modal.style.display = 'none';
+        }
+      }
+    });
   }
 }
 
