@@ -1,14 +1,5 @@
-// Declare Chart Values
-var commuteOriginChart;
-var commuteDestinationChart;
-var primaryOrginChart;
-var secondaryOriginChart;
-var shoppingOriginChart;
-var shoppingDestinationChart;
-var leisureOriginChart;
-var leisureDestinationChart;
-var visitingOriginChart;
-var visitingDestinationChart;
+// Declare charts collection
+var charts = {};
 
 // Define the modal
 
@@ -74,17 +65,13 @@ map.on('click', 'data_zones', function(e) {
 
 
 makeChartsModeshare = function(sub){
-  
-	if(commuteOriginChart){commuteOriginChart.destroy();}
-	if(commuteDestinationChart){commuteDestinationChart.destroy();}
-	if(primaryOrginChart){primaryOrginChart.destroy();}
-	if(secondaryOriginChart){secondaryOriginChart.destroy();}
-	if(shoppingOriginChart){shoppingOriginChart.destroy();}
-	if(shoppingDestinationChart){shoppingDestinationChart.destroy();}
-	if(leisureOriginChart){leisureOriginChart.destroy();}
-	if(leisureDestinationChart){leisureDestinationChart.destroy();}
-	if(visitingOriginChart){visitingOriginChart.destroy();}
-	if(visitingDestinationChart){visitingDestinationChart.destroy();}
+	
+  // Clear existing if present
+  Object.keys (charts).forEach (chartId => {
+    if(charts[chartId]) {
+		charts[chartId].destroy();
+	}
+  });
   
   function createArray(prefix, suffixes) {
     return suffixes.map(suffix => sub[prefix + suffix]);
@@ -110,7 +97,7 @@ makeChartsModeshare = function(sub){
 
   
   // Commute Origin
-  commuteOriginChart = new Chart(document.getElementById('commuteOriginChart').getContext('2d'), {
+  charts.commuteOriginChart = new Chart(document.getElementById('commuteOriginChart').getContext('2d'), {
 		type: 'bar',
 		data: {
 			labels: labels,
@@ -180,7 +167,7 @@ makeChartsModeshare = function(sub){
 	});
   
   // Commute Destination
-  commuteDestinationChart = new Chart(document.getElementById('commuteDestinationChart').getContext('2d'), {
+  charts.commuteDestinationChart = new Chart(document.getElementById('commuteDestinationChart').getContext('2d'), {
 		type: 'bar',
 		data: {
 			labels: labels,
@@ -250,7 +237,7 @@ makeChartsModeshare = function(sub){
 	});
 	
 	// School Primary Origin
-	primaryOrginChart = new Chart(document.getElementById('primaryOrginChart').getContext('2d'), {
+	charts.primaryOrginChart = new Chart(document.getElementById('primaryOrginChart').getContext('2d'), {
 		type: 'bar',
 		data: {
 			labels: labels,
@@ -320,7 +307,7 @@ makeChartsModeshare = function(sub){
 	});
 	
 	// School Secondary Origin
-	secondaryOriginChart = new Chart(document.getElementById('secondaryOriginChart').getContext('2d'), {
+	charts.secondaryOriginChart = new Chart(document.getElementById('secondaryOriginChart').getContext('2d'), {
 		type: 'bar',
 		data: {
 			labels: labels,
@@ -390,7 +377,7 @@ makeChartsModeshare = function(sub){
 	});
 	
 	// shopping Origin
-	shoppingOriginChart = new Chart(document.getElementById('shoppingOriginChart').getContext('2d'), {
+	charts.shoppingOriginChart = new Chart(document.getElementById('shoppingOriginChart').getContext('2d'), {
 		type: 'bar',
 		data: {
 			labels: labels,
@@ -460,7 +447,7 @@ makeChartsModeshare = function(sub){
 	});
   
   // shopping Destination
-  shoppingDestinationChart = new Chart(document.getElementById('shoppingDestinationChart').getContext('2d'), {
+  charts.shoppingDestinationChart = new Chart(document.getElementById('shoppingDestinationChart').getContext('2d'), {
 		type: 'bar',
 		data: {
 			labels: labels,
@@ -530,7 +517,7 @@ makeChartsModeshare = function(sub){
 	});
 	
 	// leisure Origin
-	leisureOriginChart = new Chart(document.getElementById('leisureOriginChart').getContext('2d'), {
+	charts.leisureOriginChart = new Chart(document.getElementById('leisureOriginChart').getContext('2d'), {
 		type: 'bar',
 		data: {
 			labels: labels,
@@ -600,7 +587,7 @@ makeChartsModeshare = function(sub){
 	});
   
   // leisure Destination
-  leisureDestinationChart = new Chart(document.getElementById('leisureDestinationChart').getContext('2d'), {
+  charts.leisureDestinationChart = new Chart(document.getElementById('leisureDestinationChart').getContext('2d'), {
 		type: 'bar',
 		data: {
 			labels: labels,
@@ -670,7 +657,7 @@ makeChartsModeshare = function(sub){
 	});
 	
 	// visiting Origin
-	visitingOriginChart = new Chart(document.getElementById('visitingOriginChart').getContext('2d'), {
+	charts.visitingOriginChart = new Chart(document.getElementById('visitingOriginChart').getContext('2d'), {
 		type: 'bar',
 		data: {
 			labels: labels,
@@ -740,7 +727,7 @@ makeChartsModeshare = function(sub){
 	});
   
 	// visiting Destination
-  visitingDestinationChart = new Chart(document.getElementById('visitingDestinationChart').getContext('2d'), {
+	charts.visitingDestinationChart = new Chart(document.getElementById('visitingDestinationChart').getContext('2d'), {
 		type: 'bar',
 		data: {
 			labels: labels,

@@ -1,8 +1,11 @@
-// Declare Chart Values
-var primaryChart;
-var secondaryChart;
-// Deinfe the modal
+// Travel to School Modeshare
 
+
+
+// Declare charts collection
+var charts = {};
+
+// Define the modal
 var school_modal = document.getElementById("school_modal");
 // Get the <span> element that closes the modal
 var span_modal = document.getElementsByClassName("closeschoolmodal")[0];
@@ -64,8 +67,17 @@ map.on('click', 'schools', function(e) {
 	
 });
 
+
+
 makeChartsModeshareSchool = function(sub){
   
+	// Clear existing if present
+	Object.keys (charts).forEach (chartId => {
+		if(charts[chartId]) {
+			charts[chartId].destroy();
+		}
+	  });
+	
   function createArray(prefix, suffixes) {
     return suffixes.map(suffix => sub[prefix + suffix]);
   }
@@ -85,13 +97,9 @@ makeChartsModeshareSchool = function(sub){
   ];
   
 
-  // Travel to School Modeshare
-	if(primaryChart){primaryChart.destroy();}
-	if(secondaryChart){secondaryChart.destroy();}
-	
 
 	// School Primary Destination
-	primaryChart = new Chart(document.getElementById('primaryChart').getContext('2d'), {
+	charts.primaryChart = new Chart(document.getElementById('primaryChart').getContext('2d'), {
 		type: 'bar',
 		data: {
 			labels: labels,
@@ -165,7 +173,7 @@ makeChartsModeshareSchool = function(sub){
 	
 	// School Secondary Destination
 	// #!# Data doesn't seem to be present/showing
-	secondaryChart = new Chart(document.getElementById('secondaryChart').getContext('2d'), {
+	charts.secondaryChart = new Chart(document.getElementById('secondaryChart').getContext('2d'), {
 		type: 'bar',
 		data: {
 			labels: labels,
