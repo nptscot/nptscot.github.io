@@ -38,20 +38,13 @@ const chartDefinitions = {
     ['Taxi', 'taxi', 'rgba(166,206,227, 0.8)', 'rgba(166,206,227, 1)'],
   ],
 
-  suffixes: [
-    '',
-    '_go_dutch_fastest',
-    '_ebike_fastest',
-    '_go_dutch_quietest',
-    '_ebike_quietest'
-  ],
-
-  labels: [
-    'Baseline',
-    'Go Dutch (Fastest)',
-    'Ebike (Fastest)',
-    'Go Dutch (Quietest)',
-    'Ebike (Quietest)'
+  // Scenario suffixes and their labels
+  scenarios: [
+    ['', 'Baseline'],
+    ['_go_dutch_fastest', 'Go Dutch (Fastest)'],
+    ['_ebike_fastest', 'Ebike (Fastest)'],
+    ['_go_dutch_quietest', 'Go Dutch (Quietest)'],
+    ['_ebike_quietest', 'Ebike (Quietest)']
   ]
 };
 
@@ -87,20 +80,13 @@ const chartDefinitionsSchools = {
     ['Other', 'other', 'rgba(166,206,227, 0.8)', 'rgba(166,206,227, 1)'], // #!# NB the main modal has taxi rather than other
   ],
 
-  suffixes: [
-    '',
-    '_go_dutch_fastest',
-    '_ebike_fastest',
-    '_go_dutch_quietest',
-    '_ebike_quietest'
-  ],
-
-  labels: [
-    'Baseline',
-    'Go Dutch (Fastest)',
-    'Ebike (Fastest)',
-    'Go Dutch (Quietest)',
-    'Ebike (Quietest)'
+  // Scenario suffixes and their labels
+  scenarios: [
+    ['', 'Baseline'],
+    ['_go_dutch_fastest', 'Go Dutch (Fastest)'],
+    ['_ebike_fastest', 'Ebike (Fastest)'],
+    ['_go_dutch_quietest', 'Go Dutch (Quietest)'],
+    ['_ebike_quietest', 'Ebike (Quietest)']
   ]
 };
 
@@ -181,7 +167,7 @@ const chartsModal = function (chartDefinitions) {
     chartDefinitions.modes.forEach(mode => {
       datasets.push({
         label: mode[0],
-        data: chartDefinitions.suffixes.map(suffix => locationData[prefix + '_' + mode[1] + suffix]),
+        data: chartDefinitions.scenarios.map(scenario => locationData[prefix + '_' + mode[1] + scenario[0]]),
         backgroundColor: mode[2],
         borderColor: mode[3],
         borderWidth: 1
@@ -192,7 +178,7 @@ const chartsModal = function (chartDefinitions) {
     return new Chart(document.getElementById(id).getContext('2d'), {
       type: 'bar',
       data: {
-        labels: chartDefinitions.labels,
+        labels: chartDefinitions.scenarios.map(scenario => scenario[1]),
         datasets: datasets
       },
       options: {
