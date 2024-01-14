@@ -1,5 +1,55 @@
+// Data zones
+
+dataZonesModal = function ()
+{
+
+var chartDefinitions = {
+// #!# Labels are sometimes wrong, but don't seem to be used anyway
+	charts: [
+		['commuteOriginChart', 'comm_orig', 'Daily commuters'],			// Commute Origin
+		['commuteDestinationChart', 'comm_dest', 'Daily commuters'],// Commute Destination
+		['primaryOrginChart', 'schl_primary_orig', 'Daily commuters'],	// School Primary Origin
+		['secondaryOriginChart', 'schl_secondary_orig', 'Daily commuters'],	// School Secondary Origin
+		['shoppingOriginChart', 'shopping_orig', 'Daily shoppers'],	// shopping Origin
+		['shoppingDestinationChart', 'shopping_dest', 'Daily shoppers'],	// shopping Destination
+		['leisureOriginChart', 'leisure_orig', 'Daily shoppers'],// leisure Origin
+		['leisureDestinationChart', 'leisure_dest', 'Daily shoppers'],	// leisure Destination
+		['visitingOriginChart', 'visiting_orig', 'Daily shoppers'],	// visiting Origin
+		['visitingDestinationChart', 'visiting_dest', 'Daily shoppers'],	// visiting Destination
+	],
+	
+	modes: [
+		// Label, field (e.g. bicycle => comm_orig_bicycle_ebike_fastest), background colour, border colour
+		['Bicycle', 'bicycle', 'rgba(51,160,44, 0.8)', 'rgba(51,160,44, 1)'],
+		['Foot', 'foot', 'rgba(178,223,138, 0.8)', 'rgba(178,223,138, 1)'],
+		['Public transport', 'public_transport', 'rgba(56,108,176, 0.8)', 'rgba(56,108,176, 1)'],
+		['Car', 'car', 'rgba(227,26,28, 0.8)', 'rgba(227,26,28, 1)'],
+		['Taxi', 'taxi', 'rgba(166,206,227, 0.8)', 'rgba(166,206,227, 1)'],
+	],
+	
+	suffixes: [
+		'', 
+		'_go_dutch_fastest',
+		'_ebike_fastest',
+		'_go_dutch_quietest',
+		'_ebike_quietest'
+	],
+	
+	labels: [
+		'Baseline',
+		'Go Dutch (Fastest)',
+		'Ebike (Fastest)',
+		'Go Dutch (Quietest)',
+		'Ebike (Quietest)'
+  	]
+};
+
+
 // Declare charts collection
 var charts = {};
+
+
+
 
 // Define the modal
 
@@ -77,41 +127,16 @@ makeChartsModeshare = function(sub){
     return suffixes.map(suffix => sub[prefix + suffix]);
   }
   
-  var suffixes = [
-    '', 
-    '_go_dutch_fastest',
-    '_ebike_fastest',
-    '_go_dutch_quietest',
-    '_ebike_quietest'
-  ];
   
-  const labels = [
-    'Baseline',
-    'Go Dutch (Fastest)',
-    'Ebike (Fastest)',
-    'Go Dutch (Quietest)',
-    'Ebike (Quietest)'
-  ];
-
-
   function createChart (id, prefix, labelString)
   {
-	const modes = [
-		// Label, field (e.g. bicycle => comm_orig_bicycle_ebike_fastest), background colour, border colour
-		['Bicycle', 'bicycle', 'rgba(51,160,44, 0.8)', 'rgba(51,160,44, 1)'],
-		['Foot', 'foot', 'rgba(178,223,138, 0.8)', 'rgba(178,223,138, 1)'],
-		['Public transport', 'public_transport', 'rgba(56,108,176, 0.8)', 'rgba(56,108,176, 1)'],
-		['Car', 'car', 'rgba(227,26,28, 0.8)', 'rgba(227,26,28, 1)'],
-		['Taxi', 'taxi', 'rgba(166,206,227, 0.8)', 'rgba(166,206,227, 1)'],
-	];
-	
 	// Assemble the datasets
 	var datasets = [];
-	modes.forEach (mode => {
+	chartDefinitions.modes.forEach (mode => {
 		datasets.push (
 			{
 				label: mode[0],
-				data: createArray(prefix + '_' + mode[1], suffixes),
+				data: createArray(prefix + '_' + mode[1], chartDefinitions.suffixes),
 				backgroundColor: mode[2],
 				borderColor: mode[3],
 				borderWidth: 1
@@ -123,7 +148,7 @@ makeChartsModeshare = function(sub){
 	return new Chart(document.getElementById(id).getContext('2d'), {
 		type: 'bar',
 		data: {
-			labels: labels,
+			labels: chartDefinitions.labels,
 			datasets: datasets
 		},
 		options: {
@@ -150,22 +175,8 @@ makeChartsModeshare = function(sub){
   }
   
   
-  // Define chart parameters
-  // #!# Labels are sometimes wrong, but don't seem to be used anyway
-  chartDefinitions = [
-	['commuteOriginChart', 'comm_orig', 'Daily commuters'],			// Commute Origin
-	['commuteDestinationChart', 'comm_dest', 'Daily commuters'],// Commute Destination
-	['primaryOrginChart', 'schl_primary_orig', 'Daily commuters'],	// School Primary Origin
-	['secondaryOriginChart', 'schl_secondary_orig', 'Daily commuters'],	// School Secondary Origin
-	['shoppingOriginChart', 'shopping_orig', 'Daily shoppers'],	// shopping Origin
-	['shoppingDestinationChart', 'shopping_dest', 'Daily shoppers'],	// shopping Destination
-	['leisureOriginChart', 'leisure_orig', 'Daily shoppers'],// leisure Origin
-	['leisureDestinationChart', 'leisure_dest', 'Daily shoppers'],	// leisure Destination
-	['visitingOriginChart', 'visiting_orig', 'Daily shoppers'],	// visiting Origin
-	['visitingDestinationChart', 'visiting_dest', 'Daily shoppers'],	// visiting Destination
-  ];
   
-  chartDefinitions.forEach ((chartDefinition, i) => {
+  chartDefinitions.charts.forEach ((chartDefinition, i) => {
 	charts[i] = createChart (chartDefinition[0], chartDefinition[1], chartDefinition[2]);
   });
   
@@ -174,4 +185,6 @@ makeChartsModeshare = function(sub){
 
 };
 
+}
 
+dataZonesModal ();

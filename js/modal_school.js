@@ -1,5 +1,40 @@
 // Travel to School Modeshare
 
+schoolsModal = function ()
+{
+	
+var chartDefinitions = {
+	
+	charts: [
+		['primaryChart', 'schl_primary_dest', 'Number of Children'],	// School Primary Destination
+		['secondaryChart', 'schl_primary_dest', 'Number of Children'],	// School Secondary Destination  #!# Data doesn't seem to be present/showing
+	],
+	
+	modes: [
+		// Label, field (e.g. bicycle => comm_orig_bicycle_ebike_fastest), background colour, border colour
+		['Bicycle', 'bicycle', 'rgba(51,160,44, 0.8)', 'rgba(51,160,44, 1)'],
+		['Foot', 'foot', 'rgba(178,223,138, 0.8)', 'rgba(178,223,138, 1)'],
+		['Public transport', 'public_transport', 'rgba(56,108,176, 0.8)', 'rgba(56,108,176, 1)'],
+		['Car', 'car', 'rgba(227,26,28, 0.8)', 'rgba(227,26,28, 1)'],
+		['Other', 'other', 'rgba(166,206,227, 0.8)', 'rgba(166,206,227, 1)'],	// #!# NB the main modal has taxi rather than other
+	],
+	
+	suffixes: [
+		'', 
+		'_go_dutch_fastest',
+		'_ebike_fastest',
+		'_go_dutch_quietest',
+		'_ebike_quietest'
+	],
+	
+	labels: [
+		'Baseline',
+		'Go Dutch (Fastest)',
+		'Ebike (Fastest)',
+		'Go Dutch (Quietest)',
+		'Ebike (Quietest)'
+	]
+};
 
 
 // Declare charts collection
@@ -82,38 +117,15 @@ makeChartsModeshareSchool = function(sub){
     return suffixes.map(suffix => sub[prefix + suffix]);
   }
   
-  var suffixes = [
-    '', 
-    '_go_dutch_fastest',
-    '_ebike_fastest',
-    '_go_dutch_quietest',
-    '_ebike_quietest'
-  ];
-  
-  const labels = [
-    'Baseline',
-    'Go Dutch (Fastest)','Ebike (Fastest)',
-    'Go Dutch (Quietest)','Ebike (Quietest)'
-  ];
-  
   function createChart (id, prefix, labelString)
   {
-	const modes = [
-		// Label, field (e.g. bicycle => comm_orig_bicycle_ebike_fastest), background colour, border colour
-		['Bicycle', 'bicycle', 'rgba(51,160,44, 0.8)', 'rgba(51,160,44, 1)'],
-		['Foot', 'foot', 'rgba(178,223,138, 0.8)', 'rgba(178,223,138, 1)'],
-		['Public transport', 'public_transport', 'rgba(56,108,176, 0.8)', 'rgba(56,108,176, 1)'],
-		['Car', 'car', 'rgba(227,26,28, 0.8)', 'rgba(227,26,28, 1)'],
-		['Other', 'other', 'rgba(166,206,227, 0.8)', 'rgba(166,206,227, 1)'],	// #!# NB the main modal has taxi rather than other
-	];
-	
 	// Assemble the datasets
 	var datasets = [];
-	modes.forEach (mode => {
+	chartDefinitions.modes.forEach (mode => {
 		datasets.push (
 			{
 				label: mode[0],
-				data: createArray(prefix + '_' + mode[1], suffixes),
+				data: createArray(prefix + '_' + mode[1], chartDefinitions.suffixes),
 				backgroundColor: mode[2],
 				borderColor: mode[3],
 				borderWidth: 1
@@ -124,7 +136,7 @@ makeChartsModeshareSchool = function(sub){
 	return new Chart(document.getElementById(id).getContext('2d'), {
 		type: 'bar',
 		data: {
-			labels: labels,
+			labels: chartDefinitions.labels,
 			datasets: datasets
 		},
 		options: {
@@ -154,14 +166,13 @@ makeChartsModeshareSchool = function(sub){
   }
 
 	
-	  // Define chart parameters
-	chartDefinitions = [
-		['primaryChart', 'schl_primary_dest', 'Number of Children'],	// School Primary Destination
-		['secondaryChart', 'schl_primary_dest', 'Number of Children'],	// School Secondary Destination  #!# Data doesn't seem to be present/showing
-	];
-	
-	chartDefinitions.forEach ((chartDefinition, i) => {
+	// Create each chart
+	chartDefinitions.charts.forEach ((chartDefinition, i) => {
 		charts[i] = createChart (chartDefinition[0], chartDefinition[1], chartDefinition[2]);
 	});
 	
 };
+
+}
+
+schoolsModal ();
