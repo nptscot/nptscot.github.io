@@ -84,34 +84,20 @@ makeChartsModeshareSchool = function(sub){
     'Go Dutch (Quietest)','Ebike (Quietest)'
   ];
   
-  // School Primary Destination
-  var bicycle_primary = createArray('schl_primary_dest_bicycle', suffixes);
-  var foot_primary = createArray('schl_primary_dest_foot', suffixes);
-  var car_primary = createArray('schl_primary_dest_car', suffixes);
-  var public_transport_primary = createArray('schl_primary_dest_public_transport', suffixes);
-  var other_primary = createArray('schl_primary_dest_other', suffixes);
-  
-  // School Secondary Destination
-  var bicycle_secondary = createArray('schl_secondary_dest_bicycle', suffixes);
-  var foot_secondary = createArray('schl_secondary_dest_foot', suffixes);
-  var car_secondary = createArray('schl_secondary_dest_car', suffixes);
-  var public_transport_secondary = createArray('schl_secondary_dest_public_transport', suffixes);
-  var other_secondary = createArray('schl_secondary_dest_other', suffixes);
-  
+
   // Travel to School Modeshare
 	if(primaryChart){primaryChart.destroy();}
 	if(secondaryChart){secondaryChart.destroy();}
 	
-	var primaryctx = document.getElementById('primaryChart').getContext('2d');
-	var secondaryctx = document.getElementById('secondaryChart').getContext('2d');
-	
-	primaryChart = new Chart(primaryctx, {
+
+	// School Primary Destination
+	primaryChart = new Chart(document.getElementById('primaryChart').getContext('2d'), {
 		type: 'bar',
 		data: {
 			labels: labels,
 			datasets: [{
 				label: 'Bicycle',
-				data: bicycle_primary,
+				data: createArray('schl_primary_dest_bicycle', suffixes),
 				backgroundColor: 'rgba(51,160,44, 0.8)',
 				borderColor: 'rgba(51,160,44, 1)',
 				borderWidth: 1,
@@ -119,7 +105,7 @@ makeChartsModeshareSchool = function(sub){
 			},
 			{
 				label: 'Car',
-				data: car_primary,
+				data: createArray('schl_primary_dest_car', suffixes),
 				backgroundColor: 'rgba(227,26,28, 0.8)',
 				borderColor: 'rgba(227,26,28, 1)',
 				borderWidth: 1,
@@ -127,7 +113,7 @@ makeChartsModeshareSchool = function(sub){
 			},
 			{
 				label: 'Public transport',
-				data: public_transport_primary ,
+				data: createArray('schl_primary_dest_public_transport', suffixes) ,
 				backgroundColor: 'rgba(56,108,176, 0.8)',
 				borderColor: 'rgba(56,108,176, 1)',
 				borderWidth: 1,
@@ -135,7 +121,7 @@ makeChartsModeshareSchool = function(sub){
 			},
 			{
 				label: 'Foot',
-				data: foot_primary,
+				data: createArray('schl_primary_dest_foot', suffixes),
 				backgroundColor: 'rgba(178,223,138, 0.8)',
 				borderColor: 'rgba(178,223,138, 1)',
 				borderWidth: 1,
@@ -143,7 +129,7 @@ makeChartsModeshareSchool = function(sub){
 			},
 			{
 				label: 'Other',
-				data: other_primary,
+				data: createArray('schl_primary_dest_other', suffixes),
 				backgroundColor: 'rgba(166,206,227, 0.8)',
 				borderColor: 'rgba(166,206,227, 1)',
 				borderWidth: 1,
@@ -177,13 +163,15 @@ makeChartsModeshareSchool = function(sub){
 		}
 	});
 	
-	secondaryChart = new Chart(secondaryctx, {
+	// School Secondary Destination
+	// #!# Data doesn't seem to be present/showing
+	secondaryChart = new Chart(document.getElementById('secondaryChart').getContext('2d'), {
 		type: 'bar',
 		data: {
 			labels: labels,
 			datasets: [{
 				label: 'Bicycle',
-				data: bicycle_secondary,
+				data: createArray('schl_secondary_dest_bicycle', suffixes),
 				backgroundColor: 'rgba(51,160,44, 0.8)',
 				borderColor: 'rgba(51,160,44, 1)',
 				borderWidth: 1,
@@ -191,7 +179,7 @@ makeChartsModeshareSchool = function(sub){
 			},
 			{
 				label: 'Car',
-				data: car_secondary,
+				data: createArray('schl_secondary_dest_car', suffixes),
 				backgroundColor: 'rgba(227,26,28, 0.8)',
 				borderColor: 'rgba(227,26,28, 1)',
 				borderWidth: 1,
@@ -199,7 +187,7 @@ makeChartsModeshareSchool = function(sub){
 			},
 			{
 				label: 'Public transport',
-				data: public_transport_secondary ,
+				data: createArray('schl_secondary_dest_public_transport', suffixes) ,
 				backgroundColor: 'rgba(56,108,176, 0.8)',
 				borderColor: 'rgba(56,108,176, 1)',
 				borderWidth: 1,
@@ -207,7 +195,7 @@ makeChartsModeshareSchool = function(sub){
 			},
 			{
 				label: 'Foot',
-				data: foot_secondary,
+				data: createArray('schl_secondary_dest_foot', suffixes),
 				backgroundColor: 'rgba(178,223,138, 0.8)',
 				borderColor: 'rgba(178,223,138, 1)',
 				borderWidth: 1,
@@ -215,7 +203,7 @@ makeChartsModeshareSchool = function(sub){
 			},
 			{
 				label: 'Other',
-				data: other_secondary,
+				data: createArray('schl_secondary_dest_other', suffixes),
 				backgroundColor: 'rgba(166,206,227, 0.8)',
 				borderColor: 'rgba(166,206,227, 1)',
 				borderWidth: 1,

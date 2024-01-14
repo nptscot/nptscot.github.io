@@ -106,95 +106,507 @@ makeChartsModeshare = function(sub){
     'Ebike (Quietest)'
   ];
 
+
+
+  
   // Commute Origin
-  var bicycle_comm_orig = createArray('comm_orig_bicycle', suffixes);
-  var foot_comm_orig = createArray('comm_orig_foot', suffixes);
-  var car_comm_orig = createArray('comm_orig_car', suffixes);
-  var public_transport_comm_orig = createArray('comm_orig_public_transport', suffixes);
-  var taxi_comm_orig = createArray('comm_orig_taxi', suffixes);
+  commuteOriginChart = new Chart(document.getElementById('commuteOriginChart').getContext('2d'), {
+		type: 'bar',
+		data: {
+			labels: labels,
+			datasets: [{
+				label: 'Bicycle',
+				data: createArray('comm_orig_bicycle', suffixes),
+				backgroundColor: 'rgba(51,160,44, 0.8)',
+				borderColor: 'rgba(51,160,44, 1)',
+				borderWidth: 1,
+				order: 1
+			},
+			{
+				label: 'Car',
+				data: createArray('comm_orig_car', suffixes),
+				backgroundColor: 'rgba(227,26,28, 0.8)',
+				borderColor: 'rgba(227,26,28, 1)',
+				borderWidth: 1,
+				order: 5
+			},
+			{
+				label: 'Public transport',
+				data: createArray('comm_orig_public_transport', suffixes) ,
+				backgroundColor: 'rgba(56,108,176, 0.8)',
+				borderColor: 'rgba(56,108,176, 1)',
+				borderWidth: 1,
+				order: 3
+			},
+			{
+				label: 'Foot',
+				data: createArray('comm_orig_foot', suffixes),
+				backgroundColor: 'rgba(178,223,138, 0.8)',
+				borderColor: 'rgba(178,223,138, 1)',
+				borderWidth: 1,
+				order: 2
+			},
+			{
+				label: 'Taxi',
+				data: createArray('comm_orig_taxi', suffixes),
+				backgroundColor: 'rgba(166,206,227, 0.8)',
+				borderColor: 'rgba(166,206,227, 1)',
+				borderWidth: 1,
+				order: 6
+			}
+			
+			]
+		},
+		options: {
+			scales: {
+				y: {
+				  stacked: true,
+				  scaleLabel: {
+            display: true,
+            labelString: 'Daily commuters'
+          },
+					ticks: {
+						beginAtZero: true,
+						
+					}
+				},
+				x: {
+				  stacked: true
+				},
+			},
+			responsive: true,
+			maintainAspectRatio: false
+		}
+	});
   
   // Commute Destination
-  var bicycle_comm_dest = createArray('comm_dest_bicycle', suffixes);
-  var foot_comm_dest = createArray('comm_dest_foot', suffixes);
-  var car_comm_dest = createArray('comm_dest_car', suffixes);
-  var public_transport_comm_dest = createArray('comm_dest_public_transport', suffixes);
-  var taxi_comm_dest = createArray('comm_dest_taxi', suffixes);
-  
-  // School Primary Origin
-  var bicycle_primary_orig = createArray('schl_primary_orig_bicycle', suffixes);
-  var foot_primary_orig = createArray('schl_primary_orig_foot', suffixes);
-  var car_primary_orig = createArray('schl_primary_orig_car', suffixes);
-  var public_transport_primary_orig = createArray('schl_primary_orig_public_transport', suffixes);
-  var other_primary_orig = createArray('schl_primary_orig_other', suffixes);
-  
-  // School Secondary Origin
-  var bicycle_secondary_orig = createArray('schl_secondary_orig_bicycle', suffixes);
-  var foot_secondary_orig = createArray('schl_secondary_orig_foot', suffixes);
-  var car_secondary_orig = createArray('schl_secondary_orig_car', suffixes);
-  var public_transport_secondary_orig = createArray('schl_secondary_orig_public_transport', suffixes);
-  var other_secondary_orig = createArray('schl_secondary_orig_other', suffixes);
-  
-  // shopping Origin
-  var bicycle_shopping_orig = createArray('shopping_orig_bicycle', suffixes);
-  var foot_shopping_orig = createArray('shopping_orig_foot', suffixes);
-  var car_shopping_orig = createArray('shopping_orig_car', suffixes);
-  var public_transport_shopping_orig = createArray('shopping_orig_public_transport', suffixes);
-  var taxi_shopping_orig = createArray('shopping_orig_taxi', suffixes);
+  commuteDestinationChart = new Chart(document.getElementById('commuteDestinationChart').getContext('2d'), {
+		type: 'bar',
+		data: {
+			labels: labels,
+			datasets: [{
+				label: 'Bicycle',
+				data: createArray('comm_dest_bicycle', suffixes),
+				backgroundColor: 'rgba(51,160,44, 0.8)',
+				borderColor: 'rgba(51,160,44, 1)',
+				borderWidth: 1,
+				order: 1
+			},
+			{
+				label: 'Car',
+				data: createArray('comm_dest_car', suffixes),
+				backgroundColor: 'rgba(227,26,28, 0.8)',
+				borderColor: 'rgba(227,26,28, 1)',
+				borderWidth: 1,
+				order: 5
+			},
+			{
+				label: 'Public transport',
+				data: createArray('comm_dest_public_transport', suffixes) ,
+				backgroundColor: 'rgba(56,108,176, 0.8)',
+				borderColor: 'rgba(56,108,176, 1)',
+				borderWidth: 1,
+				order: 3
+			},
+			{
+				label: 'Foot',
+				data: createArray('comm_dest_foot', suffixes),
+				backgroundColor: 'rgba(178,223,138, 0.8)',
+				borderColor: 'rgba(178,223,138, 1)',
+				borderWidth: 1,
+				order: 2
+			},
+			{
+				label: 'Taxi',
+				data: createArray('comm_dest_taxi', suffixes),
+				backgroundColor: 'rgba(166,206,227, 0.8)',
+				borderColor: 'rgba(166,206,227, 1)',
+				borderWidth: 1,
+				order: 6
+			}
+			
+			]
+		},
+		options: {
+			scales: {
+				y: {
+				  stacked: true,
+				  scaleLabel: {
+            display: true,
+            labelString: 'Daily commuters'
+          },
+					ticks: {
+						beginAtZero: true,
+						
+					}
+				},
+				x: {
+				  stacked: true
+				},
+			},
+			responsive: true,
+			maintainAspectRatio: false
+		}
+	});
+	
+	// School Primary Origin
+	primaryOrginChart = new Chart(document.getElementById('primaryOrginChart').getContext('2d'), {
+		type: 'bar',
+		data: {
+			labels: labels,
+			datasets: [{
+				label: 'Bicycle',
+				data: createArray('schl_primary_orig_bicycle', suffixes),
+				backgroundColor: 'rgba(51,160,44, 0.8)',
+				borderColor: 'rgba(51,160,44, 1)',
+				borderWidth: 1,
+				order: 1
+			},
+			{
+				label: 'Car',
+				data: createArray('schl_primary_orig_car', suffixes),
+				backgroundColor: 'rgba(227,26,28, 0.8)',
+				borderColor: 'rgba(227,26,28, 1)',
+				borderWidth: 1,
+				order: 5
+			},
+			{
+				label: 'Public transport',
+				data: createArray('schl_primary_orig_public_transport', suffixes) ,
+				backgroundColor: 'rgba(56,108,176, 0.8)',
+				borderColor: 'rgba(56,108,176, 1)',
+				borderWidth: 1,
+				order: 3
+			},
+			{
+				label: 'Foot',
+				data: createArray('schl_primary_orig_foot', suffixes),
+				backgroundColor: 'rgba(178,223,138, 0.8)',
+				borderColor: 'rgba(178,223,138, 1)',
+				borderWidth: 1,
+				order: 2
+			},
+			{
+				label: 'Other',
+				data: createArray('schl_primary_orig_other', suffixes),
+				backgroundColor: 'rgba(166,206,227, 0.8)',
+				borderColor: 'rgba(166,206,227, 1)',
+				borderWidth: 1,
+				order: 6
+			}
+			
+			]
+		},
+		options: {
+			scales: {
+				y: {
+				  stacked: true,
+				  scaleLabel: {
+            display: true,
+            labelString: 'Daily commuters'
+          },
+					ticks: {
+						beginAtZero: true,
+						
+					}
+				},
+				x: {
+				  stacked: true
+				},
+			},
+			responsive: true,
+			maintainAspectRatio: false
+		}
+	});
+	
+	// School Secondary Origin
+	secondaryOriginChart = new Chart(document.getElementById('secondaryOriginChart').getContext('2d'), {
+		type: 'bar',
+		data: {
+			labels: labels,
+			datasets: [{
+				label: 'Bicycle',
+				data: createArray('schl_secondary_orig_bicycle', suffixes),
+				backgroundColor: 'rgba(51,160,44, 0.8)',
+				borderColor: 'rgba(51,160,44, 1)',
+				borderWidth: 1,
+				order: 1
+			},
+			{
+				label: 'Car',
+				data: createArray('schl_secondary_orig_car', suffixes),
+				backgroundColor: 'rgba(227,26,28, 0.8)',
+				borderColor: 'rgba(227,26,28, 1)',
+				borderWidth: 1,
+				order: 5
+			},
+			{
+				label: 'Public transport',
+				data: createArray('schl_secondary_orig_public_transport', suffixes) ,
+				backgroundColor: 'rgba(56,108,176, 0.8)',
+				borderColor: 'rgba(56,108,176, 1)',
+				borderWidth: 1,
+				order: 3
+			},
+			{
+				label: 'Foot',
+				data: createArray('schl_secondary_orig_foot', suffixes),
+				backgroundColor: 'rgba(178,223,138, 0.8)',
+				borderColor: 'rgba(178,223,138, 1)',
+				borderWidth: 1,
+				order: 2
+			},
+			{
+				label: 'Other',
+				data: createArray('schl_secondary_orig_other', suffixes),
+				backgroundColor: 'rgba(166,206,227, 0.8)',
+				borderColor: 'rgba(166,206,227, 1)',
+				borderWidth: 1,
+				order: 6
+			}
+			
+			]
+		},
+		options: {
+			scales: {
+				y: {
+				  stacked: true,
+				  scaleLabel: {
+            display: true,
+            labelString: 'Daily commuters'
+          },
+					ticks: {
+						beginAtZero: true,
+						
+					}
+				},
+				x: {
+				  stacked: true
+				},
+			},
+			responsive: true,
+			maintainAspectRatio: false
+		}
+	});
+	
+	// shopping Origin
+	shoppingOriginChart = new Chart(document.getElementById('shoppingOriginChart').getContext('2d'), {
+		type: 'bar',
+		data: {
+			labels: labels,
+			datasets: [{
+				label: 'Bicycle',
+				data: createArray('shopping_orig_bicycle', suffixes),
+				backgroundColor: 'rgba(51,160,44, 0.8)',
+				borderColor: 'rgba(51,160,44, 1)',
+				borderWidth: 1,
+				order: 1
+			},
+			{
+				label: 'Car',
+				data: createArray('shopping_orig_car', suffixes),
+				backgroundColor: 'rgba(227,26,28, 0.8)',
+				borderColor: 'rgba(227,26,28, 1)',
+				borderWidth: 1,
+				order: 5
+			},
+			{
+				label: 'Public transport',
+				data: createArray('shopping_orig_public_transport', suffixes) ,
+				backgroundColor: 'rgba(56,108,176, 0.8)',
+				borderColor: 'rgba(56,108,176, 1)',
+				borderWidth: 1,
+				order: 3
+			},
+			{
+				label: 'Foot',
+				data: createArray('shopping_orig_foot', suffixes),
+				backgroundColor: 'rgba(178,223,138, 0.8)',
+				borderColor: 'rgba(178,223,138, 1)',
+				borderWidth: 1,
+				order: 2
+			},
+			{
+				label: 'Taxi',
+				data: createArray('shopping_orig_taxi', suffixes),
+				backgroundColor: 'rgba(166,206,227, 0.8)',
+				borderColor: 'rgba(166,206,227, 1)',
+				borderWidth: 1,
+				order: 6
+			}
+			
+			]
+		},
+		options: {
+			scales: {
+				y: {
+				  stacked: true,
+				  scaleLabel: {
+            display: true,
+            labelString: 'Daily shoppers'
+          },
+					ticks: {
+						beginAtZero: true,
+						
+					}
+				},
+				x: {
+				  stacked: true
+				},
+			},
+			responsive: true,
+			maintainAspectRatio: false
+		}
+	});
   
   // shopping Destination
-  var bicycle_shopping_dest = createArray('shopping_dest_bicycle', suffixes);
-  var foot_shopping_dest = createArray('shopping_dest_foot', suffixes);
-  var car_shopping_dest = createArray('shopping_dest_car', suffixes);
-  var public_transport_shopping_dest = createArray('shopping_dest_public_transport', suffixes);
-  var taxi_shopping_dest = createArray('shopping_dest_taxi', suffixes);
-  
-  // leisure Origin
-  var bicycle_leisure_orig = createArray('leisure_orig_bicycle', suffixes);
-  var foot_leisure_orig = createArray('leisure_orig_foot', suffixes);
-  var car_leisure_orig = createArray('leisure_orig_car', suffixes);
-  var public_transport_leisure_orig = createArray('leisure_orig_public_transport', suffixes);
-  var taxi_leisure_orig = createArray('leisure_orig_taxi', suffixes);
+  shoppingDestinationChart = new Chart(document.getElementById('shoppingDestinationChart').getContext('2d'), {
+		type: 'bar',
+		data: {
+			labels: labels,
+			datasets: [{
+				label: 'Bicycle',
+				data: createArray('shopping_dest_bicycle', suffixes),
+				backgroundColor: 'rgba(51,160,44, 0.8)',
+				borderColor: 'rgba(51,160,44, 1)',
+				borderWidth: 1,
+				order: 1
+			},
+			{
+				label: 'Car',
+				data: createArray('shopping_dest_car', suffixes),
+				backgroundColor: 'rgba(227,26,28, 0.8)',
+				borderColor: 'rgba(227,26,28, 1)',
+				borderWidth: 1,
+				order: 5
+			},
+			{
+				label: 'Public transport',
+				data: createArray('shopping_dest_public_transport', suffixes) ,
+				backgroundColor: 'rgba(56,108,176, 0.8)',
+				borderColor: 'rgba(56,108,176, 1)',
+				borderWidth: 1,
+				order: 3
+			},
+			{
+				label: 'Foot',
+				data: createArray('shopping_dest_foot', suffixes),
+				backgroundColor: 'rgba(178,223,138, 0.8)',
+				borderColor: 'rgba(178,223,138, 1)',
+				borderWidth: 1,
+				order: 2
+			},
+			{
+				label: 'Taxi',
+				data: createArray('shopping_dest_taxi', suffixes),
+				backgroundColor: 'rgba(166,206,227, 0.8)',
+				borderColor: 'rgba(166,206,227, 1)',
+				borderWidth: 1,
+				order: 6
+			}
+			
+			]
+		},
+		options: {
+			scales: {
+				y: {
+				  stacked: true,
+				  scaleLabel: {
+            display: true,
+            labelString: 'Daily shoppers'
+          },
+					ticks: {
+						beginAtZero: true,
+						
+					}
+				},
+				x: {
+				  stacked: true
+				},
+			},
+			responsive: true,
+			maintainAspectRatio: false
+		}
+	});
+	
+	// leisure Origin
+	leisureOriginChart = new Chart(document.getElementById('leisureOriginChart').getContext('2d'), {
+		type: 'bar',
+		data: {
+			labels: labels,
+			datasets: [{
+				label: 'Bicycle',
+				data: createArray('leisure_orig_bicycle', suffixes),
+				backgroundColor: 'rgba(51,160,44, 0.8)',
+				borderColor: 'rgba(51,160,44, 1)',
+				borderWidth: 1,
+				order: 1
+			},
+			{
+				label: 'Car',
+				data: createArray('leisure_orig_car', suffixes),
+				backgroundColor: 'rgba(227,26,28, 0.8)',
+				borderColor: 'rgba(227,26,28, 1)',
+				borderWidth: 1,
+				order: 5
+			},
+			{
+				label: 'Public transport',
+				data: createArray('leisure_orig_public_transport', suffixes) ,
+				backgroundColor: 'rgba(56,108,176, 0.8)',
+				borderColor: 'rgba(56,108,176, 1)',
+				borderWidth: 1,
+				order: 3
+			},
+			{
+				label: 'Foot',
+				data: createArray('leisure_orig_foot', suffixes),
+				backgroundColor: 'rgba(178,223,138, 0.8)',
+				borderColor: 'rgba(178,223,138, 1)',
+				borderWidth: 1,
+				order: 2
+			},
+			{
+				label: 'Taxi',
+				data: createArray('leisure_orig_taxi', suffixes),
+				backgroundColor: 'rgba(166,206,227, 0.8)',
+				borderColor: 'rgba(166,206,227, 1)',
+				borderWidth: 1,
+				order: 6
+			}
+			
+			]
+		},
+		options: {
+			scales: {
+				y: {
+				  stacked: true,
+				  scaleLabel: {
+            display: true,
+            labelString: 'Daily shoppers'
+          },
+					ticks: {
+						beginAtZero: true,
+						
+					}
+				},
+				x: {
+				  stacked: true
+				},
+			},
+			responsive: true,
+			maintainAspectRatio: false
+		}
+	});
   
   // leisure Destination
-  var bicycle_leisure_dest = createArray('leisure_dest_bicycle', suffixes);
-  var foot_leisure_dest = createArray('leisure_dest_foot', suffixes);
-  var car_leisure_dest = createArray('leisure_dest_car', suffixes);
-  var public_transport_leisure_dest = createArray('leisure_dest_public_transport', suffixes);
-  var taxi_leisure_dest = createArray('leisure_dest_taxi', suffixes);
-  
-  // visiting Origin
-  var bicycle_visiting_orig = createArray('visiting_orig_bicycle', suffixes);
-  var foot_visiting_orig = createArray('visiting_orig_foot', suffixes);
-  var car_visiting_orig = createArray('visiting_orig_car', suffixes);
-  var public_transport_visiting_orig = createArray('visiting_orig_public_transport', suffixes);
-  var taxi_visiting_orig = createArray('visiting_orig_taxi', suffixes);
-  
-  // visiting Destination
-  var bicycle_visiting_dest = createArray('visiting_dest_bicycle', suffixes);
-  var foot_visiting_dest = createArray('visiting_dest_foot', suffixes);
-  var car_visiting_dest = createArray('visiting_dest_car', suffixes);
-  var public_transport_visiting_dest = createArray('visiting_dest_public_transport', suffixes);
-  var taxi_visiting_dest = createArray('visiting_dest_taxi', suffixes);
-  
-  var commuteOrigin_ctx = document.getElementById('commuteOriginChart').getContext('2d');
-  var commuteDestination_ctx = document.getElementById('commuteDestinationChart').getContext('2d');
-  var primaryOrgin_ctx = document.getElementById('primaryOrginChart').getContext('2d');
-  var secondaryOrigin_ctx = document.getElementById('secondaryOriginChart').getContext('2d');
-  
-  var shoppingOrigin_ctx = document.getElementById('shoppingOriginChart').getContext('2d');
-  var shoppingDestination_ctx = document.getElementById('shoppingDestinationChart').getContext('2d');
-  var leisureOrigin_ctx = document.getElementById('leisureOriginChart').getContext('2d');
-  var leisureDestination_ctx = document.getElementById('leisureDestinationChart').getContext('2d');
-  var visitingOrigin_ctx = document.getElementById('visitingOriginChart').getContext('2d');
-  var visitingDestination_ctx = document.getElementById('visitingDestinationChart').getContext('2d');
-  
-	commuteOriginChart = new Chart(commuteOrigin_ctx, {
+  leisureDestinationChart = new Chart(document.getElementById('leisureDestinationChart').getContext('2d'), {
 		type: 'bar',
 		data: {
 			labels: labels,
 			datasets: [{
 				label: 'Bicycle',
-				data: bicycle_comm_orig,
+				data: createArray('leisure_dest_bicycle', suffixes),
 				backgroundColor: 'rgba(51,160,44, 0.8)',
 				borderColor: 'rgba(51,160,44, 1)',
 				borderWidth: 1,
@@ -202,7 +614,7 @@ makeChartsModeshare = function(sub){
 			},
 			{
 				label: 'Car',
-				data: car_comm_orig,
+				data: createArray('leisure_dest_car', suffixes),
 				backgroundColor: 'rgba(227,26,28, 0.8)',
 				borderColor: 'rgba(227,26,28, 1)',
 				borderWidth: 1,
@@ -210,7 +622,7 @@ makeChartsModeshare = function(sub){
 			},
 			{
 				label: 'Public transport',
-				data: public_transport_comm_orig ,
+				data: createArray('leisure_dest_public_transport', suffixes) ,
 				backgroundColor: 'rgba(56,108,176, 0.8)',
 				borderColor: 'rgba(56,108,176, 1)',
 				borderWidth: 1,
@@ -218,7 +630,7 @@ makeChartsModeshare = function(sub){
 			},
 			{
 				label: 'Foot',
-				data: foot_comm_orig,
+				data: createArray('leisure_dest_foot', suffixes),
 				backgroundColor: 'rgba(178,223,138, 0.8)',
 				borderColor: 'rgba(178,223,138, 1)',
 				borderWidth: 1,
@@ -226,353 +638,7 @@ makeChartsModeshare = function(sub){
 			},
 			{
 				label: 'Taxi',
-				data: taxi_comm_orig,
-				backgroundColor: 'rgba(166,206,227, 0.8)',
-				borderColor: 'rgba(166,206,227, 1)',
-				borderWidth: 1,
-				order: 6
-			}
-			
-			]
-		},
-		options: {
-			scales: {
-				y: {
-				  stacked: true,
-				  scaleLabel: {
-            display: true,
-            labelString: 'Daily commuters'
-          },
-					ticks: {
-						beginAtZero: true,
-						
-					}
-				},
-				x: {
-				  stacked: true
-				},
-			},
-			responsive: true,
-			maintainAspectRatio: false
-		}
-	});
-  
-  commuteDestinationChart = new Chart(commuteDestination_ctx, {
-		type: 'bar',
-		data: {
-			labels: labels,
-			datasets: [{
-				label: 'Bicycle',
-				data: bicycle_comm_dest,
-				backgroundColor: 'rgba(51,160,44, 0.8)',
-				borderColor: 'rgba(51,160,44, 1)',
-				borderWidth: 1,
-				order: 1
-			},
-			{
-				label: 'Car',
-				data: car_comm_dest,
-				backgroundColor: 'rgba(227,26,28, 0.8)',
-				borderColor: 'rgba(227,26,28, 1)',
-				borderWidth: 1,
-				order: 5
-			},
-			{
-				label: 'Public transport',
-				data: public_transport_comm_dest ,
-				backgroundColor: 'rgba(56,108,176, 0.8)',
-				borderColor: 'rgba(56,108,176, 1)',
-				borderWidth: 1,
-				order: 3
-			},
-			{
-				label: 'Foot',
-				data: foot_comm_dest,
-				backgroundColor: 'rgba(178,223,138, 0.8)',
-				borderColor: 'rgba(178,223,138, 1)',
-				borderWidth: 1,
-				order: 2
-			},
-			{
-				label: 'Taxi',
-				data: taxi_comm_dest,
-				backgroundColor: 'rgba(166,206,227, 0.8)',
-				borderColor: 'rgba(166,206,227, 1)',
-				borderWidth: 1,
-				order: 6
-			}
-			
-			]
-		},
-		options: {
-			scales: {
-				y: {
-				  stacked: true,
-				  scaleLabel: {
-            display: true,
-            labelString: 'Daily commuters'
-          },
-					ticks: {
-						beginAtZero: true,
-						
-					}
-				},
-				x: {
-				  stacked: true
-				},
-			},
-			responsive: true,
-			maintainAspectRatio: false
-		}
-	});
-	
-	primaryOrginChart = new Chart(primaryOrgin_ctx, {
-		type: 'bar',
-		data: {
-			labels: labels,
-			datasets: [{
-				label: 'Bicycle',
-				data: bicycle_primary_orig,
-				backgroundColor: 'rgba(51,160,44, 0.8)',
-				borderColor: 'rgba(51,160,44, 1)',
-				borderWidth: 1,
-				order: 1
-			},
-			{
-				label: 'Car',
-				data: car_primary_orig,
-				backgroundColor: 'rgba(227,26,28, 0.8)',
-				borderColor: 'rgba(227,26,28, 1)',
-				borderWidth: 1,
-				order: 5
-			},
-			{
-				label: 'Public transport',
-				data: public_transport_primary_orig ,
-				backgroundColor: 'rgba(56,108,176, 0.8)',
-				borderColor: 'rgba(56,108,176, 1)',
-				borderWidth: 1,
-				order: 3
-			},
-			{
-				label: 'Foot',
-				data: foot_primary_orig,
-				backgroundColor: 'rgba(178,223,138, 0.8)',
-				borderColor: 'rgba(178,223,138, 1)',
-				borderWidth: 1,
-				order: 2
-			},
-			{
-				label: 'Other',
-				data: other_primary_orig,
-				backgroundColor: 'rgba(166,206,227, 0.8)',
-				borderColor: 'rgba(166,206,227, 1)',
-				borderWidth: 1,
-				order: 6
-			}
-			
-			]
-		},
-		options: {
-			scales: {
-				y: {
-				  stacked: true,
-				  scaleLabel: {
-            display: true,
-            labelString: 'Daily commuters'
-          },
-					ticks: {
-						beginAtZero: true,
-						
-					}
-				},
-				x: {
-				  stacked: true
-				},
-			},
-			responsive: true,
-			maintainAspectRatio: false
-		}
-	});
-	
-	secondaryOriginChart = new Chart(secondaryOrigin_ctx, {
-		type: 'bar',
-		data: {
-			labels: labels,
-			datasets: [{
-				label: 'Bicycle',
-				data: bicycle_secondary_orig,
-				backgroundColor: 'rgba(51,160,44, 0.8)',
-				borderColor: 'rgba(51,160,44, 1)',
-				borderWidth: 1,
-				order: 1
-			},
-			{
-				label: 'Car',
-				data: car_secondary_orig,
-				backgroundColor: 'rgba(227,26,28, 0.8)',
-				borderColor: 'rgba(227,26,28, 1)',
-				borderWidth: 1,
-				order: 5
-			},
-			{
-				label: 'Public transport',
-				data: public_transport_secondary_orig ,
-				backgroundColor: 'rgba(56,108,176, 0.8)',
-				borderColor: 'rgba(56,108,176, 1)',
-				borderWidth: 1,
-				order: 3
-			},
-			{
-				label: 'Foot',
-				data: foot_secondary_orig,
-				backgroundColor: 'rgba(178,223,138, 0.8)',
-				borderColor: 'rgba(178,223,138, 1)',
-				borderWidth: 1,
-				order: 2
-			},
-			{
-				label: 'Other',
-				data: other_secondary_orig,
-				backgroundColor: 'rgba(166,206,227, 0.8)',
-				borderColor: 'rgba(166,206,227, 1)',
-				borderWidth: 1,
-				order: 6
-			}
-			
-			]
-		},
-		options: {
-			scales: {
-				y: {
-				  stacked: true,
-				  scaleLabel: {
-            display: true,
-            labelString: 'Daily commuters'
-          },
-					ticks: {
-						beginAtZero: true,
-						
-					}
-				},
-				x: {
-				  stacked: true
-				},
-			},
-			responsive: true,
-			maintainAspectRatio: false
-		}
-	});
-	
-	
-	shoppingOriginChart = new Chart(shoppingOrigin_ctx, {
-		type: 'bar',
-		data: {
-			labels: labels,
-			datasets: [{
-				label: 'Bicycle',
-				data: bicycle_shopping_orig,
-				backgroundColor: 'rgba(51,160,44, 0.8)',
-				borderColor: 'rgba(51,160,44, 1)',
-				borderWidth: 1,
-				order: 1
-			},
-			{
-				label: 'Car',
-				data: car_shopping_orig,
-				backgroundColor: 'rgba(227,26,28, 0.8)',
-				borderColor: 'rgba(227,26,28, 1)',
-				borderWidth: 1,
-				order: 5
-			},
-			{
-				label: 'Public transport',
-				data: public_transport_shopping_orig ,
-				backgroundColor: 'rgba(56,108,176, 0.8)',
-				borderColor: 'rgba(56,108,176, 1)',
-				borderWidth: 1,
-				order: 3
-			},
-			{
-				label: 'Foot',
-				data: foot_shopping_orig,
-				backgroundColor: 'rgba(178,223,138, 0.8)',
-				borderColor: 'rgba(178,223,138, 1)',
-				borderWidth: 1,
-				order: 2
-			},
-			{
-				label: 'Taxi',
-				data: taxi_shopping_orig,
-				backgroundColor: 'rgba(166,206,227, 0.8)',
-				borderColor: 'rgba(166,206,227, 1)',
-				borderWidth: 1,
-				order: 6
-			}
-			
-			]
-		},
-		options: {
-			scales: {
-				y: {
-				  stacked: true,
-				  scaleLabel: {
-            display: true,
-            labelString: 'Daily shoppers'
-          },
-					ticks: {
-						beginAtZero: true,
-						
-					}
-				},
-				x: {
-				  stacked: true
-				},
-			},
-			responsive: true,
-			maintainAspectRatio: false
-		}
-	});
-  
-  shoppingDestinationChart = new Chart(shoppingDestination_ctx, {
-		type: 'bar',
-		data: {
-			labels: labels,
-			datasets: [{
-				label: 'Bicycle',
-				data: bicycle_shopping_dest,
-				backgroundColor: 'rgba(51,160,44, 0.8)',
-				borderColor: 'rgba(51,160,44, 1)',
-				borderWidth: 1,
-				order: 1
-			},
-			{
-				label: 'Car',
-				data: car_shopping_dest,
-				backgroundColor: 'rgba(227,26,28, 0.8)',
-				borderColor: 'rgba(227,26,28, 1)',
-				borderWidth: 1,
-				order: 5
-			},
-			{
-				label: 'Public transport',
-				data: public_transport_shopping_dest ,
-				backgroundColor: 'rgba(56,108,176, 0.8)',
-				borderColor: 'rgba(56,108,176, 1)',
-				borderWidth: 1,
-				order: 3
-			},
-			{
-				label: 'Foot',
-				data: foot_shopping_dest,
-				backgroundColor: 'rgba(178,223,138, 0.8)',
-				borderColor: 'rgba(178,223,138, 1)',
-				borderWidth: 1,
-				order: 2
-			},
-			{
-				label: 'Taxi',
-				data: taxi_shopping_dest,
+				data: createArray('leisure_dest_taxi', suffixes),
 				backgroundColor: 'rgba(166,206,227, 0.8)',
 				borderColor: 'rgba(166,206,227, 1)',
 				borderWidth: 1,
@@ -603,13 +669,14 @@ makeChartsModeshare = function(sub){
 		}
 	});
 	
-	leisureOriginChart = new Chart(leisureOrigin_ctx, {
+	// visiting Origin
+	visitingOriginChart = new Chart(document.getElementById('visitingOriginChart').getContext('2d'), {
 		type: 'bar',
 		data: {
 			labels: labels,
 			datasets: [{
 				label: 'Bicycle',
-				data: bicycle_leisure_orig,
+				data: createArray('visiting_orig_bicycle', suffixes),
 				backgroundColor: 'rgba(51,160,44, 0.8)',
 				borderColor: 'rgba(51,160,44, 1)',
 				borderWidth: 1,
@@ -617,7 +684,7 @@ makeChartsModeshare = function(sub){
 			},
 			{
 				label: 'Car',
-				data: car_leisure_orig,
+				data: createArray('visiting_orig_car', suffixes),
 				backgroundColor: 'rgba(227,26,28, 0.8)',
 				borderColor: 'rgba(227,26,28, 1)',
 				borderWidth: 1,
@@ -625,7 +692,7 @@ makeChartsModeshare = function(sub){
 			},
 			{
 				label: 'Public transport',
-				data: public_transport_leisure_orig ,
+				data: createArray('visiting_orig_public_transport', suffixes) ,
 				backgroundColor: 'rgba(56,108,176, 0.8)',
 				borderColor: 'rgba(56,108,176, 1)',
 				borderWidth: 1,
@@ -633,7 +700,7 @@ makeChartsModeshare = function(sub){
 			},
 			{
 				label: 'Foot',
-				data: foot_leisure_orig,
+				data: createArray('visiting_orig_foot', suffixes),
 				backgroundColor: 'rgba(178,223,138, 0.8)',
 				borderColor: 'rgba(178,223,138, 1)',
 				borderWidth: 1,
@@ -641,7 +708,7 @@ makeChartsModeshare = function(sub){
 			},
 			{
 				label: 'Taxi',
-				data: taxi_leisure_orig,
+				data: createArray('visiting_orig_taxi', suffixes),
 				backgroundColor: 'rgba(166,206,227, 0.8)',
 				borderColor: 'rgba(166,206,227, 1)',
 				borderWidth: 1,
@@ -672,13 +739,14 @@ makeChartsModeshare = function(sub){
 		}
 	});
   
-  leisureDestinationChart = new Chart(leisureDestination_ctx, {
+	// visiting Destination
+  visitingDestinationChart = new Chart(document.getElementById('visitingDestinationChart').getContext('2d'), {
 		type: 'bar',
 		data: {
 			labels: labels,
 			datasets: [{
 				label: 'Bicycle',
-				data: bicycle_leisure_dest,
+				data: createArray('visiting_dest_bicycle', suffixes),
 				backgroundColor: 'rgba(51,160,44, 0.8)',
 				borderColor: 'rgba(51,160,44, 1)',
 				borderWidth: 1,
@@ -686,7 +754,7 @@ makeChartsModeshare = function(sub){
 			},
 			{
 				label: 'Car',
-				data: car_leisure_dest,
+				data: createArray('visiting_dest_car', suffixes),
 				backgroundColor: 'rgba(227,26,28, 0.8)',
 				borderColor: 'rgba(227,26,28, 1)',
 				borderWidth: 1,
@@ -694,7 +762,7 @@ makeChartsModeshare = function(sub){
 			},
 			{
 				label: 'Public transport',
-				data: public_transport_leisure_dest ,
+				data: createArray('visiting_dest_public_transport', suffixes) ,
 				backgroundColor: 'rgba(56,108,176, 0.8)',
 				borderColor: 'rgba(56,108,176, 1)',
 				borderWidth: 1,
@@ -702,7 +770,7 @@ makeChartsModeshare = function(sub){
 			},
 			{
 				label: 'Foot',
-				data: foot_leisure_dest,
+				data: createArray('visiting_dest_foot', suffixes),
 				backgroundColor: 'rgba(178,223,138, 0.8)',
 				borderColor: 'rgba(178,223,138, 1)',
 				borderWidth: 1,
@@ -710,145 +778,7 @@ makeChartsModeshare = function(sub){
 			},
 			{
 				label: 'Taxi',
-				data: taxi_leisure_dest,
-				backgroundColor: 'rgba(166,206,227, 0.8)',
-				borderColor: 'rgba(166,206,227, 1)',
-				borderWidth: 1,
-				order: 6
-			}
-			
-			]
-		},
-		options: {
-			scales: {
-				y: {
-				  stacked: true,
-				  scaleLabel: {
-            display: true,
-            labelString: 'Daily shoppers'
-          },
-					ticks: {
-						beginAtZero: true,
-						
-					}
-				},
-				x: {
-				  stacked: true
-				},
-			},
-			responsive: true,
-			maintainAspectRatio: false
-		}
-	});
-	
-	visitingOriginChart = new Chart(visitingOrigin_ctx, {
-		type: 'bar',
-		data: {
-			labels: labels,
-			datasets: [{
-				label: 'Bicycle',
-				data: bicycle_visiting_orig,
-				backgroundColor: 'rgba(51,160,44, 0.8)',
-				borderColor: 'rgba(51,160,44, 1)',
-				borderWidth: 1,
-				order: 1
-			},
-			{
-				label: 'Car',
-				data: car_visiting_orig,
-				backgroundColor: 'rgba(227,26,28, 0.8)',
-				borderColor: 'rgba(227,26,28, 1)',
-				borderWidth: 1,
-				order: 5
-			},
-			{
-				label: 'Public transport',
-				data: public_transport_visiting_orig ,
-				backgroundColor: 'rgba(56,108,176, 0.8)',
-				borderColor: 'rgba(56,108,176, 1)',
-				borderWidth: 1,
-				order: 3
-			},
-			{
-				label: 'Foot',
-				data: foot_visiting_orig,
-				backgroundColor: 'rgba(178,223,138, 0.8)',
-				borderColor: 'rgba(178,223,138, 1)',
-				borderWidth: 1,
-				order: 2
-			},
-			{
-				label: 'Taxi',
-				data: taxi_visiting_orig,
-				backgroundColor: 'rgba(166,206,227, 0.8)',
-				borderColor: 'rgba(166,206,227, 1)',
-				borderWidth: 1,
-				order: 6
-			}
-			
-			]
-		},
-		options: {
-			scales: {
-				y: {
-				  stacked: true,
-				  scaleLabel: {
-            display: true,
-            labelString: 'Daily shoppers'
-          },
-					ticks: {
-						beginAtZero: true,
-						
-					}
-				},
-				x: {
-				  stacked: true
-				},
-			},
-			responsive: true,
-			maintainAspectRatio: false
-		}
-	});
-  
-  visitingDestinationChart = new Chart(visitingDestination_ctx, {
-		type: 'bar',
-		data: {
-			labels: labels,
-			datasets: [{
-				label: 'Bicycle',
-				data: bicycle_visiting_dest,
-				backgroundColor: 'rgba(51,160,44, 0.8)',
-				borderColor: 'rgba(51,160,44, 1)',
-				borderWidth: 1,
-				order: 1
-			},
-			{
-				label: 'Car',
-				data: car_visiting_dest,
-				backgroundColor: 'rgba(227,26,28, 0.8)',
-				borderColor: 'rgba(227,26,28, 1)',
-				borderWidth: 1,
-				order: 5
-			},
-			{
-				label: 'Public transport',
-				data: public_transport_visiting_dest ,
-				backgroundColor: 'rgba(56,108,176, 0.8)',
-				borderColor: 'rgba(56,108,176, 1)',
-				borderWidth: 1,
-				order: 3
-			},
-			{
-				label: 'Foot',
-				data: foot_visiting_dest,
-				backgroundColor: 'rgba(178,223,138, 0.8)',
-				borderColor: 'rgba(178,223,138, 1)',
-				borderWidth: 1,
-				order: 2
-			},
-			{
-				label: 'Taxi',
-				data: taxi_visiting_dest,
+				data: createArray('visiting_dest_taxi', suffixes),
 				backgroundColor: 'rgba(166,206,227, 0.8)',
 				borderColor: 'rgba(166,206,227, 1)',
 				borderWidth: 1,
