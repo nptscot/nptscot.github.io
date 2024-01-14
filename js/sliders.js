@@ -25,7 +25,7 @@ noUiSlider.create(sliders.cycle, {
 });
 
 noUiSlider.create(sliders.gradient, {
-    start: [0, 35],
+    start: [0, 10],
     step: 2,
     connect: true,
     range: {
