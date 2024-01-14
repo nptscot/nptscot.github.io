@@ -766,7 +766,7 @@ function switch_data_zones() {
   };
   
   var dataZonesCheckBox = document.getElementById('data_zonescheckbox');
-  var layerId = document.getElementById("data_zone_input").value;
+  var layerId = document.getElementById("data_zones_selector").value;
   var daysymetricmode = document.getElementById('data_zones_checkbox_dasymetric');
   
   // Update the Legend - Do this even if map layer is off
