@@ -169,7 +169,7 @@ const chartsModal = function (chartDefinitions) {
       .then (function (response) {return response.json ();})
       .then (function (json) {
         const locationData = json[0];
-        //console.log (locationData);
+        //console.log ('Retrieved data for location ' + locationId, locationData);
 
         //Hide Spinner
         //document.getElementById('loader').style.display = 'none';
