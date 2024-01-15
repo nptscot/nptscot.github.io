@@ -261,18 +261,6 @@ p.welcome-end {
     font-size: 0.9em;
     font-weight: normal;
 }
-.closewelcome {
-  color: black;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-}
-.closewelcome:hover,
-.closewelcome:focus {
-  color: #000;
-  text-decoration: none;
-  cursor: pointer;
-}
 
 .help {
   position: absolute;
