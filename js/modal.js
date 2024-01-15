@@ -89,13 +89,57 @@ const chartDefinitionsSchools = {
 };
 
 
+// Function to manage modal dialogs
+const newModal = function (modalId)
+{
+  // Identify the modal
+  const modal = document.getElementById(modalId);
+  
+  // When the user clicks on <span> (x), close the modal
+  const closeButton = document.querySelector('#' + modalId + ' .modal-close');
+  closeButton.addEventListener('click', function () {
+    hide ();
+  });
+
+  // When the user clicks anywhere outside of the modal, close it
+  window.addEventListener('click', function (event) {
+    if (event.target == modal) {
+      hide ();
+    }
+  });
+
+  // Treat escape key as implied close
+  window.addEventListener('keyup', function (event) {
+    if (event.key == 'Escape') {
+      if (modal.style.display == 'block') {
+        hide ();
+      }
+    }
+  });
+  
+  // Show
+  const show = function () {
+    modal.style.display = 'block';
+  };
+  
+  // Hide
+  const hide = function () {
+    modal.style.display = 'none';
+  };
+  
+  // Accessor functions
+  return {
+    show: show,
+    hide: hide
+  }
+}
+
+
+// Function to create a chart modal
 const chartsModal = function (chartDefinitions) {
 
-  // Identify the modal
-  const location_modal = document.getElementById(chartDefinitions.location_modal_id);
-
-  // Handle modal closure
-  handleModalClosure();
+  // Create the modal
+  const location_modal = newModal (chartDefinitions.location_modal_id);
 
   // Open modal on clicking the supported map layer
   const charts = {};
@@ -113,7 +157,7 @@ const chartsModal = function (chartDefinitions) {
     }
     
     // Display the modal
-    location_modal.style.display = 'block';
+    location_modal.show ();
 
     // Assemble the JSON data file URL
     const featureProperties = e.features[0].properties;
@@ -196,33 +240,6 @@ const chartsModal = function (chartDefinitions) {
         },
         responsive: true,
         maintainAspectRatio: false
-      }
-    });
-  }
-
-
-  // Function to handle closure of the modal
-  function handleModalClosure() {
-    
-    // When the user clicks on <span> (x), close the modal
-    const closeButton = document.querySelector('#' + chartDefinitions.location_modal_id + ' .modal-close');
-    closeButton.addEventListener('click', function () {
-      location_modal.style.display = 'none';
-    });
-
-    // When the user clicks anywhere outside of the modal, close it
-    window.addEventListener('click', function (event) {
-      if (event.target == location_modal) {
-        location_modal.style.display = 'none';
-      }
-    });
-
-    // Treat escape key as implied close
-    window.addEventListener('keyup', function (event) {
-      if (event.key == 'Escape') {
-        if (location_modal.style.display == 'block') {
-          location_modal.style.display = 'none';
-        }
       }
     });
   }
