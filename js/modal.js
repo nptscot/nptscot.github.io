@@ -21,7 +21,7 @@ const newModal = function (modalId)
   // Treat escape key as implied close
   window.addEventListener('keyup', function (event) {
     if (event.key == 'Escape') {
-      if (modal.style.display == 'block') {
+      if (window.getComputedStyle(modal).display == 'block') {   // I.e. is displayed
         hide ();
       }
     }
