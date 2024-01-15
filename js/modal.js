@@ -1,3 +1,4 @@
+
 // Function to manage modal dialogs
 const newModal = function (modalId)
 {
@@ -10,9 +11,9 @@ const newModal = function (modalId)
     hide ();
   });
 
-  // When the user clicks anywhere outside of the modal, close it
+  // Treat clicking outside of the modal as implied close
   window.addEventListener('click', function (event) {
-    if (event.target == modal) {
+    if (event.target == modal || event.target.id == 'overlay') {
       hide ();
     }
   });
@@ -34,6 +35,7 @@ const newModal = function (modalId)
   // Hide
   const hide = function () {
     modal.style.display = 'none';
+    document.getElementById('overlay').style.display = 'none';
   };
   
   // Accessor functions
