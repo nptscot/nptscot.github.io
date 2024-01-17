@@ -1,32 +1,40 @@
-const toc = document.querySelector('.table-of-contents');
-const headings = document.querySelectorAll('h2, h3');
 
-let lastH2Item = null;
 
-headings.forEach((heading) => {
-  const level = heading.tagName.toLowerCase();
-  const title = heading.textContent;
-  const anchor = heading.id;
+createToc ()
 
-  const link = document.createElement('a');
-  link.textContent = title;
-  link.setAttribute('href', `#${anchor}`);
+// Function to create table of contents
+function createToc ()
+{
+  const toc = document.querySelector('.table-of-contents');
+  const headings = document.querySelectorAll('h2, h3');
 
-  const item = document.createElement('li');
-  item.appendChild(link);
+  let lastH2Item = null;
 
-  if (level === 'h2') {
-    const sublist = document.createElement('ul');
-    item.appendChild(sublist);
-    toc.querySelector('ul').appendChild(item);
-    lastH2Item = item;
-  } else if (level === 'h3' && lastH2Item) {
-    const sublist = document.createElement('ul');
-    item.appendChild(sublist);
-    lastH2Item.querySelector('ul').appendChild(item);
-  }
+  headings.forEach((heading) => {
+    const level = heading.tagName.toLowerCase();
+    const title = heading.textContent;
+    const anchor = heading.id;
 
-  heading.addEventListener('click', () => {
-    location.hash = anchor;
+    const link = document.createElement('a');
+    link.textContent = title;
+    link.setAttribute('href', `#${anchor}`);
+
+    const item = document.createElement('li');
+    item.appendChild(link);
+
+    if (level === 'h2') {
+      const sublist = document.createElement('ul');
+      item.appendChild(sublist);
+      toc.querySelector('ul').appendChild(item);
+      lastH2Item = item;
+    } else if (level === 'h3' && lastH2Item) {
+      const sublist = document.createElement('ul');
+      item.appendChild(sublist);
+      lastH2Item.querySelector('ul').appendChild(item);
+    }
+
+    heading.addEventListener('click', () => {
+      location.hash = anchor;
+    });
   });
-});
+}
