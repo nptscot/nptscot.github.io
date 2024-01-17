@@ -1,6 +1,32 @@
 
+/* Convert Markdown to HTML */
+loadManual ();
 
-createToc ()
+
+// Load the Markdown file as text and place it into the content div
+function loadManual ()
+{
+  fetch ('index.md')
+    .then (response => response.text ())
+    .then (function (text) {
+      document.querySelector ('#content').innerHTML = mdToHtml (text);
+      createToc ();
+    })
+    .catch (function (error) {
+      alert('Failed to load manual text.');
+    });
+}
+
+
+// Function to convert the loaded Markdown file text to HTML
+function mdToHtml (mdText)
+{
+  const converter = new showdown.Converter ();
+  const html = converter.makeHtml (mdText);
+  return html;
+}
+
+
 
 // Function to create table of contents
 function createToc ()
