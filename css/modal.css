@@ -39,6 +39,11 @@
   clear: both;
 }
 
+/* Prevent images from overflowing the box size */
+.modal img {
+  max-width: 100%;
+}
+
 /* The Close Button */
 .modal-close {
   color: white;

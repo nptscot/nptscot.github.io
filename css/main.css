@@ -550,7 +550,3 @@ input:checked + .slider:before {
   height: 35px;
   width: 35px;
 }
-
-#helpcontent img {
-  max-width: 100%;
-}
