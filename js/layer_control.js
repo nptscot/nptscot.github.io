@@ -182,7 +182,7 @@ const definitions = {
   // #!# These are presumably restatements of dzLegendColours
   dzStyle_cols: {
     'SIMD2020v2_Decile': [
-      '#a50026', 1.1,
+      '#a50026', 1.1,       // #!# This block is basically enums rather than ranges, so current fudge of .1 is to avoid off-by-one errors
       '#d73027', 2.1,
       '#f46d43', 3.1,
       '#fdae61', 4.1,
@@ -204,7 +204,7 @@ const definitions = {
       '#000000'
     ],
     'broadband': [
-      '#fff7ec', 0.01,
+      '#fff7ec', 0.01,    // #!# Currently zero is used for voids - data should be changed to use known constant e.g. -9999
       '#fee8c8', 2,
       '#fdd49e', 5,
       '#fdbb84', 10,

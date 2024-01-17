@@ -563,3 +563,4 @@ input:checked + .slider:before {
   width: 35px;
 }
 
+#helpcontent img {max-width: 100%;}

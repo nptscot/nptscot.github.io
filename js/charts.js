@@ -1,3 +1,5 @@
+// #!# Need to define the assumed data structure, e.g. the 'charts' key shows a part field
+
 // Data zones
 const chartDefinitions = {
 
@@ -15,17 +17,17 @@ const chartDefinitions = {
   titlePrefix: 'Zone Summary: ',
 
   charts: [
-    // #!# Labels are sometimes wrong, but don't seem to be used anyway
-    ['commuteOriginChart', 'comm_orig', 'Daily commuters'], // Commute Origin
-    ['commuteDestinationChart', 'comm_dest', 'Daily commuters'], // Commute Destination
-    ['primaryOrginChart', 'schl_primary_orig', 'Daily commuters'], // School Primary Origin
-    ['secondaryOriginChart', 'schl_secondary_orig', 'Daily commuters'], // School Secondary Origin
-    ['shoppingOriginChart', 'shopping_orig', 'Daily shoppers'], // shopping Origin
-    ['shoppingDestinationChart', 'shopping_dest', 'Daily shoppers'], // shopping Destination
-    ['leisureOriginChart', 'leisure_orig', 'Daily shoppers'], // leisure Origin
-    ['leisureDestinationChart', 'leisure_dest', 'Daily shoppers'], // leisure Destination
-    ['visitingOriginChart', 'visiting_orig', 'Daily shoppers'], // visiting Origin
-    ['visitingDestinationChart', 'visiting_dest', 'Daily shoppers'], // visiting Destination
+    // #!# Chart labels can be refactored to single setting
+    ['commuteOriginChart', 'comm_orig', 'Annual Average Daily Flow'], // Commute Origin
+    ['commuteDestinationChart', 'comm_dest', 'Annual Average Daily Flow'], // Commute Destination
+    ['primaryOrginChart', 'schl_primary_orig', 'Annual Average Daily Flow'], // School Primary Origin
+    ['secondaryOriginChart', 'schl_secondary_orig', 'Annual Average Daily Flow'], // School Secondary Origin
+    ['shoppingOriginChart', 'shopping_orig', 'Annual Average Daily Flow'], // shopping Origin
+    ['shoppingDestinationChart', 'shopping_dest', 'Annual Average Daily Flow'], // shopping Destination
+    ['leisureOriginChart', 'leisure_orig', 'Annual Average Daily Flow'], // leisure Origin
+    ['leisureDestinationChart', 'leisure_dest', 'Annual Average Daily Flow'], // leisure Destination
+    ['visitingOriginChart', 'visiting_orig', 'Annual Average Daily Flow'], // visiting Origin
+    ['visitingDestinationChart', 'visiting_dest', 'Annual Average Daily Flow'], // visiting Destination
   ],
 
   modes: [
@@ -65,8 +67,8 @@ const chartDefinitionsSchools = {
   titlePrefix: '',
 
   charts: [
-    ['primaryChart', 'schl_primary_dest', 'Number of Children'], // School Primary Destination
-    ['secondaryChart', 'schl_primary_dest', 'Number of Children'], // School Secondary Destination  #!# Data doesn't seem to be present/showing
+    ['primaryChart', 'schl_primary_dest', 'Annual Average Daily Flow'], // School Primary Destination
+    ['secondaryChart', 'schl_primary_dest', 'Annual Average Daily Flow'], // School Secondary Destination  #!# Data doesn't seem to be present/showing
   ],
 
   modes: [
