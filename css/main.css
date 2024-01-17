@@ -563,4 +563,6 @@ input:checked + .slider:before {
   width: 35px;
 }
 
-#helpcontent img {max-width: 100%;}
+#helpcontent img {
+  max-width: 100%;
+}

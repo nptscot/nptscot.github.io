@@ -1,3 +1,7 @@
+const manualSettings = {
+  url: 'https://github.com/nptscot/nptscot.github.io/edit/dev/%id/index.md'
+};
+
 
 /* Convert Markdown to HTML */
 loadManual ();
@@ -11,6 +15,7 @@ function loadManual ()
     .then (function (text) {
       document.querySelector ('#content').innerHTML = mdToHtml (text);
       createToc ();
+      createEditLink ();
     })
     .catch (function (error) {
       alert('Failed to load manual text.');
@@ -72,4 +77,19 @@ function createToc ()
       location.hash = anchor;
     });
   });
+}
+
+
+// Function to create an editing link
+function createEditLink ()
+{
+  // Determine the page slug (e.g. /manual/ is 'manual')
+  const matches = window.location.pathname.match (new RegExp ('^/([^/]+)/'));
+  const slug = matches[1];
+  
+  // Assemble the link
+  const link = manualSettings.url.replace ('%id', slug);
+  
+  // Create new div and attach to body
+  document.querySelector('#editlink').href = link;
 }
