@@ -29,8 +29,8 @@ function show_help(sectionId)
     });
   
   // Show in modal
-  toggle_overlay(true)
-  document.getElementById("help").style.display = "block";
+  const help_modal = newModal ('help_modal');
+  help_modal.show ();
 }
 
 

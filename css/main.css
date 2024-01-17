@@ -262,7 +262,7 @@ p.welcome-end {
     font-weight: normal;
 }
 
-.help {
+#help_modal {
   position: absolute;
   display: none;
   top: 50px;
@@ -283,18 +283,6 @@ p.help-end {
     font-weight: normal;
 }
 
-.closehelp {
-  color: black;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-}
-.closehelp:hover,
-.closehelp:focus {
-  color: #000;
-  text-decoration: none;
-  cursor: pointer;
-}
 
 #overlay {
   position: fixed; 
