@@ -1,3 +1,5 @@
+alert('charts.js loaded');
+
 // Data zones
 const chartDefinitions = {
 
@@ -6,7 +8,7 @@ const chartDefinitions = {
   location_modal_id: "zone_modal",
 
   // Data fields
-  dataUrl: 'https://nptscot.blob.core.windows.net/json/DataZone/%id.json',
+  dataUrl: 'jsons/%id.json',
   propertiesField: 'DataZone',
   titleField: 'DataZone',
 
