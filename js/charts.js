@@ -1,3 +1,5 @@
+// #!# Need to define the assumed data structure, e.g. the 'charts' key shows a part field
+
 // Data zones
 const chartDefinitions = {
 

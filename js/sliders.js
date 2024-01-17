@@ -25,6 +25,7 @@ noUiSlider.create(sliders.cycle, {
 });
 
 noUiSlider.create(sliders.gradient, {
+    // #!# Top of range label could be changed to 100 (35 was previously considered), as is currently only implicit
     start: [0, 10],
     step: 2,
     connect: true,
