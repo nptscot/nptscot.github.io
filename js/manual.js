@@ -10,7 +10,9 @@ function loadManual ()
     .then (response => response.text ())
     .then (function (text) {
       document.querySelector ('#content').innerHTML = mdToHtml (text);
-      createToc ();
+      if (document.querySelector('.table-of-contents')) {
+        createToc ();
+      }
     })
     .catch (function (error) {
       alert('Failed to load manual text.');
