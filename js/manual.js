@@ -10,9 +10,7 @@ function loadManual ()
     .then (response => response.text ())
     .then (function (text) {
       document.querySelector ('#content').innerHTML = mdToHtml (text);
-      if (document.querySelector('.table-of-contents')) {
-        createToc ();
-      }
+      createToc ();
     })
     .catch (function (error) {
       alert('Failed to load manual text.');
@@ -33,6 +31,15 @@ function mdToHtml (mdText)
 // Function to create table of contents
 function createToc ()
 {
+  // Create new div and attach to body
+  const tocDiv = document.createElement('div');
+  tocDiv.classList.add ('table-of-contents');
+  document.querySelector('body').appendChild (tocDiv);
+  
+  // Add UL to TOC
+  const ul = document.createElement('ul');
+  tocDiv.appendChild (ul);
+  
   const toc = document.querySelector('.table-of-contents');
   const headings = document.querySelectorAll('h2, h3');
 
