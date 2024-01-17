@@ -334,6 +334,7 @@ p.help-end {
 }
 
 .helpbutton {
+  cursor: pointer;
   background: transparent;
   border: none !important;
   min-width: 15px;
