@@ -18,7 +18,7 @@ for (i = 0; i < acc.length; i++) {
 }
 
 
-/* Show and hid UI */
+/* Show and hide UI */
 function showrighbox(show){
     var box = document.getElementById("rightbox");
     var boxbutton = document.getElementById("showrightbox");

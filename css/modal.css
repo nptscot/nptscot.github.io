@@ -40,20 +40,21 @@
 }
 
 /* The Close Button */
-.closemodal, .closeschoolmodal {
+.modal-close {
   color: white;
   float: right;
   font-size: 28px;
   font-weight: bold;
 }
 
-.closemodal:hover,
-.closemodal:focus,
-.closeschoolmodal:hover,
-.closeschoolmodal:focus {
+.modal-close:hover, .modal-close:focus {
   color: #000;
   text-decoration: none;
   cursor: pointer;
+}
+
+#welcome .modal-close {
+  color: black;
 }
 
 .modal-header {

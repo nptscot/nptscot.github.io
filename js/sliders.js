@@ -1,9 +1,11 @@
-var cycleSlider = document.getElementById('slider-cycle');
-var gradientlider = document.getElementById('slider-gradient');
-var quietnessSlider = document.getElementById('slider-quietness');
+const sliders = {
+    cycle:     document.getElementById('slider-cycle'),
+    gradient:  document.getElementById('slider-gradient'),
+    quietness: document.getElementById('slider-quietness')
+};
 
 //Define sliders
-noUiSlider.create(cycleSlider, {
+noUiSlider.create(sliders.cycle, {
     start: [0, 20000],
     connect: true,
     range: {
@@ -22,8 +24,8 @@ noUiSlider.create(cycleSlider, {
     }
 });
 
-noUiSlider.create(gradientlider, {
-    start: [0, 35],
+noUiSlider.create(sliders.gradient, {
+    start: [0, 10],
     step: 2,
     connect: true,
     range: {
@@ -41,7 +43,7 @@ noUiSlider.create(gradientlider, {
     }
 });
 
-noUiSlider.create(quietnessSlider, {
+noUiSlider.create(sliders.quietness, {
     start: [0, 100],
     step: 10,
     connect: true,
@@ -69,4 +71,11 @@ function updatePips( value, type ){
     return res;
 }
 
+// Define handlers to proxy the result to hidden input fields, with value "<numStart>-<numFinish>"
+Object.entries(sliders).forEach (([key, slider]) => {
+    slider.noUiSlider.on ('update', function() {
+        document.getElementById('rnet_slider-' + key).value = Number(slider.noUiSlider.get()[0]) + '-' + Number(slider.noUiSlider.get()[1]);
+        document.getElementById('rnet_slider-' + key).dispatchEvent(new Event('change'));
+    });
+});
 
