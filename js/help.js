@@ -1,5 +1,8 @@
-function show_help(sectionId) {
-  console.log("Trigger help for sectionId: " + sectionId);
+
+// Function to handle (?) tooltips, loading extracts from the manual
+function show_help(sectionId)
+{
+  //console.log("Trigger help for sectionId: " + sectionId);
   fetch('/manual/index.md')
     .then (response => response.text ())
     .then(text => {
@@ -15,14 +18,17 @@ function show_help(sectionId) {
       // Parse to HTML
       const parser = new DOMParser();
       const otherPage = parser.parseFromString(html, 'text/html');
-      const otherDiv = otherPage.querySelector('body');
+      const contentHtml = otherPage.querySelector('body');
       //console.log(otherDiv.innerHTML);
-      if(otherDiv === null){
-        document.getElementById("helpcontent").innerHTML = `<p><b>Help Missing!</b></p>`;
-      } else {
-        document.getElementById("helpcontent").innerHTML = otherDiv.innerHTML;
+      if(!contentHtml) {
+        contentHtml = '<p><strong>Help missing!</strong></p>';
       }
+      
+      // Add the HTML
+      document.getElementById('helpcontent').innerHTML = contentHtml.innerHTML;
     });
+  
+  // Show in modal
   toggle_overlay(true)
   document.getElementById("help").style.display = "block";
 }
