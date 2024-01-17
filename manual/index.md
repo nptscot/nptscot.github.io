@@ -94,6 +94,8 @@ The Route Network is the primary layer in the NPT and the only one that is on by
 
 The route network provides a range of options and filters to allow you to view different networks based on different journey purposes and assumptions. Whether you're considering daily commutes or leisurely excursions, the Route Network layer adapts to reflect different cycling possibilities and planning assumptions.
 
+<!-- #purpose -->
+
 #### Trip purpose
 
 People have many reasons to travel, and their reasons for travel often change their choice of destinations and routes. Therefore, a cycling network designed for commuters may look very different to a network designed for children to travel to school. The trip purpose drop-down allows you to view different networks based on different trip purposes.
@@ -130,6 +132,10 @@ The NPT does not currently consider recreational cycling. This is more complex t
 
 The NPT currently only considers direct journeys where the whole trip is by bicycle. It does not consider mixed-mode journeys such as cycling to the station and then taking a train to your final destination. This means that the NPT slightly underestimates cycling potential overall and may significantly underestimate cycling potential in specific places (such as around train stations).
 
+<!-- /#purpose -->
+
+<!-- #scenario -->
+
 #### Scenarios
 
 The scenarios drop-down allows you to view different levels of cycling and other information about the road network
@@ -149,6 +155,10 @@ Planners should seek to design cycle networks that meet the needs of both curren
 The Ebike scenario models the additional increase in cycling that would be achieved on top of the Go Dutch scenario, through the widespread uptake of electric cycles The scenarios alters both the assumptions around cycling uptake and the routes choices made by cyclists, for example a reduced penalty for going up hills. Pedal cyclists incur a significant time and effort penalty from going uphill. Hence, a longer but flatter route is often faster. A good ebike can enable cyclists to ride uphill at 15 mph without breaking a sweat. Thus ebike riders may choose shorter but hillier routes than pedal cyclists.
 
 As ebikes increase a cyclist’s range and carrying capacity while reducing effort and journey times, a world with many ebikes would expect higher levels of cycling than one with only pedal cycles.
+
+<!-- /#scenario -->
+
+<!-- #type -->
 
 #### Network type
 
@@ -189,6 +199,10 @@ Quiet networks work best when the directness penalty is small. For example, a ci
 
 The image above ([source](https://maps.amsterdam.nl/plushoofdnetten/)) shows how Amsterdam uses its grid layout to have parallel but separate networks for cars (red, orange, black) and bicycles (green). Notice how the cycling network is much denser than the car network, ensuring that cyclists almost always benefit from a more direct route.
 
+<!-- /#type -->
+
+<!-- #colour -->
+
 #### Line Colour
 
 The line colour option allows you to visualise different characteristics of the route network. Below the line colour option is a contextual legend which shows the meaning of the colours on the map.
@@ -225,11 +239,17 @@ See [CycleStreets](https://www.cyclestreets.net/help/journey/howitworks/) for f
 
 The average gradient of the road is shown as a percentage. Steeper roads are a barrier to cycling and affect route choice and the uptake of cycling in the scenarios. Please note in some locations where the network does follow the land contours, e.g. some bridges, the gradient will incorrectly show flat sections of network as steep. This is something we are working to resolve.
 
+<!-- /#colour -->
+
+<!-- #simplified_rnet -->
+
 #### Simplified Route Network
 
 The NPT includes a 'Simplified' toggle that streamlines the route network display. Major road corridors can be complex with multiple carriageways, cycle paths, and footways. It can be confusing to judge overall demand if the cyclists are split across multiple overlapping routes. The simplified network attempts to address this problem by combining parallel routes into a single line. However, this consolidation is intricate and may lead to a loss of detail. For a comprehensive analysis, it's advisable to consider both the simplified and the full route networks in tandem when evaluating cycling demand. This dual approach helps balance the big-picture overview with the nuanced details of specific routes.
 
 ![Simplified Network](/images/simplified.png)
+
+<!-- /#simplified_rnet -->
 
 #### Popup
 
@@ -238,6 +258,8 @@ Clicking on any segment within the route network on the map will display a pop-u
 ![Popup](/images/rnet_popup.png)
 
 The popup provides a summary table for all the information available about the route network. The table displays the number of cyclists for each scenarioâ€”such as baseline, Go Dutch, and e-bikesâ€”and distinguishes between the Fast/Direct and Quiet/Indirect network types. Below the table, the average gradient of the road and its cycle friendliness score are shown, which assesses the suitability of the road for cycling. Additionally, there's an option to directly access the Google Street View of the road, if available, for a more grounded perspective.
+
+<!-- #filters -->
 
 ### Route Network Filters
 
@@ -256,6 +278,10 @@ Set the maximum and minimum gradient of roads that are visible. Gradient measure
 #### Cycle friendliness
 
 Set the maximum and minimum quietness of roads that are visible. Quietness measures how cycle friendly the existing road is, from hostile (least friendly) to quiet (most friendly).
+
+<!-- /#filters -->
+
+<!-- #data_zones -->
 
 ### Data Zones
 
@@ -287,6 +313,8 @@ By default, the data zones are shown as a [dasymetric map](https://en.wikipedia.
 ![Dasymetric maps](/images/dasymetric.png)
 
 Dasymetric map (left) and choropleth map (right) for the Index of Multiple Deprivation in Edinburgh.
+
+<!-- /#data_zones -->
 
 #### Data Zone popup
 
