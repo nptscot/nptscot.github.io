@@ -1,12 +1,17 @@
 
 // Handler for help buttons which have a data-help attribute indicating there is a manual section
-document.querySelectorAll ('.helpbutton').forEach (function (button) {
-  if (button.dataset.help) {   // E.g. data-help="scenario" refers to the scenario section
-    button.addEventListener ('click', function () {
-      show_help (button.dataset.help);
-    });
-  }
-});
+handleHelpButtons ();
+
+function handleHelpButtons ()
+{
+  document.querySelectorAll ('.helpbutton').forEach (function (button) {
+    if (button.dataset.help) {   // E.g. data-help="scenario" refers to the scenario section
+      button.addEventListener ('click', function () {
+        show_help (button.dataset.help);
+      });
+    }
+  });
+}
 
 
 // Function to handle (?) tooltips, loading extracts from the manual
