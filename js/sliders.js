@@ -72,7 +72,7 @@ function sliderAttributes (sliderId)
     // Add density
     sliderAttributes.density = parseInt (datalistElement.dataset.density);
     
-    // Add format labels
+    // Add format labels, if any
     const labels = {};
     sliderOptions.forEach ((option, index) => {
         if (option.dataset.hasOwnProperty ('label')) {
