@@ -53,12 +53,3 @@ function accordion () {
     });
   });
 }
-
-
-// Basemap control
-function showbasemapcontrol(){
-    var box = document.getElementById('basemapcontrol');
-    box.style.display = (box.style.display == 'none' ? 'block' : 'none');
-}
-
-

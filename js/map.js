@@ -63,7 +63,10 @@ function createMap ()
       div.className = 'maplibregl-ctrl maplibregl-ctrl-group';
       div.innerHTML = '<button aria-label="Change basemap"><img src="/images/basemap.svg" title="Change basemap" /></button>';
       div.addEventListener('contextmenu', (e) => e.preventDefault());
-      div.addEventListener('click', () => showbasemapcontrol());
+      div.addEventListener('click', function () {
+        var box = document.getElementById('basemapcontrol');
+        box.style.display = (box.style.display == 'none' ? 'block' : 'none');
+      });
       return div;
     }
   }
