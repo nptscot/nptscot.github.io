@@ -14,7 +14,7 @@ const sliderAttributes = {
 // Function to determine the slider attributes based on a datalist accompanying the slider element
 function calculateSliderAttributes (sliderId)
 {
-    // Start an object to hold range, min, max, density
+    // Start an object to hold range, min, max, density, format
     const sliderAttributes = {};
     
     // Identify the datalist
@@ -48,7 +48,24 @@ function calculateSliderAttributes (sliderId)
     sliderAttributes.max = parseInt (sliderOptions[sliderOptions.length - 1].value);
     
     // Add density
-    sliderAttributes.density = datalistElement.dataset.density;
+    sliderAttributes.density = parseInt (datalistElement.dataset.density);
+    
+    // Add format labels
+    const labels = {};
+    sliderOptions.forEach ((option, index) => {
+        if (option.dataset.hasOwnProperty ('label')) {
+            labels[option.value] = option.dataset.label;
+        }
+    });
+    if (Object.keys (labels).length) {
+        sliderAttributes.format = {
+            to: function (value) {
+                return labels[value];
+            }
+        };
+    } else {
+        sliderAttributes.format = null;
+    }
     
     // Return the result
     //console.log ('Slider values for id ' + sliderId + ':', sliderAttributes);
@@ -65,7 +82,8 @@ noUiSlider.create(sliders.cycle, {
     range: sliderAttributes.cycle.range,
     pips: {
         mode: 'range',
-        density: sliderAttributes.cycle.density
+        density: sliderAttributes.cycle.density,
+        format: sliderAttributes.cycle.format
     }
 });
 
@@ -76,7 +94,8 @@ noUiSlider.create(sliders.gradient, {
     range: sliderAttributes.gradient.range,
     pips: {
         mode: 'range',
-        density: sliderAttributes.gradient.density
+        density: sliderAttributes.gradient.density,
+        format: sliderAttributes.gradient.format
     }
 });
 
@@ -88,22 +107,10 @@ noUiSlider.create(sliders.quietness, {
     pips: {
         mode: 'range',
         density: sliderAttributes.quietness.density,
-        format: {to: updatePips}
+        format: sliderAttributes.quietness.format
     }
 });
 
-function updatePips( value, type ){
-
-    switch(value)   {
-      case 0:
-        var res = "Hostile"
-        break;
-      case 100:
-        var res = "Quiet"
-        break;
-    }
-    return res;
-}
 
 // Define handlers to proxy the result to hidden input fields, with value "<numStart>-<numFinish>"
 Object.entries(sliders).forEach (([key, slider]) => {
