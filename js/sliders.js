@@ -1,14 +1,34 @@
-const sliders = {
-    cycle:     document.getElementById('slider-cycle'),
-    gradient:  document.getElementById('slider-gradient'),
-    quietness: document.getElementById('slider-quietness')
-};
 
-const sliderAttributes = {
-    cycle: calculateSliderAttributes ('slider-cycle'),
-    gradient: calculateSliderAttributes ('slider-gradient'),
-    quietness: calculateSliderAttributes ('slider-quietness'),
-};
+
+// Create the sliders
+sliders = ['cycle', 'gradient', 'quietness'];
+sliders.forEach (slider => {
+    
+    // Locate the div element to be overwritten
+    const sliderId = 'slider-' + slider
+    const div = document.getElementById(sliderId);
+    
+    // Calculate the attributes based on an associated <datalist>
+    const attributes = calculateSliderAttributes (sliderId)
+    
+    // Create the slider
+    noUiSlider.create(div, {
+        start: [attributes.min, attributes.max],
+        connect: true,
+        range: attributes.range,
+        pips: {
+            mode: 'range',
+            density: attributes.density,
+            format: attributes.format
+        }
+    });
+    
+    // Define handler to proxy the result to hidden input fields, with value "<numStart>-<numFinish>"
+    div.noUiSlider.on ('update', function() {
+        document.getElementById('rnet_slider-' + slider).value = Number(div.noUiSlider.get()[0]) + '-' + Number(div.noUiSlider.get()[1]);
+        document.getElementById('rnet_slider-' + slider).dispatchEvent(new Event('change'));
+    });
+});
 
 
 // Function to determine the slider attributes based on a datalist accompanying the slider element
@@ -71,52 +91,4 @@ function calculateSliderAttributes (sliderId)
     //console.log ('Slider values for id ' + sliderId + ':', sliderAttributes);
     return sliderAttributes;
 }
-
-
-
-
-// Define sliders
-noUiSlider.create(sliders.cycle, {
-    start: [sliderAttributes.cycle.min, sliderAttributes.cycle.max],
-    connect: true,
-    range: sliderAttributes.cycle.range,
-    pips: {
-        mode: 'range',
-        density: sliderAttributes.cycle.density,
-        format: sliderAttributes.cycle.format
-    }
-});
-
-noUiSlider.create(sliders.gradient, {
-    start: [sliderAttributes.gradient.min, sliderAttributes.gradient.max],
-    step: 2,
-    connect: true,
-    range: sliderAttributes.gradient.range,
-    pips: {
-        mode: 'range',
-        density: sliderAttributes.gradient.density,
-        format: sliderAttributes.gradient.format
-    }
-});
-
-noUiSlider.create(sliders.quietness, {
-    // #!# Top of range label could be changed to 100 (35 was previously considered), as is currently only implicit
-    start: [sliderAttributes.quietness.min, sliderAttributes.quietness.max],
-    connect: true,
-    range: sliderAttributes.quietness.range,
-    pips: {
-        mode: 'range',
-        density: sliderAttributes.quietness.density,
-        format: sliderAttributes.quietness.format
-    }
-});
-
-
-// Define handlers to proxy the result to hidden input fields, with value "<numStart>-<numFinish>"
-Object.entries(sliders).forEach (([key, slider]) => {
-    slider.noUiSlider.on ('update', function() {
-        document.getElementById('rnet_slider-' + key).value = Number(slider.noUiSlider.get()[0]) + '-' + Number(slider.noUiSlider.get()[1]);
-        document.getElementById('rnet_slider-' + key).dispatchEvent(new Event('change'));
-    });
-});
 
