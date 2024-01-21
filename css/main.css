@@ -183,6 +183,7 @@ a.smaller {
   background-color: transparent;
   border: none;
   font-size: 20px;
+  cursor: pointer;
 }
 .showrightbox {
   top: 60px;
@@ -191,6 +192,9 @@ a.smaller {
   z-index: 2;
   width: 30px;
   height: 25px;
+}
+.showrightbox .float_button {
+  cursor: pointer;
 }
 
 .float_button{
