@@ -1,10 +1,10 @@
 // Setup map
 
 
-// Antialias Check
-function switch_antialias(){
-  location.reload()
-};
+// Antialias reload
+document.getElementById ('antialiascheckbox').addEventListener ('click', function () {
+  location.reload();
+});
 
 // Function to get the currently-checked basemap style
 function getBasemapStyle ()
