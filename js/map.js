@@ -8,20 +8,18 @@ function switch_antialias(){
 var antialias = document.getElementById('antialiascheckbox').checked;
 console.log('Antialias is ' + antialias);
 
-// Check Basemap Choice
-function displayRadioValue(ele) {
-  for(i = 0; i < ele.length; i++) {
-      if(ele[i].checked){
-        return ele[i].value;
-      }
-  }
+// Function to get the currently-checked basemap style
+function getBasemapStyle ()
+{
+  return document.querySelector('#basemapform input:checked').value;
 }
+
 
 
 // Main map setup
 var map = new maplibregl.Map({
   container: 'map',
-  style: 'tiles/style_' + displayRadioValue(document.getElementById("basemapform")) + '.json',
+  style: 'tiles/style_' + getBasemapStyle () + '.json',
   center: [-3.1382,55.9533],
   zoom: 8,
   maxZoom: 19,

@@ -469,7 +469,7 @@ const definitions = {
 
 function switch_style(){
   
-  var styleName = displayRadioValue(document.getElementById("basemapform"));
+  var styleName = getBasemapStyle ();
   var styleCurrent = map.getStyle().name;
   if(styleCurrent != styleName){
     console.log("Restyling from " + styleCurrent +" to "+ styleName);
@@ -804,7 +804,7 @@ function switch_data_zones() {
       'dark_nobuild': '#000000',
       // No buildings on raster
     };
-    var styleName = displayRadioValue(document.getElementById("basemapform"));
+    var styleName = getBasemapStyle ();
     if (styleExtrusionColours.hasOwnProperty (styleName)) {
       var fillExtrusionColor = styleExtrusionColours[styleName];
       var style_paint_dy = {'paint' : { 'fill-extrusion-color': fillExtrusionColor, ...style_ex_dy}};
