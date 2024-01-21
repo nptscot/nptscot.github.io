@@ -14,7 +14,7 @@ const sliderAttributes = {
 // Function to determine the slider attributes based on a datalist accompanying the slider element
 function calculateSliderAttributes (sliderId)
 {
-    // Start an object to hold range, min, max
+    // Start an object to hold range, min, max, density
     const sliderAttributes = {};
     
     // Identify the datalist
@@ -47,6 +47,9 @@ function calculateSliderAttributes (sliderId)
     sliderAttributes.min = parseInt (sliderOptions[0].value);
     sliderAttributes.max = parseInt (sliderOptions[sliderOptions.length - 1].value);
     
+    // Add density
+    sliderAttributes.density = datalistElement.dataset.density;
+    
     // Return the result
     //console.log ('Slider values for id ' + sliderId + ':', sliderAttributes);
     return sliderAttributes;
@@ -62,7 +65,7 @@ noUiSlider.create(sliders.cycle, {
     range: sliderAttributes.cycle.range,
     pips: {
         mode: 'range',
-        density: 3
+        density: sliderAttributes.cycle.density
     }
 });
 
@@ -73,7 +76,7 @@ noUiSlider.create(sliders.gradient, {
     range: sliderAttributes.gradient.range,
     pips: {
         mode: 'range',
-        density: 10
+        density: sliderAttributes.gradient.density
     }
 });
 
@@ -84,7 +87,7 @@ noUiSlider.create(sliders.quietness, {
     range: sliderAttributes.quietness.range,
     pips: {
         mode: 'range',
-        density: 10,
+        density: sliderAttributes.quietness.density,
         format: {to: updatePips}
     }
 });
