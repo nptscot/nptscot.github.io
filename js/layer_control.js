@@ -446,11 +446,6 @@ function switch_rnet() {
     var sliderFlow_min = Number(sliderFlow[0]);
     var sliderFlow_max = Number(sliderFlow[1]);
     
-    // Treat gradient of 10 as actually >10
-    if (sliderGradient_max == 10){
-      sliderGradient_max = 35;
-    }
-    
     // Determine the layer width field
     var layerPurpose = document.getElementById("rnet_purpose_input").value;
     var layerScenario = document.getElementById("rnet_scenario_input").value;
