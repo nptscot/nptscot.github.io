@@ -211,16 +211,39 @@
   
   <p>Number of cyclists</p>
   <div id="slider-cycle" class="slider-styled"></div>
+  <datalist id="slider-cycle-values">
+    <option value="1"     data-position="min"></option><!-- #!# Should there be a zero value possibility? -->
+    <option value="10"    data-position="12.5%"></option>
+    <option value="50"    data-position="25%"></option>
+    <option value="100"   data-position="37.5%"></option>
+    <option value="250"   data-position="50%"></option>
+    <option value="500"   data-position="65%"></option>
+    <option value="1000"  data-position="80%" data-increments="1000"></option>
+    <option value="20000" data-position="max"></option><!-- TODO: Check max value -->
+  </datalist>
   <input type="hidden" id="rnet_slider-cycle" class="updatelayer" />
   <p>&nbsp</p>
   
   <p>Gradient (%)</p>
   <div id="slider-gradient" class="slider-styled"></div>
+  <datalist id="slider-gradient-values">
+    <option value="0"  data-position="min" data-increments="1"></option>
+    <option value="1"  data-position="10%" data-increments="1"></option>
+    <option value="3"  data-position="30%" data-increments="1"></option>
+    <option value="5"  data-position="50%" data-increments="1"></option>
+    <option value="7"  data-position="70%" data-increments="1"></option>
+    <option value="9"  data-position="90%" data-increments="1"></option>
+    <option value="10" data-position="max"></option>
+  </datalist>
   <input type="hidden" id="rnet_slider-gradient" class="updatelayer" />
   <p>&nbsp</p>
   
   <p>Cycle friendliness (%)</p>
   <div id="slider-quietness" class="slider-styled"></div>
+  <datalist id="slider-quietness-values">
+    <option value="0"   data-position="min" data-increments="10"></option>
+    <option value="100" data-position="max"></option>
+  </datalist>
   <input type="hidden" id="rnet_slider-quietness" class="updatelayer" />
   <p>&nbsp</p>
   

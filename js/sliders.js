@@ -4,20 +4,62 @@ const sliders = {
     quietness: document.getElementById('slider-quietness')
 };
 
-//Define sliders
+const sliderAttributes = {
+    cycle: calculateSliderAttributes ('slider-cycle'),
+    gradient: calculateSliderAttributes ('slider-gradient'),
+    quietness: calculateSliderAttributes ('slider-quietness'),
+};
+
+
+// Function to determine the slider attributes based on a datalist accompanying the slider element
+function calculateSliderAttributes (sliderId)
+{
+    // Start an object to hold range, min, max
+    const sliderAttributes = {};
+    
+    // Identify the datalist
+    const datalistElement = document.getElementById (sliderId + '-values');
+    if (!datalistElement) {
+        console.log ('ERROR in HTML: No <datalist> defined for slider ' + sliderId);
+        return {};
+    }
+    
+    // Loop through each datalist value, e.g. slider-cycle should be accompanied by <datalist id="slider-cycle-values">
+    sliderAttributes.range = {};
+    let increments;
+    const sliderOptions = Array.from (datalistElement.options);
+    sliderOptions.forEach ((option, index) => {
+        
+        // Determine the increment to the next; last item has no increment; use defined or calculated for others
+        if (index == (sliderOptions.length - 1)) {  // Last
+            increments = null;
+        } else if (option.dataset.hasOwnProperty ('increments')) {  // Increments defined
+            increments = parseInt (option.dataset.increments);
+        } else {    // Increments is difference from current to next, e.g. 1 then 10 => 9
+            increments = parseInt (sliderOptions[index + 1].value - option.value);
+        }
+        
+        // Register result, e.g. {"12.5%": [1, 9], ...}
+        sliderAttributes.range[option.dataset.position] = [parseInt (option.value), increments];    // E.g. [1, 9]
+    });
+    
+    // Add min/max
+    sliderAttributes.min = parseInt (sliderOptions[0].value);
+    sliderAttributes.max = parseInt (sliderOptions[sliderOptions.length - 1].value);
+    
+    // Return the result
+    //console.log ('Slider values for id ' + sliderId + ':', sliderAttributes);
+    return sliderAttributes;
+}
+
+
+
+
+// Define sliders
 noUiSlider.create(sliders.cycle, {
-    start: [0, 20000],
+    start: [sliderAttributes.cycle.min, sliderAttributes.cycle.max],
     connect: true,
-    range: {
-        'min': [1, 9],
-        '12.5%': [10, 40],
-        '25%': [50, 50],
-        '37.5%': [100, 150],
-        '50%': [250, 250],
-        '65%': [500, 500],
-        '80%': [1000, 1000],
-        'max': [20000] // TODO: Check Max Value
-    },
+    range: sliderAttributes.cycle.range,
     pips: {
         mode: 'range',
         density: 3
@@ -25,19 +67,10 @@ noUiSlider.create(sliders.cycle, {
 });
 
 noUiSlider.create(sliders.gradient, {
-    // #!# Top of range label could be changed to 100 (35 was previously considered), as is currently only implicit
-    start: [0, 10],
+    start: [sliderAttributes.gradient.min, sliderAttributes.gradient.max],
     step: 2,
     connect: true,
-    range: {
-        'min': [0, 1],
-        '10%': [1, 1],
-        '30%': [3, 1],
-        '50%': [5, 1],
-        '70%': [7, 1],
-        '90%': [9, 1],
-        'max': [10]
-    },
+    range: sliderAttributes.gradient.range,
     pips: {
         mode: 'range',
         density: 10
@@ -45,13 +78,10 @@ noUiSlider.create(sliders.gradient, {
 });
 
 noUiSlider.create(sliders.quietness, {
-    start: [0, 100],
-    step: 10,
+    // #!# Top of range label could be changed to 100 (35 was previously considered), as is currently only implicit
+    start: [sliderAttributes.quietness.min, sliderAttributes.quietness.max],
     connect: true,
-    range: {
-        'min': 0,
-        'max': 100
-    },
+    range: sliderAttributes.quietness.range,
     pips: {
         mode: 'range',
         density: 10,
