@@ -82,7 +82,7 @@ function sliderAttributes (sliderId)
     if (Object.keys (labels).length) {
         sliderAttributes.format = {
             to: function (value) {
-                return labels[value];
+                return (labels.hasOwnProperty (value) ? labels[value] : value);
             }
         };
     } else {
