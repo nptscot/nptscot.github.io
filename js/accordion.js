@@ -56,13 +56,3 @@ function showbasemapcontrol(){
 }
 
 
-// Main menu responsive display
-document.getElementById ('expandtopnav').addEventListener ('click', function (e) {
-  var x = document.getElementById('myTopnav');
-  if (x.className == 'topnav') {
-    x.classList.add ('responsive');
-  } else {
-    x.classList.remove ('responsive');
-  }
-  e.preventDefault ();
-});
