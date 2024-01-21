@@ -20,15 +20,15 @@ function displayRadioValue(ele) {
 
 // Main map setup
 var map = new maplibregl.Map({
-container: 'map',
-style: 'tiles/style_' + displayRadioValue(document.getElementById("basemapform")) + '.json',
-center: [-3.1382,55.9533],
-zoom: 8,
-maxZoom: 19,
-minZoom: 6,
-maxPitch: 85,
-hash: true,
-antialias: antialias
+  container: 'map',
+  style: 'tiles/style_' + displayRadioValue(document.getElementById("basemapform")) + '.json',
+  center: [-3.1382,55.9533],
+  zoom: 8,
+  maxZoom: 19,
+  minZoom: 6,
+  maxPitch: 85,
+  hash: true,
+  antialias: antialias
 });
 
 // Setup other part of the website
@@ -59,18 +59,13 @@ var geocoder_api = {
   forwardGeocode: async (config) => {
     const features = [];
     try {
-      let request =
-        'https://nominatim.openstreetmap.org/search?q=' +
-        config.query +
-        '&format=geojson&polygon_geojson=1&addressdetails=1&countrycodes=gb';
+      let request = 'https://nominatim.openstreetmap.org/search?q=' + config.query + '&format=geojson&polygon_geojson=1&addressdetails=1&countrycodes=gb';
       const response = await fetch(request);
       const geojson = await response.json();
       for (let feature of geojson.features) {
         let center = [
-          feature.bbox[0] +
-          (feature.bbox[2] - feature.bbox[0]) / 2,
-          feature.bbox[1] +
-          (feature.bbox[3] - feature.bbox[1]) / 2
+          feature.bbox[0] + (feature.bbox[2] - feature.bbox[0]) / 2,
+          feature.bbox[1] + (feature.bbox[3] - feature.bbox[1]) / 2
         ];
         let point = {
           type: 'Feature',
@@ -111,13 +106,15 @@ map.addControl(
 map.addControl(new maplibregl.NavigationControl(), 'top-left');
 
 map.addControl(
-new maplibregl.TerrainControl({source: 'terrainSource',exaggeration: 1.25})
-,'top-left');
+new maplibregl.TerrainControl({
+  source: 'terrainSource',
+  exaggeration: 1.25
+}), 'top-left');
 
 map.addControl(new maplibregl.GeolocateControl({
-positionOptions: {enableHighAccuracy: true},
-trackUserLocation: true})
-,'top-left');
+  positionOptions: {enableHighAccuracy: true},
+  trackUserLocation: true
+}), 'top-left');
 
 map.addControl(new maplibregl.FullscreenControl(), 'top-left');
 
@@ -129,7 +126,7 @@ map.addControl(new maplibregl.AttributionControl({
 map.addControl(new maplibregl.ScaleControl({
   maxWidth: 80,
   unit: 'metric'
-}),'bottom-left');
+}), 'bottom-left');
 
 addHomeButton(map);
 
