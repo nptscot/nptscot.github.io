@@ -41,8 +41,8 @@ function addHomeButton(map) {
     onAdd(map) {
       const div = document.createElement("div");
       div.className = "maplibregl-ctrl maplibregl-ctrl-group";
-      div.innerHTML = `<button aria-label="Change Basemap">
-        <svg focusable="false" viewBox="0 0 55 55" aria-hidden="true" style="font-size: 10px;"><title>Change basemap</title><path d="M45.297,21.946l9.656-5.517L27.477,0.825L0,16.429l9.656,5.517L0,27.429l9.656,5.517L0,38.429l27.477,15.698l27.476-15.698 l-9.656-5.483l9.656-5.517L45.297,21.946z M27.477,3.125l23.435,13.309l-23.435,13.39L4.041,16.434L27.477,3.125z M11.675,23.099 l15.802,9.028l15.802-9.028l7.633,4.335l-23.435,13.39L4.041,27.434L11.675,23.099z M50.912,38.434l-23.435,13.39L4.041,38.434 l7.634-4.335l15.802,9.028l15.802-9.028L50.912,38.434z"></path></svg>
+      div.innerHTML = `<button aria-label="Change basemap">
+        <img src="/images/basemap.svg" title="Change basemap" />
         </button>`;
       div.addEventListener("contextmenu", (e) => e.preventDefault());
       div.addEventListener("click", () => showbasemapcontrol());
