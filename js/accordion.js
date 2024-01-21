@@ -19,11 +19,24 @@ function accordion () {
 
 
 // Show the layer controls box, and open up the route network part of this
-showrighbox(true);
+showlayercontrols(true);
 document.getElementById('rnet_accordion').click();
 
+
+// Show layer control box when button clicked on
+document.querySelector ('#showrightbox button').addEventListener ('click', function () {
+  showlayercontrols (true);
+});
+
+// Close layer control box when X clicked on
+document.querySelector ('#rightbox button.close-button').addEventListener ('click', function () {
+  showlayercontrols (false);
+});
+
+
+
 /* Show and hide UI */
-function showrighbox(show){
+function showlayercontrols(show){
     
   // Toggle box
   var box = document.getElementById('rightbox');

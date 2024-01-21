@@ -176,6 +176,14 @@ a.smaller {
   width: 289px;
   overflow:auto;
 }
+.rightbox button.close-button {
+  float: right;
+  height: 34px;
+  width: 34px;
+  background-color: transparent;
+  border: none;
+  font-size: 20px;
+}
 .showrightbox {
   top: 60px;
   position: absolute;
