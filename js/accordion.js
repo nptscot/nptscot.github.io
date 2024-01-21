@@ -18,6 +18,10 @@ function accordion () {
 }
 
 
+// Show the layer controls box, and open up the route network part of this
+showrighbox(true);
+document.getElementById('rnet_accordion').click();
+
 /* Show and hide UI */
 function showrighbox(show){
     

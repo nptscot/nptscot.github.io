@@ -1,10 +1,7 @@
-// Setup map
+// Setup map, and obtain the handle
+map = createMap ();
 
 
-// Antialias reload
-document.getElementById ('antialiascheckbox').addEventListener ('click', function () {
-  location.reload();
-});
 
 // Function to get the currently-checked basemap style
 function getBasemapStyle ()
@@ -12,79 +9,87 @@ function getBasemapStyle ()
   return document.querySelector('#basemapform input:checked').value;
 }
 
-// Setup other part of the website
-showrighbox(true); // Show the accordion hide the button 
-document.getElementById("rnet_accordion").click();
 
+// Function to set up the map UI and controls
+function createMap ()
+{
+  // Main map setup
+  var map = new maplibregl.Map({
+    container: 'map',
+    style: 'tiles/style_' + getBasemapStyle () + '.json',
+    center: [-3.1382,55.9533],
+    zoom: 8,
+    maxZoom: 19,
+    minZoom: 6,
+    maxPitch: 85,
+    hash: true,
+    antialias: document.getElementById('antialiascheckbox').checked
+  });
 
+  // pmtiles
+  let protocol = new pmtiles.Protocol();
+  maplibregl.addProtocol('pmtiles', protocol.tile);
 
-// Main map setup
-var map = new maplibregl.Map({
-  container: 'map',
-  style: 'tiles/style_' + getBasemapStyle () + '.json',
-  center: [-3.1382,55.9533],
-  zoom: 8,
-  maxZoom: 19,
-  minZoom: 6,
-  maxPitch: 85,
-  hash: true,
-  antialias: document.getElementById('antialiascheckbox').checked
-});
+  // Add geocoder control; see: https://github.com/maplibre/maplibre-gl-geocoder
+  map.addControl(new MaplibreGeocoder(
+    geocoderApi(), {
+      maplibregl: maplibregl,
+      collapsed: true
+    }
+  ), 'top-left');
 
-// pmtiles
-let protocol = new pmtiles.Protocol();
-maplibregl.addProtocol('pmtiles', protocol.tile);
+  // Add +/- buttons
+  map.addControl(new maplibregl.NavigationControl(), 'top-left');
 
-// Add geocoder control; see: https://github.com/maplibre/maplibre-gl-geocoder
-map.addControl(new MaplibreGeocoder(
-  geocoderApi(), {
-    maplibregl: maplibregl,
-    collapsed: true
+  // Add terrain control
+  map.addControl(new maplibregl.TerrainControl({
+    source: 'terrainSource',
+    exaggeration: 1.25
+  }), 'top-left');
+
+  // Add geolocation control
+  map.addControl(new maplibregl.GeolocateControl({
+    positionOptions: {enableHighAccuracy: true},
+    trackUserLocation: true
+  }), 'top-left');
+
+  // Add full-screen control
+  map.addControl(new maplibregl.FullscreenControl(), 'top-left');
+
+  // Add basemap change control
+  class BasemapButton {
+    onAdd(map) {
+      const div = document.createElement('div');
+      div.className = 'maplibregl-ctrl maplibregl-ctrl-group';
+      div.innerHTML = '<button aria-label="Change basemap"><img src="/images/basemap.svg" title="Change basemap" /></button>';
+      div.addEventListener('contextmenu', (e) => e.preventDefault());
+      div.addEventListener('click', () => showbasemapcontrol());
+      return div;
+    }
   }
-), 'top-left');
+  map.addControl(new BasemapButton(), 'top-left');
 
-// Add +/- buttons
-map.addControl(new maplibregl.NavigationControl(), 'top-left');
+  // Add scale
+  map.addControl(new maplibregl.ScaleControl({
+    maxWidth: 80,
+    unit: 'metric'
+  }), 'bottom-left');
 
-// Add terrain control
-map.addControl(new maplibregl.TerrainControl({
-  source: 'terrainSource',
-  exaggeration: 1.25
-}), 'top-left');
+  // Add attribution
+  map.addControl(new maplibregl.AttributionControl({
+    compact: true,
+    customAttribution: 'Contains OS data © Crown copyright 2021, Satelite map © ESRI 2023, © OpenStreetMap contributors'
+  }), 'bottom-right');
 
-// Add geolocation control
-map.addControl(new maplibregl.GeolocateControl({
-  positionOptions: {enableHighAccuracy: true},
-  trackUserLocation: true
-}), 'top-left');
-
-// Add full-screen control
-map.addControl(new maplibregl.FullscreenControl(), 'top-left');
-
-// Add basemap change control
-class BasemapButton {
-  onAdd(map) {
-    const div = document.createElement('div');
-    div.className = 'maplibregl-ctrl maplibregl-ctrl-group';
-    div.innerHTML = '<button aria-label="Change basemap"><img src="/images/basemap.svg" title="Change basemap" /></button>';
-    div.addEventListener('contextmenu', (e) => e.preventDefault());
-    div.addEventListener('click', () => showbasemapcontrol());
-    return div;
-  }
+  // Antialias reload
+  document.getElementById ('antialiascheckbox').addEventListener ('click', function () {
+    location.reload();
+  });
+  
+  // Return the map
+  return map;
 }
-map.addControl(new BasemapButton(), 'top-left');
 
-// Add scale
-map.addControl(new maplibregl.ScaleControl({
-  maxWidth: 80,
-  unit: 'metric'
-}), 'bottom-left');
-
-// Add attribution
-map.addControl(new maplibregl.AttributionControl({
-  compact: true,
-  customAttribution: 'Contains OS data © Crown copyright 2021, Satelite map © ESRI 2023, © OpenStreetMap contributors'
-}), 'bottom-right');
 
 
 // Geocoding API implementation
