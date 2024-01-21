@@ -1,30 +1,36 @@
 
+createSliders ();
 
-// Create the sliders
-const divs = document.querySelectorAll ('div.slider-styled').forEach (div => {
-    
-    // Calculate the attributes based on an associated <datalist>
-    const attributes = sliderAttributes (div.id);
-    
-    // Create the slider
-    noUiSlider.create (div, {
-        start: [attributes.min, attributes.max],
-        connect: true,
-        range: attributes.range,
-        pips: {
-            mode: 'range',
-            density: attributes.density,
-            format: attributes.format
-        }
+
+// Function to create the sliders
+function createSliders ()
+{
+    // Find each div to be converted to a slider
+    const divs = document.querySelectorAll ('div.slider-styled').forEach (div => {
+        
+        // Calculate the attributes based on an associated <datalist>
+        const attributes = sliderAttributes (div.id);
+        
+        // Create the slider
+        noUiSlider.create (div, {
+            start: [attributes.min, attributes.max],
+            connect: true,
+            range: attributes.range,
+            pips: {
+                mode: 'range',
+                density: attributes.density,
+                format: attributes.format
+            }
+        });
+        
+        // Define handler to proxy the result to hidden input fields, with value "<numStart>-<numFinish>"
+        const slider = div.id.replace ('slider-', '');
+        div.noUiSlider.on ('update', function() {
+            document.getElementById('rnet_slider-' + slider).value = Number(div.noUiSlider.get()[0]) + '-' + Number(div.noUiSlider.get()[1]);
+            document.getElementById('rnet_slider-' + slider).dispatchEvent(new Event('change'));
+        });
     });
-    
-    // Define handler to proxy the result to hidden input fields, with value "<numStart>-<numFinish>"
-    const slider = div.id.replace ('slider-', '');
-    div.noUiSlider.on ('update', function() {
-        document.getElementById('rnet_slider-' + slider).value = Number(div.noUiSlider.get()[0]) + '-' + Number(div.noUiSlider.get()[1]);
-        document.getElementById('rnet_slider-' + slider).dispatchEvent(new Event('change'));
-    });
-});
+}
 
 
 // Function to determine the slider attributes based on a datalist accompanying the slider element
