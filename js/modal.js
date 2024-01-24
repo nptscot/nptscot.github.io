@@ -29,6 +29,7 @@ const newModal = function (modalId)
   
   // Show
   const show = function () {
+    document.getElementById('overlay').style.display = 'block';
     modal.style.display = 'block';
   };
   

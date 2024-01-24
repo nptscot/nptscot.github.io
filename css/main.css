@@ -176,6 +176,15 @@ a.smaller {
   width: 289px;
   overflow:auto;
 }
+.rightbox button.close-button {
+  float: right;
+  height: 34px;
+  width: 34px;
+  background-color: transparent;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
 .showrightbox {
   top: 60px;
   position: absolute;
@@ -183,6 +192,9 @@ a.smaller {
   z-index: 2;
   width: 30px;
   height: 25px;
+}
+.showrightbox .float_button {
+  cursor: pointer;
 }
 
 .float_button{
@@ -262,7 +274,7 @@ p.welcome-end {
     font-weight: normal;
 }
 
-.help {
+#help_modal {
   position: absolute;
   display: none;
   top: 50px;
@@ -283,18 +295,6 @@ p.help-end {
     font-weight: normal;
 }
 
-.closehelp {
-  color: black;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-}
-.closehelp:hover,
-.closehelp:focus {
-  color: #000;
-  text-decoration: none;
-  cursor: pointer;
-}
 
 #overlay {
   position: fixed; 
@@ -346,6 +346,7 @@ p.help-end {
 }
 
 .helpbutton {
+  cursor: pointer;
   background: transparent;
   border: none !important;
   min-width: 15px;
@@ -562,5 +563,3 @@ input:checked + .slider:before {
   height: 35px;
   width: 35px;
 }
-
-#helpcontent img {max-width: 100%;}

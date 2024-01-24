@@ -39,6 +39,11 @@
   clear: both;
 }
 
+/* Prevent images from overflowing the box size */
+.modal img {
+  max-width: 100%;
+}
+
 /* The Close Button */
 .modal-close {
   color: white;
@@ -53,7 +58,7 @@
   cursor: pointer;
 }
 
-#welcome .modal-close {
+#welcome .modal-close, #help_modal .modal-close {
   color: black;
 }
 

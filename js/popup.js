@@ -42,6 +42,7 @@ coordinates.lat + ',' + coordinates.lng +
 
 '<button class="accordion" id="popupaccordion" onclick="popupAccordion();">All Network Details</button>' +
 '<div class="panel" id ="popuppanel">' +
+
 '<h4>Fast/Direct network</h4>' +
 '<table><tr><th></th><th>Baseline</th><th>Go Dutch</th><th>Ebikes</th></tr>' +
 '<tr><th>All</th><th>' + prop.all_fastest_bicycle + '</th><th>' + prop.all_fastest_bicycle_go_dutch + '</th><th>' + prop.all_fastest_bicycle_ebike + '</th></tr>' + 
@@ -52,7 +53,6 @@ coordinates.lat + ',' + coordinates.lng +
 '</table>' +
 
 '<h4>Quiet/Indirect network</h4>' + 
-
 '<table><tr><th></th><th>Baseline</th><th>Go Dutch</th><th>Ebikes</th></tr>' +
 '<tr><th>All</th><th>' + prop.all_quietest_bicycle + '</th><th>' + prop.all_quietest_bicycle_go_dutch + '</th><th>' + prop.all_quietest_bicycle_ebike + '</th></tr>' + 
 '<tr><th>Commute</th><th>' + prop.commute_quietest_bicycle + '</th><th>' + prop.commute_quietest_bicycle_go_dutch + '</th><th>' + prop.commute_quietest_bicycle_ebike + '</th></tr>' +
@@ -60,9 +60,6 @@ coordinates.lat + ',' + coordinates.lng +
 '<tr><th>Secondary</th><th>' + prop.secondary_quietest_bicycle + '</th><th>' + prop.secondary_quietest_bicycle_go_dutch + '</th><th>' + prop.secondary_quietest_bicycle_ebike + '</th></tr>' +
 '<tr><th>Utility</th><th>' + prop.utility_quietest_bicycle + '</th><th>' + prop.utility_quietest_bicycle_go_dutch + '</th><th>' + prop.utility_quietest_bicycle_ebike + '</th></tr>' +
 '</table>' +
-  
-  
-  
   
 '</div>'
 

@@ -1,52 +1,55 @@
-var acc = document.getElementsByClassName("accordion");
-var i;
-
-for (i = 0; i < acc.length; i++) {
-    acc[i].addEventListener("click", function() {
-        /* Toggle between adding and removing the "active" class,
-        to highlight the button that controls the panel */
-        this.classList.toggle("active");
-
-        /* Toggle between hiding and showing the active panel */
-        var panel = this.nextElementSibling;
-        if (panel.style.display === "block") {
-            panel.style.display = "none";
-        } else {
-            panel.style.display = "block";
-        }
-    });
-}
 
 
-/* Show and hide UI */
-function showrighbox(show){
-    var box = document.getElementById("rightbox");
-    var boxbutton = document.getElementById("showrightbox");
-    if(show){
-      box.style.display = "block";
-      boxbutton.style.display = "none";
-    } else {
-      box.style.display = "none";
-      boxbutton.style.display = "block"; 
-    }
-}
+layerControlsBoxUi ();
 
-function showbasemapcontrol(show){
-    var box = document.getElementById("basemapcontrol");
+
+
+
+// Function to manage the layer controls box UI
+function layerControlsBoxUi ()
+{
+  // Enable the accordion functionality
+  accordion ();
+  
+  // Show the layer controls box, and open up the route network part of this
+  showlayercontrols(true);
+  document.getElementById('rnet_accordion').click();
+  
+  // Show layer control box when button clicked on
+  document.querySelector ('#showrightbox button').addEventListener ('click', function () {
+    showlayercontrols (true);
+  });
+  
+  // Close layer control box when X clicked on
+  document.querySelector ('#rightbox button.close-button').addEventListener ('click', function () {
+    showlayercontrols (false);
+  });
+  
+  /* Show and hide UI */
+  function showlayercontrols(show){
     
-    if(box.style.display == "none"){
-      box.style.display = "block";
-    } else {
-      box.style.display = "none";
-    }
+    // Toggle box
+    var box = document.getElementById('rightbox');
+    box.style.display = (show ? 'block' : 'none');
+    
+    var boxbutton = document.getElementById('showrightbox');
+    boxbutton.style.display = (show ? 'none' : 'block');
+  }
 }
 
 
-function expandtopnav() {
-  var x = document.getElementById("myTopnav");
-  if (x.className === "topnav") {
-    x.className += " responsive";
-  } else {
-    x.className = "topnav";
-  }
+// Function to manage an accordion
+function accordion () {
+  
+  document.querySelectorAll('.accordion').forEach (element => {
+    element.addEventListener('click', function() {
+      
+      // Toggle between adding and removing the 'active' class, to highlight the button that controls the panel
+      this.classList.toggle('active');
+      
+      // Toggle between hiding and showing the active panel
+      var panel = this.nextElementSibling;
+      panel.style.display = (panel.style.display == 'block' ? 'none' : 'block');
+    });
+  });
 }

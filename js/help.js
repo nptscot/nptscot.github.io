@@ -1,5 +1,23 @@
-function show_help(sectionId) {
-  console.log("Trigger help for sectionId: " + sectionId);
+
+// Handler for help buttons which have a data-help attribute indicating there is a manual section
+handleHelpButtons ();
+
+function handleHelpButtons ()
+{
+  document.querySelectorAll ('.helpbutton').forEach (function (button) {
+    if (button.dataset.help) {   // E.g. data-help="scenario" refers to the scenario section
+      button.addEventListener ('click', function () {
+        show_help (button.dataset.help);
+      });
+    }
+  });
+}
+
+
+// Function to handle (?) tooltips, loading extracts from the manual
+function show_help(sectionId)
+{
+  //console.log("Trigger help for sectionId: " + sectionId);
   fetch('/manual/index.md')
     .then (response => response.text ())
     .then(text => {
@@ -15,16 +33,19 @@ function show_help(sectionId) {
       // Parse to HTML
       const parser = new DOMParser();
       const otherPage = parser.parseFromString(html, 'text/html');
-      const otherDiv = otherPage.querySelector('body');
+      const contentHtml = otherPage.querySelector('body');
       //console.log(otherDiv.innerHTML);
-      if(otherDiv === null){
-        document.getElementById("helpcontent").innerHTML = `<p><b>Help Missing!</b></p>`;
-      } else {
-        document.getElementById("helpcontent").innerHTML = otherDiv.innerHTML;
+      if(!contentHtml) {
+        contentHtml = '<p><strong>Help missing!</strong></p>';
       }
+      
+      // Add the HTML
+      document.getElementById('helpcontent').innerHTML = contentHtml.innerHTML;
     });
-  toggle_overlay(true)
-  document.getElementById("help").style.display = "block";
+  
+  // Show in modal
+  const help_modal = newModal ('help_modal');
+  help_modal.show ();
 }
 
 

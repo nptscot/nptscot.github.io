@@ -51,4 +51,10 @@
   list-style: circle;
 }
 
-
+#editlink {
+  float: right;
+  margin-right: 15px;
+  padding: 5px 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
