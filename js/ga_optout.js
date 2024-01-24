@@ -17,12 +17,12 @@ function gaOptout() {
 function cookiebutton(x) {
   if(x === true){
     // Cookies approved
-    setCookie('true');
+    setCookie('NPTtrack', 'true');
   } else if (x === false){
     // Cookies rejected
     //alert("Tracking Op-Out Disabled");
     gaOptout();
-    setCookie('false');
+    setCookie('NPTtrack', 'false');
   }
   
   var cookiewarning = document.getElementById("cookiewarning");
@@ -31,15 +31,15 @@ function cookiebutton(x) {
 
 
 // Cookie managment functions
-function setCookie(cvalue) {
+function setCookie(name, value) {
   var d = new Date();
   d.setTime(d.getTime() + (1000 * 24 * 60 * 60 * 1000));
-  var expires = "expires="+d.toUTCString();
-  document.cookie = "NPTtrack=" + cvalue + ";" + expires + ";path=/";
+  var expires = 'expires=' + d.toUTCString();
+  document.cookie = name + '=' + value + ';' + expires + ';path=/';
 }
 
-function getCookie() {
-  var name = "NPTtrack=";
+function getCookie(name) {
+  var name = name + '=';
   var ca = document.cookie.split(';');
   for(var i = 0; i < ca.length; i++) {
     var c = ca[i];
@@ -53,15 +53,12 @@ function getCookie() {
   return "";
 }
 
+// Cookie warning
 function showCookieWarning(){
   var cookiewarning = document.getElementById("cookiewarning");
-  var NPTcookie = getCookie();
+  var NPTcookie = getCookie('NPTtrack');
   console.log("Cookie status: '" + NPTcookie + "'");
-  if (NPTcookie === "") {
-    cookiewarning.style.display = "block";
-  } else {
-    cookiewarning.style.display = "none";
-  }
+  cookiewarning.style.display = (NPTcookie === '' ? 'block' : 'none');
 }
 
 showCookieWarning();
