@@ -1,5 +1,4 @@
 
-
 // Callback to determine the field for number of cyclists
 const ncycleField = function ncycleField (feature) {
   const layerPurpose = document.getElementById('rnet_purpose_input').value;
@@ -9,16 +8,16 @@ const ncycleField = function ncycleField (feature) {
   return feature.properties[layername];
 }
 
-
 // Create popups
-mapPopups ('rnet', {'_ncycle': ncycleField}, 10);
+// #!# Gradient and Quietness are capitalised
+mapPopups ('rnet', {'_ncycle': ncycleField}, 10, ['Gradient', 'Quietness']);
+
 
 // Click on rnet for popup
-// #!# Gradient and Quietness are capitalised
-function mapPopups (layerId, preprocessingCallbacks, smallValuesThreshold) {
+function mapPopups (layerId, preprocessingCallbacks, smallValuesThreshold, literalFields) {
   
   // Register popup on click
-  map.on('click', layerId, function (e) {
+  map.on ('click', layerId, function (e) {
   
     // Get the clicked co-ordinates
     const coordinates = e.lngLat;
@@ -26,15 +25,10 @@ function mapPopups (layerId, preprocessingCallbacks, smallValuesThreshold) {
     // Obtain the clicked feature
     let feature = e.features[0];
     
-    // Format key fields as percentages
-    const percentageFields = ['Gradient', 'Quietness'];
-    percentageFields.forEach (field => {
-      feature.properties[field] += '%';
-    });
-    
     // Suppress small numeric values
     if (smallValuesThreshold) {
       Object.entries (feature.properties).forEach (([key, value]) => {
+        if (literalFields.includes (key)) {return;  /* i.e. continue */}
         if (Number.isFinite(value) && (value < smallValuesThreshold)) {   // Number check means strings/percentages/etc. get skipped
           feature.properties[key] = '<' + smallValuesThreshold;
         }
