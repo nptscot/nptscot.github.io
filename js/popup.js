@@ -31,36 +31,8 @@ map.on('click', 'rnet', function (e) {
   feature.properties._streetViewUrl = 'https://maps.google.com/maps?q=&layer=c&cbll=' + coordinates.lat + ',' + coordinates.lng + '&cbp=11,0,0,0,0';
   feature.properties._osmUrl = 'https://www.openstreetmap.org/#map=19/' + coordinates.lat + '/' + coordinates.lng;
   
-  // Define template for the popup contents, with fields from feature.properties
-  var template = `<div class="mappopup">
-  <p>Cyclists: {_ncycle}</p>
-  <p>Gradient: {Gradient}</p>
-  <p>Cycle-friendliness: {Quietness}</p>
-  <p><a class="externallink" target="_blank" href="{_streetViewUrl}">Google Street View <i class="fa fa-external-link" aria-hidden="true"></i></a> 
-  <a class="externallink" target="_blank" href="{_osmUrl}">OpenStreetMap <i class="fa fa-external-link" aria-hidden="true"></i></a></p>
-
-  <button class="accordion" id="popupaccordion" onclick="popupAccordion();">All Network Details</button>
-  <div class="panel" id="popuppanel">
-
-  <h4>Fast/Direct network</h4>
-  <table><tr><th></th><th>Baseline</th><th>Go Dutch</th><th>Ebikes</th></tr>
-  <tr><th>All</td><td>{all_fastest_bicycle}</td><td>{all_fastest_bicycle_go_dutch}</td><td>{all_fastest_bicycle_ebike}</td></tr>
-  <tr><th>Commute</td><td>{commute_fastest_bicycle}</td><td>{commute_fastest_bicycle_go_dutch}</td><td>{commute_fastest_bicycle_ebike}</td></tr>
-  <tr><th>Primary</td><td>{primary_fastest_bicycle}</td><td>{primary_fastest_bicycle_go_dutch}</td><td>{primary_fastest_bicycle_ebike}</td></tr>
-  <tr><th>Secondary</td><td>{secondary_fastest_bicycle}</td><td>{secondary_fastest_bicycle_go_dutch}</td><td>{secondary_fastest_bicycle_ebike}</td></tr>
-  <tr><th>Utility</td><td>{utility_fastest_bicycle}</td><td>{utility_fastest_bicycle_go_dutch}</td><td>{utility_fastest_bicycle_ebike}</td></tr>
-  </table>
-
-  <h4>Quiet/Indirect network</h4>
-  <table><tr><th></th><th>Baseline</th><th>Go Dutch</th><th>Ebikes</th></tr>
-  <tr><th>All</td><td>{all_quietest_bicycle}</td><td>{all_quietest_bicycle_go_dutch}</td><td>{all_quietest_bicycle_ebike}</td></tr>
-  <tr><th>Commute</td><td>{commute_quietest_bicycle}</td><td>{commute_quietest_bicycle_go_dutch}</td><td>{commute_quietest_bicycle_ebike}</td></tr>
-  <tr><th>Primary</td><td>{primary_quietest_bicycle}</td><td>{primary_quietest_bicycle_go_dutch}</td><td>{primary_quietest_bicycle_ebike}</td></tr>
-  <tr><th>Secondary</td><td>{secondary_quietest_bicycle}</td><td>{secondary_quietest_bicycle_go_dutch}</td><td>{secondary_quietest_bicycle_ebike}</td></tr>
-  <tr><th>Utility</td><td>{utility_quietest_bicycle}</td><td>{utility_quietest_bicycle_go_dutch}</td><td>{utility_quietest_bicycle_ebike}</td></tr>
-  </table>
-  
-  </div>`;
+  // Get template for the popup (from the HTML page), which defines fields to be used from feature.properties
+  const template = document.querySelector('template#mappopup').innerHTML;
   
   // Substitute placeholders in template
   const popupHtml = template.replace (/{([^}]+)}/g, (placeholderString, field) => feature.properties[field]);    // See: https://stackoverflow.com/a/52036543/
