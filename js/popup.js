@@ -9,7 +9,7 @@ map.on('click', 'rnet', function (e) {
   var coordinates = e.lngLat;
 
   // Process all the properties
-  // Processed gradinet and quietness but ignored
+  // Processed gradient and quietness but ignored
   const properties = e.features[0].properties;
   const prop = {};
 
@@ -27,15 +27,16 @@ map.on('click', 'rnet', function (e) {
   var layername = layerPurpose + "_" + layerType + "_" + layerScenario;
 
   var ncycle = suppresssmall(e.features[0].properties[layername]);
-
+  
+  var streetViewUrl = 'https://maps.google.com/maps?q=&layer=c&cbll=' +  coordinates.lat + ',' + coordinates.lng + '&cbp=11,0,0,0,0';
+  var osmUrl = 'https://www.openstreetmap.org/#map=19/' + coordinates.lat + '/' + coordinates.lng;
+  
   var description = '<div class="mappopup">' + 
   '<p> Cyclists: ' + ncycle + '</p>' +
   '<p> Gradient: ' + Gradient + '%</p>' +
   '<p> Cycle friendliness: ' + Quietness + '%</p>' +
-  '<p><a target="_blank" href="http://maps.google.com/maps?q=&layer=c&cbll=' + 
-  coordinates.lat + ',' + coordinates.lng +
-  '&cbp=11,0,0,0,0">Google Street View </a><i class="fa fa-external-link" aria-hidden="true"></i>' +
-  '<a target="_blank" href="https://www.openstreetmap.org/#map=19/' + coordinates.lat + '/' + coordinates.lng + '"> OpenStreetMap </a><i class="fa fa-external-link" aria-hidden="true"></i></p>' +
+  '<p><a target="_blank" href="' + streetViewUrl + '">Google Street View <i class="fa fa-external-link" aria-hidden="true"></i></a> ' +
+  '<a target="_blank" href="' + osmUrl + '">OpenStreetMap <i class="fa fa-external-link" aria-hidden="true"></i></a></p>' +
 
   '<button class="accordion" id="popupaccordion" onclick="popupAccordion();">All Network Details</button>' +
   '<div class="panel" id ="popuppanel">' +
