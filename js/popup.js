@@ -11,14 +11,14 @@ const ncycleField = function ncycleField (feature) {
 
 
 // Create popups
-mapPopups ({'_ncycle': ncycleField}, 10);
+mapPopups ('rnet', {'_ncycle': ncycleField}, 10);
 
 // Click on rnet for popup
 // #!# Gradient and Quietness are capitalised
-function mapPopups (preprocessingCallbacks, smallValuesThreshold) {
+function mapPopups (layerId, preprocessingCallbacks, smallValuesThreshold) {
   
   // Register popup on click
-  map.on('click', 'rnet', function (e) {
+  map.on('click', layerId, function (e) {
   
     // Get the clicked co-ordinates
     const coordinates = e.lngLat;
