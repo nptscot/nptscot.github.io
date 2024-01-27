@@ -25,17 +25,18 @@ map.on('click', 'rnet', function (e) {
   var layerType = document.getElementById('rnet_type_input').value;
   var layerScenario = document.getElementById('rnet_scenario_input').value;
   var layername = layerPurpose + '_' + layerType + '_' + layerScenario;
-  var ncycle = feature.properties[layername];
+  feature.properties._ncycle = feature.properties[layername];
   
-  var streetViewUrl = 'https://maps.google.com/maps?q=&layer=c&cbll=' +  coordinates.lat + ',' + coordinates.lng + '&cbp=11,0,0,0,0';
-  var osmUrl = 'https://www.openstreetmap.org/#map=19/' + coordinates.lat + '/' + coordinates.lng;
+  // Inject external links properties
+  feature.properties._streetViewUrl = 'https://maps.google.com/maps?q=&layer=c&cbll=' +  coordinates.lat + ',' + coordinates.lng + '&cbp=11,0,0,0,0';
+  feature.properties._osmUrl = 'https://www.openstreetmap.org/#map=19/' + coordinates.lat + '/' + coordinates.lng;
   
   var description = '<div class="mappopup">' + 
-  '<p>Cyclists: ' + ncycle + '</p>' +
+  '<p>Cyclists: ' + feature.properties._ncycle + '</p>' +
   '<p>Gradient: ' + feature.properties.Gradient + '</p>' +
   '<p>Cycle-friendliness: ' + feature.properties.Quietness + '</p>' +
-  '<p><a class="externallink" target="_blank" href="' + streetViewUrl + '">Google Street View <i class="fa fa-external-link" aria-hidden="true"></i></a> ' +
-  '<a class="externallink" target="_blank" href="' + osmUrl + '">OpenStreetMap <i class="fa fa-external-link" aria-hidden="true"></i></a></p>' +
+  '<p><a class="externallink" target="_blank" href="' + feature.properties._streetViewUrl + '">Google Street View <i class="fa fa-external-link" aria-hidden="true"></i></a> ' +
+  '<a class="externallink" target="_blank" href="' + feature.properties._osmUrl + '">OpenStreetMap <i class="fa fa-external-link" aria-hidden="true"></i></a></p>' +
 
   '<button class="accordion" id="popupaccordion" onclick="popupAccordion();">All Network Details</button>' +
   '<div class="panel" id="popuppanel">' +
