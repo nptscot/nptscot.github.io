@@ -6,6 +6,7 @@ function suppresssmall(x) {
 
 // Click on rnet for popup
 map.on('click', 'rnet', function (e) {
+  
   var coordinates = e.lngLat;
 
   // Process all the properties
@@ -32,36 +33,36 @@ map.on('click', 'rnet', function (e) {
   var osmUrl = 'https://www.openstreetmap.org/#map=19/' + coordinates.lat + '/' + coordinates.lng;
   
   var description = '<div class="mappopup">' + 
-  '<p> Cyclists: ' + ncycle + '</p>' +
-  '<p> Gradient: ' + Gradient + '%</p>' +
-  '<p> Cycle friendliness: ' + Quietness + '%</p>' +
-  '<p><a target="_blank" href="' + streetViewUrl + '">Google Street View <i class="fa fa-external-link" aria-hidden="true"></i></a> ' +
-  '<a target="_blank" href="' + osmUrl + '">OpenStreetMap <i class="fa fa-external-link" aria-hidden="true"></i></a></p>' +
+  '<p>Cyclists: ' + ncycle + '</p>' +
+  '<p>Gradient: ' + Gradient + '%</p>' +
+  '<p>Cycle-friendliness: ' + Quietness + '%</p>' +
+  '<p><a class="externallink" target="_blank" href="' + streetViewUrl + '">Google Street View <i class="fa fa-external-link" aria-hidden="true"></i></a> ' +
+  '<a class="externallink" target="_blank" href="' + osmUrl + '">OpenStreetMap <i class="fa fa-external-link" aria-hidden="true"></i></a></p>' +
 
   '<button class="accordion" id="popupaccordion" onclick="popupAccordion();">All Network Details</button>' +
-  '<div class="panel" id ="popuppanel">' +
+  '<div class="panel" id="popuppanel">' +
 
   '<h4>Fast/Direct network</h4>' +
   '<table><tr><th></th><th>Baseline</th><th>Go Dutch</th><th>Ebikes</th></tr>' +
-  '<tr><th>All</th><th>' + prop.all_fastest_bicycle + '</th><th>' + prop.all_fastest_bicycle_go_dutch + '</th><th>' + prop.all_fastest_bicycle_ebike + '</th></tr>' + 
-  '<tr><th>Commute</th><th>' + prop.commute_fastest_bicycle + '</th><th>' + prop.commute_fastest_bicycle_go_dutch + '</th><th>' + prop.commute_fastest_bicycle_ebike + '</th></tr>' +
-  '<tr><th>Primary</th><th>' + prop.primary_fastest_bicycle + '</th><th>' + prop.primary_fastest_bicycle_go_dutch + '</th><th>' + prop.primary_fastest_bicycle_ebike + '</th></tr>' +
-  '<tr><th>Secondary</th><th>' + prop.secondary_fastest_bicycle + '</th><th>' + prop.secondary_fastest_bicycle_go_dutch + '</th><th>' + prop.secondary_fastest_bicycle_ebike + '</th></tr>' +
-  '<tr><th>Utility</th><th>' + prop.utility_fastest_bicycle + '</th><th>' + prop.utility_fastest_bicycle_go_dutch + '</th><th>' + prop.utility_fastest_bicycle_ebike + '</th></tr>' +
+  '<tr><th>All</td><td>' + prop.all_fastest_bicycle + '</td><td>' + prop.all_fastest_bicycle_go_dutch + '</td><td>' + prop.all_fastest_bicycle_ebike + '</td></tr>' + 
+  '<tr><th>Commute</td><td>' + prop.commute_fastest_bicycle + '</td><td>' + prop.commute_fastest_bicycle_go_dutch + '</td><td>' + prop.commute_fastest_bicycle_ebike + '</td></tr>' +
+  '<tr><th>Primary</td><td>' + prop.primary_fastest_bicycle + '</td><td>' + prop.primary_fastest_bicycle_go_dutch + '</td><td>' + prop.primary_fastest_bicycle_ebike + '</td></tr>' +
+  '<tr><th>Secondary</td><td>' + prop.secondary_fastest_bicycle + '</td><td>' + prop.secondary_fastest_bicycle_go_dutch + '</td><td>' + prop.secondary_fastest_bicycle_ebike + '</td></tr>' +
+  '<tr><th>Utility</td><td>' + prop.utility_fastest_bicycle + '</td><td>' + prop.utility_fastest_bicycle_go_dutch + '</td><td>' + prop.utility_fastest_bicycle_ebike + '</td></tr>' +
   '</table>' +
 
   '<h4>Quiet/Indirect network</h4>' + 
   '<table><tr><th></th><th>Baseline</th><th>Go Dutch</th><th>Ebikes</th></tr>' +
-  '<tr><th>All</th><th>' + prop.all_quietest_bicycle + '</th><th>' + prop.all_quietest_bicycle_go_dutch + '</th><th>' + prop.all_quietest_bicycle_ebike + '</th></tr>' + 
-  '<tr><th>Commute</th><th>' + prop.commute_quietest_bicycle + '</th><th>' + prop.commute_quietest_bicycle_go_dutch + '</th><th>' + prop.commute_quietest_bicycle_ebike + '</th></tr>' +
-  '<tr><th>Primary</th><th>' + prop.primary_quietest_bicycle + '</th><th>' + prop.primary_quietest_bicycle_go_dutch + '</th><th>' + prop.primary_quietest_bicycle_ebike + '</th></tr>' +
-  '<tr><th>Secondary</th><th>' + prop.secondary_quietest_bicycle + '</th><th>' + prop.secondary_quietest_bicycle_go_dutch + '</th><th>' + prop.secondary_quietest_bicycle_ebike + '</th></tr>' +
-  '<tr><th>Utility</th><th>' + prop.utility_quietest_bicycle + '</th><th>' + prop.utility_quietest_bicycle_go_dutch + '</th><th>' + prop.utility_quietest_bicycle_ebike + '</th></tr>' +
+  '<tr><th>All</td><td>' + prop.all_quietest_bicycle + '</td><td>' + prop.all_quietest_bicycle_go_dutch + '</td><td>' + prop.all_quietest_bicycle_ebike + '</td></tr>' + 
+  '<tr><th>Commute</td><td>' + prop.commute_quietest_bicycle + '</td><td>' + prop.commute_quietest_bicycle_go_dutch + '</td><td>' + prop.commute_quietest_bicycle_ebike + '</td></tr>' +
+  '<tr><th>Primary</td><td>' + prop.primary_quietest_bicycle + '</td><td>' + prop.primary_quietest_bicycle_go_dutch + '</td><td>' + prop.primary_quietest_bicycle_ebike + '</td></tr>' +
+  '<tr><th>Secondary</td><td>' + prop.secondary_quietest_bicycle + '</td><td>' + prop.secondary_quietest_bicycle_go_dutch + '</td><td>' + prop.secondary_quietest_bicycle_ebike + '</td></tr>' +
+  '<tr><th>Utility</td><td>' + prop.utility_quietest_bicycle + '</td><td>' + prop.utility_quietest_bicycle_go_dutch + '</td><td>' + prop.utility_quietest_bicycle_ebike + '</td></tr>' +
   '</table>' +
     
   '</div>';
 
-  new maplibregl.Popup({maxWidth: '400px'})
+  new maplibregl.Popup({className: 'layerpopup'})
     .setLngLat(coordinates)
     .setHTML(description)
     .addTo(map);
