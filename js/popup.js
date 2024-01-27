@@ -9,15 +9,22 @@ const ncycleField = function ncycleField (feature) {
 }
 
 // Create popups
-// #!# Gradient and Quietness are capitalised
-mapPopups ('rnet', {'_ncycle': ncycleField}, 10, ['Gradient', 'Quietness']);
+mapPopups ({
+  layerId: 'rnet',
+  preprocessingCallbacks: {
+    '_ncycle': ncycleField
+  },
+  smallValuesThreshold: 10,
+  literalFields: ['Gradient', 'Quietness']  // #!# Gradient and Quietness are capitalised unlike other
+});
+
 
 
 // Click on rnet for popup
-function mapPopups (layerId, preprocessingCallbacks, smallValuesThreshold, literalFields) {
+function mapPopups (options) {
   
   // Register popup on click
-  map.on ('click', layerId, function (e) {
+  map.on ('click', options.layerId, function (e) {
   
     // Get the clicked co-ordinates
     const coordinates = e.lngLat;
@@ -26,18 +33,18 @@ function mapPopups (layerId, preprocessingCallbacks, smallValuesThreshold, liter
     let feature = e.features[0];
     
     // Suppress small numeric values
-    if (smallValuesThreshold) {
+    if (options.smallValuesThreshold) {
       Object.entries (feature.properties).forEach (([key, value]) => {
-        if (literalFields.includes (key)) {return;  /* i.e. continue */}
-        if (Number.isFinite(value) && (value < smallValuesThreshold)) {   // Number check means strings/percentages/etc. get skipped
-          feature.properties[key] = '<' + smallValuesThreshold;
+        if (options.literalFields && options.literalFields.includes (key)) {return;  /* i.e. continue */}
+        if (Number.isFinite(value) && (value < options.smallValuesThreshold)) {   // Number check means strings/percentages/etc. get skipped
+          feature.properties[key] = '<' + options.smallValuesThreshold;
         }
       });
     }
     
     // Process any preprocessing callbacks
-    if (preprocessingCallbacks) {
-      Object.entries (preprocessingCallbacks).forEach (([field, callbackFunction]) => {
+    if (options.preprocessingCallbacks) {
+      Object.entries (options.preprocessingCallbacks).forEach (([field, callbackFunction]) => {
         feature.properties[field] = callbackFunction (feature);
       });
     }
@@ -46,7 +53,7 @@ function mapPopups (layerId, preprocessingCallbacks, smallValuesThreshold, liter
     feature.properties = addExternalLinks (feature.properties, coordinates);
     
     // Create the popup HTML from the template in the HTML
-    const popupHtml = processTemplate (layerId + '-popup', feature.properties);
+    const popupHtml = processTemplate (options.layerId + '-popup', feature.properties);
     
     // Create the popup
     new maplibregl.Popup({className: 'layerpopup'})
