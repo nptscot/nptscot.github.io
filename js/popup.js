@@ -52,7 +52,7 @@ function mapPopups (layerId, preprocessingCallbacks, smallValuesThreshold) {
     feature.properties = addExternalLinks (feature.properties, coordinates);
     
     // Create the popup HTML from the template in the HTML
-    const popupHtml = processTemplate ('mappopup', feature.properties);
+    const popupHtml = processTemplate (layerId + '-popup', feature.properties);
     
     // Create the popup
     new maplibregl.Popup({className: 'layerpopup'})
