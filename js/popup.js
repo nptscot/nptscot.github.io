@@ -11,11 +11,11 @@ const ncycleField = function ncycleField (feature) {
 
 
 // Create popups
-mapPopups ({'_ncycle': ncycleField});
+mapPopups ({'_ncycle': ncycleField}, 10);
 
 // Click on rnet for popup
 // #!# Gradient and Quietness are capitalised
-function mapPopups (preprocessingCallbacks) {
+function mapPopups (preprocessingCallbacks, smallValuesThreshold) {
   
   // Register popup on click
   map.on('click', 'rnet', function (e) {
@@ -33,11 +33,13 @@ function mapPopups (preprocessingCallbacks) {
     });
     
     // Suppress small numeric values
-    Object.entries (feature.properties).forEach (([key, value]) => {
-      if (Number.isFinite(value) && (value < 10)) {   // Number check means strings/percentages/etc. get skipped
-        feature.properties[key] = '≤9';
-      }
-    });
+    if (smallValuesThreshold) {
+      Object.entries (feature.properties).forEach (([key, value]) => {
+        if (Number.isFinite(value) && (value < smallValuesThreshold)) {   // Number check means strings/percentages/etc. get skipped
+          feature.properties[key] = '<' + smallValuesThreshold;
+        }
+      });
+    }
     
     // Process any preprocessing callbacks
     if (preprocessingCallbacks) {
