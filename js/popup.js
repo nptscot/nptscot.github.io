@@ -21,7 +21,11 @@ mapPopups ({
 
 
 // Click on rnet for popup
+// Options are: layerId, preprocessingCallbacks, smallValuesThreshold, literalFields
 function mapPopups (options) {
+  
+  // Enable cursor pointer
+  layerPointer (options.layerId);
   
   // Register popup on click
   map.on ('click', options.layerId, function (e) {
@@ -63,6 +67,21 @@ function mapPopups (options) {
   });
   
   
+  // Function to handle pointer hover changes for a layer
+  function layerPointer (layerId)
+  {
+    // Change the cursor to a pointer when the mouse is over the layer.
+    map.on('mouseenter', layerId, function () {
+      map.getCanvas().style.cursor = 'pointer';
+    });
+    
+    // Change it back to a pointer when it leaves.
+    map.on('mouseleave', layerId, function () {
+      map.getCanvas().style.cursor = '';
+    });
+  }
+  
+  
   // Function to convert a template to HTML, substituting placeholders
   function processTemplate (templateId, properties)
   {
@@ -85,22 +104,6 @@ function mapPopups (options) {
 
 
 
-
-layerPointer ('rnet');
-
-// Function to handle pointer hover changes for a layer
-function layerPointer (layer) {
-  
-  // Change the cursor to a pointer when the mouse is over the layer.
-  map.on('mouseenter', layer, function () {
-    map.getCanvas().style.cursor = 'pointer';
-  });
-  
-  // Change it back to a pointer when it leaves.
-  map.on('mouseleave', layer, function () {
-    map.getCanvas().style.cursor = '';
-  });
-}
 
 // Popup accordion
 popupAccordion = function(){
