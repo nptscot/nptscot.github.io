@@ -1,10 +1,21 @@
 
 
-mapPopups ();
+// Callback to determine the field for number of cyclists
+const ncycleField = function ncycleField (feature) {
+  const layerPurpose = document.getElementById('rnet_purpose_input').value;
+  const layerType = document.getElementById('rnet_type_input').value;
+  const layerScenario = document.getElementById('rnet_scenario_input').value;
+  const layername = layerPurpose + '_' + layerType + '_' + layerScenario;
+  return feature.properties[layername];
+}
+
+
+// Create popups
+mapPopups ({'_ncycle': ncycleField});
 
 // Click on rnet for popup
 // #!# Gradient and Quietness are capitalised
-function mapPopups () {
+function mapPopups (preprocessingCallbacks) {
   
   // Register popup on click
   map.on('click', 'rnet', function (e) {
@@ -20,7 +31,7 @@ function mapPopups () {
     percentageFields.forEach (field => {
       feature.properties[field] += '%';
     });
-      
+    
     // Suppress small numeric values
     Object.entries (feature.properties).forEach (([key, value]) => {
       if (Number.isFinite(value) && (value < 10)) {   // Number check means strings/percentages/etc. get skipped
@@ -28,10 +39,14 @@ function mapPopups () {
       }
     });
     
-    // Determine the number of cyclists for this layer
-    feature.properties._ncycle = ncycleField (feature);
-    
-    // Inject external links properties
+    // Process any preprocessing callbacks
+    if (preprocessingCallbacks) {
+      Object.entries (preprocessingCallbacks).forEach (([field, callbackFunction]) => {
+        feature.properties[field] = callbackFunction (feature);
+      });
+    }
+
+    // Make external links properties available to the template
     feature.properties = addExternalLinks (feature.properties, coordinates);
     
     // Create the popup HTML from the template in the HTML
@@ -53,17 +68,6 @@ function mapPopups () {
     
      // Substitute placeholders in template
      return template.replace (/{([^}]+)}/g, (placeholderString, field) => properties[field]);    // See: https://stackoverflow.com/a/52036543/
-  }
-  
-  
-  // Function to determine the field for number of cyclists
-  function ncycleField (feature)
-  {
-    const layerPurpose = document.getElementById('rnet_purpose_input').value;
-    const layerType = document.getElementById('rnet_type_input').value;
-    const layerScenario = document.getElementById('rnet_scenario_input').value;
-    const layername = layerPurpose + '_' + layerType + '_' + layerScenario;
-    return feature.properties[layername];
   }
   
   
