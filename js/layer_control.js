@@ -434,11 +434,11 @@ function switch_rnet() {
   
   // Initialise each layer variant, if they do not exist
   const layerVariants = ['rnet', 'rnet-simplified'];
-  layerVariants.forEach (layer => {
-    if (!map.getLayer (layer)) {
+  layerVariants.forEach (layerId => {
+    if (!map.getLayer (layerId)) {
       map.addLayer ({
-        'id': layer,
-        'source': layer,
+        'id': layerId,
+        'source': layerId,
         'source-layer': 'rnet',
         'type': 'line',
         'visibility': 'none'

@@ -11,13 +11,16 @@ const ncycleField = function ncycleField (feature)
 }
 
 // Create popups
-mapPopups ({
-  layerId: 'rnet',
-  preprocessingCallback: ncycleField,
-  smallValuesThreshold: 10,
-  literalFields: ['Gradient', 'Quietness']  // #!# Gradient and Quietness are capitalised unlike other
+const layerVariants = ['rnet', 'rnet-simplified'];
+layerVariants.forEach (layerId => {
+  mapPopups ({
+    layerId: layerId,
+    templateId: 'rnet-popup',
+    preprocessingCallback: ncycleField,
+    smallValuesThreshold: 10,
+    literalFields: ['Gradient', 'Quietness']  // #!# Gradient and Quietness are capitalised unlike other
+  });
 });
-
 
 
 // Click on rnet for popup
@@ -63,7 +66,7 @@ function mapPopups (options) {
     feature.properties = addExternalLinks (feature.properties, coordinates);
     
     // Create the popup HTML from the template in the HTML
-    const popupHtml = processTemplate (options.layerId + '-popup', feature.properties);
+    const popupHtml = processTemplate (options.templateId, feature.properties);
     
     // Create the popup
     new maplibregl.Popup({className: 'layerpopup'})
