@@ -435,31 +435,31 @@ function switch_rnet() {
   const layerEnabled = document.getElementById('rnetcheckbox').checked;
   if (layerEnabled) {
     
-    // Route network filters
-    var sliderQuietness = document.getElementById('rnet_slider-quietness').value.split ('-');
-    var sliderQuietness_min = Number(sliderQuietness[0]);
-    var sliderQuietness_max = Number(sliderQuietness[1]);
-    var sliderGradient = document.getElementById('rnet_slider-gradient').value.split ('-');
-    var sliderGradient_min = Number(sliderGradient[0]);
-    var sliderGradient_max = Number(sliderGradient[1]);
-    var sliderFlow = document.getElementById('rnet_slider-cycle').value.split ('-');
-    var sliderFlow_min = Number(sliderFlow[0]);
-    var sliderFlow_max = Number(sliderFlow[1]);
-    
     // Determine the layer width field
     var layerPurpose = document.getElementById("rnet_purpose_input").value;
     var layerScenario = document.getElementById("rnet_scenario_input").value;
     var layerType = document.getElementById("rnet_type_input").value;
     var layerWidthField = layerPurpose + '_' + layerType + '_' + layerScenario;
     
+    // Parse route network sliders to be used as filters
+    const sliders = {};
+    document.querySelectorAll ("input[id^='rnet_slider-']").forEach (slider => {
+      const sliderId = slider.id.replace ('rnet_slider-', '');
+      const sliderValue = slider.value.split ('-');
+      sliders[sliderId] = {
+        min: Number (sliderValue[0]),
+        max: Number (sliderValue[1])
+      };
+    });
+    
     // Only filter cyclists if scenario set
-    var filter = ["all",
-      ['<=', layerWidthField, sliderFlow_max],
-      ['>=', layerWidthField, sliderFlow_min],
-      ['<=', "Quietness", sliderQuietness_max],
-      ['>=', "Quietness", sliderQuietness_min],
-      ['<=', "Gradient", sliderGradient_max],
-      ['>=', "Gradient", sliderGradient_min]
+    var filter = ['all',
+      ['>=', layerWidthField, sliders.cycle.min],
+      ['<=', layerWidthField, sliders.cycle.max],
+      ['>=', "Quietness", sliders.quietness.min],
+      ['<=', "Quietness", sliders.quietness.max],
+      ['>=', "Gradient", sliders.gradient.min],
+      ['<=', "Gradient", sliders.gradient.max]
     ];
     
     // Define line colour

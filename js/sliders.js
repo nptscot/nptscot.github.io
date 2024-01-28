@@ -6,7 +6,7 @@ createSliders ();
 function createSliders ()
 {
     // Find each div to be converted to a slider
-    const divs = document.querySelectorAll ('div.slider-styled').forEach (div => {
+    document.querySelectorAll ('div.slider-styled').forEach (div => {
         
         // Calculate the attributes based on an associated <datalist>
         const attributes = sliderAttributes (div.id);
