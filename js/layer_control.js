@@ -554,6 +554,7 @@ function switch_rnet() {
 }
 
 
+// Data zones
 function switch_data_zones() {
   
   var dataZones = document.getElementById('data_zonescheckbox').checked;
@@ -563,25 +564,29 @@ function switch_data_zones() {
   // Update the Legend - Do this even if map layer is off
   createLegend (definitions.dzLegendColours, layerId, 'dzlegend');
   
+  // Determine the style column
+  const style_col_selected = definitions.dzStyle_cols.hasOwnProperty(layerId) ? layerId : '_';
+  const style_col = definitions.dzStyle_cols[style_col_selected];
   
   
-  if (map.getLayer('data_zones')) map.removeLayer('data_zones');
-  if (map.getLayer('dasymetric')) map.removeLayer('dasymetric');
-  
+  // Buildings - determine colour
+  let buildingColour;
   if (dataZones) {
-    
-    // Determine the style column
-    const style_col_selected = definitions.dzStyle_cols.hasOwnProperty(layerId) ? layerId : '_';
-    const style_col = definitions.dzStyle_cols[style_col_selected];
-    
-    // Building colour definition
     if (daysymetricMode) {
       buildingColour = ['step', ['get', layerId], ...style_col];
     } else {
       buildingColour = '#9c9898';   // Gray
     }
+  } else {
+    // dataZonesCheckBox not checked - buildings still shown (for vector layers)
+    // Single colour, if vector basemap, appropriate to that basemap
+    const styleName = getBasemapStyle ();
+    buildingColour = definitions.buildingColours[styleName];
+  }
   
-    // Buildings layer
+  // Buildings layer
+  if (map.getLayer('dasymetric')) {map.removeLayer('dasymetric');}
+  if (buildingColour) {
     map.addLayer({
       'id': 'dasymetric',
       'type': 'fill-extrusion',
@@ -598,8 +603,12 @@ function switch_data_zones() {
         ]
       }
     }, 'roads 0 Guided Busway Casing');
-    
-    // Show zones; as semi-transparent zones; in daysymetric mode with the buildings coloured, this layer is very faded out
+  }
+  
+  
+  // Zone polygons, semi-transparent; in daysymetric mode with the buildings coloured, this layer is very faded out
+  if (map.getLayer('data_zones')) {map.removeLayer('data_zones');}
+  if (dataZones) {
     map.addLayer({
       'id': 'data_zones',
       'type': 'fill',
@@ -614,37 +623,8 @@ function switch_data_zones() {
         'fill-outline-color': '#000000'
       }
     }, 'roads 0 Guided Busway Casing');
-  
-  } else {  // dataZonesCheckBox not checked - buildings still shown (for vector layers)
-    
-    console.log("Data zones layer off");
-    
-    // put buildings on when layer is off
-    
-    var styleName = getBasemapStyle ();
-    var buildingColour = definitions.buildingColours[styleName];
-    
-    // Buildings layer, in single colour
-    if (buildingColour) {
-      map.addLayer({
-        'id': 'dasymetric',
-        'type': 'fill-extrusion',
-        'source': 'dasymetric',
-        'source-layer': 'dasymetric',
-        'paint': {
-          'fill-extrusion-color': buildingColour,
-          'fill-extrusion-height': [
-            'interpolate',
-            ['linear'],
-            ['zoom'],
-            12, 1,
-            15, 8
-          ]
-        }
-      }, 'roads 0 Guided Busway Casing');
-    }
-    
   }
+  
 }
 
 // First load setup
