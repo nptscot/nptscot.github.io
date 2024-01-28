@@ -431,12 +431,27 @@ function getLayerWidthField ()
 function switch_rnet() {  
   
   console.log("Updating rnet")
-
-  // Remove layer if present
-  if (map.getLayer('rnet')) {
-    map.removeLayer('rnet');
-  }
   
+  // Initialise each layer variant, if they do not exist
+  const layerVariants = ['rnet', 'rnet-simplified'];
+  layerVariants.forEach (layer => {
+    if (!map.getLayer (layer)) {
+      map.addLayer ({
+        'id': layer,
+        'source': layer,
+        'source-layer': 'rnet',
+        'type': 'line',
+        'visibility': 'none'
+      }, 'placeholder_name');
+    }
+  });
+  
+  // Determine/toggle layer visibility
+  const layerEnabled = document.getElementById('rnetcheckbox').checked;
+  const simplifiedMode = document.getElementById('rnetsimplifiedcheckbox').checked;
+  map.setLayoutProperty ('rnet',            'visibility', (layerEnabled && !simplifiedMode ? 'visible' : 'none'));
+  map.setLayoutProperty ('rnet-simplified', 'visibility', (layerEnabled &&  simplifiedMode ? 'visible' : 'none'));
+
   // Layer colour
   var layerColour = document.getElementById("rnet_colour_input").value;
   
@@ -444,7 +459,6 @@ function switch_rnet() {
   createLegend (definitions.routeNetworkLegendColours, layerColour, 'linecolourlegend');
   
   // Update the map if enabled
-  const layerEnabled = document.getElementById('rnetcheckbox').checked;
   if (layerEnabled) {
     
     // Determine the layer width field
@@ -519,24 +533,13 @@ function switch_rnet() {
       18, ["*", 52.5,["+", 0.3, ["/", 3, ["+", 1, ["^", 2.718, ["-", 2.94, ["*", ["get", layerWidthField], 0.0021]]]]]]],
     ];
     
-    // Simplified mode
-    var simplifiedMode = document.getElementById('rnetsimplifiedcheckbox').checked;
+    // Set the filter
+    const layerId = (simplifiedMode ? 'rnet-simplified' : 'rnet');
+    map.setFilter (layerId, filter);
     
-    // Assemble the style definition
-    var style = {
-      "id": "rnet",
-      "source": (simplifiedMode ? "rnet-simplified" : "rnet"),
-      "source-layer": "rnet",
-      "type": "line",
-      "filter": filter,
-      "paint" : {
-        "line-color": line_colours[layerColour],
-        "line-width": line_width
-      }
-    };
-    
-    // Add the layer
-    map.addLayer(style, 'placeholder_name');
+    // Set paint properties
+    map.setPaintProperty (layerId, "line-color", line_colours[layerColour]);
+    map.setPaintProperty (layerId, "line-width", line_width);
   }
 }
 
