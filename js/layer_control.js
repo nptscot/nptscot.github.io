@@ -446,11 +446,9 @@ function switch_rnet() {
     }
   });
   
-  // Determine/toggle layer visibility
+  // Determine layer visibility
   const layerEnabled = document.getElementById('rnetcheckbox').checked;
   const simplifiedMode = document.getElementById('rnetsimplifiedcheckbox').checked;
-  map.setLayoutProperty ('rnet',            'visibility', (layerEnabled && !simplifiedMode ? 'visible' : 'none'));
-  map.setLayoutProperty ('rnet-simplified', 'visibility', (layerEnabled &&  simplifiedMode ? 'visible' : 'none'));
 
   // Layer colour
   var layerColour = document.getElementById("rnet_colour_input").value;
@@ -541,6 +539,10 @@ function switch_rnet() {
     map.setPaintProperty (layerId, "line-color", line_colours[layerColour]);
     map.setPaintProperty (layerId, "line-width", line_width);
   }
+  
+  // Toggle layer visibility
+  map.setLayoutProperty ('rnet',            'visibility', (layerEnabled && !simplifiedMode ? 'visible' : 'none'));
+  map.setLayoutProperty ('rnet-simplified', 'visibility', (layerEnabled &&  simplifiedMode ? 'visible' : 'none'));
 }
 
 
