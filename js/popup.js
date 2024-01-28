@@ -1,19 +1,19 @@
 
 // Callback to determine the field for number of cyclists
-const ncycleField = function ncycleField (feature) {
+const ncycleField = function ncycleField (feature)
+{
   const layerPurpose = document.getElementById('rnet_purpose_input').value;
   const layerType = document.getElementById('rnet_type_input').value;
   const layerScenario = document.getElementById('rnet_scenario_input').value;
-  const layername = layerPurpose + '_' + layerType + '_' + layerScenario;
-  return feature.properties[layername];
+  const layerField = layerPurpose + '_' + layerType + '_' + layerScenario;
+  feature.properties._ncycle = feature.properties[layerField];
+  return feature;
 }
 
 // Create popups
 mapPopups ({
   layerId: 'rnet',
-  preprocessingCallbacks: {
-    '_ncycle': ncycleField
-  },
+  preprocessingCallback: ncycleField,
   smallValuesThreshold: 10,
   literalFields: ['Gradient', 'Quietness']  // #!# Gradient and Quietness are capitalised unlike other
 });
@@ -31,7 +31,7 @@ popupAccordion = function(){
 
 
 // Click on rnet for popup
-// Options are: layerId, preprocessingCallbacks, smallValuesThreshold, literalFields
+// Options are: layerId, preprocessingCallback, smallValuesThreshold, literalFields
 function mapPopups (options) {
   
   // Enable cursor pointer
@@ -46,6 +46,11 @@ function mapPopups (options) {
     // Obtain the clicked feature
     let feature = e.features[0];
     
+    // Process any preprocessing callback
+    if (options.preprocessingCallback) {
+      feature = options.preprocessingCallback (feature);
+    }
+
     // Suppress small numeric values
     if (options.smallValuesThreshold) {
       Object.entries (feature.properties).forEach (([key, value]) => {
@@ -56,13 +61,6 @@ function mapPopups (options) {
       });
     }
     
-    // Process any preprocessing callbacks
-    if (options.preprocessingCallbacks) {
-      Object.entries (options.preprocessingCallbacks).forEach (([field, callbackFunction]) => {
-        feature.properties[field] = callbackFunction (feature);
-      });
-    }
-
     // Make external links properties available to the template
     feature.properties = addExternalLinks (feature.properties, coordinates);
     
