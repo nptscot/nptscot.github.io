@@ -86,6 +86,14 @@ const definitions = {
     }
   },
   
+  buildingColours: {
+    'greyscale_nobuild': '#d1cfcf',   // "OS Greyscale"
+    "satellite": false,               // "Satellite" - No buildings
+    'opencyclemap': false,            // "OpenCycleMap" - No buildings
+    'google_nobuild': '#f0eded',      // "Outdoors"
+    'dark_nobuild': '#000000',        // "Dark"
+  },
+  
   routeNetworkLegendColours: {
     'none': [
       ['&nbsp;', '#304ce7']
@@ -566,14 +574,21 @@ function switch_data_zones() {
     const style_col_selected = definitions.dzStyle_cols.hasOwnProperty(layerId) ? layerId : '_';
     const style_col = definitions.dzStyle_cols[style_col_selected];
     
-    // Building layers
+    // Building colour definition
+    if (daysymetricMode) {
+      buildingColour = ['step', ['get', layerId], ...style_col];
+    } else {
+      buildingColour = '#9c9898';   // Gray
+    }
+  
+    // Buildings layer
     map.addLayer({
       'id': 'dasymetric',
       'type': 'fill-extrusion',
       'source': 'dasymetric',
       'source-layer': 'dasymetric',
       'paint': {
-        'fill-extrusion-color': (daysymetricMode ? ['step', ['get', layerId ], ...style_col] : '#9c9898'),
+        'fill-extrusion-color': buildingColour,
         'fill-extrusion-height': [
           'interpolate',
           ['linear'],
@@ -584,6 +599,7 @@ function switch_data_zones() {
       }
     }, 'roads 0 Guided Busway Casing');
     
+    // Show zones; as semi-transparent zones; in daysymetric mode with the buildings coloured, this layer is very faded out
     map.addLayer({
       'id': 'data_zones',
       'type': 'fill',
@@ -599,29 +615,24 @@ function switch_data_zones() {
       }
     }, 'roads 0 Guided Busway Casing');
   
-  } else {  // dataZonesCheckBox not checked
+  } else {  // dataZonesCheckBox not checked - buildings still shown (for vector layers)
     
     console.log("Data zones layer off");
     
     // put buildings on when layer is off
     
-    const styleExtrusionColours = {
-      'greyscale_nobuild': '#d1cfcf',
-      'google_nobuild': '#f0eded',
-      'dark_nobuild': '#000000',
-      // No buildings on raster
-    };
     var styleName = getBasemapStyle ();
+    var buildingColour = definitions.buildingColours[styleName];
     
     // Buildings layer, in single colour
-    if (styleExtrusionColours.hasOwnProperty (styleName)) {
+    if (buildingColour) {
       map.addLayer({
         'id': 'dasymetric',
         'type': 'fill-extrusion',
         'source': 'dasymetric',
         'source-layer': 'dasymetric',
         'paint': {
-          'fill-extrusion-color': styleExtrusionColours[styleName],
+          'fill-extrusion-color': buildingColour,
           'fill-extrusion-height': [
             'interpolate',
             ['linear'],
