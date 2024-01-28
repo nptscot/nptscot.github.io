@@ -73,6 +73,8 @@ function mapPopups (options) {
       .setLngLat(coordinates)
       .setHTML(popupHtml)
       .addTo(map);
+    
+    // #!# Need to close popup when layer visibility changed - currently a popup is left hanging if the layer is toggled on/off (e.g. due to simplification or field change)
   });
   
   
