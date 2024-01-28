@@ -416,6 +416,18 @@ function createLegend (legendColours, selected, selector)
 }
 
 
+// Function to determine layer width field
+// #!# Need to merge with popup.js: ncycleField ()
+function getLayerWidthField ()
+{
+  const layerPurpose = document.getElementById('rnet_purpose_input').value;
+  const layerType = document.getElementById('rnet_type_input').value;
+  const layerScenario = document.getElementById('rnet_scenario_input').value;
+  const layerWidthField = layerPurpose + '_' + layerType + '_' + layerScenario;
+  return layerWidthField;
+}
+
+
 function switch_rnet() {  
   
   console.log("Updating rnet")
@@ -436,10 +448,7 @@ function switch_rnet() {
   if (layerEnabled) {
     
     // Determine the layer width field
-    var layerPurpose = document.getElementById("rnet_purpose_input").value;
-    var layerScenario = document.getElementById("rnet_scenario_input").value;
-    var layerType = document.getElementById("rnet_type_input").value;
-    var layerWidthField = layerPurpose + '_' + layerType + '_' + layerScenario;
+    const layerWidthField = getLayerWidthField ();
     
     // Parse route network sliders to be used as filters
     const sliders = {};
