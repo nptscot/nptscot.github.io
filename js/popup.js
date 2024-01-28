@@ -51,15 +51,23 @@ function mapPopups (options) {
       feature = options.preprocessingCallback (feature);
     }
 
-    // Suppress small numeric values
-    if (options.smallValuesThreshold) {
-      Object.entries (feature.properties).forEach (([key, value]) => {
-        if (options.literalFields && options.literalFields.includes (key)) {return;  /* i.e. continue */}
-        if (Number.isFinite(value) && (value < options.smallValuesThreshold)) {   // Number check means strings/percentages/etc. get skipped
-          feature.properties[key] = '<' + options.smallValuesThreshold;
+    // Number formatting
+    Object.entries (feature.properties).forEach (([key, value]) => {
+      if (options.literalFields && options.literalFields.includes (key)) {return;  /* i.e. continue */}
+      if (Number.isFinite(value)) {   // Number check means strings/percentages/etc. get skipped
+
+        // Suppress small numeric values
+        if (value < options.smallValuesThreshold) {
+          if (options.smallValuesThreshold) {
+            feature.properties[key] = '<' + options.smallValuesThreshold;
+            return;   // i.e. continue
+          }
         }
-      });
-    }
+        
+        // Thousands separator
+        feature.properties[key] = value.toLocaleString ('en-GB');
+      }
+    });
     
     // Make external links properties available to the template
     feature.properties = addExternalLinks (feature.properties, coordinates);
