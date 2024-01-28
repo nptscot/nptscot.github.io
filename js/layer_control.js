@@ -548,31 +548,9 @@ function switch_rnet() {
 
 function switch_data_zones() {
   
-  var style_head_dy = {
-      'id': 'dasymetric',
-      'type': 'fill-extrusion',
-      'source': 'dasymetric',
-      'source-layer': 'dasymetric'
-  };
-  var style_head_dz = {
-      'id': 'data_zones',
-      'type': 'fill',
-      'source': 'data_zones',
-      'source-layer': 'data_zones'
-  };
-  var style_ex_dy = {
-      'fill-extrusion-height': [
-        'interpolate',
-        ['linear'],
-        ['zoom'],
-        12, 1,
-        15, 8
-      ]
-  };
-  
-  var dataZonesCheckBox = document.getElementById('data_zonescheckbox');
+  var dataZones = document.getElementById('data_zonescheckbox').checked;
   var layerId = document.getElementById("data_zones_selector").value;
-  var daysymetricmode = document.getElementById('data_zones_checkbox_dasymetric');
+  var daysymetricMode = document.getElementById('data_zones_checkbox_dasymetric').checked;
   
   // Update the Legend - Do this even if map layer is off
   createLegend (definitions.dzLegendColours, layerId, 'dzlegend');
@@ -582,23 +560,47 @@ function switch_data_zones() {
   if (map.getLayer('data_zones')) map.removeLayer('data_zones');
   if (map.getLayer('dasymetric')) map.removeLayer('dasymetric');
   
-  if (dataZonesCheckBox.checked === true) {
+  if (dataZones) {
     
     // Determine the style column
-    var style_col_selected = definitions.dzStyle_cols.hasOwnProperty(layerId) ? layerId : '_';
-    var style_col = definitions.dzStyle_cols[style_col_selected];
+    const style_col_selected = definitions.dzStyle_cols.hasOwnProperty(layerId) ? layerId : '_';
+    const style_col = definitions.dzStyle_cols[style_col_selected];
     
-    var fillExtrusionColor = (daysymetricmode.checked === true ? ['step', ['get', layerId ], ...style_col] : '#9c9898');
-    var style_paint_dy = {'paint' : { 'fill-extrusion-color': fillExtrusionColor, ...style_ex_dy}};
-    var style_combined_dy = {...style_head_dy, ...style_paint_dy};
-    map.addLayer(style_combined_dy, 'roads 0 Guided Busway Casing');
+    // Building layers
+    map.addLayer({
+      'id': 'dasymetric',
+      'type': 'fill-extrusion',
+      'source': 'dasymetric',
+      'source-layer': 'dasymetric',
+      'paint': {
+        'fill-extrusion-color': (daysymetricMode ? ['step', ['get', layerId ], ...style_col] : '#9c9898'),
+        'fill-extrusion-height': [
+          'interpolate',
+          ['linear'],
+          ['zoom'],
+          12, 1,
+          15, 8
+        ]
+      }
+    }, 'roads 0 Guided Busway Casing');
     
-    var fillopacity = (daysymetricmode.checked === true ? 0.1 : 0.8);
-    var style_paint_dz = {'paint' : { 'fill-color': ['step', ['get', layerId ], ...style_col], 'fill-opacity': fillopacity,'fill-outline-color': '#000000'}};
-    var style_combined_dz = {...style_head_dz, ...style_paint_dz};
-    map.addLayer(style_combined_dz, 'roads 0 Guided Busway Casing');
+    map.addLayer({
+      'id': 'data_zones',
+      'type': 'fill',
+      'source': 'data_zones',
+      'source-layer': 'data_zones',
+      'paint': {
+        'fill-color': ['step',
+          ['get', layerId ],
+          ...style_col
+        ],
+        'fill-opacity': (daysymetricMode ? 0.1 : 0.8),
+        'fill-outline-color': '#000000'
+      }
+    }, 'roads 0 Guided Busway Casing');
   
   } else {  // dataZonesCheckBox not checked
+    
     console.log("Data zones layer off");
     
     // put buildings on when layer is off
@@ -610,11 +612,25 @@ function switch_data_zones() {
       // No buildings on raster
     };
     var styleName = getBasemapStyle ();
+    
+    // Buildings layer, in single colour
     if (styleExtrusionColours.hasOwnProperty (styleName)) {
-      var fillExtrusionColor = styleExtrusionColours[styleName];
-      var style_paint_dy = {'paint' : { 'fill-extrusion-color': fillExtrusionColor, ...style_ex_dy}};
-      var style_combined_dy = {...style_head_dy, ...style_paint_dy};
-      map.addLayer(style_combined_dy, 'roads 0 Guided Busway Casing');
+      map.addLayer({
+        'id': 'dasymetric',
+        'type': 'fill-extrusion',
+        'source': 'dasymetric',
+        'source-layer': 'dasymetric',
+        'paint': {
+          'fill-extrusion-color': styleExtrusionColours[styleName],
+          'fill-extrusion-height': [
+            'interpolate',
+            ['linear'],
+            ['zoom'],
+            12, 1,
+            15, 8
+          ]
+        }
+      }, 'roads 0 Guided Busway Casing');
     }
     
   }
