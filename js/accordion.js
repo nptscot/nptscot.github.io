@@ -1,5 +1,10 @@
 
 
+// Enable the accordion functionality for the layer controls box and popups
+accordion ();
+
+
+// Layer controls box UI
 layerControlsBoxUi ();
 
 
@@ -8,9 +13,6 @@ layerControlsBoxUi ();
 // Function to manage the layer controls box UI
 function layerControlsBoxUi ()
 {
-  // Enable the accordion functionality
-  accordion ();
-  
   // Show the layer controls box, and open up the route network part of this
   showlayercontrols(true);
   document.getElementById('rnet_accordion').click();
@@ -41,15 +43,17 @@ function layerControlsBoxUi ()
 // Function to manage an accordion
 function accordion () {
   
-  document.querySelectorAll('.accordion').forEach (element => {
-    element.addEventListener('click', function() {
+  // Listen for accordion clicks, on a late-bound basis
+  document.addEventListener('click', function(e) {
+    if (e.target.classList.contains ('accordion')) {
+      button = e.target;
       
       // Toggle between adding and removing the 'active' class, to highlight the button that controls the panel
-      this.classList.toggle('active');
+      button.classList.toggle('active');
       
       // Toggle between hiding and showing the active panel
-      var panel = this.nextElementSibling;
+      var panel = button.nextElementSibling;
       panel.style.display = (panel.style.display == 'block' ? 'none' : 'block');
-    });
+    }
   });
 }

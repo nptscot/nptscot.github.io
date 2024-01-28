@@ -18,16 +18,6 @@ mapPopups ({
   literalFields: ['Gradient', 'Quietness']  // #!# Gradient and Quietness are capitalised unlike other
 });
 
-// Popup accordion in template
-popupAccordion = function(){
-  var acc = document.getElementById('popupaccordion');
-  acc.classList.toggle('active');
-  var panel = document.getElementById('popuppanel');
-  panel.style.display = (panel.style.display === 'block' ? 'none' : 'block');
-}
-
-
-
 
 
 // Click on rnet for popup
