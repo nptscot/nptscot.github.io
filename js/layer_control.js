@@ -567,8 +567,12 @@ function getStyleColumn (layerId)
 // Data zones
 function switch_data_zones() {
   
-  var dataZones = document.getElementById('data_zonescheckbox').checked;
+  // Create buildings layer
+  buildingsLayer ();
+  
+  // Get UI state
   var layerId = document.getElementById("data_zones_selector").value;
+  var dataZones = document.getElementById('data_zonescheckbox').checked;
   var daysymetricMode = document.getElementById('data_zones_checkbox_dasymetric').checked;
   
   // Update the Legend - Do this even if map layer is off
@@ -577,7 +581,31 @@ function switch_data_zones() {
   // Determine the style column
   const style_col = getStyleColumn (layerId);
   
-  // Buildings
+  // Zone polygons, semi-transparent; in daysymetric mode with the buildings coloured, this layer is very faded out
+  if (map.getLayer('data_zones')) {map.removeLayer('data_zones');}
+  if (dataZones) {
+    map.addLayer({
+      'id': 'data_zones',
+      'type': 'fill',
+      'source': 'data_zones',
+      'source-layer': 'data_zones',
+      'paint': {
+        'fill-color': ['step',
+          ['get', layerId],
+          ...style_col
+        ],
+        'fill-opacity': (daysymetricMode ? 0.1 : 0.8),
+        'fill-outline-color': '#000000'
+      }
+    }, 'roads 0 Guided Busway Casing');
+  }
+}
+
+
+// Function to handle buildings layer
+function buildingsLayer ()
+{
+  // Initialise the layer
   if (!map.getLayer ('dasymetric')) {
     map.addLayer({
       'id': 'dasymetric',
@@ -599,11 +627,6 @@ function switch_data_zones() {
       }
     }, 'roads 0 Guided Busway Casing');
   }
-  
-  // Set building colour and visibility
-  const buildingColour = getBuildingsColour ();
-  map.setPaintProperty ('dasymetric', 'fill-extrusion-color', (buildingColour || '#9c9898'));
-  map.setLayoutProperty ('dasymetric', 'visibility', (buildingColour ? 'visible' : 'none'));
   
   // Function to determine the buildings colour
   function getBuildingsColour ()
@@ -628,27 +651,12 @@ function switch_data_zones() {
     return '#9c9898';
   }
   
-  
-  // Zone polygons, semi-transparent; in daysymetric mode with the buildings coloured, this layer is very faded out
-  if (map.getLayer('data_zones')) {map.removeLayer('data_zones');}
-  if (dataZones) {
-    map.addLayer({
-      'id': 'data_zones',
-      'type': 'fill',
-      'source': 'data_zones',
-      'source-layer': 'data_zones',
-      'paint': {
-        'fill-color': ['step',
-          ['get', layerId],
-          ...style_col
-        ],
-        'fill-opacity': (daysymetricMode ? 0.1 : 0.8),
-        'fill-outline-color': '#000000'
-      }
-    }, 'roads 0 Guided Busway Casing');
-  }
-  
+  // Set building colour and visibility
+  const buildingColour = getBuildingsColour ();
+  map.setPaintProperty ('dasymetric', 'fill-extrusion-color', (buildingColour || '#9c9898'));
+  map.setLayoutProperty ('dasymetric', 'visibility', (buildingColour ? 'visible' : 'none'));
 }
+
 
 // First load setup
 map.on('load', function() {
