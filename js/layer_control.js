@@ -571,7 +571,28 @@ function switch_data_zones() {
   const style_col = definitions.dzStyle_cols[style_col_selected];
   
   
-  // Buildings - determine colour
+  // Buildings
+  if (!map.getLayer ('dasymetric')) {
+    map.addLayer({
+      'id': 'dasymetric',
+      'type': 'fill-extrusion',
+      'source': 'dasymetric',
+      'source-layer': 'dasymetric',
+      'layout': {
+        'visibility': 'none'
+      },
+      'paint': {
+        'fill-extrusion-color': '#9c9898',  // Default gray
+        'fill-extrusion-height': [
+          'interpolate',
+          ['linear'],
+          ['zoom'],
+          12, 1,
+          15, 8
+        ]
+      }
+    }, 'roads 0 Guided Busway Casing');
+  }
   let buildingColour;
   if (dataZones) {
     if (daysymetricMode) {
@@ -585,27 +606,10 @@ function switch_data_zones() {
     const styleName = getBasemapStyle ();
     buildingColour = definitions.buildingColours[styleName];
   }
-  
-  // Buildings layer
-  if (map.getLayer('dasymetric')) {map.removeLayer('dasymetric');}
   if (buildingColour) {
-    map.addLayer({
-      'id': 'dasymetric',
-      'type': 'fill-extrusion',
-      'source': 'dasymetric',
-      'source-layer': 'dasymetric',
-      'paint': {
-        'fill-extrusion-color': buildingColour,
-        'fill-extrusion-height': [
-          'interpolate',
-          ['linear'],
-          ['zoom'],
-          12, 1,
-          15, 8
-        ]
-      }
-    }, 'roads 0 Guided Busway Casing');
+    map.setPaintProperty ('dasymetric', 'fill-extrusion-color', buildingColour);
   }
+  map.setLayoutProperty ('dasymetric', 'visibility', (buildingColour ? 'visible' : 'none'));
   
   
   // Zone polygons, semi-transparent; in daysymetric mode with the buildings coloured, this layer is very faded out
@@ -618,7 +622,7 @@ function switch_data_zones() {
       'source-layer': 'data_zones',
       'paint': {
         'fill-color': ['step',
-          ['get', layerId ],
+          ['get', layerId],
           ...style_col
         ],
         'fill-opacity': (daysymetricMode ? 0.1 : 0.8),
