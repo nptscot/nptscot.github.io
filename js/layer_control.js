@@ -599,23 +599,34 @@ function switch_data_zones() {
       }
     }, 'roads 0 Guided Busway Casing');
   }
-  let buildingColour;
-  if (dataZones) {
-    if (daysymetricMode) {
-      buildingColour = ['step', ['get', layerId], ...style_col];
-    } else {
-      buildingColour = '#9c9898';   // Gray
-    }
-  } else {
-    // dataZonesCheckBox not checked - buildings still shown (for vector layers)
-    // Single colour, if vector basemap, appropriate to that basemap
-    const styleName = getBasemapStyle ();
-    buildingColour = definitions.buildingColours[styleName];
-  }
-  if (buildingColour) {
-    map.setPaintProperty ('dasymetric', 'fill-extrusion-color', buildingColour);
-  }
+  
+  // Set building colour and visibility
+  const buildingColour = getBuildingsColour ();
+  map.setPaintProperty ('dasymetric', 'fill-extrusion-color', (buildingColour || '#9c9898'));
   map.setLayoutProperty ('dasymetric', 'visibility', (buildingColour ? 'visible' : 'none'));
+  
+  // Function to determine the buildings colour
+  function getBuildingsColour ()
+  {
+    // If datazones is off, buildings shown, if vector style, as static colour appropriate to the basemap
+    if (!document.getElementById('data_zonescheckbox').checked) {
+      const styleName = getBasemapStyle ();
+      return definitions.buildingColours[styleName];
+    }
+    
+    // If dasymetric mode, use a colour set based on the layer
+    if (document.getElementById('data_zones_checkbox_dasymetric').checked) {
+      const layerId = document.getElementById('data_zones_selector').value;
+      console.log (layerId);
+      return ['step',
+        ['get', layerId],
+        ...getStyleColumn (layerId)
+      ];
+    }
+    
+    // Default to gray
+    return '#9c9898';
+  }
   
   
   // Zone polygons, semi-transparent; in daysymetric mode with the buildings coloured, this layer is very faded out
