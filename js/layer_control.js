@@ -449,7 +449,9 @@ function switch_rnet() {
         'source': layerId,
         'source-layer': 'rnet',
         'type': 'line',
-        'visibility': 'none'
+        'layout': {
+          'visibility': 'none'
+        },
       }, 'placeholder_name');
     }
   });
