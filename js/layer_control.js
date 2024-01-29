@@ -556,6 +556,14 @@ function switch_rnet() {
 }
 
 
+// Function to determine the style column
+function getStyleColumn (layerId)
+{
+  const style_col_selected = definitions.dzStyle_cols.hasOwnProperty(layerId) ? layerId : '_';
+  return definitions.dzStyle_cols[style_col_selected];
+}
+
+
 // Data zones
 function switch_data_zones() {
   
@@ -567,9 +575,7 @@ function switch_data_zones() {
   createLegend (definitions.dzLegendColours, layerId, 'dzlegend');
   
   // Determine the style column
-  const style_col_selected = definitions.dzStyle_cols.hasOwnProperty(layerId) ? layerId : '_';
-  const style_col = definitions.dzStyle_cols[style_col_selected];
-  
+  const style_col = getStyleColumn (layerId);
   
   // Buildings
   if (!map.getLayer ('dasymetric')) {
