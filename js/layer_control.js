@@ -16,6 +16,7 @@ const definitions = {
     ['holyrood'],
     ['scot_regions'],
     ['la'],
+    ['cohesivenetwork', {localUrl: 'cohesivenetwork/'}],
     // #!# Placenames should be treated like a basemap - it's not a data layer as such
     ['placenames', {path: 'oszoom_names'}],
   ],
@@ -83,6 +84,24 @@ const definitions = {
         'line-color': 'rgba(107, 7, 7, 1)',
         'line-width': 2
       } 
+    },
+    cohesivenetwork: {
+      'id': 'cohesivenetwork',
+      'type': 'line',
+      'source': 'cohesivenetwork',
+      'source-layer': 'example_cohesive',	// #!# Needs fixing to 'cohesivenetwork'
+      'paint': {
+        'line-color': [
+          'match',
+          ['get', 'group'],
+          1, '#1230b4',
+          2, '#894cf7',
+          3, '#f07984',
+          4, '#fff551',
+          /* other */ 'gray'
+          ],
+        'line-width': 2
+      }
     }
   },
   
