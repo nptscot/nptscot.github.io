@@ -16,6 +16,8 @@ const definitions = {
     ['holyrood'],
     ['scot_regions'],
     ['la'],
+    // To be deployed on NPT tilserver as cohesivenetwork.pmtiles:
+    ['cohesivenetwork', {localUrl: 'cohesivenetwork/'}],
     // #!# Placenames should be treated like a basemap - it's not a data layer as such
     ['placenames', {path: 'oszoom_names'}],
   ],
@@ -33,7 +35,7 @@ const definitions = {
           'Primary','#313695',
           'Secondary','#a50026',
           /* other */ '#43f22c'
-          ],
+        ],
         // make circles larger as the user zooms
         'circle-radius': {
           'base': 5,
@@ -83,7 +85,33 @@ const definitions = {
         'line-color': 'rgba(107, 7, 7, 1)',
         'line-width': 2
       } 
+    },
+    cohesivenetwork: {
+      'id': 'cohesivenetwork',
+      'type': 'line',
+      'source': 'cohesivenetwork',
+      'source-layer': 'example_cohesive',	// #!# Needs fixing to 'cohesivenetwork'
+      'paint': {
+        'line-color': [
+          'match',
+          ['get', 'group'],
+          1, '#1230b4',
+          2, '#894cf7',
+          3, '#f07984',
+          4, '#fff551',
+          /* other */ 'gray'
+          ],
+        'line-width': 2
+      }
     }
+  },
+  
+  buildingColours: {
+    'greyscale_nobuild': '#d1cfcf',   // "OS Greyscale"
+    "satellite": false,               // "Satellite" - No buildings
+    'opencyclemap': false,            // "OpenCycleMap" - No buildings
+    'google_nobuild': '#f0eded',      // "Outdoors"
+    'dark_nobuild': '#000000',        // "Dark"
   },
   
   routeNetworkLegendColours: {
@@ -313,8 +341,8 @@ function addDataSources () {
       url += attributes.localUrl;
     } else {
       url += settings.tileserverUrl;
-      url += (attributes.path || sourceId);
     }
+    url += (attributes.path || sourceId);
     url += (attributes.dateBased ? '-' + attributes.dateBased : '');
     url += '.pmtiles';
     
@@ -416,15 +444,42 @@ function createLegend (legendColours, selected, selector)
 }
 
 
+// Function to determine layer width field
+// #!# Need to merge with popup.js: ncycleField ()
+function getLayerWidthField ()
+{
+  const layerPurpose = document.getElementById('rnet_purpose_input').value;
+  const layerType = document.getElementById('rnet_type_input').value;
+  const layerScenario = document.getElementById('rnet_scenario_input').value;
+  const layerWidthField = layerPurpose + '_' + layerType + '_' + layerScenario;
+  return layerWidthField;
+}
+
+
 function switch_rnet() {  
   
   console.log("Updating rnet")
-
-  // Remove layer if present
-  if (map.getLayer('rnet')) {
-    map.removeLayer('rnet');
-  }
   
+  // Initialise each layer variant, if they do not exist
+  const layerVariants = ['rnet', 'rnet-simplified'];
+  layerVariants.forEach (layerId => {
+    if (!map.getLayer (layerId)) {
+      map.addLayer ({
+        'id': layerId,
+        'source': layerId,
+        'source-layer': 'rnet',
+        'type': 'line',
+        'layout': {
+          'visibility': 'none'
+        },
+      }, 'placeholder_name');
+    }
+  });
+  
+  // Determine layer visibility
+  const layerEnabled = document.getElementById('rnetcheckbox').checked;
+  const simplifiedMode = document.getElementById('rnetsimplifiedcheckbox').checked;
+
   // Layer colour
   var layerColour = document.getElementById("rnet_colour_input").value;
   
@@ -432,34 +487,30 @@ function switch_rnet() {
   createLegend (definitions.routeNetworkLegendColours, layerColour, 'linecolourlegend');
   
   // Update the map if enabled
-  const layerEnabled = document.getElementById('rnetcheckbox').checked;
   if (layerEnabled) {
     
-    // Route network filters
-    var sliderQuietness = document.getElementById('rnet_slider-quietness').value.split ('-');
-    var sliderQuietness_min = Number(sliderQuietness[0]);
-    var sliderQuietness_max = Number(sliderQuietness[1]);
-    var sliderGradient = document.getElementById('rnet_slider-gradient').value.split ('-');
-    var sliderGradient_min = Number(sliderGradient[0]);
-    var sliderGradient_max = Number(sliderGradient[1]);
-    var sliderFlow = document.getElementById('rnet_slider-cycle').value.split ('-');
-    var sliderFlow_min = Number(sliderFlow[0]);
-    var sliderFlow_max = Number(sliderFlow[1]);
-    
     // Determine the layer width field
-    var layerPurpose = document.getElementById("rnet_purpose_input").value;
-    var layerScenario = document.getElementById("rnet_scenario_input").value;
-    var layerType = document.getElementById("rnet_type_input").value;
-    var layerWidthField = layerPurpose + '_' + layerType + '_' + layerScenario;
+    const layerWidthField = getLayerWidthField ();
+    
+    // Parse route network sliders to be used as filters
+    const sliders = {};
+    document.querySelectorAll ("input[id^='rnet_slider-']").forEach (slider => {
+      const sliderId = slider.id.replace ('rnet_slider-', '');
+      const sliderValue = slider.value.split ('-');
+      sliders[sliderId] = {
+        min: Number (sliderValue[0]),
+        max: Number (sliderValue[1])
+      };
+    });
     
     // Only filter cyclists if scenario set
-    var filter = ["all",
-      ['<=', layerWidthField, sliderFlow_max],
-      ['>=', layerWidthField, sliderFlow_min],
-      ['<=', "Quietness", sliderQuietness_max],
-      ['>=', "Quietness", sliderQuietness_min],
-      ['<=', "Gradient", sliderGradient_max],
-      ['>=', "Gradient", sliderGradient_min]
+    var filter = ['all',
+      ['>=', layerWidthField, sliders.cycle.min],
+      ['<=', layerWidthField, sliders.cycle.max],
+      ['>=', "Quietness", sliders.quietness.min],
+      ['<=', "Quietness", sliders.quietness.max],
+      ['>=', "Gradient", sliders.gradient.min],
+      ['<=', "Gradient", sliders.gradient.max]
     ];
     
     // Define line colour
@@ -510,101 +561,127 @@ function switch_rnet() {
       18, ["*", 52.5,["+", 0.3, ["/", 3, ["+", 1, ["^", 2.718, ["-", 2.94, ["*", ["get", layerWidthField], 0.0021]]]]]]],
     ];
     
-    // Simplified mode
-    var simplifiedMode = document.getElementById('rnetsimplifiedcheckbox').checked;
+    // Set the filter
+    const layerId = (simplifiedMode ? 'rnet-simplified' : 'rnet');
+    map.setFilter (layerId, filter);
     
-    // Assemble the style definition
-    var style = {
-      "id": "rnet",
-      "source": (simplifiedMode ? "rnet-simplified" : "rnet"),
-      "source-layer": "rnet",
-      "type": "line",
-      "filter": filter,
-      "paint" : {
-        "line-color": line_colours[layerColour],
-        "line-width": line_width
-      }
-    };
-    
-    // Add the layer
-    map.addLayer(style, 'placeholder_name');
+    // Set paint properties
+    map.setPaintProperty (layerId, "line-color", line_colours[layerColour]);
+    map.setPaintProperty (layerId, "line-width", line_width);
   }
+  
+  // Toggle layer visibility
+  map.setLayoutProperty ('rnet',            'visibility', (layerEnabled && !simplifiedMode ? 'visible' : 'none'));
+  map.setLayoutProperty ('rnet-simplified', 'visibility', (layerEnabled &&  simplifiedMode ? 'visible' : 'none'));
 }
 
 
-function switch_data_zones() {
+// Function to determine the style column
+function getStyleColumn (layerId)
+{
+  const style_col_selected = definitions.dzStyle_cols.hasOwnProperty(layerId) ? layerId : '_';
+  return definitions.dzStyle_cols[style_col_selected];
+}
+
+
+// Data zones
+function switch_data_zones()
+{
+  // Create buildings layer
+  buildingsLayer ();
   
-  var style_head_dy = {
-      'id': 'dasymetric',
-      'type': 'fill-extrusion',
-      'source': 'dasymetric',
-      'source-layer': 'dasymetric'
-  };
-  var style_head_dz = {
+  // Update the legend (even if map layer is off)
+  var layerId = document.getElementById('data_zones_selector').value;
+  createLegend (definitions.dzLegendColours, layerId, 'dzlegend');
+  
+  // Initialise data zones polygons layer
+  if (!map.getLayer ('data_zones')) {
+    map.addLayer ({
       'id': 'data_zones',
       'type': 'fill',
       'source': 'data_zones',
-      'source-layer': 'data_zones'
-  };
-  var style_ex_dy = {
-      'fill-extrusion-height': [
-        'interpolate',
-        ['linear'],
-        ['zoom'],
-        12, 1,
-        15, 8
-      ]
-  };
+      'source-layer': 'data_zones',
+      'layout': {
+        'visibility': 'none'
+      },
+      'paint': {
+        'fill-color': '#9c9898',
+        'fill-opacity': 0.8,
+        'fill-outline-color': '#000000'
+      }
+    }, 'roads 0 Guided Busway Casing');
+  }
   
-  var dataZonesCheckBox = document.getElementById('data_zonescheckbox');
-  var layerId = document.getElementById("data_zones_selector").value;
-  var daysymetricmode = document.getElementById('data_zones_checkbox_dasymetric');
+  // Get UI state
+  var daysymetricMode = document.getElementById('data_zones_checkbox_dasymetric').checked;
+  var dataZones = document.getElementById('data_zonescheckbox').checked;
   
-  // Update the Legend - Do this even if map layer is off
-  createLegend (definitions.dzLegendColours, layerId, 'dzlegend');
+  // Set paint properties
+  map.setPaintProperty ('data_zones', 'fill-color', ['step', ['get', layerId], ...getStyleColumn (layerId)]);
+  map.setPaintProperty ('data_zones', 'fill-opacity', (daysymetricMode ? 0.1 : 0.8));   // Very faded out in daysymetric mode, as the buildings are coloured
   
+  // Set visibility
+  map.setLayoutProperty ('data_zones', 'visibility', (dataZones ? 'visible' : 'none'));
+}
+
+
+// Function to handle buildings layer
+function buildingsLayer ()
+{
+  // Initialise the layer
+  if (!map.getLayer ('dasymetric')) {
+    map.addLayer ({
+      'id': 'dasymetric',
+      'type': 'fill-extrusion',
+      'source': 'dasymetric',
+      'source-layer': 'dasymetric',
+      'layout': {
+        'visibility': 'none'
+      },
+      'paint': {
+        'fill-extrusion-color': '#9c9898',  // Default gray
+        'fill-extrusion-height': [
+          'interpolate',
+          ['linear'],
+          ['zoom'],
+          12, 1,
+          15, 8
+        ]
+      }
+    }, 'roads 0 Guided Busway Casing');
+  }
   
-  
-  if (map.getLayer('data_zones')) map.removeLayer('data_zones');
-  if (map.getLayer('dasymetric')) map.removeLayer('dasymetric');
-  
-  if (dataZonesCheckBox.checked === true) {
-    
-    // Determine the style column
-    var style_col_selected = definitions.dzStyle_cols.hasOwnProperty(layerId) ? layerId : '_';
-    var style_col = definitions.dzStyle_cols[style_col_selected];
-    
-    var fillExtrusionColor = (daysymetricmode.checked === true ? ['step', ['get', layerId ], ...style_col] : '#9c9898');
-    var style_paint_dy = {'paint' : { 'fill-extrusion-color': fillExtrusionColor, ...style_ex_dy}};
-    var style_combined_dy = {...style_head_dy, ...style_paint_dy};
-    map.addLayer(style_combined_dy, 'roads 0 Guided Busway Casing');
-    
-    var fillopacity = (daysymetricmode.checked === true ? 0.1 : 0.8);
-    var style_paint_dz = {'paint' : { 'fill-color': ['step', ['get', layerId ], ...style_col], 'fill-opacity': fillopacity,'fill-outline-color': '#000000'}};
-    var style_combined_dz = {...style_head_dz, ...style_paint_dz};
-    map.addLayer(style_combined_dz, 'roads 0 Guided Busway Casing');
-  
-  } else {  // dataZonesCheckBox not checked
-    console.log("Data zones layer off");
-    
-    // put buildings on when layer is off
-    
-    const styleExtrusionColours = {
-      'greyscale_nobuild': '#d1cfcf',
-      'google_nobuild': '#f0eded',
-      'dark_nobuild': '#000000',
-      // No buildings on raster
-    };
-    var styleName = getBasemapStyle ();
-    if (styleExtrusionColours.hasOwnProperty (styleName)) {
-      var fillExtrusionColor = styleExtrusionColours[styleName];
-      var style_paint_dy = {'paint' : { 'fill-extrusion-color': fillExtrusionColor, ...style_ex_dy}};
-      var style_combined_dy = {...style_head_dy, ...style_paint_dy};
-      map.addLayer(style_combined_dy, 'roads 0 Guided Busway Casing');
+  // Function to determine the buildings colour
+  function getBuildingsColour ()
+  {
+    // If datazones is off, buildings shown, if vector style, as static colour appropriate to the basemap
+    if (!document.getElementById('data_zonescheckbox').checked) {
+      const styleName = getBasemapStyle ();
+      return definitions.buildingColours[styleName];
     }
     
+    // If dasymetric mode, use a colour set based on the layer
+    if (document.getElementById('data_zones_checkbox_dasymetric').checked) {
+      const layerId = document.getElementById('data_zones_selector').value;
+      console.log (layerId);
+      return ['step',
+        ['get', layerId],
+        ...getStyleColumn (layerId)
+      ];
+    }
+    
+    // Default to gray
+    return '#9c9898';
   }
+  
+  // Set building colour
+  const buildingColour = getBuildingsColour ();
+  map.setPaintProperty ('dasymetric', 'fill-extrusion-color', (buildingColour || '#9c9898'));
+  
+  // Set visibility
+  map.setLayoutProperty ('dasymetric', 'visibility', (buildingColour ? 'visible' : 'none'));
 }
+
 
 // First load setup
 map.on('load', function() {

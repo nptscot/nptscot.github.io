@@ -1,101 +1,114 @@
 
-// Convert 3 to <9
-function suppresssmall(x) {
-  if(x < 10){
-   return "\u22649";
-  }
-  return x;
+// Callback to determine the field for number of cyclists
+const ncycleField = function ncycleField (feature)
+{
+  const layerPurpose = document.getElementById('rnet_purpose_input').value;
+  const layerType = document.getElementById('rnet_type_input').value;
+  const layerScenario = document.getElementById('rnet_scenario_input').value;
+  const layerField = layerPurpose + '_' + layerType + '_' + layerScenario;
+  feature.properties._ncycle = feature.properties[layerField];
+  return feature;
 }
+
+// Create popups
+const layerVariants = ['rnet', 'rnet-simplified'];
+layerVariants.forEach (layerId => {
+  mapPopups ({
+    layerId: layerId,
+    templateId: 'rnet-popup',
+    preprocessingCallback: ncycleField,
+    smallValuesThreshold: 10,
+    literalFields: ['Gradient', 'Quietness']  // #!# Gradient and Quietness are capitalised unlike other
+  });
+});
+
 
 // Click on rnet for popup
-map.on('click', 'rnet', function (e) {
-var coordinates = e.lngLat;
-
-// Process all the properties
-// Processed gradinet and quietness but ignored
-const properties = e.features[0].properties;
-const prop = {};
-
-for (const property in properties) {
-  prop[property] = suppresssmall(properties[property]);
-}
-
-var Gradient = e.features[0].properties.Gradient;
-var Quietness = e.features[0].properties.Quietness;
-
-var layerPurpose = document.getElementById("rnet_purpose_input").value;
-var layerScenario = document.getElementById("rnet_scenario_input").value;
-var layerType = document.getElementById("rnet_type_input").value;
-
-var layername = layerPurpose + "_" + layerType + "_" + layerScenario
-
-var ncycle = suppresssmall(e.features[0].properties[layername]);
-
-var description = '<div class="mappopup">' + 
-'<p> Cyclists: ' + ncycle + '</p>' +
-'<p> Gradient: ' + Gradient + '%</p>' +
-'<p> Cycle friendliness: ' + Quietness + '%</p>' +
-'<p><a target="_blank" href="http://maps.google.com/maps?q=&layer=c&cbll=' + 
-coordinates.lat + ',' + coordinates.lng +
-'&cbp=11,0,0,0,0">Google Street View </a><i class="fa fa-external-link" aria-hidden="true"></i>' +
-'<a target="_blank" href="https://www.openstreetmap.org/#map=19/' + coordinates.lat + '/' + coordinates.lng + '"> OpenStreetMap </a><i class="fa fa-external-link" aria-hidden="true"></i></p>' +
-
-'<button class="accordion" id="popupaccordion" onclick="popupAccordion();">All Network Details</button>' +
-'<div class="panel" id ="popuppanel">' +
-
-'<h4>Fast/Direct network</h4>' +
-'<table><tr><th></th><th>Baseline</th><th>Go Dutch</th><th>Ebikes</th></tr>' +
-'<tr><th>All</th><th>' + prop.all_fastest_bicycle + '</th><th>' + prop.all_fastest_bicycle_go_dutch + '</th><th>' + prop.all_fastest_bicycle_ebike + '</th></tr>' + 
-'<tr><th>Commute</th><th>' + prop.commute_fastest_bicycle + '</th><th>' + prop.commute_fastest_bicycle_go_dutch + '</th><th>' + prop.commute_fastest_bicycle_ebike + '</th></tr>' +
-'<tr><th>Primary</th><th>' + prop.primary_fastest_bicycle + '</th><th>' + prop.primary_fastest_bicycle_go_dutch + '</th><th>' + prop.primary_fastest_bicycle_ebike + '</th></tr>' +
-'<tr><th>Secondary</th><th>' + prop.secondary_fastest_bicycle + '</th><th>' + prop.secondary_fastest_bicycle_go_dutch + '</th><th>' + prop.secondary_fastest_bicycle_ebike + '</th></tr>' +
-'<tr><th>Utility</th><th>' + prop.utility_fastest_bicycle + '</th><th>' + prop.utility_fastest_bicycle_go_dutch + '</th><th>' + prop.utility_fastest_bicycle_ebike + '</th></tr>' +
-'</table>' +
-
-'<h4>Quiet/Indirect network</h4>' + 
-'<table><tr><th></th><th>Baseline</th><th>Go Dutch</th><th>Ebikes</th></tr>' +
-'<tr><th>All</th><th>' + prop.all_quietest_bicycle + '</th><th>' + prop.all_quietest_bicycle_go_dutch + '</th><th>' + prop.all_quietest_bicycle_ebike + '</th></tr>' + 
-'<tr><th>Commute</th><th>' + prop.commute_quietest_bicycle + '</th><th>' + prop.commute_quietest_bicycle_go_dutch + '</th><th>' + prop.commute_quietest_bicycle_ebike + '</th></tr>' +
-'<tr><th>Primary</th><th>' + prop.primary_quietest_bicycle + '</th><th>' + prop.primary_quietest_bicycle_go_dutch + '</th><th>' + prop.primary_quietest_bicycle_ebike + '</th></tr>' +
-'<tr><th>Secondary</th><th>' + prop.secondary_quietest_bicycle + '</th><th>' + prop.secondary_quietest_bicycle_go_dutch + '</th><th>' + prop.secondary_quietest_bicycle_ebike + '</th></tr>' +
-'<tr><th>Utility</th><th>' + prop.utility_quietest_bicycle + '</th><th>' + prop.utility_quietest_bicycle_go_dutch + '</th><th>' + prop.utility_quietest_bicycle_ebike + '</th></tr>' +
-'</table>' +
+// Options are: layerId, preprocessingCallback, smallValuesThreshold, literalFields
+function mapPopups (options) {
   
-'</div>'
+  // Enable cursor pointer
+  layerPointer (options.layerId);
+  
+  // Register popup on click
+  map.on ('click', options.layerId, function (e) {
+  
+    // Get the clicked co-ordinates
+    const coordinates = e.lngLat;
+    
+    // Obtain the clicked feature
+    let feature = e.features[0];
+    
+    // Process any preprocessing callback
+    if (options.preprocessingCallback) {
+      feature = options.preprocessingCallback (feature);
+    }
 
+    // Number formatting
+    Object.entries (feature.properties).forEach (([key, value]) => {
+      if (options.literalFields && options.literalFields.includes (key)) {return;  /* i.e. continue */}
+      if (Number.isFinite(value)) {   // Number check means strings/percentages/etc. get skipped
 
-
- 
-new maplibregl.Popup({maxWidth: '400px'})
-.setLngLat(coordinates)
-.setHTML(description)
-.addTo(map);
-
-});
-
-// Change the cursor to a pointer when the mouse is over the layer.
-map.on('mouseenter', 'rnet', function () {
-map.getCanvas().style.cursor = 'pointer';
-});
- 
-// Change it back to a pointer when it leaves.
-map.on('mouseleave', 'rnet', function () {
-map.getCanvas().style.cursor = '';
-});
-
-
-// Popup accordion
-popupAccordion = function(){
-  var acc = document.getElementById("popupaccordion");
-  acc.classList.toggle("active");
-  var panel = document.getElementById("popuppanel");
-  if (panel.style.display === "block") {
-      panel.style.display = "none";
-  } else {
-      panel.style.display = "block";
+        // Suppress small numeric values
+        if (value < options.smallValuesThreshold) {
+          if (options.smallValuesThreshold) {
+            feature.properties[key] = '<' + options.smallValuesThreshold;
+            return;   // i.e. continue
+          }
+        }
+        
+        // Thousands separator
+        feature.properties[key] = value.toLocaleString ('en-GB');
+      }
+    });
+    
+    // Make external links properties available to the template
+    feature.properties = addExternalLinks (feature.properties, coordinates);
+    
+    // Create the popup HTML from the template in the HTML
+    const popupHtml = processTemplate (options.templateId, feature.properties);
+    
+    // Create the popup
+    new maplibregl.Popup({className: 'layerpopup'})
+      .setLngLat(coordinates)
+      .setHTML(popupHtml)
+      .addTo(map);
+    
+    // #!# Need to close popup when layer visibility changed - currently a popup is left hanging if the layer is toggled on/off (e.g. due to simplification or field change)
+  });
+  
+  
+  // Function to handle pointer hover changes for a layer
+  function layerPointer (layerId)
+  {
+    // Change the cursor to a pointer when the mouse is over the layer.
+    map.on('mouseenter', layerId, function () {
+      map.getCanvas().style.cursor = 'pointer';
+    });
+    
+    // Change it back to a pointer when it leaves.
+    map.on('mouseleave', layerId, function () {
+      map.getCanvas().style.cursor = '';
+    });
+  }
+  
+  
+  // Function to convert a template to HTML, substituting placeholders
+  function processTemplate (templateId, properties)
+  {
+     // Get template for the popup (from the HTML page), which defines fields to be used from feature.properties
+     const template = document.querySelector('template#' + templateId).innerHTML;
+    
+     // Substitute placeholders in template
+     return template.replace (/{([^}]+)}/g, (placeholderString, field) => properties[field]);    // See: https://stackoverflow.com/a/52036543/
+  }
+  
+  
+  // Function to add external links
+  function addExternalLinks (properties, coordinates)
+  {
+    properties._streetViewUrl = 'https://maps.google.com/maps?q=&layer=c&cbll=' + coordinates.lat + ',' + coordinates.lng + '&cbp=11,0,0,0,0';
+    properties._osmUrl = 'https://www.openstreetmap.org/#map=19/' + coordinates.lat + '/' + coordinates.lng;
+    return properties;
   }
 }
-
-
-
-

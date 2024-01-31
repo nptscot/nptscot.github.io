@@ -109,7 +109,7 @@
     <button onclick="cookiebutton(false)" class="button button2"><b>No</b></button>
   </p>
 </div>
-<script type="text/javascript" src="js/ga_optout.js"></script>
+<script src="js/ga_optout.js"></script>
 
 
 
@@ -312,6 +312,14 @@
   <div class="lb"><span style="background-color: #6b0707"></span></div>
 	</div></div>
 	
+	<p><label><input type="checkbox" id="cohesivenetworkcheckbox" class="updatelayer" value="false">Cohesive network</label></p>
+  <div class="legend"><div class="l_r">
+  <div class="lb"><span style="background-color: #1230b4"></span>1</div>
+  <div class="lb"><span style="background-color: #894cf7"></span>2</div>
+  <div class="lb"><span style="background-color: #f07984"></span>3</div>
+  <div class="lb"><span style="background-color: #fff551"></span>3</div>
+	</div></div>
+	
 
 </div>
 </div>
@@ -497,19 +505,57 @@
 
 </div>
 
-<script type="text/javascript" src="js/date.js"></script>
-<script type="text/javascript" src="js/modal.js"></script>
-<script type="text/javascript" src="js/welcome.js"></script>
-<script type="text/javascript" src="js/accordion.js"></script>
-<script type="text/javascript" src="js/gui.js"></script>
-<script type="text/javascript" src="js/map.js"></script>
-<script type="text/javascript" src="js/layer_control.js"></script>
-<script type="text/javascript" src="js/ga_optout.js" defer></script>
-<script type="text/javascript" src="js/help.js" defer></script>
-<script type="text/javascript" src="js/popup.js" defer></script>
-<script type="text/javascript" src="js/charts.js" defer></script>
-<script type="text/javascript" src="js/sliders.js" defer></script>
-<script type="text/javascript" src="js/tooltips.js" defer></script>
+
+<!-- Template for map popup -->
+<template id="rnet-popup">
+  <div class="mappopup">
+
+    <p>Cyclists: {_ncycle}</p>
+    <p>Gradient: {Gradient}%</p>
+    <p>Cycle-friendliness: {Quietness}%</p>
+    <p><a class="externallink" target="_blank" href="{_streetViewUrl}">Google Street View <i class="fa fa-external-link" aria-hidden="true"></i></a> <a class="externallink" target="_blank" href="{_osmUrl}">OpenStreetMap <i class="fa fa-external-link" aria-hidden="true"></i></a></p>
+
+    <button class="accordion">All network details</button>
+    
+    <div class="panel" id="popuppanel">
+
+      <h4>Fast/Direct network</h4>
+      <table>
+        <tr><th></th><th>Baseline</th><th>Go Dutch</th><th>Ebikes</th></tr>
+        <tr><th>All</td><td>{all_fastest_bicycle}</td><td>{all_fastest_bicycle_go_dutch}</td><td>{all_fastest_bicycle_ebike}</td></tr>
+        <tr><th>Commute</td><td>{commute_fastest_bicycle}</td><td>{commute_fastest_bicycle_go_dutch}</td><td>{commute_fastest_bicycle_ebike}</td></tr>
+        <tr><th>Primary</td><td>{primary_fastest_bicycle}</td><td>{primary_fastest_bicycle_go_dutch}</td><td>{primary_fastest_bicycle_ebike}</td></tr>
+        <tr><th>Secondary</td><td>{secondary_fastest_bicycle}</td><td>{secondary_fastest_bicycle_go_dutch}</td><td>{secondary_fastest_bicycle_ebike}</td></tr>
+        <tr><th>Utility</td><td>{utility_fastest_bicycle}</td><td>{utility_fastest_bicycle_go_dutch}</td><td>{utility_fastest_bicycle_ebike}</td></tr>
+      </table>
+
+      <h4>Quiet/Indirect network</h4>
+      <table>
+        <tr><th></th><th>Baseline</th><th>Go Dutch</th><th>Ebikes</th></tr>
+        <tr><th>All</td><td>{all_quietest_bicycle}</td><td>{all_quietest_bicycle_go_dutch}</td><td>{all_quietest_bicycle_ebike}</td></tr>
+        <tr><th>Commute</td><td>{commute_quietest_bicycle}</td><td>{commute_quietest_bicycle_go_dutch}</td><td>{commute_quietest_bicycle_ebike}</td></tr>
+        <tr><th>Primary</td><td>{primary_quietest_bicycle}</td><td>{primary_quietest_bicycle_go_dutch}</td><td>{primary_quietest_bicycle_ebike}</td></tr>
+        <tr><th>Secondary</td><td>{secondary_quietest_bicycle}</td><td>{secondary_quietest_bicycle_go_dutch}</td><td>{secondary_quietest_bicycle_ebike}</td></tr>
+        <tr><th>Utility</td><td>{utility_quietest_bicycle}</td><td>{utility_quietest_bicycle_go_dutch}</td><td>{utility_quietest_bicycle_ebike}</td></tr>
+      </table>
+  
+  </div>
+</template>
+
+
+<script src="js/date.js"></script>
+<script src="js/modal.js"></script>
+<script src="js/welcome.js"></script>
+<script src="js/accordion.js"></script>
+<script src="js/gui.js"></script>
+<script src="js/map.js"></script>
+<script src="js/layer_control.js"></script>
+<script src="js/ga_optout.js" defer></script>
+<script src="js/help.js" defer></script>
+<script src="js/popup.js" defer></script>
+<script src="js/charts.js" defer></script>
+<script src="js/sliders.js" defer></script>
+<script src="js/tooltips.js" defer></script>
 
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1" defer></script>
