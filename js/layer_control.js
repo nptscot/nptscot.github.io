@@ -33,7 +33,7 @@ const definitions = {
           'Primary','#313695',
           'Secondary','#a50026',
           /* other */ '#43f22c'
-          ],
+        ],
         // make circles larger as the user zooms
         'circle-radius': {
           'base': 5,
@@ -321,8 +321,8 @@ function addDataSources () {
       url += attributes.localUrl;
     } else {
       url += settings.tileserverUrl;
-      url += (attributes.path || sourceId);
     }
+    url += (attributes.path || sourceId);
     url += (attributes.dateBased ? '-' + attributes.dateBased : '');
     url += '.pmtiles';
     
