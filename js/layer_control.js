@@ -16,6 +16,7 @@ const definitions = {
     ['holyrood'],
     ['scot_regions'],
     ['la'],
+    // To be deployed on NPT tilserver as cohesivenetwork.pmtiles:
     ['cohesivenetwork', {localUrl: 'cohesivenetwork/'}],
     // #!# Placenames should be treated like a basemap - it's not a data layer as such
     ['placenames', {path: 'oszoom_names'}],
