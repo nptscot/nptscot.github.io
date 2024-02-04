@@ -136,7 +136,7 @@ const chartsModal = function (chartDefinition) {
         document.getElementById(chartDefinition.titleId).innerHTML = '<h2>' + title + '</h2>';
 
         // Create the charts
-        createCharts(locationData);
+        createCharts(chartDefinition, locationData);
       })
       .catch (function (error) {
         alert('Failed to get data for this location. Please try refreshing the page.');
@@ -145,7 +145,7 @@ const chartsModal = function (chartDefinition) {
 
 
   // Function to create all charts
-  function createCharts(locationData) {
+  function createCharts(chartDefinition, locationData) {
 
     // Create each chart
     chartDefinition.charts.forEach((chart, i) => {
@@ -174,9 +174,8 @@ const chartsModal = function (chartDefinition) {
       chartHandles[i] = renderChart(chart[0], chart[2], datasets, labels);
     });
   };
-
-
 }
+
 
 // Function to render a chart
 function renderChart (divId, title, datasets, labels) {
