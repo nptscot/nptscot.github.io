@@ -160,7 +160,6 @@ const chartsModal = function (chartDefinition) {
           borderColor: mode[3],
           borderWidth: 1
         });
-        console.log (datasets);
       });
       
       // Bar labels
@@ -177,37 +176,38 @@ const chartsModal = function (chartDefinition) {
   };
 
 
-  // Function to render a chart
-  function renderChart (divId, title, datasets, labels) {
+}
 
-    // Create and return the chart
-    return new Chart(document.getElementById(divId).getContext('2d'), {
-      type: 'bar',
-      data: {
-        labels: labels,
-        datasets: datasets
-      },
-      options: {
-        scales: {
-          y: {
-            stacked: true,
-            title: {
-              display: true,
-              text: title
-            },
-            ticks: {
-              beginAtZero: true,
-            }
+// Function to render a chart
+function renderChart (divId, title, datasets, labels) {
+
+  // Create and return the chart
+  return new Chart(document.getElementById(divId).getContext('2d'), {
+    type: 'bar',
+    data: {
+      labels: labels,
+      datasets: datasets
+    },
+    options: {
+      scales: {
+        y: {
+          stacked: true,
+          title: {
+            display: true,
+            text: title
           },
-          x: {
-            stacked: true
-          },
+          ticks: {
+            beginAtZero: true,
+          }
         },
-        responsive: true,
-        maintainAspectRatio: false
-      }
-    });
-  }
+        x: {
+          stacked: true
+        },
+      },
+      responsive: true,
+      maintainAspectRatio: false
+    }
+  });
 }
 
 
