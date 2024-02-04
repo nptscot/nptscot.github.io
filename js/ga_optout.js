@@ -20,7 +20,7 @@ document.querySelectorAll ('#cookiewarning button').forEach (function (button) {
     cookieButton (button.value);
   });
 });
-  
+
 
 // Warning Control
 function cookieButton(accepted) {
