@@ -1,7 +1,7 @@
 // #!# Need to define the assumed data structure, e.g. the 'charts' key shows a part field
 
 // Data zones
-const chartDefinitions = {
+const chartDefinition = {
 
   // UI elements
   mapLayerId: 'data_zones',
@@ -51,7 +51,7 @@ const chartDefinitions = {
 
 
 // Travel to School Modeshare
-const chartDefinitionsSchools = {
+const chartDefinitionSchools = {
 
   // UI elements
   mapLayerId: 'schools',
@@ -93,14 +93,14 @@ const chartDefinitionsSchools = {
 
 
 // Function to create a chart modal
-const chartsModal = function (chartDefinitions) {
+const chartsModal = function (chartDefinition) {
 
   // Create the modal
-  const location_modal = newModal (chartDefinitions.location_modal_id);
+  const location_modal = newModal (chartDefinition.location_modal_id);
 
   // Open modal on clicking the supported map layer
   const charts = {};
-  map.on('click', chartDefinitions.mapLayerId, function (e) {
+  map.on('click', chartDefinition.mapLayerId, function (e) {
 
     // Ensure the source matches
     let clickedFeatures = map.queryRenderedFeatures(e.point);
@@ -109,7 +109,7 @@ const chartsModal = function (chartDefinitions) {
       return !layersToExclude.includes(el.source);
       //return el.source != 'composite';
     });
-    if (clickedFeatures[0].sourceLayer != chartDefinitions.mapLayerId) {
+    if (clickedFeatures[0].sourceLayer != chartDefinition.mapLayerId) {
       return;
     }
     
@@ -118,8 +118,8 @@ const chartsModal = function (chartDefinitions) {
 
     // Assemble the JSON data file URL
     const featureProperties = e.features[0].properties;
-    const locationId = featureProperties[chartDefinitions.propertiesField];
-    const dataUrl = chartDefinitions.dataUrl.replace('%id', locationId);
+    const locationId = featureProperties[chartDefinition.propertiesField];
+    const dataUrl = chartDefinition.dataUrl.replace('%id', locationId);
 
     // Get the data
     fetch(dataUrl)
@@ -132,8 +132,8 @@ const chartsModal = function (chartDefinitions) {
         //document.getElementById('loader').style.display = 'none';
 
         // Set the title
-        const title = chartDefinitions.titlePrefix + featureProperties[chartDefinitions.titleField];
-        document.getElementById(chartDefinitions.titleId).innerHTML = '<h2>' + title + '</h2>';
+        const title = chartDefinition.titlePrefix + featureProperties[chartDefinition.titleField];
+        document.getElementById(chartDefinition.titleId).innerHTML = '<h2>' + title + '</h2>';
 
         // Create the charts
         createCharts(locationData);
@@ -148,7 +148,7 @@ const chartsModal = function (chartDefinitions) {
   function createCharts(locationData) {
 
     // Create each chart, clearing existing if present
-    chartDefinitions.charts.forEach((chartDefinition, i) => {
+    chartDefinition.charts.forEach((chartDefinition, i) => {
       if (charts[i]) {
         charts[i].destroy();
       }
@@ -162,10 +162,10 @@ const chartsModal = function (chartDefinitions) {
 
     // Assemble the datasets
     const datasets = [];
-    chartDefinitions.modes.forEach(mode => {
+    chartDefinition.modes.forEach(mode => {
       datasets.push({
         label: mode[0],
-        data: chartDefinitions.scenarios.map(scenario => locationData[prefix + '_' + mode[1] + scenario[0]]),
+        data: chartDefinition.scenarios.map(scenario => locationData[prefix + '_' + mode[1] + scenario[0]]),
         backgroundColor: mode[2],
         borderColor: mode[3],
         borderWidth: 1
@@ -176,7 +176,7 @@ const chartsModal = function (chartDefinitions) {
     return new Chart(document.getElementById(id).getContext('2d'), {
       type: 'bar',
       data: {
-        labels: chartDefinitions.scenarios.map(scenario => scenario[1]),
+        labels: chartDefinition.scenarios.map(scenario => scenario[1]),
         datasets: datasets
       },
       options: {
@@ -203,5 +203,5 @@ const chartsModal = function (chartDefinitions) {
 }
 
 
-chartsModal(chartDefinitions);
-chartsModal(chartDefinitionsSchools);
+chartsModal(chartDefinition);
+chartsModal(chartDefinitionSchools);
