@@ -631,31 +631,24 @@ function buildingsLayer ()
 }
 
 
-
 // First load setup
-map.on ('load', function() {
-  setBasemapStyle ();
+map.once ('idle', function () {
+  document.dispatchEvent (new Event ('@map/ready', {'bubbles': true}));
 });
 
 // Change map and reload state on basemap change
-document.getElementById ('basemapform').addEventListener ('change', function (e) {
-  setBasemapStyle ();
-});
-
-
-// Function to handle style switching
-function setBasemapStyle ()
-{
-  // Switch style if required
+document.getElementById ('basemapform').addEventListener ('change', function () {
   var styleName = getBasemapStyle ();
   var styleCurrent = map.getStyle ().name;
   if (styleCurrent != styleName) {
     console.log ('Restyling from ' + styleCurrent + ' to ' + styleName);
     map.setStyle ('tiles/style_' + styleName + '.json');
+    
+    // Fire an event when ready
+    map.once ('idle', function() {
+      document.dispatchEvent (new Event ('@map/ready', {'bubbles': true}));
+    });
   }
-  
-  // Fire an event when ready
-  map.once ('idle', function() {
-    document.dispatchEvent (new Event ('@map/ready', {'bubbles': true}));
-  });
-}
+});
+
+
