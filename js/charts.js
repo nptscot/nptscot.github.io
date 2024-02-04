@@ -16,17 +16,16 @@ const chartDefinitions = {
     titlePrefix: 'Zone Summary: ',
 
     charts: [
-      // #!# Chart labels can be refactored to single setting
-      ['commuteOriginChart', 'comm_orig', 'Annual Average Daily Flow'], // Commute Origin
-      ['commuteDestinationChart', 'comm_dest', 'Annual Average Daily Flow'], // Commute Destination
-      ['primaryOrginChart', 'schl_primary_orig', 'Annual Average Daily Flow'], // School Primary Origin
-      ['secondaryOriginChart', 'schl_secondary_orig', 'Annual Average Daily Flow'], // School Secondary Origin
-      ['shoppingOriginChart', 'shopping_orig', 'Annual Average Daily Flow'], // shopping Origin
-      ['shoppingDestinationChart', 'shopping_dest', 'Annual Average Daily Flow'], // shopping Destination
-      ['leisureOriginChart', 'leisure_orig', 'Annual Average Daily Flow'], // leisure Origin
-      ['leisureDestinationChart', 'leisure_dest', 'Annual Average Daily Flow'], // leisure Destination
-      ['visitingOriginChart', 'visiting_orig', 'Annual Average Daily Flow'], // visiting Origin
-      ['visitingDestinationChart', 'visiting_dest', 'Annual Average Daily Flow'], // visiting Destination
+      ['comm_orig', 'Annual Average Daily Flow'], // Commute Origin
+      ['comm_dest', 'Annual Average Daily Flow'], // Commute Destination
+      ['schl_primary_orig', 'Annual Average Daily Flow'], // School Primary Origin
+      ['schl_secondary_orig', 'Annual Average Daily Flow'], // School Secondary Origin
+      ['shopping_orig', 'Annual Average Daily Flow'], // shopping Origin
+      ['shopping_dest', 'Annual Average Daily Flow'], // shopping Destination
+      ['leisure_orig', 'Annual Average Daily Flow'], // leisure Origin
+      ['leisure_dest', 'Annual Average Daily Flow'], // leisure Destination
+      ['visiting_orig', 'Annual Average Daily Flow'], // visiting Origin
+      ['visiting_dest', 'Annual Average Daily Flow'], // visiting Destination
     ],
 
     modes: [
@@ -61,8 +60,8 @@ const chartDefinitions = {
     titlePrefix: '',
 
     charts: [
-      ['primaryChart', 'schl_primary_dest', 'Annual Average Daily Flow'], // School Primary Destination
-      ['secondaryChart', 'schl_secondary_dest', 'Annual Average Daily Flow'], // School Secondary Destination
+      ['schl_primary_dest', 'Annual Average Daily Flow'], // School Primary Destination
+      ['schl_secondary_dest', 'Annual Average Daily Flow'], // School Secondary Destination
     ],
 
     modes: [
@@ -152,7 +151,7 @@ function createCharts(chartDefinition, locationData) {
     chartDefinition.modes.forEach(mode => {
       datasets.push({
         label: mode[0],
-        data: chartDefinition.scenarios.map(scenario => locationData[chart[1] + '_' + mode[1] + scenario[0]]),
+        data: chartDefinition.scenarios.map(scenario => locationData[chart[0] + '_' + mode[1] + scenario[0]]),
         backgroundColor: mode[2],
         borderColor: mode[3],
         borderWidth: 1
@@ -168,7 +167,7 @@ function createCharts(chartDefinition, locationData) {
     }
     
     // Render the chart (and register it to a handle so it can be cleared in future)
-    chartHandles[i] = renderChart(chart[0], chart[2], datasets, labels);
+    chartHandles[i] = renderChart(chart[0] + '-chart', chart[1], datasets, labels);
   });
 };
 
