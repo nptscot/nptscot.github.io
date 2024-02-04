@@ -365,7 +365,7 @@ input[type="radio"][id^="bm"] {
 }
 
 
-.radio-inline {
+.basemap input {
   display: inline;
   float: left;
 }
@@ -462,7 +462,8 @@ input[type="radio"][id^="bm"] {
 }
 
 /* Basemap Control */
-.basemapcontrol {
+#basemapcontrol {
+  display: none;  /* Hidden by default */
   background-color: #fff;
   border-radius: 3px;
   top: 260px;
@@ -476,10 +477,14 @@ input[type="radio"][id^="bm"] {
   overflow:auto;
 }
 
-.basemapcontrol:hover {
+#basemapcontrol:hover {
   display:block;
 }
 
+#basemapcontrol h3 {
+  font-size: 16px;
+  margin: 5px;
+}
 
 
 

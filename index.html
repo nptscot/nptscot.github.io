@@ -118,26 +118,28 @@
 <div id="map"></div>
 </div>
 
-<!-- Floating Objects -->
-<div id="basemapcontrol" class="basemapcontrol" style="display:none;">
-  <p style="margin-top:5px;margin-bottom:5px"><b>&nbsp Basemap</b></p>
+
+<!-- Basemap control box -->
+<div id="basemapcontrol">
+  <h3>Basemap</h3>
   <p>
-  <form id="basemapform" onchange="switch_style()" class="basemap">
-  <input type="radio" id="bm1" value="greyscale_nobuild" name="basemap" class="radio-inline"checked/>
-    <label for="bm1"><img src="images/greyscale_50.png" title="OS Greyscale" loading="lazy"/></label>
-  <input type="radio" id="bm2" value="satellite" name="basemap"class="radio-inline"/>
-    <label for="bm2"><img src="images/satellite_50.png" title="Satellite" loading="lazy"/></label>
-  <input type="radio" id="bm3" value="opencyclemap" name="basemap"class="radio-inline"/>
-    <label for="bm3"><img src="images/opencyclemap_50.png" title="OpenCycleMap" loading="lazy"/></label>
-  <input type="radio" id="bm5" value="dark_nobuild" name="basemap"class="radio-inline"/>
-    <label for="bm5"><img src="images/dark.PNG" title="Dark" loading="lazy"/></label>
-  <input type="radio" id="bm6" value="google_nobuild" name="basemap"class="radio-inline"/>
-    <label for="bm6"><img src="images/google.PNG" title="Outdoors" loading="lazy"/></label>
-  </form>
+    <form id="basemapform" onchange="switch_style()" class="basemap">
+      <input type="radio" id="bm1" value="greyscale_nobuild" name="basemap" checked="checked" />
+        <label for="bm1"><img src="images/greyscale_50.png" title="OS Greyscale" loading="lazy" /></label>
+      <input type="radio" id="bm2" value="satellite" name="basemap"/>
+        <label for="bm2"><img src="images/satellite_50.png" title="Satellite" loading="lazy" /></label>
+      <input type="radio" id="bm3" value="opencyclemap" name="basemap"/>
+        <label for="bm3"><img src="images/opencyclemap_50.png" title="OpenCycleMap" loading="lazy" /></label>
+      <input type="radio" id="bm5" value="dark_nobuild" name="basemap"/>
+        <label for="bm5"><img src="images/dark.PNG" title="Dark" loading="lazy" /></label>
+      <input type="radio" id="bm6" value="google_nobuild" name="basemap"/>
+        <label for="bm6"><img src="images/google.PNG" title="Outdoors" loading="lazy" /></label>
+    </form>
   </p>
   <p><label class="switch"><input type="checkbox" id="placenamescheckbox" checked><span class="slider round"></span></label> Place Names</p>
   <p><label class="switch"><input type="checkbox" id="antialiascheckbox" /><span class="slider round"></span></label> Anti-alias</p>
 </div>
+
 
 <!-- Show Layer Selection Panel  Button-->
 <div id="showrightbox" class="showrightbox">
