@@ -13,7 +13,7 @@ const definitions = {
   sources: [
     ['rnet', {dateBased: '2023-12-17', localUrl: 'utilitytrips/'}],
     ['rnet-simplified', {path: 'rnet_simplified', dateBased: '2023-12-17'}],
-    ['dasymetric', {dateBased: '2023-12-17'}],
+    ['dasymetric', {dateBased: '2023-12-17'}],  // i.e. buildings layer
     ['data_zones', {dateBased: '2023-12-17'}],
     ['schools', {dateBased: '2023-12-17'}],
     ['wards'],
@@ -423,21 +423,8 @@ function switch_rnet() {
   
   console.log("Updating rnet")
   
-  // Initialise each layer variant, if they do not exist
-  const layerVariants = ['rnet', 'rnet-simplified'];
-  layerVariants.forEach (layerId => {
-    if (!map.getLayer (layerId)) {
-      map.addLayer ({
-        'id': layerId,
-        'source': layerId,
-        'source-layer': 'rnet',
-        'type': 'line',
-        'layout': {
-          'visibility': 'none'
-        },
-      }, 'placeholder_name');
-    }
-  });
+  // Initialise rnet and rnet-simplified
+  addLayer_rnet ();
   
   // Determine layer visibility
   const layerEnabled = document.getElementById('rnetcheckbox').checked;
@@ -550,30 +537,18 @@ function getStyleColumn (layerId)
 // Data zones
 function switch_data_zones()
 {
-  // Create buildings layer
+  // Initialise buildings layer (before data zones)
+  addLayer_dasymetric ();
+  
+  // Manage buildings layer
   buildingsLayer ();
   
   // Update the legend (even if map layer is off)
   var layerId = document.getElementById('data_zones_selector').value;
   createLegend (definitions.dzLegendColours, layerId, 'dzlegend');
   
-  // Initialise data zones polygons layer
-  if (!map.getLayer ('data_zones')) {
-    map.addLayer ({
-      'id': 'data_zones',
-      'type': 'fill',
-      'source': 'data_zones',
-      'source-layer': 'data_zones',
-      'layout': {
-        'visibility': 'none'
-      },
-      'paint': {
-        'fill-color': '#9c9898',
-        'fill-opacity': 0.8,
-        'fill-outline-color': '#000000'
-      }
-    }, 'roads 0 Guided Busway Casing');
-  }
+  // Add the data zones layer
+  addLayer_dataZones ();
   
   // Get UI state
   var daysymetricMode = document.getElementById('data_zones_checkbox_dasymetric').checked;
@@ -591,29 +566,6 @@ function switch_data_zones()
 // Function to handle buildings layer
 function buildingsLayer ()
 {
-  // Initialise the layer
-  if (!map.getLayer ('dasymetric')) {
-    map.addLayer ({
-      'id': 'dasymetric',
-      'type': 'fill-extrusion',
-      'source': 'dasymetric',
-      'source-layer': 'dasymetric',
-      'layout': {
-        'visibility': 'none'
-      },
-      'paint': {
-        'fill-extrusion-color': '#9c9898',  // Default gray
-        'fill-extrusion-height': [
-          'interpolate',
-          ['linear'],
-          ['zoom'],
-          12, 1,
-          15, 8
-        ]
-      }
-    }, 'roads 0 Guided Busway Casing');
-  }
-  
   // Function to determine the buildings colour
   function getBuildingsColour ()
   {
@@ -643,6 +595,76 @@ function buildingsLayer ()
   
   // Set visibility
   map.setLayoutProperty ('dasymetric', 'visibility', (buildingColour ? 'visible' : 'none'));
+}
+
+
+
+function addLayer_rnet ()
+{
+  // Initialise each layer variant, if they do not exist
+  const layerVariants = ['rnet', 'rnet-simplified'];
+  layerVariants.forEach (layerId => {
+    if (!map.getLayer (layerId)) {
+      map.addLayer ({
+        'id': layerId,
+        'source': layerId,
+        'source-layer': 'rnet',
+        'type': 'line',
+        'layout': {
+          'visibility': 'none'
+        },
+      }, 'placeholder_name');
+    }
+  });
+}
+
+
+function addLayer_dataZones ()
+{
+  // Initialise data zones polygons layer
+  if (!map.getLayer ('data_zones')) {
+    map.addLayer ({
+      'id': 'data_zones',
+      'type': 'fill',
+      'source': 'data_zones',
+      'source-layer': 'data_zones',
+      'layout': {
+        'visibility': 'none'
+      },
+      'paint': {
+        'fill-color': '#9c9898',
+        'fill-opacity': 0.8,
+        'fill-outline-color': '#000000'
+      }
+    }, 'roads 0 Guided Busway Casing');
+  }
+}
+
+
+function addLayer_dasymetric ()
+{
+  // Initialise the layer
+  if (!map.getLayer ('dasymetric')) {
+    map.addLayer ({
+      'id': 'dasymetric',
+      'type': 'fill-extrusion',
+      'source': 'dasymetric',
+      'source-layer': 'dasymetric',
+      'layout': {
+        'visibility': 'none'
+      },
+      'paint': {
+        'fill-extrusion-color': '#9c9898',  // Default gray
+        'fill-extrusion-height': [
+          'interpolate',
+          ['linear'],
+          ['zoom'],
+          12, 1,
+          15, 8
+        ]
+      }
+    }, 'roads 0 Guided Busway Casing');
+  }
 }
 
 
