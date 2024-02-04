@@ -170,11 +170,14 @@ function charts (chartDefinitions)
   
   // Function to create a chart modal
   const chartsModal = function (mapLayerId, chartDefinition) {
-
+    
+    // Initialise the HTML structure for this modal
+    initialiseChartsModalHtml (mapLayerId);
+    
     // Create the modal
     const location_modal = newModal (mapLayerId + '-chartsmodal');
     
-    // Initialise the HTML structure, creating a box for each chart, writing in the titles and descriptions, and setting the canvas ID
+    // Initialise the HTML structure for the set of chart boxes, writing in the titles and descriptions, and setting the canvas ID
     initialiseChartBoxHtml (mapLayerId, chartDefinition.charts);
     
     // Open modal on clicking the supported map layer
@@ -223,7 +226,17 @@ function charts (chartDefinitions)
   }
   
   
-  // Function to initialise the chart box HTML from a template
+  // Function to initialise the modal HTML from the template
+  function initialiseChartsModalHtml (mapLayerId)
+  {
+    const template = document.querySelector (`#chart-modal`);
+    const chartModal = template.content.cloneNode (true);
+    chartModal.querySelector ('.modal').id = mapLayerId + '-chartsmodal';
+    document.body.appendChild (chartModal);
+  }
+  
+  
+  // Function to initialise the chart box HTML from the template
   function initialiseChartBoxHtml (mapLayerId, charts)
   {
     const template = document.querySelector (`#${mapLayerId}-chartsmodal .chart-template`);
