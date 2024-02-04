@@ -1,93 +1,98 @@
 // #!# Need to define the assumed data structure, e.g. the 'charts' key shows a part field
 
-// Data zones
-const chartDefinition = {
+// Chart definitions
+const chartDefinitions = {
 
-  // UI elements
-  mapLayerId: 'data_zones',
-  location_modal_id: "zone_modal",
+  // Data zones
+  dataZones: {
+    
+    // UI elements
+    mapLayerId: 'data_zones',
+    location_modal_id: 'zone_modal',
 
-  // Data fields
-  dataUrl: 'https://nptscot.blob.core.windows.net/json/DataZone/%id.json',
-  propertiesField: 'DataZone',
-  titleField: 'DataZone',
+    // Data fields
+    // #!# Should use a main server URL setting
+    dataUrl: 'https://nptscot.blob.core.windows.net/json/DataZone/%id.json',
+    propertiesField: 'DataZone',
+    titleField: 'DataZone',
 
-  // Title
-  titleId: 'zone-modal-title',
-  titlePrefix: 'Zone Summary: ',
+    // Title
+    titleId: 'zone-modal-title',
+    titlePrefix: 'Zone Summary: ',
 
-  charts: [
-    // #!# Chart labels can be refactored to single setting
-    ['commuteOriginChart', 'comm_orig', 'Annual Average Daily Flow'], // Commute Origin
-    ['commuteDestinationChart', 'comm_dest', 'Annual Average Daily Flow'], // Commute Destination
-    ['primaryOrginChart', 'schl_primary_orig', 'Annual Average Daily Flow'], // School Primary Origin
-    ['secondaryOriginChart', 'schl_secondary_orig', 'Annual Average Daily Flow'], // School Secondary Origin
-    ['shoppingOriginChart', 'shopping_orig', 'Annual Average Daily Flow'], // shopping Origin
-    ['shoppingDestinationChart', 'shopping_dest', 'Annual Average Daily Flow'], // shopping Destination
-    ['leisureOriginChart', 'leisure_orig', 'Annual Average Daily Flow'], // leisure Origin
-    ['leisureDestinationChart', 'leisure_dest', 'Annual Average Daily Flow'], // leisure Destination
-    ['visitingOriginChart', 'visiting_orig', 'Annual Average Daily Flow'], // visiting Origin
-    ['visitingDestinationChart', 'visiting_dest', 'Annual Average Daily Flow'], // visiting Destination
-  ],
+    charts: [
+      // #!# Chart labels can be refactored to single setting
+      ['commuteOriginChart', 'comm_orig', 'Annual Average Daily Flow'], // Commute Origin
+      ['commuteDestinationChart', 'comm_dest', 'Annual Average Daily Flow'], // Commute Destination
+      ['primaryOrginChart', 'schl_primary_orig', 'Annual Average Daily Flow'], // School Primary Origin
+      ['secondaryOriginChart', 'schl_secondary_orig', 'Annual Average Daily Flow'], // School Secondary Origin
+      ['shoppingOriginChart', 'shopping_orig', 'Annual Average Daily Flow'], // shopping Origin
+      ['shoppingDestinationChart', 'shopping_dest', 'Annual Average Daily Flow'], // shopping Destination
+      ['leisureOriginChart', 'leisure_orig', 'Annual Average Daily Flow'], // leisure Origin
+      ['leisureDestinationChart', 'leisure_dest', 'Annual Average Daily Flow'], // leisure Destination
+      ['visitingOriginChart', 'visiting_orig', 'Annual Average Daily Flow'], // visiting Origin
+      ['visitingDestinationChart', 'visiting_dest', 'Annual Average Daily Flow'], // visiting Destination
+    ],
 
-  modes: [
-    // Label, field (e.g. bicycle => comm_orig_bicycle_ebike_fastest), background colour, border colour
-    ['Bicycle', 'bicycle', 'rgba(51,160,44, 0.8)', 'rgba(51,160,44, 1)'],
-    ['Foot', 'foot', 'rgba(178,223,138, 0.8)', 'rgba(178,223,138, 1)'],
-    ['Public transport', 'public_transport', 'rgba(56,108,176, 0.8)', 'rgba(56,108,176, 1)'],
-    ['Car', 'car', 'rgba(227,26,28, 0.8)', 'rgba(227,26,28, 1)'],
-    ['Taxi', 'taxi', 'rgba(166,206,227, 0.8)', 'rgba(166,206,227, 1)'],
-  ],
+    modes: [
+      // Label, field (e.g. bicycle => comm_orig_bicycle_ebike_fastest), background colour, border colour
+      ['Bicycle', 'bicycle', 'rgba(51,160,44, 0.8)', 'rgba(51,160,44, 1)'],
+      ['Foot', 'foot', 'rgba(178,223,138, 0.8)', 'rgba(178,223,138, 1)'],
+      ['Public transport', 'public_transport', 'rgba(56,108,176, 0.8)', 'rgba(56,108,176, 1)'],
+      ['Car', 'car', 'rgba(227,26,28, 0.8)', 'rgba(227,26,28, 1)'],
+      ['Taxi', 'taxi', 'rgba(166,206,227, 0.8)', 'rgba(166,206,227, 1)'],
+    ],
 
-  // Scenario suffixes and their labels
-  scenarios: [
-    ['', 'Baseline'],
-    ['_go_dutch_fastest', 'Go Dutch (Fastest)'],
-    ['_ebike_fastest', 'Ebike (Fastest)'],
-    ['_go_dutch_quietest', 'Go Dutch (Quietest)'],
-    ['_ebike_quietest', 'Ebike (Quietest)']
-  ]
-};
+    // Scenario suffixes and their labels
+    scenarios: [
+      ['', 'Baseline'],
+      ['_go_dutch_fastest', 'Go Dutch (Fastest)'],
+      ['_ebike_fastest', 'Ebike (Fastest)'],
+      ['_go_dutch_quietest', 'Go Dutch (Quietest)'],
+      ['_ebike_quietest', 'Ebike (Quietest)']
+    ]
+  },
+  
+  
+  // Travel to School Modeshare
+  schools: {
 
+    // UI elements
+    mapLayerId: 'schools',
+    location_modal_id: 'school_modal',
 
-// Travel to School Modeshare
-const chartDefinitionSchools = {
+    // Data fields
+    dataUrl: 'https://nptscot.blob.core.windows.net/json/School/%id.json',
+    propertiesField: 'SeedCode',
+    titleField: 'SchoolName',
 
-  // UI elements
-  mapLayerId: 'schools',
-  location_modal_id: "school_modal",
+    // Title
+    titleId: 'school-modal-title',
+    titlePrefix: '',
 
-  // Data fields
-  dataUrl: 'https://nptscot.blob.core.windows.net/json/School/%id.json',
-  propertiesField: 'SeedCode',
-  titleField: 'SchoolName',
+    charts: [
+      ['primaryChart', 'schl_primary_dest', 'Annual Average Daily Flow'], // School Primary Destination
+      ['secondaryChart', 'schl_primary_dest', 'Annual Average Daily Flow'], // School Secondary Destination  #!# Data doesn't seem to be present/showing
+    ],
 
-  // Title
-  titleId: 'school-modal-title',
-  titlePrefix: '',
+    modes: [
+      // Label, field (e.g. bicycle => comm_orig_bicycle_ebike_fastest), background colour, border colour
+      ['Bicycle', 'bicycle', 'rgba(51,160,44, 0.8)', 'rgba(51,160,44, 1)'],
+      ['Foot', 'foot', 'rgba(178,223,138, 0.8)', 'rgba(178,223,138, 1)'],
+      ['Public transport', 'public_transport', 'rgba(56,108,176, 0.8)', 'rgba(56,108,176, 1)'],
+      ['Car', 'car', 'rgba(227,26,28, 0.8)', 'rgba(227,26,28, 1)'],
+      ['Other', 'other', 'rgba(166,206,227, 0.8)', 'rgba(166,206,227, 1)'], // #!# NB the main modal has taxi rather than other
+    ],
 
-  charts: [
-    ['primaryChart', 'schl_primary_dest', 'Annual Average Daily Flow'], // School Primary Destination
-    ['secondaryChart', 'schl_primary_dest', 'Annual Average Daily Flow'], // School Secondary Destination  #!# Data doesn't seem to be present/showing
-  ],
-
-  modes: [
-    // Label, field (e.g. bicycle => comm_orig_bicycle_ebike_fastest), background colour, border colour
-    ['Bicycle', 'bicycle', 'rgba(51,160,44, 0.8)', 'rgba(51,160,44, 1)'],
-    ['Foot', 'foot', 'rgba(178,223,138, 0.8)', 'rgba(178,223,138, 1)'],
-    ['Public transport', 'public_transport', 'rgba(56,108,176, 0.8)', 'rgba(56,108,176, 1)'],
-    ['Car', 'car', 'rgba(227,26,28, 0.8)', 'rgba(227,26,28, 1)'],
-    ['Other', 'other', 'rgba(166,206,227, 0.8)', 'rgba(166,206,227, 1)'], // #!# NB the main modal has taxi rather than other
-  ],
-
-  // Scenario suffixes and their labels
-  scenarios: [
-    ['', 'Baseline'],
-    ['_go_dutch_fastest', 'Go Dutch (Fastest)'],
-    ['_ebike_fastest', 'Ebike (Fastest)'],
-    ['_go_dutch_quietest', 'Go Dutch (Quietest)'],
-    ['_ebike_quietest', 'Ebike (Quietest)']
-  ]
+    // Scenario suffixes and their labels
+    scenarios: [
+      ['', 'Baseline'],
+      ['_go_dutch_fastest', 'Go Dutch (Fastest)'],
+      ['_ebike_fastest', 'Ebike (Fastest)'],
+      ['_go_dutch_quietest', 'Go Dutch (Quietest)'],
+      ['_ebike_quietest', 'Ebike (Quietest)']
+    ]
+  }
 };
 
 
@@ -211,5 +216,6 @@ function renderChart (divId, title, datasets, labels) {
 }
 
 
-chartsModal(chartDefinition);
-chartsModal(chartDefinitionSchools);
+Object.values (chartDefinitions).forEach (chartDefinition => {
+  chartsModal(chartDefinition);
+});
