@@ -6,9 +6,6 @@ const chartDefinitions = {
   // Data zones
   data_zones: {
     
-    // UI elements
-    location_modal_id: 'zone_modal',
-
     // Data fields
     // #!# Should use a main server URL setting
     dataUrl: 'https://nptscot.blob.core.windows.net/json/DataZone/%id.json',
@@ -56,9 +53,6 @@ const chartDefinitions = {
   // Travel to School Modeshare
   schools: {
 
-    // UI elements
-    location_modal_id: 'school_modal',
-
     // Data fields
     dataUrl: 'https://nptscot.blob.core.windows.net/json/School/%id.json',
     propertiesField: 'SeedCode',
@@ -101,7 +95,7 @@ const chartHandles = {};
 const chartsModal = function (mapLayerId, chartDefinition) {
 
   // Create the modal
-  const location_modal = newModal (chartDefinition.location_modal_id);
+  const location_modal = newModal (mapLayerId + '-chartsmodal');
 
   // Open modal on clicking the supported map layer
   map.on('click', mapLayerId, function (e) {
