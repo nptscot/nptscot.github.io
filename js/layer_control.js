@@ -19,8 +19,7 @@ const definitions = {
     ['holyrood'],
     ['scot_regions'],
     ['la'],
-    // To be deployed on NPT tilserver as cohesivenetwork.pmtiles:
-    ['cohesivenetwork', {localUrl: 'cohesivenetwork/'}],
+    ['cohesivenetwork', {localUrl: 'cohesivenetwork/'}],    // #!# To be deployed on NPT tilserver as cohesivenetwork.pmtiles
   ],
   
   otherLayers: [
@@ -335,17 +334,9 @@ function switch_style(){
   
   map.once('idle', function() {
     
-    // Add data sources
-    addDataSources();
+    // Initialise sources/layers
+    initialiseDatasets ();
     
-    // Initialise layers
-    Object.keys (definitions.layerDefinitions).forEach (layerId => {
-      if (!map.getLayer(layerId)) {
-        const beforeId = (layerId == 'data_zones' ? 'roads 0 Guided Busway Casing' : 'placeholder_name');   // #!# Needs to be moved to definitions
-        map.addLayer(definitions.layerDefinitions[layerId], beforeId);
-      }
-    });
-  
     // Reload layers
     toggleLayer('rnet'); // Start with the rnet on
     toggleLayer('data_zones');
@@ -373,8 +364,10 @@ function switch_style(){
 }
 
 
-function addDataSources () {
-  console.log("Adding sources");
+// Function to initialise sources/layers
+function initialiseDatasets ()
+{
+  console.log ("Adding sources and layers");
   
   // Add sources
   definitions.sources.forEach (source => {
@@ -397,6 +390,14 @@ function addDataSources () {
         'type': 'vector',
         'url': url,
       });
+    }
+  });
+  
+  // Initialise layers
+  Object.keys (definitions.layerDefinitions).forEach (layerId => {
+    if (!map.getLayer (layerId)) {
+      const beforeId = (layerId == 'data_zones' ? 'roads 0 Guided Busway Casing' : 'placeholder_name');   // #!# Needs to be moved to definitions
+      map.addLayer (definitions.layerDefinitions[layerId], beforeId);
     }
   });
 }
