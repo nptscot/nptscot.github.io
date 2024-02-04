@@ -24,7 +24,16 @@ const definitions = {
     ['cohesivenetwork', {localUrl: 'cohesivenetwork/'}],
   ],
   
-  otherLayers: {
+  otherLayers: [
+    'schools',
+    'wards',
+    'holyrood',
+    'scot_regions',
+    'la',
+    'cohesivenetwork',
+  ],
+  
+  layerDefinitions: {
     schools: {
       'id': 'schools',
       'type': 'circle',
@@ -302,7 +311,7 @@ function switch_style(){
     toggleLayer('data_zones');
     
     // Other layers
-    Object.keys (definitions.otherLayers).forEach (layerId => {
+    definitions.otherLayers.forEach (layerId => {
       toggleLayer(layerId);
     });
     
@@ -370,7 +379,7 @@ function toggleLayer(layerName) {
   }
   
   // Handle other layers (if the requested layer is defined)
-  if (definitions.otherLayers[layerName]) {
+  if (definitions.otherLayers.includes (layerName)) {
     switch_otherLayer (layerName);
     return;
   }
@@ -605,7 +614,7 @@ function buildingsLayer ()
 function addLayer_otherLayer (layerName)
 {
   if (!map.getLayer(layerName)) {
-    map.addLayer(definitions.otherLayers[layerName], 'placeholder_name');
+    map.addLayer(definitions.layerDefinitions[layerName], 'placeholder_name');
   }
 }
 
