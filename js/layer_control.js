@@ -687,3 +687,8 @@ function buildingsLayer ()
 map.on('load', function() {
   switch_style();
 });
+
+// Change map and reload state on basemap change
+document.getElementById ('basemapform').addEventListener ('change', function (e) {
+  switch_style ();
+});
