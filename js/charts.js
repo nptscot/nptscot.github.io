@@ -1,13 +1,12 @@
 // #!# Need to define the assumed data structure, e.g. the 'charts' key shows a part field
 
-// Chart definitions
+// Chart definitions, indexed by map layer ID
 const chartDefinitions = {
 
   // Data zones
-  dataZones: {
+  data_zones: {
     
     // UI elements
-    mapLayerId: 'data_zones',
     location_modal_id: 'zone_modal',
 
     // Data fields
@@ -58,7 +57,6 @@ const chartDefinitions = {
   schools: {
 
     // UI elements
-    mapLayerId: 'schools',
     location_modal_id: 'school_modal',
 
     // Data fields
@@ -100,13 +98,13 @@ const chartDefinitions = {
 const chartHandles = {};
 
 // Function to create a chart modal
-const chartsModal = function (chartDefinition) {
+const chartsModal = function (mapLayerId, chartDefinition) {
 
   // Create the modal
   const location_modal = newModal (chartDefinition.location_modal_id);
 
   // Open modal on clicking the supported map layer
-  map.on('click', chartDefinition.mapLayerId, function (e) {
+  map.on('click', mapLayerId, function (e) {
 
     // Ensure the source matches
     let clickedFeatures = map.queryRenderedFeatures(e.point);
@@ -115,7 +113,7 @@ const chartsModal = function (chartDefinition) {
       return !layersToExclude.includes(el.source);
       //return el.source != 'composite';
     });
-    if (clickedFeatures[0].sourceLayer != chartDefinition.mapLayerId) {
+    if (clickedFeatures[0].sourceLayer != mapLayerId) {
       return;
     }
     
@@ -216,6 +214,6 @@ function renderChart (divId, title, datasets, labels) {
 }
 
 
-Object.values (chartDefinitions).forEach (chartDefinition => {
-  chartsModal(chartDefinition);
+Object.entries (chartDefinitions).forEach (([mapLayerId, chartDefinition]) => {
+  chartsModal(mapLayerId, chartDefinition);
 });
