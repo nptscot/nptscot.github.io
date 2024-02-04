@@ -323,53 +323,47 @@ const definitions = {
 
 
 
-function switch_style(){
+
+
+document.addEventListener ('@map/ready', function () {
+  console.log ('Heard @map/ready...');
   
-  var styleName = getBasemapStyle ();
-  var styleCurrent = map.getStyle().name;
-  if(styleCurrent != styleName){
-    console.log("Restyling from " + styleCurrent +" to "+ styleName);
-    map.setStyle('tiles/style_' + styleName + '.json');
-  }
+  // Add data sources
+  addDataSources();
   
-  map.once('idle', function() {
-    
-    // Add data sources
-    addDataSources();
-    
-    // Initialise layers
-    Object.keys (definitions.layerDefinitions).forEach (layerId => {
-      if (!map.getLayer(layerId)) {
-        const beforeId = (layerId == 'data_zones' ? 'roads 0 Guided Busway Casing' : 'placeholder_name');   // #!# Needs to be moved to definitions
-        map.addLayer(definitions.layerDefinitions[layerId], beforeId);
-      }
-    });
+  // Initialise layers
+  Object.keys (definitions.layerDefinitions).forEach (layerId => {
+    if (!map.getLayer(layerId)) {
+      const beforeId = (layerId == 'data_zones' ? 'roads 0 Guided Busway Casing' : 'placeholder_name');   // #!# Needs to be moved to definitions
+      map.addLayer(definitions.layerDefinitions[layerId], beforeId);
+    }
+  });
+
+  // Reload layers
+  toggleLayer('rnet'); // Start with the rnet on
+  toggleLayer('data_zones');
   
-    // Reload layers
-    toggleLayer('rnet'); // Start with the rnet on
-    toggleLayer('data_zones');
-    
-    // Other layers
-    definitions.otherLayers.forEach (layerId => {
+  // Other layers
+  definitions.otherLayers.forEach (layerId => {
+    toggleLayer(layerId);
+  });
+  
+  // Handle layer change controls, each marked with the updatelayer class
+  document.querySelectorAll('.updatelayer').forEach((input) => {
+    input.addEventListener('change', function(e) {
+      layerId = e.target.id;
+      // #!# The input IDs should be standardised, to replace this list of regexp matches
+      layerId = layerId.replace (/simplifiedcheckbox$/, '');  // Simplification checkbox, e.g. rnetsimplifiedcheckboxn => rnet
+      layerId = layerId.replace (/checkbox$/, '');            // Checkboxes, e.g. data_zonescheckbox => data_zones
+      layerId = layerId.replace (/_checkbox_.+$/, '');         // Checkboxes, e.g. data_zones_checkbox_dasymetric => data_zones
+      layerId = layerId.replace (/_slider-.+$/, '');          // Slider hidden inputs, e.g. rnet_slider-quietness => rnet
+      layerId = layerId.replace (/_selector$/, '');           // Dropdowns, e.g. data_zones_selector => data_zones   #!# Should be input, but currently data_zones_input would clash with rnet_*_input on next line
+      layerId = layerId.replace (/_[^_]+_input$/, '');        // Dropdowns, e.g. rnet_purpose_input => rnet
       toggleLayer(layerId);
     });
-    
-    // Handle layer change controls, each marked with the updatelayer class
-    document.querySelectorAll('.updatelayer').forEach((input) => {
-      input.addEventListener('change', function(e) {
-        layerId = e.target.id;
-        // #!# The input IDs should be standardised, to replace this list of regexp matches
-        layerId = layerId.replace (/simplifiedcheckbox$/, '');  // Simplification checkbox, e.g. rnetsimplifiedcheckboxn => rnet
-        layerId = layerId.replace (/checkbox$/, '');            // Checkboxes, e.g. data_zonescheckbox => data_zones
-        layerId = layerId.replace (/_checkbox_.+$/, '');         // Checkboxes, e.g. data_zones_checkbox_dasymetric => data_zones
-        layerId = layerId.replace (/_slider-.+$/, '');          // Slider hidden inputs, e.g. rnet_slider-quietness => rnet
-        layerId = layerId.replace (/_selector$/, '');           // Dropdowns, e.g. data_zones_selector => data_zones   #!# Should be input, but currently data_zones_input would clash with rnet_*_input on next line
-        layerId = layerId.replace (/_[^_]+_input$/, '');        // Dropdowns, e.g. rnet_purpose_input => rnet
-        toggleLayer(layerId);
-      });
-    });
   });
-}
+});
+
 
 
 function addDataSources () {
@@ -639,11 +633,29 @@ function buildingsLayer ()
 
 
 // First load setup
-map.on('load', function() {
-  switch_style();
+map.on ('load', function() {
+  setBasemapStyle ();
 });
 
 // Change map and reload state on basemap change
 document.getElementById ('basemapform').addEventListener ('change', function (e) {
-  switch_style ();
+  setBasemapStyle ();
 });
+
+
+// Function to handle style switching
+function setBasemapStyle ()
+{
+  // Switch style if required
+  var styleName = getBasemapStyle ();
+  var styleCurrent = map.getStyle ().name;
+  if (styleCurrent != styleName) {
+    console.log ('Restyling from ' + styleCurrent + ' to ' + styleName);
+    map.setStyle ('tiles/style_' + styleName + '.json');
+  }
+  
+  // Fire an event when ready
+  map.once ('idle', function() {
+    document.dispatchEvent (new Event ('@map/ready', {'bubbles': true}));
+  });
+}
