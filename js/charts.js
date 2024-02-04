@@ -11,9 +11,8 @@ const chartDefinitions = {
     dataUrl: 'https://nptscot.blob.core.windows.net/json/DataZone/%id.json',
     propertiesField: 'DataZone',
     titleField: 'DataZone',
-
+    
     // Title
-    titleId: 'zone-modal-title',
     titlePrefix: 'Zone Summary: ',
 
     charts: [
@@ -59,7 +58,6 @@ const chartDefinitions = {
     titleField: 'SchoolName',
 
     // Title
-    titleId: 'school-modal-title',
     titlePrefix: '',
 
     charts: [
@@ -131,7 +129,7 @@ const chartsModal = function (mapLayerId, chartDefinition) {
 
         // Set the title
         const title = chartDefinition.titlePrefix + featureProperties[chartDefinition.titleField];
-        document.getElementById(chartDefinition.titleId).innerHTML = '<h2>' + title + '</h2>';
+        document.querySelector(`#${mapLayerId}-chartsmodal .modal-title`).innerHTML = title;
 
         // Create the charts
         createCharts(chartDefinition, locationData);
