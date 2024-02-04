@@ -341,108 +341,19 @@
       <h2 class="modal-title">Zone summary</h2>
     </div>
     <div class="modal-body">
+      
+      <template class="chart-template">
+        <div class="wrapper">
+            <div class="chart-text">
+              <h4 class="chart-title"></h4>
+              <p class="chart-description"></p>
+          </div>
+            <div class="chart-container" >
+              <canvas></canvas>
+            </div>
+        </div>
+     </template>
 
-      <div class="wrapper">
-          <div class="chart-text">
-            <h4>Commuters leaving</h4>
-            <p>The bar chart shows estimated mode shares under different scenarios for commuters leaving this zone. (i.e they live here and commute to another zone).</p>
-        </div>
-          <div class="chart-container" >
-            <canvas id="comm_orig-chart"></canvas>
-          </div>
-      </div>
-      
-      <div class="wrapper">
-          <div class="chart-text">
-            <h4>Commuters arriving</h4>
-            <p>The bar chart shows estimated mode shares under different scenarios for commuters arriving this zone. (i.e they work here and live in another zone).</p>
-        </div>
-          <div class="chart-container" >
-            <canvas id="comm_dest-chart"></canvas>
-          </div>
-      </div>
-
-      <div class="wrapper">
-          <div class="chart-text">
-            <h4>Primary school children</h4>
-            <p>The bar chart shows estimated mode shares under different scenarios for primary school childen that live in this zone.</p>
-        </div>
-          <div class="chart-container" >
-            <canvas id="schl_primary_orig-chart"></canvas>
-          </div>
-      </div>
-
-      <div class="wrapper">
-          <div class="chart-text">
-            <h4>Secondary school children</h4>
-            <p>The bar chart shows estimated mode shares under different scenarios for secondary school childen that live in this zone.</p>
-        </div>
-          <div class="chart-container" >
-            <canvas id="schl_secondary_orig-chart"></canvas>
-          </div>
-      </div>
-      
-      <div class="wrapper">
-          <div class="chart-text">
-            <h4>Shoppers leaving</h4>
-            <p>The bar chart shows estimated mode shares of shopping trips under different scenarios for trips leaving this zone.</p>
-        </div>
-          <div class="chart-container" >
-            <canvas id="shopping_orig-chart"></canvas>
-          </div>
-      </div>
-      
-      <div class="wrapper">
-          <div class="chart-text">
-            <h4>Shoppers arriving</h4>
-            <p>The bar chart shows estimated mode shares of shopping trips under different scenarios for trips arriving this zone.</p>
-        </div>
-          <div class="chart-container" >
-            <canvas id="shopping_dest-chart"></canvas>
-          </div>
-      </div>
-      
-      
-      <div class="wrapper">
-          <div class="chart-text">
-            <h4>Leisure trips leaving</h4>
-            <p>The bar chart shows estimated mode shares of leisure trips under different scenarios for trips leaving this zone.</p>
-        </div>
-          <div class="chart-container" >
-            <canvas id="leisure_orig-chart"></canvas>
-          </div>
-      </div>
-      
-      <div class="wrapper">
-          <div class="chart-text">
-            <h4>Leisure trips arriving</h4>
-            <p>The bar chart shows estimated mode shares of leisure trips under different scenarios for trips arriving this zone.</p>
-        </div>
-          <div class="chart-container" >
-            <canvas id="leisure_dest-chart"></canvas>
-          </div>
-      </div>
-      
-      <div class="wrapper">
-          <div class="chart-text">
-            <h4>visiting friends and family trips leaving</h4>
-            <p>The bar chart shows estimated mode shares of trips for visiting friends and family under different scenarios for trips leaving this zone.</p>
-        </div>
-          <div class="chart-container" >
-            <canvas id="visiting_orig-chart"></canvas>
-          </div>
-      </div>
-      
-      <div class="wrapper">
-          <div class="chart-text">
-            <h4>visiting friends and family trips arriving</h4>
-            <p>The bar chart shows estimated mode shares of trips for visiting friends and family under different scenarios for trips arriving this zone.</p>
-        </div>
-          <div class="chart-container" >
-            <canvas id="visiting_dest-chart"></canvas>
-          </div>
-      </div>
-      
     </div>
     <div class="modal-footer"></div>
   </div>
@@ -457,25 +368,17 @@
     </div>
     <div class="modal-body">
       
-      <div class="wrapper">
-          <div class="chart-text">
-            <h4>Primary school modal split</h4>
-            <p>The bar chart shows estimated mode shares for primary school children under different scenarios.</p>
-        </div>
-          <div class="chart-container" >
-            <canvas id="schl_primary_dest-chart"></canvas>
+      <template class="chart-template">
+        <div class="wrapper">
+            <div class="chart-text">
+              <h4 class="chart-title"></h4>
+              <p class="chart-description"></p>
           </div>
-      </div>
-      
-      <div class="wrapper">
-          <div class="chart-text">
-            <h4>Secondary school modal split</h4>
-            <p>The bar chart shows estimated mode shares for seconday school children under different scenarios.</p>
+            <div class="chart-container">
+              <canvas></canvas>
+            </div>
         </div>
-          <div class="chart-container" >
-            <canvas id="schl_secondary_dest-chart"></canvas>
-          </div>
-      </div>
+     </template>
       
     </div>
     <div class="modal-footer"></div>

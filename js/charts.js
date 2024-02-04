@@ -16,16 +16,76 @@ const chartDefinitions = {
     titlePrefix: 'Zone Summary: ',
 
     charts: [
-      ['comm_orig', 'Annual Average Daily Flow'], // Commute Origin
-      ['comm_dest', 'Annual Average Daily Flow'], // Commute Destination
-      ['schl_primary_orig', 'Annual Average Daily Flow'], // School Primary Origin
-      ['schl_secondary_orig', 'Annual Average Daily Flow'], // School Secondary Origin
-      ['shopping_orig', 'Annual Average Daily Flow'], // shopping Origin
-      ['shopping_dest', 'Annual Average Daily Flow'], // shopping Destination
-      ['leisure_orig', 'Annual Average Daily Flow'], // leisure Origin
-      ['leisure_dest', 'Annual Average Daily Flow'], // leisure Destination
-      ['visiting_orig', 'Annual Average Daily Flow'], // visiting Origin
-      ['visiting_dest', 'Annual Average Daily Flow'], // visiting Destination
+      [
+        // Commute Origin
+        'comm_orig',
+        'Commuters leaving',
+        'The bar chart shows estimated mode shares under different scenarios for commuters leaving this zone. (i.e they live here and commute to another zone).',
+        'Annual Average Daily Flow'
+      ],
+      [
+        // Commute Destination
+        'comm_dest',
+        'Commuters arriving',
+        'The bar chart shows estimated mode shares under different scenarios for commuters arriving this zone. (i.e they work here and live in another zone).',
+        'Annual Average Daily Flow'
+      ],
+      [
+        // School Primary Origin
+        'schl_primary_orig',
+        'Primary school children',
+        'The bar chart shows estimated mode shares under different scenarios for primary school childen that live in this zone.',
+        'Annual Average Daily Flow'
+      ],
+      [
+        // School Secondary Origin
+        'schl_secondary_orig',
+        'Secondary school children',
+        'The bar chart shows estimated mode shares under different scenarios for secondary school childen that live in this zone.',
+        'Annual Average Daily Flow'
+      ],
+      [
+        // shopping Origin
+        'shopping_orig',
+        'Shoppers leaving',
+        'The bar chart shows estimated mode shares of shopping trips under different scenarios for trips leaving this zone.',
+        'Annual Average Daily Flow'
+      ],
+      [
+        // shopping Destination
+        'shopping_dest',
+        'Shoppers arriving',
+        'The bar chart shows estimated mode shares of shopping trips under different scenarios for trips arriving this zone.',
+        'Annual Average Daily Flow'
+      ],
+      [
+        // leisure Origin
+        'leisure_orig',
+        'Leisure trips leaving',
+        'The bar chart shows estimated mode shares of leisure trips under different scenarios for trips leaving this zone.',
+        'Annual Average Daily Flow'
+      ],
+      [
+        // leisure Destination
+        'leisure_dest',
+        'Leisure trips arriving',
+        'The bar chart shows estimated mode shares of leisure trips under different scenarios for trips arriving this zone.',
+        'Annual Average Daily Flow'
+      ],
+      [
+        // visiting Origin
+        'visiting_orig',
+        'visiting friends and family trips leaving',
+        'The bar chart shows estimated mode shares of trips for visiting friends and family under different scenarios for trips leaving this zone.',
+        'Annual Average Daily Flow'
+      ],
+      [
+        // visiting Destination
+        'visiting_dest',
+        'visiting friends and family trips arriving',
+        'The bar chart shows estimated mode shares of trips for visiting friends and family under different scenarios for trips arriving this zone.',
+        'Annual Average Daily Flow'
+      ],
     ],
 
     modes: [
@@ -60,8 +120,20 @@ const chartDefinitions = {
     titlePrefix: '',
 
     charts: [
-      ['schl_primary_dest', 'Annual Average Daily Flow'], // School Primary Destination
-      ['schl_secondary_dest', 'Annual Average Daily Flow'], // School Secondary Destination
+      [
+        // School Primary Destination
+        'schl_primary_dest',
+        'Primary school modal split',
+        'The bar chart shows estimated mode shares for primary school children under different scenarios.',
+        'Annual Average Daily Flow'
+      ],
+      [
+        // School Secondary Destination
+        'schl_secondary_dest',
+        'Secondary school modal split',
+        'The bar chart shows estimated mode shares for seconday school children under different scenarios.',
+        'Annual Average Daily Flow'
+      ],
     ],
 
     modes: [
@@ -101,7 +173,17 @@ function charts (chartDefinitions)
 
     // Create the modal
     const location_modal = newModal (mapLayerId + '-chartsmodal');
-
+    
+    // Initialise the HTML structure, creating a box for each chart, writing in the titles and descriptions, and setting the canvas ID
+    const template = document.querySelector (`#${mapLayerId}-chartsmodal .chart-template`);
+    chartDefinition.charts.forEach((chart) => {
+      const chartBox = template.content.cloneNode (true);
+      chartBox.querySelector ('.chart-title').innerText = chart[1];
+      chartBox.querySelector ('.chart-description').innerText = chart[2];
+      chartBox.querySelector ('.chart-container canvas').id = chart[0] + '-chart';
+      document.querySelector (`#${mapLayerId}-chartsmodal .modal-body`).appendChild (chartBox);
+    });
+    
     // Open modal on clicking the supported map layer
     map.on('click', mapLayerId, function (e) {
 
@@ -175,7 +257,7 @@ function charts (chartDefinitions)
       }
       
       // Render the chart (and register it to a handle so it can be cleared in future)
-      chartHandles[i] = renderChart(chart[0] + '-chart', chart[1], datasets, labels);
+      chartHandles[i] = renderChart(chart[0] + '-chart', chart[3], datasets, labels);
     });
   };
 
