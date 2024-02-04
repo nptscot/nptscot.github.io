@@ -65,7 +65,7 @@ function createMap ()
       div.addEventListener('contextmenu', (e) => e.preventDefault());
       div.addEventListener('click', function () {
         var box = document.getElementById('basemapcontrol');
-        box.style.display = (box.style.display == 'none' ? 'block' : 'none');
+        box.style.display = (window.getComputedStyle(box).display == 'none' ? 'block' : 'none');
       });
       return div;
     }
