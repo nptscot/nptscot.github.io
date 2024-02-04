@@ -30,6 +30,7 @@ const definitions = {
       'type': 'circle',
       'source': 'schools',
       'source-layer': 'schools',
+      'visibility': 'none',   // Initial visibility
       'paint': {
         "circle-color": [
           'match',
@@ -53,6 +54,7 @@ const definitions = {
       'type': 'line',
       'source': 'wards',
       'source-layer': 'wards',
+      'visibility': 'none',   // Initial visibility
       'paint': {
         'line-color': 'rgba(32, 107, 7, 1)',
         'line-width': 2
@@ -63,6 +65,7 @@ const definitions = {
       'type': 'line',
       'source': 'holyrood',
       'source-layer': 'holyrood',
+      'visibility': 'none',   // Initial visibility
       'paint': {
         'line-color': 'rgba(83, 123, 252, 1)',
         'line-width': 2
@@ -73,6 +76,7 @@ const definitions = {
       'type': 'line',
       'source': 'scot_regions',
       'source-layer': 'scot_regions',
+      'visibility': 'none',   // Initial visibility
       'paint': {
         'line-color': 'rgba(186, 177, 6, 1)',
         'line-width': 2
@@ -83,6 +87,7 @@ const definitions = {
       'type': 'line',
       'source': 'la',
       'source-layer': 'la',
+      'visibility': 'none',   // Initial visibility
       'paint': {
         'line-color': 'rgba(107, 7, 7, 1)',
         'line-width': 2
@@ -93,6 +98,7 @@ const definitions = {
       'type': 'line',
       'source': 'cohesivenetwork',
       'source-layer': 'example_cohesive',	// #!# Needs fixing to 'cohesivenetwork'
+      'visibility': 'none',   // Initial visibility
       'paint': {
         'line-color': [
           'match',
@@ -380,11 +386,8 @@ function switch_otherLayer (layerName)
   // Get checkbox
   const visible = document.getElementById(layerName.concat('checkbox')).checked;
   
-  // Add the layer (if not already present), respecting the initial checkbox state
-  if (!map.getLayer(layerName)) {
-    definitions.otherLayers[layerName].visibility = (visible ? 'visible' : 'none');
-    map.addLayer(definitions.otherLayers[layerName], 'placeholder_name');
-  }
+  // Add the layer (if not already present)
+  addLayer_otherLayer (layerName);
   
   // Set the visibility, based on the checkbox value
   map.setLayoutProperty(layerName, 'visibility', (visible ? 'visible' : 'none'));
@@ -597,6 +600,14 @@ function buildingsLayer ()
   map.setLayoutProperty ('dasymetric', 'visibility', (buildingColour ? 'visible' : 'none'));
 }
 
+
+
+function addLayer_otherLayer (layerName)
+{
+  if (!map.getLayer(layerName)) {
+    map.addLayer(definitions.otherLayers[layerName], 'placeholder_name');
+  }
+}
 
 
 function addLayer_rnet ()
