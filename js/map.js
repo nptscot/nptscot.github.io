@@ -1,5 +1,50 @@
+
+// Basemap styles
+const basemaps = {
+  'greyscale_nobuild': {
+    title: 'OS greyscale',
+    default: true,
+    buildingColour: '#d1cfcf'
+  },
+  'satellite': {
+    title: 'Satellite',
+    buildingColour: false   // No buildings
+  },
+  'opencyclemap': {
+    title: 'OpenCycleMap',
+    buildingColour: false   // No buildings
+  },
+  'google_nobuild': {
+    title: 'Outdoors',
+    buildingColour: '#f0eded'
+  },
+  'dark_nobuild': {
+    title: 'Dark',
+    buildingColour: '#000000'
+  },
+};
+
+
+
 // Setup map, and obtain the handle
 map = createMap ();
+
+
+
+// Generate layer switcher HTML
+function layerSwitcherHtml ()
+{
+  // Create each switcher button
+  const options = [];
+  Object.entries (basemaps).forEach (([id, basemap]) => {
+    let option  = `<input type="radio" name="basemap" id="${id}-basemap" value="${id}"` + (basemap.default ? ' checked="checked"' : '') + ' />';
+    option += `<label for="${id}-basemap"><img src="images/basemaps/${id}.png" title="${basemap.title}" /></label>`;
+    options.push (option);
+  });
+  
+  // Insert radiobuttons into form
+  document.getElementById ('basemapform').innerHTML = options.join (' ');
+}
 
 
 
@@ -13,6 +58,9 @@ function getBasemapStyle ()
 // Function to set up the map UI and controls
 function createMap ()
 {
+  // Create the layer switcher
+  layerSwitcherHtml ();
+  
   // Main map setup
   var map = new maplibregl.Map({
     container: 'map',

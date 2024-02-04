@@ -1,3 +1,7 @@
+// Dependency: map.js must be loaded first - for basemaps[styleName].buildingColour
+
+
+
 const settings = {
   tileserverUrl: 'https://nptscot.blob.core.windows.net/pmtiles/',
   tileserverTempLocal: false,  // Temporarily set to true to switch to localUrl cases below
@@ -104,14 +108,6 @@ const definitions = {
         'line-width': 2
       }
     }
-  },
-  
-  buildingColours: {
-    'greyscale_nobuild': '#d1cfcf',   // "OS Greyscale"
-    "satellite": false,               // "Satellite" - No buildings
-    'opencyclemap': false,            // "OpenCycleMap" - No buildings
-    'google_nobuild': '#f0eded',      // "Outdoors"
-    'dark_nobuild': '#000000',        // "Dark"
   },
   
   routeNetworkLegendColours: {
@@ -657,7 +653,7 @@ function buildingsLayer ()
     // If datazones is off, buildings shown, if vector style, as static colour appropriate to the basemap
     if (!document.getElementById('data_zonescheckbox').checked) {
       const styleName = getBasemapStyle ();
-      return definitions.buildingColours[styleName];
+      return basemaps[styleName].buildingColour;
     }
     
     // If dasymetric mode, use a colour set based on the layer
