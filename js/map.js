@@ -96,7 +96,8 @@ function createMap ()
   }), 'top-left');
   
   // Add buildings; note that the style/colouring may be subsequently altered by data layers
-  map.once('idle', function () {
+  addBuildings (map);
+  document.getElementById ('basemapform').addEventListener ('change', function (e) {
     addBuildings (map);
   });
   
@@ -155,35 +156,41 @@ function createMap ()
 // Function to add the buildings layer
 function addBuildings (map)
 {
-  // Add the source
-  map.addSource('dasymetric', {
-    'type': 'vector',
-    // #!# Parameterise base server URL
-    'url': 'pmtiles://https://nptscot.blob.core.windows.net/pmtiles/dasymetric-2023-12-17.pmtiles',
+  // When ready
+  map.once ('idle', function () {
+    
+    // Add the source
+    if (!map.getSource ('dasymetric')) {
+      map.addSource('dasymetric', {
+        'type': 'vector',
+        // #!# Parameterise base server URL
+        'url': 'pmtiles://https://nptscot.blob.core.windows.net/pmtiles/dasymetric-2023-12-17.pmtiles',
+      });
+    }
+    
+    // Initialise the layer
+    if (!map.getLayer ('dasymetric')) {
+      map.addLayer ({
+        'id': 'dasymetric',
+        'type': 'fill-extrusion',
+        'source': 'dasymetric',
+        'source-layer': 'dasymetric',
+        'layout': {
+          'visibility': 'none'
+        },
+        'paint': {
+          'fill-extrusion-color': '#9c9898',  // Default gray
+          'fill-extrusion-height': [
+            'interpolate',
+            ['linear'],
+            ['zoom'],
+            12, 1,
+            15, 8
+          ]
+        }
+      }, 'roads 0 Guided Busway Casing');
+    }
   });
-
-  // Initialise the layer
-  if (!map.getLayer ('dasymetric')) {
-    map.addLayer ({
-      'id': 'dasymetric',
-      'type': 'fill-extrusion',
-      'source': 'dasymetric',
-      'source-layer': 'dasymetric',
-      'layout': {
-        'visibility': 'none'
-      },
-      'paint': {
-        'fill-extrusion-color': '#9c9898',  // Default gray
-        'fill-extrusion-height': [
-          'interpolate',
-          ['linear'],
-          ['zoom'],
-          12, 1,
-          15, 8
-        ]
-      }
-    }, 'roads 0 Guided Busway Casing');
-  }
 }
 
 
