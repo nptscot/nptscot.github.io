@@ -360,13 +360,8 @@ p.help-end {
 /* Basemap selection */
 
 
-input[type="radio"][id^="bm"] {
-  display: none;
-}
-
-
 .basemap input {
-  display: inline;
+  display: none;
   float: left;
 }
 
