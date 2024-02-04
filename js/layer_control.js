@@ -334,6 +334,9 @@ function switch_style(){
   
   map.once('idle', function() {
     
+    // Initialise layers
+    initialiseDatasets ();
+    
     // Reload layers
     toggleLayer('rnet'); // Start with the rnet on
     toggleLayer('data_zones');
@@ -361,9 +364,10 @@ function switch_style(){
 }
 
 
-// Function to initialise sources/layers
 function initialiseDatasets ()
 {
+  console.log ("Adding sources and layers");
+  
   // Add sources
   definitions.sources.forEach (source => {
     const [sourceId, attributes = {}] = source;
@@ -380,16 +384,20 @@ function initialiseDatasets ()
     url += '.pmtiles';
     
     // Add the source, if it does not already exist
-    map.addSource (sourceId, {
-      'type': 'vector',
-      'url': url,
-    });
+    if (!map.getSource(sourceId)){
+      map.addSource(sourceId, {
+        'type': 'vector',
+        'url': url,
+      });
+    }
   });
   
   // Initialise layers
   Object.keys (definitions.layerDefinitions).forEach (layerId => {
-    const beforeId = (layerId == 'data_zones' ? 'roads 0 Guided Busway Casing' : 'placeholder_name');   // #!# Needs to be moved to definitions
-    map.addLayer (definitions.layerDefinitions[layerId], beforeId);
+    if (!map.getLayer (layerId)) {
+      const beforeId = (layerId == 'data_zones' ? 'roads 0 Guided Busway Casing' : 'placeholder_name');   // #!# Needs to be moved to definitions
+      map.addLayer (definitions.layerDefinitions[layerId], beforeId);
+    }
   });
 }
 
@@ -632,8 +640,7 @@ function buildingsLayer ()
 
 
 // First load setup
-map.on ('load', function() {
-  initialiseDatasets ();
+map.on('load', function() {
   switch_style();
 });
 
