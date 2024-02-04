@@ -148,11 +148,11 @@ const chartsModal = function (chartDefinition) {
   function createCharts(locationData) {
 
     // Create each chart, clearing existing if present
-    chartDefinition.charts.forEach((chartDefinition, i) => {
+    chartDefinition.charts.forEach((chart, i) => {
       if (charts[i]) {
         charts[i].destroy();
       }
-      charts[i] = createChart(locationData, chartDefinition[0], chartDefinition[1], chartDefinition[2]);
+      charts[i] = createChart(locationData, chart[0], chart[1], chart[2]);
     });
   };
 
