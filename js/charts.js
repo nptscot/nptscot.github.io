@@ -99,7 +99,7 @@ const chartsModal = function (chartDefinition) {
   const location_modal = newModal (chartDefinition.location_modal_id);
 
   // Open modal on clicking the supported map layer
-  const charts = {};
+  const chartHandles = {};
   map.on('click', chartDefinition.mapLayerId, function (e) {
 
     // Ensure the source matches
@@ -149,10 +149,10 @@ const chartsModal = function (chartDefinition) {
 
     // Create each chart, clearing existing if present
     chartDefinition.charts.forEach((chart, i) => {
-      if (charts[i]) {
-        charts[i].destroy();
+      if (chartHandles[i]) {
+        chartHandles[i].destroy();
       }
-      charts[i] = createChart(locationData, chart[0], chart[1], chart[2], chartDefinition.modes, chartDefinition.scenarios);
+      chartHandles[i] = createChart(locationData, chart[0], chart[1], chart[2], chartDefinition.modes, chartDefinition.scenarios);
     });
   };
 
