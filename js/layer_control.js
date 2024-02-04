@@ -338,12 +338,8 @@ document.addEventListener ('@map/ready', function () {
     }
   });
 
-  // Reload layers
-  toggleLayer('rnet'); // Start with the rnet on
-  toggleLayer('data_zones');
-  
-  // Other layers
-  definitions.otherLayers.forEach (layerId => {
+  // Set initial state for all layers
+  Object.keys (definitions.layerDefinitions).forEach (layerId => {
     toggleLayer(layerId);
   });
   
@@ -397,16 +393,16 @@ function addDataSources () {
 function toggleLayer(layerName) {
   
   console.log("Toggling layer " + layerName)
-
-  // Handle data zones layer
-  if (layerName == 'data_zones'){
-    switch_data_zones();
+  
+  // Handle rnet layer
+  if (layerName == 'rnet' || layerName == 'rnet-simplified') {
+    switch_rnet();
     return;
   }
   
-  // Handle rnet layer
-  if (layerName == 'rnet') {
-    switch_rnet();
+  // Handle data zones layer
+  if (layerName == 'data_zones'){
+    switch_data_zones();
     return;
   }
   
@@ -417,7 +413,7 @@ function toggleLayer(layerName) {
   }
   
   // Unknown layer
-  console.log('Unknown layer selected');
+  console.log(`Unknown layer '${layerName}' selected`);
 }
 
 
