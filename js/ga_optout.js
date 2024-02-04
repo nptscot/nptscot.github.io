@@ -13,13 +13,21 @@ function gaOptout() {
   window[disableStr] = true;
 }
 
+
+// Handle cookie warning buttons
+document.querySelectorAll ('#cookiewarning button').forEach (function (button) {
+  button.addEventListener('click', function (e) {
+    cookieButton (button.value);
+  });
+});
+  
+
 // Warning Control
-function cookiebutton(x) {
-  if(x === true){
-    // Cookies approved
+function cookieButton(accepted) {
+  
+  if(accepted){
     setCookie('NPTtrack', 'true');
-  } else if (x === false){
-    // Cookies rejected
+  } else {
     //alert("Tracking Op-Out Disabled");
     gaOptout();
     setCookie('NPTtrack', 'false');
