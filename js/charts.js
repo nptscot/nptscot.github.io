@@ -175,14 +175,7 @@ function charts (chartDefinitions)
     const location_modal = newModal (mapLayerId + '-chartsmodal');
     
     // Initialise the HTML structure, creating a box for each chart, writing in the titles and descriptions, and setting the canvas ID
-    const template = document.querySelector (`#${mapLayerId}-chartsmodal .chart-template`);
-    chartDefinition.charts.forEach((chart) => {
-      const chartBox = template.content.cloneNode (true);
-      chartBox.querySelector ('.chart-title').innerText = chart[1];
-      chartBox.querySelector ('.chart-description').innerText = chart[2];
-      chartBox.querySelector ('.chart-container canvas').id = chart[0] + '-chart';
-      document.querySelector (`#${mapLayerId}-chartsmodal .modal-body`).appendChild (chartBox);
-    });
+    initialiseChartBoxHtml (mapLayerId, chartDefinition.charts);
     
     // Open modal on clicking the supported map layer
     map.on('click', mapLayerId, function (e) {
@@ -228,8 +221,22 @@ function charts (chartDefinitions)
         });
     });
   }
-
-
+  
+  
+  // Function to initialise the chart box HTML from a template
+  function initialiseChartBoxHtml (mapLayerId, charts)
+  {
+    const template = document.querySelector (`#${mapLayerId}-chartsmodal .chart-template`);
+    charts.forEach((chart) => {
+      const chartBox = template.content.cloneNode (true);
+      chartBox.querySelector ('.chart-title').innerText = chart[1];
+      chartBox.querySelector ('.chart-description').innerText = chart[2];
+      chartBox.querySelector ('.chart-container canvas').id = chart[0] + '-chart';
+      document.querySelector (`#${mapLayerId}-chartsmodal .modal-body`).appendChild (chartBox);
+    });
+  }
+  
+  
   // Function to create all charts
   function createCharts(chartDefinition, locationData) {
 
