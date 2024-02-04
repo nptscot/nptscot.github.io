@@ -62,7 +62,7 @@ const chartDefinitions = {
 
     charts: [
       ['primaryChart', 'schl_primary_dest', 'Annual Average Daily Flow'], // School Primary Destination
-      ['secondaryChart', 'schl_primary_dest', 'Annual Average Daily Flow'], // School Secondary Destination  #!# Data doesn't seem to be present/showing
+      ['secondaryChart', 'schl_secondary_dest', 'Annual Average Daily Flow'], // School Secondary Destination
     ],
 
     modes: [
