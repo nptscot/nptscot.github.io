@@ -324,9 +324,8 @@ const definitions = {
 
 
 
-
+// Add layers when the map is ready (including after a basemap change)
 document.addEventListener ('@map/ready', function () {
-  console.log ('Heard @map/ready...');
   
   // Add data sources
   addDataSources();
@@ -629,26 +628,4 @@ function buildingsLayer ()
   // Set visibility
   map.setLayoutProperty ('dasymetric', 'visibility', (buildingColour ? 'visible' : 'none'));
 }
-
-
-// First load setup
-map.once ('idle', function () {
-  document.dispatchEvent (new Event ('@map/ready', {'bubbles': true}));
-});
-
-// Change map and reload state on basemap change
-document.getElementById ('basemapform').addEventListener ('change', function () {
-  var styleName = getBasemapStyle ();
-  var styleCurrent = map.getStyle ().name;
-  if (styleCurrent != styleName) {
-    console.log ('Restyling from ' + styleCurrent + ' to ' + styleName);
-    map.setStyle ('tiles/style_' + styleName + '.json');
-    
-    // Fire an event when ready
-    map.once ('idle', function() {
-      document.dispatchEvent (new Event ('@map/ready', {'bubbles': true}));
-    });
-  }
-});
-
 

@@ -148,7 +148,26 @@ function createMap ()
     location.reload();
   });
   
-  // Return the map
+  // Fire map ready when ready, which layer-enabling can be picked up
+  map.once ('idle', function () {
+    document.dispatchEvent (new Event ('@map/ready', {'bubbles': true}));
+  });
+  
+  // Change map and reload state on basemap change
+  document.getElementById ('basemapform').addEventListener ('change', function () {
+    var styleName = getBasemapStyle ();
+    var styleCurrent = map.getStyle ().name;
+    if (styleCurrent == styleName) {return;}
+    console.log ('Restyling from ' + styleCurrent + ' to ' + styleName);
+    map.setStyle ('tiles/style_' + styleName + '.json');
+    
+    // Fire map ready event when ready
+    map.once ('idle', function() {
+      document.dispatchEvent (new Event ('@map/ready', {'bubbles': true}));
+    });
+  });
+  
+  // Return the map handle
   return map;
 }
 
