@@ -13,7 +13,6 @@ const definitions = {
   sources: [
     ['rnet', {dateBased: '2023-12-17', localUrl: 'utilitytrips/'}],
     ['rnet-simplified', {path: 'rnet_simplified', dateBased: '2023-12-17'}],
-    ['dasymetric', {dateBased: '2023-12-17'}],  // i.e. buildings layer
     ['data_zones', {dateBased: '2023-12-17'}],
     ['schools', {dateBased: '2023-12-17'}],
     ['wards'],
@@ -309,7 +308,6 @@ function switch_style(){
     
     // Initialise layers
     addLayer_rnet ();   // rnet and rnet-simplified
-    addLayer_dasymetric ();   // Guildings layer (before data zones)
     addLayer_dataZones ();    // Data zones layer
     definitions.otherLayers.forEach (layerId => {
       addLayer_otherLayer (layerId);
@@ -652,33 +650,6 @@ function addLayer_dataZones ()
         'fill-color': '#9c9898',
         'fill-opacity': 0.8,
         'fill-outline-color': '#000000'
-      }
-    }, 'roads 0 Guided Busway Casing');
-  }
-}
-
-
-function addLayer_dasymetric ()
-{
-  // Initialise the layer
-  if (!map.getLayer ('dasymetric')) {
-    map.addLayer ({
-      'id': 'dasymetric',
-      'type': 'fill-extrusion',
-      'source': 'dasymetric',
-      'source-layer': 'dasymetric',
-      'layout': {
-        'visibility': 'none'
-      },
-      'paint': {
-        'fill-extrusion-color': '#9c9898',  // Default gray
-        'fill-extrusion-height': [
-          'interpolate',
-          ['linear'],
-          ['zoom'],
-          12, 1,
-          15, 8
-        ]
       }
     }, 'roads 0 Guided Busway Casing');
   }
