@@ -152,20 +152,20 @@ const chartsModal = function (chartDefinition) {
       if (charts[i]) {
         charts[i].destroy();
       }
-      charts[i] = createChart(locationData, chart[0], chart[1], chart[2]);
+      charts[i] = createChart(locationData, chart[0], chart[1], chart[2], chartDefinition.modes, chartDefinition.scenarios);
     });
   };
 
 
   // Function to create a chart
-  function createChart(locationData, id, prefix, labelString) {
+  function createChart(locationData, id, prefix, labelString, modes, scenarios) {
 
     // Assemble the datasets
     const datasets = [];
-    chartDefinition.modes.forEach(mode => {
+    modes.forEach(mode => {
       datasets.push({
         label: mode[0],
-        data: chartDefinition.scenarios.map(scenario => locationData[prefix + '_' + mode[1] + scenario[0]]),
+        data: scenarios.map(scenario => locationData[prefix + '_' + mode[1] + scenario[0]]),
         backgroundColor: mode[2],
         borderColor: mode[3],
         borderWidth: 1
@@ -176,7 +176,7 @@ const chartsModal = function (chartDefinition) {
     return new Chart(document.getElementById(id).getContext('2d'), {
       type: 'bar',
       data: {
-        labels: chartDefinition.scenarios.map(scenario => scenario[1]),
+        labels: scenarios.map(scenario => scenario[1]),
         datasets: datasets
       },
       options: {
