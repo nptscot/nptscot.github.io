@@ -303,9 +303,18 @@ function switch_style(){
   }
   
   map.once('idle', function() {
+    
     // Add data sources
     addDataSources();
-
+    
+    // Initialise layers
+    addLayer_rnet ();   // rnet and rnet-simplified
+    addLayer_dasymetric ();   // Guildings layer (before data zones)
+    addLayer_dataZones ();    // Data zones layer
+    definitions.otherLayers.forEach (layerId => {
+      addLayer_otherLayer (layerId);
+    });
+  
     // Reload layers
     toggleLayer('rnet'); // Start with the rnet on
     toggleLayer('data_zones');
@@ -395,9 +404,6 @@ function switch_otherLayer (layerName)
   // Get checkbox
   const visible = document.getElementById(layerName.concat('checkbox')).checked;
   
-  // Add the layer (if not already present)
-  addLayer_otherLayer (layerName);
-  
   // Set the visibility, based on the checkbox value
   map.setLayoutProperty(layerName, 'visibility', (visible ? 'visible' : 'none'));
 }
@@ -434,9 +440,6 @@ function getLayerWidthField ()
 function switch_rnet() {  
   
   console.log("Updating rnet")
-  
-  // Initialise rnet and rnet-simplified
-  addLayer_rnet ();
   
   // Determine layer visibility
   const layerEnabled = document.getElementById('rnetcheckbox').checked;
@@ -549,18 +552,12 @@ function getStyleColumn (layerId)
 // Data zones
 function switch_data_zones()
 {
-  // Initialise buildings layer (before data zones)
-  addLayer_dasymetric ();
-  
   // Manage buildings layer
   buildingsLayer ();
   
   // Update the legend (even if map layer is off)
   var layerId = document.getElementById('data_zones_selector').value;
   createLegend (definitions.dzLegendColours, layerId, 'dzlegend');
-  
-  // Add the data zones layer
-  addLayer_dataZones ();
   
   // Get UI state
   var daysymetricMode = document.getElementById('data_zones_checkbox_dasymetric').checked;
