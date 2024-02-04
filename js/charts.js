@@ -147,36 +147,44 @@ const chartsModal = function (chartDefinition) {
   // Function to create all charts
   function createCharts(locationData) {
 
-    // Create each chart, clearing existing if present
+    // Create each chart
     chartDefinition.charts.forEach((chart, i) => {
+      
+      // Assemble the datasets to be shown
+      const datasets = [];
+      chartDefinition.modes.forEach(mode => {
+        datasets.push({
+          label: mode[0],
+          data: chartDefinition.scenarios.map(scenario => locationData[chart[1] + '_' + mode[1] + scenario[0]]),
+          backgroundColor: mode[2],
+          borderColor: mode[3],
+          borderWidth: 1
+        });
+        console.log (datasets);
+      });
+      
+      // Bar labels
+      const labels = chartDefinition.scenarios.map(scenario => scenario[1]);
+      
+      // Clear existing if present
       if (chartHandles[i]) {
         chartHandles[i].destroy();
       }
-      chartHandles[i] = createChart(locationData, chart[0], chart[1], chart[2], chartDefinition.modes, chartDefinition.scenarios);
+      
+      // Render the chart (and register it to a handle so it can be cleared in future)
+      chartHandles[i] = renderChart(chart[0], chart[2], datasets, labels);
     });
   };
 
 
-  // Function to create a chart
-  function createChart(locationData, id, prefix, labelString, modes, scenarios) {
-
-    // Assemble the datasets
-    const datasets = [];
-    modes.forEach(mode => {
-      datasets.push({
-        label: mode[0],
-        data: scenarios.map(scenario => locationData[prefix + '_' + mode[1] + scenario[0]]),
-        backgroundColor: mode[2],
-        borderColor: mode[3],
-        borderWidth: 1
-      })
-    });
+  // Function to render a chart
+  function renderChart (divId, title, datasets, labels) {
 
     // Create and return the chart
-    return new Chart(document.getElementById(id).getContext('2d'), {
+    return new Chart(document.getElementById(divId).getContext('2d'), {
       type: 'bar',
       data: {
-        labels: scenarios.map(scenario => scenario[1]),
+        labels: labels,
         datasets: datasets
       },
       options: {
@@ -185,7 +193,7 @@ const chartsModal = function (chartDefinition) {
             stacked: true,
             title: {
               display: true,
-              text: labelString
+              text: title
             },
             ticks: {
               beginAtZero: true,
