@@ -33,6 +33,38 @@ const definitions = {
   ],
   
   layerDefinitions: {
+    rnet: {
+      'id': 'rnet',
+      'source': 'rnet',
+      'source-layer': 'rnet',
+      'type': 'line',
+      'layout': {
+        'visibility': 'none'
+      },
+    },
+    'rnet-simplified': {
+      'id': 'rnet-simplified',
+      'source': 'rnet-simplified',
+      'source-layer': 'rnet',
+      'type': 'line',
+      'layout': {
+        'visibility': 'none'
+      },
+    },
+    data_zones: {
+      'id': 'data_zones',
+      'type': 'fill',
+      'source': 'data_zones',
+      'source-layer': 'data_zones',
+      'layout': {
+        'visibility': 'none'
+      },
+      'paint': {
+        'fill-color': '#9c9898',
+        'fill-opacity': 0.8,
+        'fill-outline-color': '#000000'
+      }
+    },
     schools: {
       'id': 'schools',
       'type': 'circle',
@@ -307,10 +339,11 @@ function switch_style(){
     addDataSources();
     
     // Initialise layers
-    addLayer_rnet ();   // rnet and rnet-simplified
-    addLayer_dataZones ();    // Data zones layer
-    definitions.otherLayers.forEach (layerId => {
-      addLayer_otherLayer (layerId);
+    Object.keys (definitions.layerDefinitions).forEach (layerId => {
+      if (!map.getLayer(layerId)) {
+        const beforeId = (layerId == 'data_zones' ? 'roads 0 Guided Busway Casing' : 'placeholder_name');   // #!# Needs to be moved to definitions
+        map.addLayer(definitions.layerDefinitions[layerId], beforeId);
+      }
     });
   
     // Reload layers
@@ -604,56 +637,6 @@ function buildingsLayer ()
   map.setLayoutProperty ('dasymetric', 'visibility', (buildingColour ? 'visible' : 'none'));
 }
 
-
-
-function addLayer_otherLayer (layerName)
-{
-  if (!map.getLayer(layerName)) {
-    map.addLayer(definitions.layerDefinitions[layerName], 'placeholder_name');
-  }
-}
-
-
-function addLayer_rnet ()
-{
-  // Initialise each layer variant, if they do not exist
-  const layerVariants = ['rnet', 'rnet-simplified'];
-  layerVariants.forEach (layerId => {
-    if (!map.getLayer (layerId)) {
-      map.addLayer ({
-        'id': layerId,
-        'source': layerId,
-        'source-layer': 'rnet',
-        'type': 'line',
-        'layout': {
-          'visibility': 'none'
-        },
-      }, 'placeholder_name');
-    }
-  });
-}
-
-
-function addLayer_dataZones ()
-{
-  // Initialise data zones polygons layer
-  if (!map.getLayer ('data_zones')) {
-    map.addLayer ({
-      'id': 'data_zones',
-      'type': 'fill',
-      'source': 'data_zones',
-      'source-layer': 'data_zones',
-      'layout': {
-        'visibility': 'none'
-      },
-      'paint': {
-        'fill-color': '#9c9898',
-        'fill-opacity': 0.8,
-        'fill-outline-color': '#000000'
-      }
-    }, 'roads 0 Guided Busway Casing');
-  }
-}
 
 
 // First load setup
