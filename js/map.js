@@ -131,6 +131,11 @@ function createMap ()
     compact: true,
     customAttribution: 'Contains OS data © Crown copyright 2021, Satelite map © ESRI 2023, © OpenStreetMap contributors'
   }), 'bottom-right');
+  
+  // Add placenames support
+  map.once('idle', function () {
+    placenames (map);
+  });
 
   // Antialias reload
   document.getElementById ('antialiascheckbox').addEventListener ('click', function () {
@@ -184,4 +189,39 @@ function geocoderApi ()
   
   return geocoder_api;
 }
+
+
+// Function to manage display of placenames
+function placenames (map)
+{
+  // Add the source
+  map.addSource ('placenames', {
+    'type': 'vector',
+    // #!# Parameterise base server URL
+    'url': 'pmtiles://https://nptscot.blob.core.windows.net/pmtiles/oszoom_names.pmtiles',
+  });
+  
+  // Load the style definition
+  // #!# The .json file is currently not a complete style definition, e.g. with version number etc.
+  fetch ('/tiles/partial-style_oszoom_names.json')
+    .then (function (response) {return response.json ();})
+    .then (function (placenameLayers) {
+      
+      // Add each layer, respecting the initial checkbox state
+      Object.entries(placenameLayers).forEach(([layerId, layer]) => {
+        var checkbox = document.getElementById('placenamescheckbox');
+        layer.visibility = (checkbox.checked ? 'visible' : 'none');
+        map.addLayer(layer);
+      });
+      
+      // Listen for checkbox changes
+      document.getElementById('placenamescheckbox').addEventListener ('click', (e) => {
+        var checkbox = document.getElementById('placenamescheckbox');
+        Object.entries(placenameLayers).forEach(([layerId, layer]) => {
+          map.setLayoutProperty(layerId, 'visibility', (checkbox.checked ? 'visible' : 'none'));
+        });
+      });
+    });
+}
+
 

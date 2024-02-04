@@ -22,8 +22,6 @@ const definitions = {
     ['la'],
     // To be deployed on NPT tilserver as cohesivenetwork.pmtiles:
     ['cohesivenetwork', {localUrl: 'cohesivenetwork/'}],
-    // #!# Placenames should be treated like a basemap - it's not a data layer as such
-    ['placenames', {path: 'oszoom_names'}],
   ],
   
   otherLayers: {
@@ -302,9 +300,6 @@ function switch_style(){
       toggleLayer(layerId);
     });
     
-    // Manage placenames
-    placenames();
-    
     // Handle layer change controls, each marked with the updatelayer class
     document.querySelectorAll('.updatelayer').forEach((input) => {
       input.addEventListener('change', function(e) {
@@ -319,7 +314,6 @@ function switch_style(){
         toggleLayer(layerId);
       });
     });
-    
   });
 }
 
@@ -350,33 +344,6 @@ function addDataSources () {
       });
     }
   });
-}
-
-
-// Function to manage display of placenames
-function placenames () {
-  
-  // Load the style definition
-  // #!# The .json file is currently not a complete style definition, e.g. with version number etc.
-  fetch('/tiles/partial-style_oszoom_names.json')
-      .then (function (response) {return response.json ();})
-      .then (function (placenameLayers) {
-        
-        // Add each layer, respecting the initial checkbox state
-        Object.entries(placenameLayers).forEach(([layerId, layer]) => {
-          var checkbox = document.getElementById('placenamescheckbox');
-          layer.visibility = (checkbox.checked ? 'visible' : 'none');
-          map.addLayer(layer);
-        });
-        
-        // Listen for checkbox changes
-        document.getElementById('placenamescheckbox').addEventListener ('click', (e) => {
-          var checkbox = document.getElementById('placenamescheckbox');
-          Object.entries(placenameLayers).forEach(([layerId, layer]) => {
-            map.setLayoutProperty(layerId, 'visibility', (checkbox.checked ? 'visible' : 'none'));
-          });
-        });
-      });
 }
 
 
