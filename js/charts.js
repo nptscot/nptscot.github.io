@@ -91,6 +91,8 @@ const chartDefinitionSchools = {
 };
 
 
+// Handles to charts
+const chartHandles = {};
 
 // Function to create a chart modal
 const chartsModal = function (chartDefinition) {
@@ -99,7 +101,6 @@ const chartsModal = function (chartDefinition) {
   const location_modal = newModal (chartDefinition.location_modal_id);
 
   // Open modal on clicking the supported map layer
-  const chartHandles = {};
   map.on('click', chartDefinition.mapLayerId, function (e) {
 
     // Ensure the source matches
@@ -142,39 +143,39 @@ const chartsModal = function (chartDefinition) {
         alert('Failed to get data for this location. Please try refreshing the page.');
       });
   });
-
-
-  // Function to create all charts
-  function createCharts(chartDefinition, locationData) {
-
-    // Create each chart
-    chartDefinition.charts.forEach((chart, i) => {
-      
-      // Assemble the datasets to be shown
-      const datasets = [];
-      chartDefinition.modes.forEach(mode => {
-        datasets.push({
-          label: mode[0],
-          data: chartDefinition.scenarios.map(scenario => locationData[chart[1] + '_' + mode[1] + scenario[0]]),
-          backgroundColor: mode[2],
-          borderColor: mode[3],
-          borderWidth: 1
-        });
-      });
-      
-      // Bar labels
-      const labels = chartDefinition.scenarios.map(scenario => scenario[1]);
-      
-      // Clear existing if present
-      if (chartHandles[i]) {
-        chartHandles[i].destroy();
-      }
-      
-      // Render the chart (and register it to a handle so it can be cleared in future)
-      chartHandles[i] = renderChart(chart[0], chart[2], datasets, labels);
-    });
-  };
 }
+
+
+// Function to create all charts
+function createCharts(chartDefinition, locationData) {
+
+  // Create each chart
+  chartDefinition.charts.forEach((chart, i) => {
+    
+    // Assemble the datasets to be shown
+    const datasets = [];
+    chartDefinition.modes.forEach(mode => {
+      datasets.push({
+        label: mode[0],
+        data: chartDefinition.scenarios.map(scenario => locationData[chart[1] + '_' + mode[1] + scenario[0]]),
+        backgroundColor: mode[2],
+        borderColor: mode[3],
+        borderWidth: 1
+      });
+    });
+    
+    // Bar labels
+    const labels = chartDefinition.scenarios.map(scenario => scenario[1]);
+    
+    // Clear existing if present
+    if (chartHandles[i]) {
+      chartHandles[i].destroy();
+    }
+    
+    // Render the chart (and register it to a handle so it can be cleared in future)
+    chartHandles[i] = renderChart(chart[0], chart[2], datasets, labels);
+  });
+};
 
 
 // Function to render a chart
