@@ -357,54 +357,27 @@ p.help-end {
   color: #0b38e6;
 }
 
+
 /* Basemap selection */
 
-
-.basemap input {
+#basemapform input {
   display: none;
   float: left;
 }
 
-.basemap label {
+#basemapform label {
   border: 1px solid #fff;
-  /*padding: 3px; */
-  /*display: block;*/
   position: relative;
-  /*margin: 3px; */
   cursor: pointer;
-  /*
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  */
   user-select: none;
 }
 
-
-.basemap label::before {
-  /*
-  background-color: white;
-  color: white;
-  content: " ";
-  display: block;
-  border-radius: 50%;
-  border: 1px solid grey;
-  position: absolute; 
-  top: -5px;
-  left: -5px;
-  width: 25px;
-  height: 25px;
-  text-align: center;
-  line-height: 28px;
-  */
+#basemapform label::before {
   transition-duration: 0.4s;
   transform: scale(0);
 }
 
-
-.basemap label img {
+#basemapform label img {
   height: 40px;
   width: 40px;
   border-radius: 5px;
@@ -412,20 +385,7 @@ p.help-end {
   transform-origin: 50% 50%;
 }
 
-/*
-:checked+label {
-  border-color: #0060df;
-}
-
-
-:checked+label::before {
-  content: "✓";
-  background-color: grey;
-  transform: scale(1);
-}
-*/
-
-.basemap :checked+label img {
+#basemapform :checked+label img {
   transform: scale(0.9);
   box-shadow: 0 0 20px #0060df;
   z-index: -1;
