@@ -395,8 +395,14 @@ function toggleLayer(layerName) {
   console.log("Toggling layer " + layerName)
   
   // Handle rnet layer
-  if (layerName == 'rnet' || layerName == 'rnet-simplified') {
+  if (layerName == 'rnet') {
     switch_rnet();
+    return;
+  }
+  
+  // Handle rnet-simplified layer
+  if (layerName == 'rnet-simplified') {
+    switch_rnetSimplified();
     return;
   }
   
@@ -455,6 +461,11 @@ function getLayerWidthField ()
   return layerWidthField;
 }
 
+
+// Rnet simplified - use rnet
+function switch_rnetSimplified () {
+  return switch_rnet();
+}
 
 function switch_rnet() {  
   
