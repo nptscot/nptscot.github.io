@@ -492,11 +492,17 @@ function getLayerWidthField ()
 
 
 // Rnet simplified - use rnet
-function switch_rnetSimplified () {
-  return switch_rnet();
+function switch_rnet () {
+  return handleRnet ();
 }
 
-function switch_rnet() {  
+function switch_rnetSimplified () {
+  return handleRnet ();
+  
+  
+}
+
+function handleRnet () {
   
   console.log("Updating rnet / rnet simplified");
   
