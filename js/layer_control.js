@@ -555,7 +555,7 @@ function getLayerWidthField ()
 
 
 // Data zones styling
-function data_zonesStyling (layerId)
+function data_zonesStyling (layerName)
 {
   // Manage buildings layer colour
   const buildingColour = getBuildingsColour ();
