@@ -22,7 +22,7 @@ const definitions = {
     ['cohesivenetwork', {localUrl: 'cohesivenetwork/'}],    // #!# To be deployed on NPT tilserver as cohesivenetwork.pmtiles:
   ],
   
-  layerDefinitions: {
+  layers: {
     rnet: {
       'id': 'rnet',
       'source': 'rnet',
@@ -369,7 +369,7 @@ function manageLayers ()
     rnetCheckboxProxying ();
 
     // Set initial state for all layers
-    Object.keys (definitions.layerDefinitions).forEach (layerId => {
+    Object.keys (definitions.layers).forEach (layerId => {
       toggleLayer(layerId);
     });
     
@@ -424,10 +424,10 @@ function initialiseDatasets ()
   });
   
   // Add layers
-  Object.keys (definitions.layerDefinitions).forEach (layerId => {
+  Object.keys (definitions.layers).forEach (layerId => {
     if (!map.getLayer(layerId)) {
       const beforeId = (layerId == 'data_zones' ? 'roads 0 Guided Busway Casing' : 'placeholder_name');   // #!# Needs to be moved to definitions
-      map.addLayer (definitions.layerDefinitions[layerId], beforeId);
+      map.addLayer (definitions.layers[layerId], beforeId);
     }
   });
 }
