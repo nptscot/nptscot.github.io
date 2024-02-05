@@ -422,39 +422,22 @@ function toggleLayer(layerName) {
   
   console.log("Toggling layer " + layerName)
   
-  // Handle rnet layer
+  // Special handling for rnet layer
   if (layerName == 'rnet') {
-    switch_rnet(layerName);
-    return;
+    switch_rnet();
   }
   
-  // Handle rnet-simplified layer
+  // Special handling for rnet-simplified layer
   if (layerName == 'rnet-simplified') {
-    switch_rnetSimplified(layerName);
-    return;
+    switch_rnetSimplified();
   }
   
-  // Handle data zones layer
+  // Special handling for data zones layer
   if (layerName == 'data_zones'){
     switch_data_zones(layerName);
-    return;
   }
   
-  // Handle other layers (if the requested layer is defined)
-  if (definitions.otherLayers.includes (layerName)) {
-    switch_otherLayer (layerName);
-    return;
-  }
-  
-  // Unknown layer
-  console.log(`Unknown layer '${layerName}' selected`);
-}
-
-
-// Function to manage switching of simple layers
-function switch_otherLayer (layerName)
-{
-  // Set the visibility, based on the checkbox value
+  // Set the visibility of the layer, based on the checkbox value
   const isVisible = document.getElementById (layerName + 'checkbox').checked;
   map.setLayoutProperty (layerName, 'visibility', (isVisible ? 'visible' : 'none'));
 }
@@ -489,21 +472,13 @@ function getLayerWidthField ()
 
 
 // Rnet simplified - use rnet
-function switch_rnet (layerName) {
+function switch_rnet () {
   handleRnet ();
-  
-  // Set the visibility, based on the checkbox value
-  const isVisible = document.getElementById (layerName + 'checkbox').checked;
-  map.setLayoutProperty (layerName, 'visibility', (isVisible ? 'visible' : 'none'));
 }
 
 
-function switch_rnetSimplified (layerName) {
+function switch_rnetSimplified () {
   handleRnet ();
-  
-  // Set the visibility, based on the checkbox value
-  const isVisible = document.getElementById (layerName + 'checkbox').checked;
-  map.setLayoutProperty (layerName, 'visibility', (isVisible ? 'visible' : 'none'));
 }
 
 
@@ -616,7 +591,7 @@ function getStyleColumn (layerId)
 
 
 // Data zones
-function switch_data_zones(layerName)
+function switch_data_zones()
 {
   // Manage buildings layer
   buildingsLayer ();
@@ -631,10 +606,6 @@ function switch_data_zones(layerName)
   // Set paint properties
   map.setPaintProperty ('data_zones', 'fill-color', ['step', ['get', layerId], ...getStyleColumn (layerId)]);
   map.setPaintProperty ('data_zones', 'fill-opacity', (daysymetricMode ? 0.1 : 0.8));   // Very faded out in daysymetric mode, as the buildings are coloured
-  
-  // Set the visibility, based on the checkbox value
-  const isVisible = document.getElementById (layerName + 'checkbox').checked;
-  map.setLayoutProperty (layerName, 'visibility', (isVisible ? 'visible' : 'none'));
 }
 
 
