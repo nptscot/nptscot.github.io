@@ -424,7 +424,7 @@ function addDataSources () {
 
 function toggleLayer(layerName)
 {
-  console.log ("Toggling layer " + layerName)
+  //console.log ('Toggling layer ' + layerName);
   
   // Check for a styling function, as layerName + 'Styling', e.g. rnetStyling
   const stylingFunction = layerName.replace ('-', '_') + 'Styling';    // NB hyphens not legal in function names
