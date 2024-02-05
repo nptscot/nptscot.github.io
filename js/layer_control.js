@@ -447,34 +447,6 @@ function toggleLayer(layerName) {
 }
 
 
-function createLegend (legendColours, selected, selector)
-{
-  // Create the legend HTML
-  // #!# Should be a list, not nested divs
-  let legendHtml = '<div class="l_r">';
-  selected = (legendColours.hasOwnProperty (selected) ? selected : '_');
-  legendColours[selected].forEach(legendColour => {
-    legendHtml += `<div class="lb"><span style="background-color: ${legendColour[1]}"></span>${legendColour[0]}</div>`;
-  })
-  legendHtml += '</div>';
-  
-  // Set the legend
-  document.getElementById(selector).innerHTML = legendHtml;
-}
-
-
-// Function to determine layer width field
-// #!# Need to merge with popup.js: ncycleField ()
-function getLayerWidthField ()
-{
-  const layerPurpose = document.getElementById('rnet_purpose_input').value;
-  const layerType = document.getElementById('rnet_type_input').value;
-  const layerScenario = document.getElementById('rnet_scenario_input').value;
-  const layerWidthField = layerPurpose + '_' + layerType + '_' + layerScenario;
-  return layerWidthField;
-}
-
-
 // Rnet
 function switch_rnet (layerName) {
   handleRnet (layerName);
@@ -577,22 +549,26 @@ function handleRnet (layerId)
 }
 
 
-// Function to determine the style column
-function getStyleColumn (layerId)
+// Function to determine layer width field
+// #!# Need to merge with popup.js: ncycleField ()
+function getLayerWidthField ()
 {
-  const style_col_selected = definitions.dzStyle_cols.hasOwnProperty(layerId) ? layerId : '_';
-  return definitions.dzStyle_cols[style_col_selected];
+  const layerPurpose = document.getElementById('rnet_purpose_input').value;
+  const layerType = document.getElementById('rnet_type_input').value;
+  const layerScenario = document.getElementById('rnet_scenario_input').value;
+  const layerWidthField = layerPurpose + '_' + layerType + '_' + layerScenario;
+  return layerWidthField;
 }
 
 
 // Data zones
-function switch_data_zones(layerId)
+function switch_data_zones (layerId)
 {
   // Manage buildings layer
   buildingsLayer ();
   
   // Update the legend (even if map layer is off)
-  var layerId = document.getElementById('data_zones_selector').value;
+  var layerId = document.getElementById ('data_zones_selector').value;
   createLegend (definitions.dzLegendColours, layerId, 'dzlegend');
   
   // Get UI state
@@ -601,6 +577,14 @@ function switch_data_zones(layerId)
   // Set paint properties
   map.setPaintProperty ('data_zones', 'fill-color', ['step', ['get', layerId], ...getStyleColumn (layerId)]);
   map.setPaintProperty ('data_zones', 'fill-opacity', (daysymetricMode ? 0.1 : 0.8));   // Very faded out in daysymetric mode, as the buildings are coloured
+}
+
+
+// Function to determine the style column
+function getStyleColumn (layerId)
+{
+  const style_col_selected = definitions.dzStyle_cols.hasOwnProperty(layerId) ? layerId : '_';
+  return definitions.dzStyle_cols[style_col_selected];
 }
 
 
@@ -637,4 +621,23 @@ function buildingsLayer ()
   // Set visibility
   map.setLayoutProperty ('dasymetric', 'visibility', (buildingColour ? 'visible' : 'none'));
 }
+
+
+function createLegend (legendColours, selected, selector)
+{
+  // Create the legend HTML
+  // #!# Should be a list, not nested divs
+  let legendHtml = '<div class="l_r">';
+  selected = (legendColours.hasOwnProperty (selected) ? selected : '_');
+  legendColours[selected].forEach(legendColour => {
+    legendHtml += `<div class="lb"><span style="background-color: ${legendColour[1]}"></span>${legendColour[0]}</div>`;
+  })
+  legendHtml += '</div>';
+  
+  // Set the legend
+  document.getElementById(selector).innerHTML = legendHtml;
+}
+
+
+
 
