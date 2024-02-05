@@ -422,23 +422,15 @@ function addDataSources () {
 }
 
 
-function toggleLayer(layerName) {
+function toggleLayer(layerName)
+{
+  console.log ("Toggling layer " + layerName)
   
-  console.log("Toggling layer " + layerName)
-  
-  // Special handling for rnet layer
-  if (layerName == 'rnet') {
-    rnetStyling (layerName);
-  }
-  
-  // Special handling for rnet-simplified layer
-  if (layerName == 'rnet-simplified') {
-    rnetsimplifiedStyling (layerName);
-  }
-  
-  // Special handling for data zones layer
-  if (layerName == 'data_zones'){
-    datazonesStyling (layerName);
+  // Check for a styling function, as layerName + 'Styling', e.g. rnetStyling
+  const stylingFunction = layerName.replace ('-', '_') + 'Styling';    // NB hyphens not legal in function names
+  if (typeof window[stylingFunction] === 'function') {
+    console.log (stylingFunction);
+    window[stylingFunction] (layerName);
   }
   
   // Set the visibility of the layer, based on the checkbox value
@@ -454,7 +446,7 @@ function rnetStyling (layerName) {
 
 
 // Rnet simplified styling
-function rnetSimplifiedStyling (layerName) {
+function rnet_simplifiedStyling (layerName) {
   handleRnet (layerName);
 }
 
@@ -562,7 +554,7 @@ function getLayerWidthField ()
 
 
 // Data zones styling
-function datazonesStyling (layerId)
+function data_zonesStyling (layerId)
 {
   // Manage buildings layer colour
   const buildingColour = getBuildingsColour ();
