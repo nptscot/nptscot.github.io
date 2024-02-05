@@ -564,8 +564,10 @@ function getLayerWidthField ()
 // Data zones
 function switch_data_zones (layerId)
 {
-  // Manage buildings layer
-  buildingsLayer ();
+  // Manage buildings layer colour
+  const buildingColour = getBuildingsColour ();
+  map.setPaintProperty ('dasymetric', 'fill-extrusion-color', (buildingColour || '#9c9898'));
+  map.setLayoutProperty ('dasymetric', 'visibility', (buildingColour ? 'visible' : 'none'));
   
   // Update the legend (even if map layer is off)
   var layerId = document.getElementById ('data_zones_selector').value;
@@ -580,46 +582,34 @@ function switch_data_zones (layerId)
 }
 
 
+// Function to determine the buildings colour
+function getBuildingsColour ()
+{
+  // If datazones is off, buildings shown, if vector style, as static colour appropriate to the basemap
+  if (!document.getElementById('data_zonescheckbox').checked) {
+    const styleName = getBasemapStyle ();
+    return basemaps[styleName].buildingColour;
+  }
+  
+  // If dasymetric mode, use a colour set based on the layer
+  if (document.getElementById('data_zones_checkbox_dasymetric').checked) {
+    const layerId = document.getElementById('data_zones_selector').value;
+    return ['step',
+      ['get', layerId],
+      ...getStyleColumn (layerId)
+    ];
+  }
+  
+  // Default to gray
+  return '#9c9898';
+}
+
+
 // Function to determine the style column
 function getStyleColumn (layerId)
 {
   const style_col_selected = definitions.dzStyle_cols.hasOwnProperty(layerId) ? layerId : '_';
   return definitions.dzStyle_cols[style_col_selected];
-}
-
-
-// Function to handle buildings layer
-function buildingsLayer ()
-{
-  // Function to determine the buildings colour
-  function getBuildingsColour ()
-  {
-    // If datazones is off, buildings shown, if vector style, as static colour appropriate to the basemap
-    if (!document.getElementById('data_zonescheckbox').checked) {
-      const styleName = getBasemapStyle ();
-      return basemaps[styleName].buildingColour;
-    }
-    
-    // If dasymetric mode, use a colour set based on the layer
-    if (document.getElementById('data_zones_checkbox_dasymetric').checked) {
-      const layerId = document.getElementById('data_zones_selector').value;
-      console.log (layerId);
-      return ['step',
-        ['get', layerId],
-        ...getStyleColumn (layerId)
-      ];
-    }
-    
-    // Default to gray
-    return '#9c9898';
-  }
-  
-  // Set building colour
-  const buildingColour = getBuildingsColour ();
-  map.setPaintProperty ('dasymetric', 'fill-extrusion-color', (buildingColour || '#9c9898'));
-  
-  // Set visibility
-  map.setLayoutProperty ('dasymetric', 'visibility', (buildingColour ? 'visible' : 'none'));
 }
 
 
