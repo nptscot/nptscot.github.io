@@ -28,27 +28,18 @@ const definitions = {
       'source': 'rnet',
       'source-layer': 'rnet',
       'type': 'line',
-      'layout': {
-        'visibility': 'none'
-      },
     },
     'rnet-simplified': {
       'id': 'rnet-simplified',
       'source': 'rnet-simplified',
       'source-layer': 'rnet',
       'type': 'line',
-      'layout': {
-        'visibility': 'none'
-      },
     },
     data_zones: {
       'id': 'data_zones',
       'type': 'fill',
       'source': 'data_zones',
       'source-layer': 'data_zones',
-      'layout': {
-        'visibility': 'none'
-      },
       'paint': {
         'fill-color': '#9c9898',
         'fill-opacity': 0.8,
@@ -60,9 +51,6 @@ const definitions = {
       'type': 'circle',
       'source': 'schools',
       'source-layer': 'schools',
-      'layout': {
-        'visibility': 'none'   // Initial visibility
-      },
       'paint': {
         "circle-color": [
           'match',
@@ -86,9 +74,6 @@ const definitions = {
       'type': 'line',
       'source': 'wards',
       'source-layer': 'wards',
-      'layout': {
-        'visibility': 'none'   // Initial visibility
-      },
       'paint': {
         'line-color': 'rgba(32, 107, 7, 1)',
         'line-width': 2
@@ -99,9 +84,6 @@ const definitions = {
       'type': 'line',
       'source': 'holyrood',
       'source-layer': 'holyrood',
-      'layout': {
-        'visibility': 'none'   // Initial visibility
-      },
       'paint': {
         'line-color': 'rgba(83, 123, 252, 1)',
         'line-width': 2
@@ -112,9 +94,6 @@ const definitions = {
       'type': 'line',
       'source': 'scot_regions',
       'source-layer': 'scot_regions',
-      'layout': {
-        'visibility': 'none'   // Initial visibility
-      },
       'paint': {
         'line-color': 'rgba(186, 177, 6, 1)',
         'line-width': 2
@@ -125,9 +104,6 @@ const definitions = {
       'type': 'line',
       'source': 'la',
       'source-layer': 'la',
-      'layout': {
-        'visibility': 'none'   // Initial visibility
-      },
       'paint': {
         'line-color': 'rgba(107, 7, 7, 1)',
         'line-width': 2
@@ -138,9 +114,6 @@ const definitions = {
       'type': 'line',
       'source': 'cohesivenetwork',
       'source-layer': 'example_cohesive',	// #!# Needs fixing to 'cohesivenetwork'
-      'layout': {
-        'visibility': 'none'   // Initial visibility
-      },
       'paint': {
         'line-color': [
           'match',
@@ -423,10 +396,11 @@ function initialiseDatasets ()
     }
   });
   
-  // Add layers
+  // Add layers, initially not visible when initialised
   Object.keys (definitions.layers).forEach (layerId => {
-    if (!map.getLayer(layerId)) {
+    if (!map.getLayer (layerId)) {
       const beforeId = (layerId == 'data_zones' ? 'roads 0 Guided Busway Casing' : 'placeholder_name');   // #!# Needs to be moved to definitions
+      definitions.layers[layerId].layout = {visibility: 'none'};
       map.addLayer (definitions.layers[layerId], beforeId);
     }
   });
