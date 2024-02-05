@@ -182,6 +182,33 @@ const definitions = {
     ]
   },
   
+  routeNetwork_cols: {
+    none: '#304ce7',
+    flow: [
+      'rgba(0,0,0,0)', 1,
+      '#9C9C9C', 50,
+      '#FFFF73', 100,
+      '#AFFF00', 250,
+      '#00FFFF', 500,
+      '#30B0FF', 1000,
+      '#2E5FFF', 2000,
+      '#0000FF', 3000
+    ],
+    quietness: [
+      '#882255', 25,
+      '#CC6677', 50,
+      '#44AA99', 75,
+      '#117733', 101
+    ],
+    gradient: [
+      '#59ee19', 3,
+      '#37a009', 5,
+      '#FFC300', 7,
+      '#C70039', 10,
+      '#581845', 100
+    ]
+  },
+  
   dzLegendColours: {
     'SIMD2020v2_Decile': [
       ['1st', '#a50026'],
@@ -487,35 +514,21 @@ function handleRnet (layerId)
   
   // Define line colour
   var line_colours = {
-    'none': "#304ce7",
+    'none': definitions.routeNetwork_cols.none,
     'flow': [
-      "step", ["get", layerWidthField],
-      "rgba(0,0,0,0)", 1,
-      "#9C9C9C", 50,
-      "#FFFF73", 100,
-      "#AFFF00", 250,
-      "#00FFFF", 500,
-      "#30B0FF", 1000,
-      "#2E5FFF", 2000,
-      "#0000FF", 3000,
-      "#FF00C5"
+      'step', ['get', layerWidthField],
+      ...definitions.routeNetwork_cols.flow,
+      '#FF00C5'
     ],
     'quietness': [
-      "step", ["get", "Quietness"],
-      "#882255", 25,
-      "#CC6677", 50,
-      "#44AA99", 75,
-      "#117733", 101,
-      "#000000"
+      'step', ['get', 'Quietness'],
+      ...definitions.routeNetwork_cols.quietness,
+      '#000000'
     ],
     'gradient': [
-      "step", ["get", "Gradient"],
-      "#59ee19", 3,
-      "#37a009", 5,
-      "#FFC300", 7,
-      "#C70039", 10,
-      "#581845", 100,
-      "#000000"
+      'step', ['get', 'Gradient'],
+      ...definitions.routeNetwork_cols.gradient,
+      '#000000'
     ]
   };
   
@@ -523,14 +536,14 @@ function handleRnet (layerId)
   // Implements the formula y = (3 / (1 + exp(-3*(x/1000 - 1.6))) + 0.3)
   // This code was hard to work out!
   var line_width = [
-    "interpolate",
-    ["linear"],
-    ["zoom"],
-    12, ["*", 2.1, ["+", 0.3, ["/", 3, ["+", 1, ["^", 2.718, ["-", 2.94, ["*", ["get", layerWidthField], 0.0021]]]]]]],
-    14, ["*", 5.25,["+", 0.3, ["/", 3, ["+", 1, ["^", 2.718, ["-", 2.94, ["*", ["get", layerWidthField], 0.0021]]]]]]],
-    15, ["*", 7.5, ["+", 0.3, ["/", 3, ["+", 1, ["^", 2.718, ["-", 2.94, ["*", ["get", layerWidthField], 0.0021]]]]]]],
-    16, ["*", 18,  ["+", 0.3, ["/", 3, ["+", 1, ["^", 2.718, ["-", 2.94, ["*", ["get", layerWidthField], 0.0021]]]]]]],
-    18, ["*", 52.5,["+", 0.3, ["/", 3, ["+", 1, ["^", 2.718, ["-", 2.94, ["*", ["get", layerWidthField], 0.0021]]]]]]],
+    'interpolate',
+    ['linear'],
+    ['zoom'],
+    12, ['*', 2.1,  ['+', 0.3, ['/', 3, ['+', 1, ['^', 2.718, ['-', 2.94, ['*', ['get', layerWidthField], 0.0021]]]]]]],
+    14, ['*', 5.25, ['+', 0.3, ['/', 3, ['+', 1, ['^', 2.718, ['-', 2.94, ['*', ['get', layerWidthField], 0.0021]]]]]]],
+    15, ['*', 7.5,  ['+', 0.3, ['/', 3, ['+', 1, ['^', 2.718, ['-', 2.94, ['*', ['get', layerWidthField], 0.0021]]]]]]],
+    16, ['*', 18,   ['+', 0.3, ['/', 3, ['+', 1, ['^', 2.718, ['-', 2.94, ['*', ['get', layerWidthField], 0.0021]]]]]]],
+    18, ['*', 52.5, ['+', 0.3, ['/', 3, ['+', 1, ['^', 2.718, ['-', 2.94, ['*', ['get', layerWidthField], 0.0021]]]]]]],
   ];
   
   // Set the filter
@@ -620,7 +633,4 @@ function createLegend (legendColours, selected, selector)
   // Set the legend
   document.getElementById(selector).innerHTML = legendHtml;
 }
-
-
-
 
