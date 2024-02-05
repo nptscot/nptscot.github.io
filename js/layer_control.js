@@ -350,39 +350,45 @@ const definitions = {
 
 
 
+manageLayers ();
 
-// Add layers when the map is ready (including after a basemap change)
-document.addEventListener ('@map/ready', function () {
-  
-  // Initialise datasets (sources and layers)
-  initialiseDatasets ();
-  
-  // Add handler for proxy checkboxes - the combination of the enabled and simplified checkboxes set the 'real' layer checkboxes
-  rnetCheckboxProxying ();
 
-  // Set initial state for all layers
-  Object.keys (definitions.layerDefinitions).forEach (layerId => {
-    toggleLayer(layerId);
-  });
-  
-  // Handle layer change controls, each marked with the updatelayer class
-  document.querySelectorAll('.updatelayer').forEach((input) => {
-    input.addEventListener('change', function(e) {
-      layerId = e.target.id;
-      // #!# The input IDs should be standardised, to replace this list of regexp matches
-      layerId = layerId.replace (/checkbox$/, '');            // Checkboxes, e.g. data_zonescheckbox => data_zones
-      layerId = layerId.replace (/_checkbox_.+$/, '');         // Checkboxes, e.g. data_zones_checkbox_dasymetric => data_zones
-      layerId = layerId.replace (/_slider-.+$/, '');          // Slider hidden inputs, e.g. rnet_slider-quietness => rnet
-      layerId = layerId.replace (/_selector$/, '');           // Dropdowns, e.g. data_zones_selector => data_zones   #!# Should be input, but currently data_zones_input would clash with rnet_*_input on next line
-      layerId = layerId.replace (/_[^_]+_input$/, '');        // Dropdowns, e.g. rnet_purpose_input => rnet
+// Function to manage layers
+function manageLayers ()
+{
+  // Add layers when the map is ready (including after a basemap change)
+  document.addEventListener ('@map/ready', function () {
+    
+    // Initialise datasets (sources and layers)
+    initialiseDatasets ();
+    
+    // Add handler for proxy checkboxes - the combination of the enabled and simplified checkboxes set the 'real' layer checkboxes
+    rnetCheckboxProxying ();
+
+    // Set initial state for all layers
+    Object.keys (definitions.layerDefinitions).forEach (layerId => {
       toggleLayer(layerId);
-      // #!# Workaround, pending adapting layerId to be a list of affected layers
-      if (layerId == 'rnet') {
-        toggleLayer('rnet-simplified');
-      }
+    });
+    
+    // Handle layer change controls, each marked with the updatelayer class
+    document.querySelectorAll('.updatelayer').forEach((input) => {
+      input.addEventListener('change', function(e) {
+        layerId = e.target.id;
+        // #!# The input IDs should be standardised, to replace this list of regexp matches
+        layerId = layerId.replace (/checkbox$/, '');            // Checkboxes, e.g. data_zonescheckbox => data_zones
+        layerId = layerId.replace (/_checkbox_.+$/, '');         // Checkboxes, e.g. data_zones_checkbox_dasymetric => data_zones
+        layerId = layerId.replace (/_slider-.+$/, '');          // Slider hidden inputs, e.g. rnet_slider-quietness => rnet
+        layerId = layerId.replace (/_selector$/, '');           // Dropdowns, e.g. data_zones_selector => data_zones   #!# Should be input, but currently data_zones_input would clash with rnet_*_input on next line
+        layerId = layerId.replace (/_[^_]+_input$/, '');        // Dropdowns, e.g. rnet_purpose_input => rnet
+        toggleLayer(layerId);
+        // #!# Workaround, pending adapting layerId to be a list of affected layers
+        if (layerId == 'rnet') {
+          toggleLayer('rnet-simplified');
+        }
+      });
     });
   });
-});
+}
 
 
 // Function to initialise datasets (sources and layers)
