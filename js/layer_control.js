@@ -352,7 +352,7 @@ function manageLayers ()
         layerId = e.target.id;
         // #!# The input IDs should be standardised, to replace this list of regexp matches
         layerId = layerId.replace (/checkbox$/, '');            // Checkboxes, e.g. data_zonescheckbox => data_zones
-        layerId = layerId.replace (/_checkbox_.+$/, '');         // Checkboxes, e.g. data_zones_checkbox_dasymetric => data_zones
+        layerId = layerId.replace (/_checkbox_.+$/, '');        // Checkboxes, e.g. data_zones_checkbox_dasymetric => data_zones
         layerId = layerId.replace (/_slider-.+$/, '');          // Slider hidden inputs, e.g. rnet_slider-quietness => rnet
         layerId = layerId.replace (/_selector$/, '');           // Dropdowns, e.g. data_zones_selector => data_zones   #!# Should be input, but currently data_zones_input would clash with rnet_*_input on next line
         layerId = layerId.replace (/_[^_]+_input$/, '');        // Dropdowns, e.g. rnet_purpose_input => rnet
@@ -550,24 +550,24 @@ function getLayerWidthField ()
 }
 
 
-// Data zones styling
+// Data zones styling (including buildings styling)
 function data_zonesStyling (layerName)
 {
-  // Manage buildings layer colour
+  // Update the legend (even if map layer is off)
+  const fieldId = document.getElementById ('data_zones_selector').value;
+  createLegend (definitions.dzLegendColours, fieldId, 'dzlegend');
+  
+  // Get UI state
+  const daysymetricMode = document.getElementById ('data_zones_checkbox_dasymetric').checked;
+  
+  // Set paint properties
+  map.setPaintProperty ('data_zones', 'fill-color', ['step', ['get', fieldId], ...getStyleColumn (fieldId)]);
+  map.setPaintProperty ('data_zones', 'fill-opacity', (daysymetricMode ? 0.1 : 0.8));   // Very faded-out in daysymetric mode, as the buildings are coloured
+  
+  // Set buildings layer colour/visibility
   const buildingColour = getBuildingsColour ();
   map.setPaintProperty ('dasymetric', 'fill-extrusion-color', (buildingColour || '#9c9898'));
   map.setLayoutProperty ('dasymetric', 'visibility', (buildingColour ? 'visible' : 'none'));
-  
-  // Update the legend (even if map layer is off)
-  var layerId = document.getElementById ('data_zones_selector').value;
-  createLegend (definitions.dzLegendColours, layerId, 'dzlegend');
-  
-  // Get UI state
-  var daysymetricMode = document.getElementById('data_zones_checkbox_dasymetric').checked;
-  
-  // Set paint properties
-  map.setPaintProperty ('data_zones', 'fill-color', ['step', ['get', layerId], ...getStyleColumn (layerId)]);
-  map.setPaintProperty ('data_zones', 'fill-opacity', (daysymetricMode ? 0.1 : 0.8));   // Very faded-out in daysymetric mode, as the buildings are coloured
 }
 
 
