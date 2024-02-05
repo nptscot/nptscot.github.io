@@ -60,7 +60,9 @@ const definitions = {
       'type': 'circle',
       'source': 'schools',
       'source-layer': 'schools',
-      'visibility': 'none',   // Initial visibility
+      'layout': {
+        'visibility': 'none'   // Initial visibility
+      },
       'paint': {
         "circle-color": [
           'match',
@@ -84,7 +86,9 @@ const definitions = {
       'type': 'line',
       'source': 'wards',
       'source-layer': 'wards',
-      'visibility': 'none',   // Initial visibility
+      'layout': {
+        'visibility': 'none'   // Initial visibility
+      },
       'paint': {
         'line-color': 'rgba(32, 107, 7, 1)',
         'line-width': 2
@@ -95,7 +99,9 @@ const definitions = {
       'type': 'line',
       'source': 'holyrood',
       'source-layer': 'holyrood',
-      'visibility': 'none',   // Initial visibility
+      'layout': {
+        'visibility': 'none'   // Initial visibility
+      },
       'paint': {
         'line-color': 'rgba(83, 123, 252, 1)',
         'line-width': 2
@@ -106,7 +112,9 @@ const definitions = {
       'type': 'line',
       'source': 'scot_regions',
       'source-layer': 'scot_regions',
-      'visibility': 'none',   // Initial visibility
+      'layout': {
+        'visibility': 'none'   // Initial visibility
+      },
       'paint': {
         'line-color': 'rgba(186, 177, 6, 1)',
         'line-width': 2
@@ -117,7 +125,9 @@ const definitions = {
       'type': 'line',
       'source': 'la',
       'source-layer': 'la',
-      'visibility': 'none',   // Initial visibility
+      'layout': {
+        'visibility': 'none'   // Initial visibility
+      },
       'paint': {
         'line-color': 'rgba(107, 7, 7, 1)',
         'line-width': 2
@@ -128,7 +138,9 @@ const definitions = {
       'type': 'line',
       'source': 'cohesivenetwork',
       'source-layer': 'example_cohesive',	// #!# Needs fixing to 'cohesivenetwork'
-      'visibility': 'none',   // Initial visibility
+      'layout': {
+        'visibility': 'none'   // Initial visibility
+      },
       'paint': {
         'line-color': [
           'match',
