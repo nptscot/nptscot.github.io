@@ -327,16 +327,8 @@ const definitions = {
 // Add layers when the map is ready (including after a basemap change)
 document.addEventListener ('@map/ready', function () {
   
-  // Add data sources
-  addDataSources();
-  
-  // Initialise layers
-  Object.keys (definitions.layerDefinitions).forEach (layerId => {
-    if (!map.getLayer(layerId)) {
-      const beforeId = (layerId == 'data_zones' ? 'roads 0 Guided Busway Casing' : 'placeholder_name');   // #!# Needs to be moved to definitions
-      map.addLayer(definitions.layerDefinitions[layerId], beforeId);
-    }
-  });
+  // Initialise datasets (sources and layers)
+  initialiseDatasets ();
   
   // Add handler for proxy checkboxes - the combination of the enabled and simplified checkboxes set the 'real' layer checkboxes
   rnetCheckboxProxying ();
@@ -393,8 +385,9 @@ function rnetCheckboxProxying ()
 
 
 
-function addDataSources () {
-  console.log("Adding sources");
+function initialiseDatasets ()
+{
+  // console.log ('Initialising sources and layers');
   
   // Add sources
   definitions.sources.forEach (source => {
@@ -419,6 +412,14 @@ function addDataSources () {
       });
     }
   });
+  
+  // Add layers
+  Object.keys (definitions.layerDefinitions).forEach (layerId => {
+    if (!map.getLayer(layerId)) {
+      const beforeId = (layerId == 'data_zones' ? 'roads 0 Guided Busway Casing' : 'placeholder_name');   // #!# Needs to be moved to definitions
+      map.addLayer (definitions.layerDefinitions[layerId], beforeId);
+    }
+  });
 }
 
 
@@ -429,7 +430,6 @@ function toggleLayer(layerName)
   // Check for a styling function, as layerName + 'Styling', e.g. rnetStyling
   const stylingFunction = layerName.replace ('-', '_') + 'Styling';    // NB hyphens not legal in function names
   if (typeof window[stylingFunction] === 'function') {
-    console.log (stylingFunction);
     window[stylingFunction] (layerName);
   }
   
