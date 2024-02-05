@@ -428,17 +428,17 @@ function toggleLayer(layerName) {
   
   // Special handling for rnet layer
   if (layerName == 'rnet') {
-    switch_rnet(layerName);
+    rnetStyling (layerName);
   }
   
   // Special handling for rnet-simplified layer
   if (layerName == 'rnet-simplified') {
-    switch_rnetSimplified(layerName);
+    rnetsimplifiedStyling (layerName);
   }
   
   // Special handling for data zones layer
   if (layerName == 'data_zones'){
-    switch_data_zones(layerName);
+    datazonesStyling (layerName);
   }
   
   // Set the visibility of the layer, based on the checkbox value
@@ -447,14 +447,14 @@ function toggleLayer(layerName) {
 }
 
 
-// Rnet
-function switch_rnet (layerName) {
+// Rnet styling
+function rnetStyling (layerName) {
   handleRnet (layerName);
 }
 
 
-// Rnet simplified
-function switch_rnetSimplified (layerName) {
+// Rnet simplified styling
+function rnetSimplifiedStyling (layerName) {
   handleRnet (layerName);
 }
 
@@ -561,8 +561,8 @@ function getLayerWidthField ()
 }
 
 
-// Data zones
-function switch_data_zones (layerId)
+// Data zones styling
+function datazonesStyling (layerId)
 {
   // Manage buildings layer colour
   const buildingColour = getBuildingsColour ();
@@ -578,7 +578,7 @@ function switch_data_zones (layerId)
   
   // Set paint properties
   map.setPaintProperty ('data_zones', 'fill-color', ['step', ['get', layerId], ...getStyleColumn (layerId)]);
-  map.setPaintProperty ('data_zones', 'fill-opacity', (daysymetricMode ? 0.1 : 0.8));   // Very faded out in daysymetric mode, as the buildings are coloured
+  map.setPaintProperty ('data_zones', 'fill-opacity', (daysymetricMode ? 0.1 : 0.8));   // Very faded-out in daysymetric mode, as the buildings are coloured
 }
 
 
