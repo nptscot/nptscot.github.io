@@ -351,7 +351,6 @@ document.addEventListener ('@map/ready', function () {
     input.addEventListener('change', function(e) {
       layerId = e.target.id;
       // #!# The input IDs should be standardised, to replace this list of regexp matches
-      layerId = layerId.replace (/simplifiedcheckbox$/, '');  // Simplification checkbox, e.g. rnetsimplifiedcheckboxn => rnet
       layerId = layerId.replace (/checkbox$/, '');            // Checkboxes, e.g. data_zonescheckbox => data_zones
       layerId = layerId.replace (/_checkbox_.+$/, '');         // Checkboxes, e.g. data_zones_checkbox_dasymetric => data_zones
       layerId = layerId.replace (/_slider-.+$/, '');          // Slider hidden inputs, e.g. rnet_slider-quietness => rnet
@@ -370,11 +369,11 @@ function rnetCheckboxProxying ()
   setRnetCheckboxes = function ()
   {
     const layerEnabled = document.getElementById ('rnetcheckboxproxy').checked;
-    const simplifiedMode = document.getElementById ('rnetsimplifiedcheckboxproxy').checked;
+    const simplifiedMode = document.getElementById ('rnet-simplifiedcheckboxproxy').checked;
     document.getElementById ('rnetcheckbox').checked = (layerEnabled && !simplifiedMode);
     document.getElementById ('rnetcheckbox').dispatchEvent (new Event ('change'));
-    document.getElementById ('rnetsimplifiedcheckbox').checked = (layerEnabled && simplifiedMode);
-    document.getElementById ('rnetsimplifiedcheckbox').dispatchEvent (new Event ('change'));
+    document.getElementById ('rnet-simplifiedcheckbox').checked = (layerEnabled && simplifiedMode);
+    document.getElementById ('rnet-simplifiedcheckbox').dispatchEvent (new Event ('change'));
   }
   
   // Set initial state
@@ -425,19 +424,19 @@ function toggleLayer(layerName) {
   
   // Handle rnet layer
   if (layerName == 'rnet') {
-    switch_rnet();
+    switch_rnet(layerName);
     return;
   }
   
   // Handle rnet-simplified layer
   if (layerName == 'rnet-simplified') {
-    switch_rnetSimplified();
+    switch_rnetSimplified(layerName);
     return;
   }
   
   // Handle data zones layer
   if (layerName == 'data_zones'){
-    switch_data_zones();
+    switch_data_zones(layerName);
     return;
   }
   
@@ -455,11 +454,9 @@ function toggleLayer(layerName) {
 // Function to manage switching of simple layers
 function switch_otherLayer (layerName)
 {
-  // Get checkbox
-  const visible = document.getElementById(layerName.concat('checkbox')).checked;
-  
   // Set the visibility, based on the checkbox value
-  map.setLayoutProperty(layerName, 'visibility', (visible ? 'visible' : 'none'));
+  const isVisible = document.getElementById (layerName + 'checkbox').checked;
+  map.setLayoutProperty (layerName, 'visibility', (isVisible ? 'visible' : 'none'));
 }
 
 
@@ -492,15 +489,23 @@ function getLayerWidthField ()
 
 
 // Rnet simplified - use rnet
-function switch_rnet () {
-  return handleRnet ();
+function switch_rnet (layerName) {
+  handleRnet ();
+  
+  // Set the visibility, based on the checkbox value
+  const isVisible = document.getElementById (layerName + 'checkbox').checked;
+  map.setLayoutProperty (layerName, 'visibility', (isVisible ? 'visible' : 'none'));
 }
 
-function switch_rnetSimplified () {
-  return handleRnet ();
+
+function switch_rnetSimplified (layerName) {
+  handleRnet ();
   
-  
+  // Set the visibility, based on the checkbox value
+  const isVisible = document.getElementById (layerName + 'checkbox').checked;
+  map.setLayoutProperty (layerName, 'visibility', (isVisible ? 'visible' : 'none'));
 }
+
 
 function handleRnet () {
   
@@ -508,7 +513,7 @@ function handleRnet () {
   
   // Determine layer visibility
   const rnetlayerEnabled = document.getElementById('rnetcheckbox').checked;
-  const rnet_simplifiedlayerEnabled = document.getElementById('rnetsimplifiedcheckbox').checked;
+  const rnetsimplifiedlayerEnabled = document.getElementById('rnet-simplifiedcheckbox').checked;
 
   // Layer colour
   var layerColour = document.getElementById("rnet_colour_input").value;
@@ -517,7 +522,7 @@ function handleRnet () {
   createLegend (definitions.routeNetworkLegendColours, layerColour, 'linecolourlegend');
   
   // Update the map if enabled
-  if (rnetlayerEnabled || rnet_simplifiedlayerEnabled) {
+  if (rnetlayerEnabled || rnetsimplifiedlayerEnabled) {
     
     // Determine the layer width field
     const layerWidthField = getLayerWidthField ();
@@ -599,10 +604,6 @@ function handleRnet () {
     map.setPaintProperty (layerId, "line-color", line_colours[layerColour]);
     map.setPaintProperty (layerId, "line-width", line_width);
   }
-  
-  // Toggle layer visibility
-  map.setLayoutProperty ('rnet',            'visibility', (rnetlayerEnabled ? 'visible' : 'none'));
-  map.setLayoutProperty ('rnet-simplified', 'visibility', (rnet_simplifiedlayerEnabled ? 'visible' : 'none'));
 }
 
 
@@ -615,7 +616,7 @@ function getStyleColumn (layerId)
 
 
 // Data zones
-function switch_data_zones()
+function switch_data_zones(layerName)
 {
   // Manage buildings layer
   buildingsLayer ();
@@ -626,14 +627,14 @@ function switch_data_zones()
   
   // Get UI state
   var daysymetricMode = document.getElementById('data_zones_checkbox_dasymetric').checked;
-  var dataZones = document.getElementById('data_zonescheckbox').checked;
   
   // Set paint properties
   map.setPaintProperty ('data_zones', 'fill-color', ['step', ['get', layerId], ...getStyleColumn (layerId)]);
   map.setPaintProperty ('data_zones', 'fill-opacity', (daysymetricMode ? 0.1 : 0.8));   // Very faded out in daysymetric mode, as the buildings are coloured
   
-  // Set visibility
-  map.setLayoutProperty ('data_zones', 'visibility', (dataZones ? 'visible' : 'none'));
+  // Set the visibility, based on the checkbox value
+  const isVisible = document.getElementById (layerName + 'checkbox').checked;
+  map.setLayoutProperty (layerName, 'visibility', (isVisible ? 'visible' : 'none'));
 }
 
 
