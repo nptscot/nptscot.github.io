@@ -428,12 +428,12 @@ function toggleLayer(layerName) {
   
   // Special handling for rnet layer
   if (layerName == 'rnet') {
-    switch_rnet();
+    switch_rnet(layerName);
   }
   
   // Special handling for rnet-simplified layer
   if (layerName == 'rnet-simplified') {
-    switch_rnetSimplified();
+    switch_rnetSimplified(layerName);
   }
   
   // Special handling for data zones layer
@@ -475,24 +475,22 @@ function getLayerWidthField ()
 }
 
 
-// Rnet simplified - use rnet
-function switch_rnet () {
-  handleRnet ();
+// Rnet
+function switch_rnet (layerName) {
+  handleRnet (layerName);
 }
 
 
-function switch_rnetSimplified () {
-  handleRnet ();
+// Rnet simplified
+function switch_rnetSimplified (layerName) {
+  handleRnet (layerName);
 }
 
 
-function handleRnet () {
-  
-  console.log("Updating rnet / rnet simplified");
-  
+function handleRnet (layerId)
+{
   // Determine layer visibility
-  const rnetlayerEnabled = document.getElementById('rnetcheckbox').checked;
-  const rnetsimplifiedlayerEnabled = document.getElementById('rnet-simplifiedcheckbox').checked;
+  const isEnabled = document.getElementById(layerId + 'checkbox').checked;
 
   // Layer colour
   var layerColour = document.getElementById("rnet_colour_input").value;
@@ -501,7 +499,7 @@ function handleRnet () {
   createLegend (definitions.routeNetworkLegendColours, layerColour, 'linecolourlegend');
   
   // Update the map if enabled
-  if (rnetlayerEnabled || rnetsimplifiedlayerEnabled) {
+  if (isEnabled) {
     
     // Determine the layer width field
     const layerWidthField = getLayerWidthField ();
@@ -576,12 +574,11 @@ function handleRnet () {
     ];
     
     // Set the filter
-    const layerId = (rnetlayerEnabled ? 'rnet' : 'rnet-simplified');
     map.setFilter (layerId, filter);
     
     // Set paint properties
-    map.setPaintProperty (layerId, "line-color", line_colours[layerColour]);
-    map.setPaintProperty (layerId, "line-width", line_width);
+    map.setPaintProperty (layerId, 'line-color', line_colours[layerColour]);
+    map.setPaintProperty (layerId, 'line-width', line_width);
   }
 }
 
@@ -595,7 +592,7 @@ function getStyleColumn (layerId)
 
 
 // Data zones
-function switch_data_zones()
+function switch_data_zones(layerId)
 {
   // Manage buildings layer
   buildingsLayer ();
