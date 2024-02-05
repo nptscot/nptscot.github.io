@@ -22,15 +22,6 @@ const definitions = {
     ['cohesivenetwork', {localUrl: 'cohesivenetwork/'}],    // #!# To be deployed on NPT tilserver as cohesivenetwork.pmtiles:
   ],
   
-  otherLayers: [
-    'schools',
-    'wards',
-    'holyrood',
-    'scot_regions',
-    'la',
-    'cohesivenetwork',
-  ],
-  
   layerDefinitions: {
     rnet: {
       'id': 'rnet',
