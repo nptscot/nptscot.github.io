@@ -337,6 +337,9 @@ document.addEventListener ('@map/ready', function () {
       map.addLayer(definitions.layerDefinitions[layerId], beforeId);
     }
   });
+  
+  // Add handler for proxy checkboxes - the combination of the enabled and simplified checkboxes set the 'real' layer checkboxes
+  rnetCheckboxProxying ();
 
   // Set initial state for all layers
   Object.keys (definitions.layerDefinitions).forEach (layerId => {
@@ -358,6 +361,32 @@ document.addEventListener ('@map/ready', function () {
     });
   });
 });
+
+
+// Function to handle rnet checkbox proxying
+function rnetCheckboxProxying ()
+{
+  // Define a function to calculate the real checkbox values based on the enabled/simplified boxes
+  setRnetCheckboxes = function ()
+  {
+    const layerEnabled = document.getElementById ('rnetcheckboxproxy').checked;
+    const simplifiedMode = document.getElementById ('rnetsimplifiedcheckboxproxy').checked;
+    document.getElementById ('rnetcheckbox').checked = (layerEnabled && !simplifiedMode);
+    document.getElementById ('rnetcheckbox').dispatchEvent (new Event ('change'));
+    document.getElementById ('rnetsimplifiedcheckbox').checked = (layerEnabled && simplifiedMode);
+    document.getElementById ('rnetsimplifiedcheckbox').dispatchEvent (new Event ('change'));
+  }
+  
+  // Set initial state
+  setRnetCheckboxes ();
+  
+  // Change state
+  document.querySelectorAll ('.rnetproxy').forEach ((input) => {
+    input.addEventListener('change', function(e) {
+      setRnetCheckboxes ();
+    });
+  });
+}
 
 
 
@@ -469,11 +498,11 @@ function switch_rnetSimplified () {
 
 function switch_rnet() {  
   
-  console.log("Updating rnet")
+  console.log("Updating rnet / rnet simplified");
   
   // Determine layer visibility
-  const layerEnabled = document.getElementById('rnetcheckbox').checked;
-  const simplifiedMode = document.getElementById('rnetsimplifiedcheckbox').checked;
+  const rnetlayerEnabled = document.getElementById('rnetcheckbox').checked;
+  const rnet_simplifiedlayerEnabled = document.getElementById('rnetsimplifiedcheckbox').checked;
 
   // Layer colour
   var layerColour = document.getElementById("rnet_colour_input").value;
@@ -482,7 +511,7 @@ function switch_rnet() {
   createLegend (definitions.routeNetworkLegendColours, layerColour, 'linecolourlegend');
   
   // Update the map if enabled
-  if (layerEnabled) {
+  if (rnetlayerEnabled || rnet_simplifiedlayerEnabled) {
     
     // Determine the layer width field
     const layerWidthField = getLayerWidthField ();
@@ -557,7 +586,7 @@ function switch_rnet() {
     ];
     
     // Set the filter
-    const layerId = (simplifiedMode ? 'rnet-simplified' : 'rnet');
+    const layerId = (rnetlayerEnabled ? 'rnet' : 'rnet-simplified');
     map.setFilter (layerId, filter);
     
     // Set paint properties
@@ -566,8 +595,8 @@ function switch_rnet() {
   }
   
   // Toggle layer visibility
-  map.setLayoutProperty ('rnet',            'visibility', (layerEnabled && !simplifiedMode ? 'visible' : 'none'));
-  map.setLayoutProperty ('rnet-simplified', 'visibility', (layerEnabled &&  simplifiedMode ? 'visible' : 'none'));
+  map.setLayoutProperty ('rnet',            'visibility', (rnetlayerEnabled ? 'visible' : 'none'));
+  map.setLayoutProperty ('rnet-simplified', 'visibility', (rnet_simplifiedlayerEnabled ? 'visible' : 'none'));
 }
 
 

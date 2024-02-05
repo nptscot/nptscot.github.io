@@ -546,3 +546,6 @@ input:checked + .slider:before {
 .externallink {
   white-space: nowrap;
 }
+
+/* Checkbox proxies */
+.rnethiddenproxy {display: none;}
