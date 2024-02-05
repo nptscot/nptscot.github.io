@@ -357,6 +357,10 @@ document.addEventListener ('@map/ready', function () {
       layerId = layerId.replace (/_selector$/, '');           // Dropdowns, e.g. data_zones_selector => data_zones   #!# Should be input, but currently data_zones_input would clash with rnet_*_input on next line
       layerId = layerId.replace (/_[^_]+_input$/, '');        // Dropdowns, e.g. rnet_purpose_input => rnet
       toggleLayer(layerId);
+      // #!# Workaround, pending adapting layerId to be a list of affected layers
+      if (layerId == 'rnet') {
+        toggleLayer('rnet-simplified');
+      }
     });
   });
 });
