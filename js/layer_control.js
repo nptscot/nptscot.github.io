@@ -489,97 +489,91 @@ function switch_rnetSimplified (layerName) {
 
 function handleRnet (layerId)
 {
-  // Determine layer visibility
-  const isEnabled = document.getElementById(layerId + 'checkbox').checked;
-
-  // Layer colour
-  var layerColour = document.getElementById("rnet_colour_input").value;
-  
   // Update the Legend - Do this even if map layer is off
+  var layerColour = document.getElementById ('rnet_colour_input').value;
   createLegend (definitions.routeNetworkLegendColours, layerColour, 'linecolourlegend');
   
-  // Update the map if enabled
-  if (isEnabled) {
+  // No special handling needed if not visible
+  if (!document.getElementById(layerId + 'checkbox').checked) {return;}
     
-    // Determine the layer width field
-    const layerWidthField = getLayerWidthField ();
-    
-    // Parse route network sliders to be used as filters
-    const sliders = {};
-    document.querySelectorAll ("input[id^='rnet_slider-']").forEach (slider => {
-      const sliderId = slider.id.replace ('rnet_slider-', '');
-      const sliderValue = slider.value.split ('-');
-      sliders[sliderId] = {
-        min: Number (sliderValue[0]),
-        max: Number (sliderValue[1])
-      };
-    });
-    
-    // Only filter cyclists if scenario set
-    var filter = ['all',
-      ['>=', layerWidthField, sliders.cycle.min],
-      ['<=', layerWidthField, sliders.cycle.max],
-      ['>=', "Quietness", sliders.quietness.min],
-      ['<=', "Quietness", sliders.quietness.max],
-      ['>=', "Gradient", sliders.gradient.min],
-      ['<=', "Gradient", sliders.gradient.max]
-    ];
-    
-    // Define line colour
-    var line_colours = {
-      'none': "#304ce7",
-      'flow': [
-        "step", ["get", layerWidthField],
-        "rgba(0,0,0,0)", 1,
-        "#9C9C9C", 50,
-        "#FFFF73", 100,
-        "#AFFF00", 250,
-        "#00FFFF", 500,
-        "#30B0FF", 1000,
-        "#2E5FFF", 2000,
-        "#0000FF", 3000,
-        "#FF00C5"
-      ],
-      'quietness': [
-        "step", ["get", "Quietness"],
-        "#882255", 25,
-        "#CC6677", 50,
-        "#44AA99", 75,
-        "#117733", 101,
-        "#000000"
-      ],
-      'gradient': [
-        "step", ["get", "Gradient"],
-        "#59ee19", 3,
-        "#37a009", 5,
-        "#FFC300", 7,
-        "#C70039", 10,
-        "#581845", 100,
-        "#000000"
-      ]
+  // Determine the layer width field
+  const layerWidthField = getLayerWidthField ();
+  
+  // Parse route network sliders to be used as filters
+  const sliders = {};
+  document.querySelectorAll ("input[id^='rnet_slider-']").forEach (slider => {
+    const sliderId = slider.id.replace ('rnet_slider-', '');
+    const sliderValue = slider.value.split ('-');
+    sliders[sliderId] = {
+      min: Number (sliderValue[0]),
+      max: Number (sliderValue[1])
     };
-    
-    // Define line width
-    // Implements the formula y = (3 / (1 + exp(-3*(x/1000 - 1.6))) + 0.3)
-    // This code was hard to work out!
-    var line_width = [
-      "interpolate",
-      ["linear"],
-      ["zoom"],
-      12, ["*", 2.1, ["+", 0.3, ["/", 3, ["+", 1, ["^", 2.718, ["-", 2.94, ["*", ["get", layerWidthField], 0.0021]]]]]]],
-      14, ["*", 5.25,["+", 0.3, ["/", 3, ["+", 1, ["^", 2.718, ["-", 2.94, ["*", ["get", layerWidthField], 0.0021]]]]]]],
-      15, ["*", 7.5, ["+", 0.3, ["/", 3, ["+", 1, ["^", 2.718, ["-", 2.94, ["*", ["get", layerWidthField], 0.0021]]]]]]],
-      16, ["*", 18,  ["+", 0.3, ["/", 3, ["+", 1, ["^", 2.718, ["-", 2.94, ["*", ["get", layerWidthField], 0.0021]]]]]]],
-      18, ["*", 52.5,["+", 0.3, ["/", 3, ["+", 1, ["^", 2.718, ["-", 2.94, ["*", ["get", layerWidthField], 0.0021]]]]]]],
-    ];
-    
-    // Set the filter
-    map.setFilter (layerId, filter);
-    
-    // Set paint properties
-    map.setPaintProperty (layerId, 'line-color', line_colours[layerColour]);
-    map.setPaintProperty (layerId, 'line-width', line_width);
-  }
+  });
+  
+  // Only filter cyclists if scenario set
+  var filter = ['all',
+    ['>=', layerWidthField, sliders.cycle.min],
+    ['<=', layerWidthField, sliders.cycle.max],
+    ['>=', "Quietness", sliders.quietness.min],
+    ['<=', "Quietness", sliders.quietness.max],
+    ['>=', "Gradient", sliders.gradient.min],
+    ['<=', "Gradient", sliders.gradient.max]
+  ];
+  
+  // Define line colour
+  var line_colours = {
+    'none': "#304ce7",
+    'flow': [
+      "step", ["get", layerWidthField],
+      "rgba(0,0,0,0)", 1,
+      "#9C9C9C", 50,
+      "#FFFF73", 100,
+      "#AFFF00", 250,
+      "#00FFFF", 500,
+      "#30B0FF", 1000,
+      "#2E5FFF", 2000,
+      "#0000FF", 3000,
+      "#FF00C5"
+    ],
+    'quietness': [
+      "step", ["get", "Quietness"],
+      "#882255", 25,
+      "#CC6677", 50,
+      "#44AA99", 75,
+      "#117733", 101,
+      "#000000"
+    ],
+    'gradient': [
+      "step", ["get", "Gradient"],
+      "#59ee19", 3,
+      "#37a009", 5,
+      "#FFC300", 7,
+      "#C70039", 10,
+      "#581845", 100,
+      "#000000"
+    ]
+  };
+  
+  // Define line width
+  // Implements the formula y = (3 / (1 + exp(-3*(x/1000 - 1.6))) + 0.3)
+  // This code was hard to work out!
+  var line_width = [
+    "interpolate",
+    ["linear"],
+    ["zoom"],
+    12, ["*", 2.1, ["+", 0.3, ["/", 3, ["+", 1, ["^", 2.718, ["-", 2.94, ["*", ["get", layerWidthField], 0.0021]]]]]]],
+    14, ["*", 5.25,["+", 0.3, ["/", 3, ["+", 1, ["^", 2.718, ["-", 2.94, ["*", ["get", layerWidthField], 0.0021]]]]]]],
+    15, ["*", 7.5, ["+", 0.3, ["/", 3, ["+", 1, ["^", 2.718, ["-", 2.94, ["*", ["get", layerWidthField], 0.0021]]]]]]],
+    16, ["*", 18,  ["+", 0.3, ["/", 3, ["+", 1, ["^", 2.718, ["-", 2.94, ["*", ["get", layerWidthField], 0.0021]]]]]]],
+    18, ["*", 52.5,["+", 0.3, ["/", 3, ["+", 1, ["^", 2.718, ["-", 2.94, ["*", ["get", layerWidthField], 0.0021]]]]]]],
+  ];
+  
+  // Set the filter
+  map.setFilter (layerId, filter);
+  
+  // Set paint properties
+  map.setPaintProperty (layerId, 'line-color', line_colours[layerColour]);
+  map.setPaintProperty (layerId, 'line-width', line_width);
 }
 
 
