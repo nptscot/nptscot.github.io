@@ -65,7 +65,7 @@
   <link rel="icon" href="favicon.ico" type="image/x-icon">
   
 </head>
-<body style="overflow:hidden">
+<body>
   
 <!-- Menu -->
 <div class="nav-wrapper">
@@ -84,60 +84,55 @@
 		</div>	
 </div>
 
+
 <!-- Overlay for modal dialogs -->
 <div id="overlay"></div>
 
+
 <!-- Welcome Splash -->
 <div id="welcome" class="welcome">
-<span class="modal-close">&times;</span>
-<div>
-<h3>Network Planning Tool for Scotland</h3>
-<p>The Network Planning Tool for Scotland (NPT Scotland, hosted at <a href="https://www.npt.scot">www.npt.scot</a>) is a web application for strategic cycle network planning.</p>
-<p>Note the results of the Commute layer are based  on the 2011 Census travel to work data and results for other trip purposes are based on pre-pandemic data. Users should be aware that the results are model-based estimates and that patterns have changed since the pandemic. Future versions of the tool will include more recent Census and other datasets when they become available.</p>
-<p>The results are publicly available. The main intended audience is local authorities undertaking cycle network planning to support  evidence-based and transparent investment, scheme location and design decisions.</p>
-<div id="updatedate"></div>
-<p>To report issues or provide feedback, please use the <a href="https://forms.office.com/Pages/ResponsePage.aspx?id=qO3qvR3IzkWGPlIypTW3ywVZfmO0bwdAhK0UztpneQtUM1pCRlJQQjY1V0M3MUhBV0g0VTJRS1ZQVi4u" target="_blank">feedback form</a>.</p>
-<p>Date of OSM Data on which network results are based: <div id="osmupdatedate"></div></p> 
-</div>
+  <span class="modal-close">&times;</span>
+  <div>
+    <h3>Network Planning Tool for Scotland</h3>
+    <p>The Network Planning Tool for Scotland (NPT Scotland, hosted at <a href="https://www.npt.scot">www.npt.scot</a>) is a web application for strategic cycle network planning.</p>
+    <p>Note the results of the Commute layer are based  on the 2011 Census travel to work data and results for other trip purposes are based on pre-pandemic data. Users should be aware that the results are model-based estimates and that patterns have changed since the pandemic. Future versions of the tool will include more recent Census and other datasets when they become available.</p>
+    <p>The results are publicly available. The main intended audience is local authorities undertaking cycle network planning to support  evidence-based and transparent investment, scheme location and design decisions.</p>
+    <div id="updatedate"></div>
+    <p>To report issues or provide feedback, please use the <a href="https://forms.office.com/Pages/ResponsePage.aspx?id=qO3qvR3IzkWGPlIypTW3ywVZfmO0bwdAhK0UztpneQtUM1pCRlJQQjY1V0M3MUhBV0g0VTJRS1ZQVi4u" target="_blank">feedback form</a>.</p>
+    <p>Date of OSM Data on which network results are based: <div id="osmupdatedate"></div></p>
+  </div>
 </div>
 
+
 <!-- Cookies Warning  -->
-<div id='cookiewarning' class='cookiewarning'>
+<div id="cookiewarning" class="cookiewarning">
   <p>We use cookies to measure how you use our website so we can understand how you interact with it, which helps us to make improvements. <a href="/privacy">Find out more.</a></p>
   <p>
-    <button onclick="cookiebutton(true)" class="button button1"><b>OK</b></button>
-    <button onclick="cookiebutton(false)" class="button button2"><b>No</b></button>
+    <button class="button button1" value="1"><strong>OK</strong></button>
+    <button class="button button2" value=""><strong>No</strong></button>
   </p>
 </div>
 <script src="js/ga_optout.js"></script>
 
 
-
 <!-- Main Content -->
-<div class="content" style="overflow:hidden">
+<div class="content">
 <div id="map"></div>
 </div>
 
-<!-- Floating Objects -->
-<div id="basemapcontrol" class="basemapcontrol" style="display:none;">
-  <p style="margin-top:5px;margin-bottom:5px"><b>&nbsp Basemap</b></p>
+
+<!-- Basemap control box -->
+<div id="basemapcontrol">
+  <h3>Basemap</h3>
   <p>
-  <form id="basemapform" onchange="switch_style()" class="basemap">
-  <input type="radio" id="bm1" value="greyscale_nobuild" name="basemap" class="radio-inline"checked/>
-    <label for="bm1"><img src="images/greyscale_50.png" title="OS Greyscale" loading="lazy"/></label>
-  <input type="radio" id="bm2" value="satellite" name="basemap"class="radio-inline"/>
-    <label for="bm2"><img src="images/satellite_50.png" title="Satellite" loading="lazy"/></label>
-  <input type="radio" id="bm3" value="opencyclemap" name="basemap"class="radio-inline"/>
-    <label for="bm3"><img src="images/opencyclemap_50.png" title="OpenCycleMap" loading="lazy"/></label>
-  <input type="radio" id="bm5" value="dark_nobuild" name="basemap"class="radio-inline"/>
-    <label for="bm5"><img src="images/dark.PNG" title="Dark" loading="lazy"/></label>
-  <input type="radio" id="bm6" value="google_nobuild" name="basemap"class="radio-inline"/>
-    <label for="bm6"><img src="images/google.PNG" title="Outdoors" loading="lazy"/></label>
-  </form>
+    <form id="basemapform">
+      <!-- Values will be populated -->
+    </form>
   </p>
-  <p><label class="switch"><input type="checkbox" id="placenamescheckbox" checked><span class="slider round"></span></label> Place Names</p>
+  <p><label class="switch"><input type="checkbox" id="placenamescheckbox" checked="checked" /><span class="slider round"></span></label> Place names</p>
   <p><label class="switch"><input type="checkbox" id="antialiascheckbox" /><span class="slider round"></span></label> Anti-alias</p>
 </div>
+
 
 <!-- Show Layer Selection Panel  Button-->
 <div id="showrightbox" class="showrightbox">
@@ -151,7 +146,13 @@
 <b> Layer Controls</b>
 <button class="accordion" id="rnet_accordion">Route Network</button>
 <div class="panel">
-  <p><label><input type="checkbox" id="rnetcheckbox" class="updatelayer" checked>Show Layer</label></p>
+  <p>
+    <label><input type="checkbox" id="rnetcheckboxproxy" class="rnetproxy" checked>Show Layer</label>
+    
+    <!-- These two checkboxes actually control the layers, but are set by the show/simplified checkboxes -->
+    <input type="checkbox" id="rnetcheckbox" class="updatelayer rnethiddenproxy" />
+    <input type="checkbox" id="rnet-simplifiedcheckbox" class="updatelayer rnethiddenproxy" />
+  </p>
   <p>
     <select id="rnet_purpose_input" name="rnet_purpose_input" class="updatelayer" aria-label="Route network trip purpose">
       <option value="all" selected>All</option>
@@ -197,7 +198,7 @@
 	</div>
 	
 	
-	<p><label class="switch"><input type="checkbox" id="rnetsimplifiedcheckbox" class="updatelayer" aria-label="Simplify route network"><span class="slider round"></span></label> Simplified <button aria-label="Help simplified route network" class="helpbutton" data-help="simplified_rnet" title="Full details of streamlining the route network"><i class="fa fa-question-circle" aria-hidden="true"></i></button></p>
+	<p><label class="switch"><input type="checkbox" id="rnet-simplifiedcheckboxproxy" class="rnetproxy" aria-label="Simplify route network"><span class="slider round"></span></label> Simplified <button aria-label="Help simplified route network" class="helpbutton" data-help="simplified_rnet" title="Full details of streamlining the route network"><i class="fa fa-question-circle" aria-hidden="true"></i></button></p>
  
   
 
@@ -324,7 +325,7 @@
 </div>
 </div>
 
-<!-- Help Box -->
+<!-- Help box -->
 <div id="help_modal" class="modal">
   <span class="modal-close">&times;</span>
   <div id="helpcontent">
@@ -333,177 +334,34 @@
 </div>
 
 
-<!-- The DataZone Modal -->
-<div id="zone_modal" class="modal">
-
-<!-- Modal content -->
-<div class="modal-content">
-<div class="modal-header">
-  <span class="modal-close">&times;</span>
-  <div id="zone-modal-title">
-    <h2>Zone Summary</h2></div>
+<!-- Template for chart modals, including a sub-template for the chart boxes -->
+<template id="chart-modal">
+  <div class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="modal-close">&times;</span>
+        <h2 class="modal-title">Summary</h2>
+      </div>
+      <div class="modal-body">
+        
+        <template class="chart-template">
+          <div class="wrapper">
+              <div class="chart-text">
+                <h4 class="chart-title"></h4>
+                <p class="chart-description"></p>
+            </div>
+              <div class="chart-container" >
+                <canvas></canvas>
+              </div>
+          </div>
+        </template>
+        
+      </div>
+      <div class="modal-footer"></div>
+    </div>
   </div>
-  <div class="modal-body">
+</template>
 
-  <div class="wrapper">
-  	  <div class="chart-text">
-  	    <h4>Commuters leaving</h4>
-  	    <p>The bar chart shows estimated mode shares under different scenarios for commuters leaving this zone. (i.e they live here and commute to another zone).</p>
-  	 </div>
-  	 	<div class="chart-container" >
-  			<canvas id="commuteOriginChart"></canvas>
-  		</div>
-	</div>
-  
-  <div class="wrapper">
-  	  <div class="chart-text">
-  	    <h4>Commuters arriving</h4>
-  	    <p>The bar chart shows estimated mode shares under different scenarios for commuters arriving this zone. (i.e they wprk here and live in another zone).</p>
-  	 </div>
-  	 	<div class="chart-container" >
-  			<canvas id="commuteDestinationChart"></canvas>
-  		</div>
-	</div>
-
-  <div class="wrapper">
-  	  <div class="chart-text">
-  	    <h4>Primary school children</h4>
-  	    <p>The bar chart shows estimated mode shares under different scenarios for primary school childen that live in this zone.</p>
-  	 </div>
-  	 	<div class="chart-container" >
-  			<canvas id="primaryOrginChart"></canvas>
-  		</div>
-	</div>
-
-  <div class="wrapper">
-  	  <div class="chart-text">
-  	    <h4>Secondary school children</h4>
-  	    <p>The bar chart shows estimated mode shares under different scenarios for secondary school childen that live in this zone.</p>
-  	 </div>
-  	 	<div class="chart-container" >
-  			<canvas id="secondaryOriginChart"></canvas>
-  		</div>
-	</div>
-	
-	<div class="wrapper">
-  	  <div class="chart-text">
-  	    <h4>Shoppers leaving</h4>
-  	    <p>The bar chart shows estimated mode shares of shopping trips under different scenarios for trips leaving this zone.</p>
-  	 </div>
-  	 	<div class="chart-container" >
-  			<canvas id="shoppingOriginChart"></canvas>
-  		</div>
-	</div>
-  
-  <div class="wrapper">
-  	  <div class="chart-text">
-  	    <h4>Shoppers arriving</h4>
-  	    <p>The bar chart shows estimated mode shares of shopping trips under different scenarios for trips arriving this zone.</p>
-  	 </div>
-  	 	<div class="chart-container" >
-  			<canvas id="shoppingDestinationChart"></canvas>
-  		</div>
-	</div>
-	
-	
-	<div class="wrapper">
-  	  <div class="chart-text">
-  	    <h4>Leisure trips leaving</h4>
-  	    <p>The bar chart shows estimated mode shares of leisure trips under different scenarios for trips leaving this zone.</p>
-  	 </div>
-  	 	<div class="chart-container" >
-  			<canvas id="leisureOriginChart"></canvas>
-  		</div>
-	</div>
-  
-  <div class="wrapper">
-  	  <div class="chart-text">
-  	    <h4>Leisure trips arriving</h4>
-  	    <p>The bar chart shows estimated mode shares of leisure trips under different scenarios for trips arriving this zone.</p>
-  	 </div>
-  	 	<div class="chart-container" >
-  			<canvas id="leisureDestinationChart"></canvas>
-  		</div>
-	</div>
-	
-	<div class="wrapper">
-  	  <div class="chart-text">
-  	    <h4>visiting friends and family trips leaving</h4>
-  	    <p>The bar chart shows estimated mode shares of trips for visiting friends and family under different scenarios for trips leaving this zone.</p>
-  	 </div>
-  	 	<div class="chart-container" >
-  			<canvas id="visitingOriginChart"></canvas>
-  		</div>
-	</div>
-  
-  <div class="wrapper">
-  	  <div class="chart-text">
-  	    <h4>visiting friends and family trips arriving</h4>
-  	    <p>The bar chart shows estimated mode shares of trips for visiting friends and family under different scenarios for trips arriving this zone.</p>
-  	 </div>
-  	 	<div class="chart-container" >
-  			<canvas id="visitingDestinationChart"></canvas>
-  		</div>
-	</div>
-	
-
-</div>
-<div class="modal-footer">
-</div>
-</div>
-
-
-</div>
-
-<!-- The School Modal -->
-<div id="school_modal" class="modal">
-
-<!-- Modal content -->
-<div class="modal-content">
-<div class="modal-header">
-    <span class="modal-close">&times;</span>
-    <div id="school-modal-title"><h2>School Summary</h2></div>
-</div>
-<div class="modal-body">
-  
-  <div class="wrapper">
-  	  <div class="chart-text">
-  	    <h4>Primary school modal split</h4>
-  	    <p>The bar chart shows extimated mode shares for primary school children under different scenarios.</p>
-  	 </div>
-  	 	<div class="chart-container" >
-  			<canvas id="primaryChart"></canvas>
-  		</div>
-	</div>
-  
-  <div class="wrapper">
-  	  <div class="chart-text">
-  	    <h4>Secondary school modal split</h4>
-  	    <p>The bar chart shows extimated mode shares for seconday school children under different scenarios.</p>
-  	 </div>
-  	 	<div class="chart-container" >
-  			<canvas id="secondaryChart"></canvas>
-  		</div>
-	</div>
-	
-	<div class="wrapper">
-  	  <div class="chart-text">
-  	    <h4>Route characteristics</h4>
-  	    <p>Summary of the route characteristics.</p>
-  	 </div>
-  	 	<div class="chart-container" >
-  			<canvas id="secondaryChart"></canvas>
-  		</div>
-	</div>
-
-
-</div>
-<div class="modal-footer">
-</div>
-</div>
-
-
-</div>
 
 
 <!-- Template for map popup -->

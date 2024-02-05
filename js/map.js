@@ -1,5 +1,50 @@
+
+// Basemap styles
+const basemaps = {
+  'greyscale_nobuild': {
+    title: 'OS greyscale',
+    default: true,
+    buildingColour: '#d1cfcf'
+  },
+  'satellite': {
+    title: 'Satellite',
+    buildingColour: false   // No buildings
+  },
+  'opencyclemap': {
+    title: 'OpenCycleMap',
+    buildingColour: false   // No buildings
+  },
+  'google_nobuild': {
+    title: 'Outdoors',
+    buildingColour: '#f0eded'
+  },
+  'dark_nobuild': {
+    title: 'Dark',
+    buildingColour: '#000000'
+  },
+};
+
+
+
 // Setup map, and obtain the handle
 map = createMap ();
+
+
+
+// Generate layer switcher HTML
+function layerSwitcherHtml ()
+{
+  // Create each switcher button
+  const options = [];
+  Object.entries (basemaps).forEach (([id, basemap]) => {
+    let option  = `<input type="radio" name="basemap" id="${id}-basemap" value="${id}"` + (basemap.default ? ' checked="checked"' : '') + ' />';
+    option += `<label for="${id}-basemap"><img src="images/basemaps/${id}.png" title="${basemap.title}" /></label>`;
+    options.push (option);
+  });
+  
+  // Insert radiobuttons into form
+  document.getElementById ('basemapform').innerHTML = options.join (' ');
+}
 
 
 
@@ -13,6 +58,9 @@ function getBasemapStyle ()
 // Function to set up the map UI and controls
 function createMap ()
 {
+  // Create the layer switcher
+  layerSwitcherHtml ();
+  
   // Main map setup
   var map = new maplibregl.Map({
     container: 'map',
@@ -46,6 +94,17 @@ function createMap ()
     source: 'terrainSource',
     exaggeration: 1.25
   }), 'top-left');
+  
+  // Add buildings; note that the style/colouring may be subsequently altered by data layers
+  addBuildings (map);
+  document.getElementById ('basemapform').addEventListener ('change', function (e) {
+    addBuildings (map);
+  });
+  
+  // Add placenames support
+  map.once('idle', function () {
+    placenames (map);
+  });
 
   // Add geolocation control
   map.addControl(new maplibregl.GeolocateControl({
@@ -65,7 +124,7 @@ function createMap ()
       div.addEventListener('contextmenu', (e) => e.preventDefault());
       div.addEventListener('click', function () {
         var box = document.getElementById('basemapcontrol');
-        box.style.display = (box.style.display == 'none' ? 'block' : 'none');
+        box.style.display = (window.getComputedStyle(box).display == 'none' ? 'block' : 'none');
       });
       return div;
     }
@@ -83,16 +142,109 @@ function createMap ()
     compact: true,
     customAttribution: 'Contains OS data © Crown copyright 2021, Satelite map © ESRI 2023, © OpenStreetMap contributors'
   }), 'bottom-right');
-
+  
   // Antialias reload
   document.getElementById ('antialiascheckbox').addEventListener ('click', function () {
     location.reload();
   });
   
-  // Return the map
+  // Fire map ready when ready, which layer-enabling can be picked up
+  map.once ('idle', function () {
+    document.dispatchEvent (new Event ('@map/ready', {'bubbles': true}));
+  });
+  
+  // Change map and reload state on basemap change
+  document.getElementById ('basemapform').addEventListener ('change', function () {
+    var styleName = getBasemapStyle ();
+    var styleCurrent = map.getStyle ().name;
+    if (styleCurrent == styleName) {return;}
+    console.log ('Restyling from ' + styleCurrent + ' to ' + styleName);
+    map.setStyle ('tiles/style_' + styleName + '.json');
+    
+    // Fire map ready event when ready
+    map.once ('idle', function() {
+      document.dispatchEvent (new Event ('@map/ready', {'bubbles': true}));
+    });
+  });
+  
+  // Return the map handle
   return map;
 }
 
+
+// Function to add the buildings layer
+function addBuildings (map)
+{
+  // When ready
+  map.once ('idle', function () {
+    
+    // Add the source
+    if (!map.getSource ('dasymetric')) {
+      map.addSource('dasymetric', {
+        'type': 'vector',
+        // #!# Parameterise base server URL
+        'url': 'pmtiles://https://nptscot.blob.core.windows.net/pmtiles/dasymetric-2023-12-17.pmtiles',
+      });
+    }
+    
+    // Initialise the layer
+    if (!map.getLayer ('dasymetric')) {
+      map.addLayer ({
+        'id': 'dasymetric',
+        'type': 'fill-extrusion',
+        'source': 'dasymetric',
+        'source-layer': 'dasymetric',
+        'layout': {
+          'visibility': 'none'
+        },
+        'paint': {
+          'fill-extrusion-color': '#9c9898',  // Default gray
+          'fill-extrusion-height': [
+            'interpolate',
+            ['linear'],
+            ['zoom'],
+            12, 1,
+            15, 8
+          ]
+        }
+      }, 'roads 0 Guided Busway Casing');
+    }
+  });
+}
+
+
+// Function to manage display of placenames
+function placenames (map)
+{
+  // Add the source
+  map.addSource ('placenames', {
+    'type': 'vector',
+    // #!# Parameterise base server URL
+    'url': 'pmtiles://https://nptscot.blob.core.windows.net/pmtiles/oszoom_names.pmtiles',
+  });
+  
+  // Load the style definition
+  // #!# The .json file is currently not a complete style definition, e.g. with version number etc.
+  fetch ('/tiles/partial-style_oszoom_names.json')
+    .then (function (response) {return response.json ();})
+    .then (function (placenameLayers) {
+      
+      // Add each layer, respecting the initial checkbox state
+      Object.entries(placenameLayers).forEach(([layerId, layer]) => {
+        var checkbox = document.getElementById('placenamescheckbox');
+        layer.visibility = (checkbox.checked ? 'visible' : 'none');
+        map.addLayer(layer);
+      });
+      
+      // Listen for checkbox changes
+      document.getElementById('placenamescheckbox').addEventListener ('click', (e) => {
+        var checkbox = document.getElementById('placenamescheckbox');
+        Object.entries(placenameLayers).forEach(([layerId, layer]) => {
+          map.setLayoutProperty(layerId, 'visibility', (checkbox.checked ? 'visible' : 'none'));
+        });
+      });
+    });
+}
 
 
 // Geocoding API implementation
