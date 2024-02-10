@@ -1,1 +1,7 @@
-document.getElementById("osmupdatedate").innerHTML = '6 December 2023'
+
+setOsmDate ();
+
+function setOsmDate ()
+{
+	document.getElementById("osmupdatedate").innerHTML = '6 December 2023';
+}
