@@ -69,6 +69,7 @@ function setCookie(name, value) {
   document.cookie = name + '=' + value + ';' + expires + ';path=/';
 }
 
+
 function getCookie(name) {
   var name = name + '=';
   var ca = document.cookie.split(';');
