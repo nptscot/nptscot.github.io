@@ -40,6 +40,9 @@ var nptUi = (function () {
 			// General GUI topnav function
 			nptUi.topnav ();
 			
+			// Handler for help buttons which have a data-help attribute indicating there is a manual section
+			nptUi.handleHelpButtons ();
+			
 			// Create sliders
 			nptUi.createSliders ();
 			
@@ -233,6 +236,64 @@ var nptUi = (function () {
 				}
 				e.preventDefault ();
 			});
+		},
+		
+		
+		// Click handler for manual help buttons
+		handleHelpButtons: function ()
+		{
+			document.querySelectorAll ('.helpbutton').forEach (function (button) {
+				if (button.dataset.help) { // E.g. data-help="scenario" refers to the scenario section
+					button.addEventListener ('click', function () {
+						nptUi.showHelp (button.dataset.help);
+					});
+				}
+			});
+		},
+		
+		
+		// Function to handle (?) tooltips, loading extracts from the manual
+		showHelp: function (sectionId)
+		{
+			//console.log("Trigger help for sectionId: " + sectionId);
+			fetch ('/manual/index.md')
+				.then (response => response.text())
+				.then (text => {
+		
+					// Extract the Markdown text between comments
+					const regex = new RegExp (`<!-- #${sectionId} -->(.+)<!-- /#${sectionId} -->`, 's'); // s flag is for 'match newlines'
+					const result = regex.exec (text);
+					const extract = result[1];
+					
+					// Convert to HTML
+					const html = nptUi.mdToHtml (extract);
+					
+					// Parse to HTML
+					const parser = new DOMParser ();
+					const otherPage = parser.parseFromString (html, 'text/html');
+					const contentHtml = otherPage.querySelector ('body');
+					//console.log(otherDiv.innerHTML);
+					if (!contentHtml) {
+						contentHtml = '<p><strong>Help missing!</strong></p>';
+					}
+					
+					// Add the HTML
+					document.getElementById ('helpcontent').innerHTML = contentHtml.innerHTML;
+				});
+			
+			// Show in modal
+			const help_modal = newModal ('help_modal');
+			help_modal.show();
+		},
+		
+		
+		// Function to convert the loaded Markdown file text to HTML
+		// #!# Copied from manual.js
+		mdToHtml: function (mdText)
+		{
+			const converter = new showdown.Converter();
+			const html = converter.makeHtml(mdText);
+			return html;
 		},
 		
 		
