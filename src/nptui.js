@@ -50,7 +50,7 @@ const nptUi = (function () {
 			nptUi.createPopups ();
 			
 			// Create charts for the defined map layers
-			nptUi.charts (datasets.charts);
+			nptUi.charts ();
 			
 			// Handler for help buttons which have a data-help attribute indicating there is a manual section
 			nptUi.handleHelpButtons ();
@@ -871,7 +871,7 @@ const nptUi = (function () {
 		
 		
 		// Function to handle chart creation
-		charts: function (chartDefinitions)
+		charts: function ()
 		{
 			// Handles to charts
 			const chartHandles = {};
@@ -1024,9 +1024,8 @@ const nptUi = (function () {
 				});
 			}
 			
-			
 			// Create each set of charts
-			Object.entries(chartDefinitions).forEach(([mapLayerId, chartDefinition]) => {
+			Object.entries (datasets.charts).forEach(([mapLayerId, chartDefinition]) => {
 				chartsModal (mapLayerId, chartDefinition);
 			});
 		},
