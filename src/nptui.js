@@ -214,9 +214,13 @@ const nptUi = (function () {
 		// Function to manage the layer controls box UI
 		layerControlsBoxUi: function ()
 		{
-			// Show the layer controls box, and open up the route network part of this
+			// Show the layer controls box
 			showlayercontrols(true);
-			document.getElementById('rnet_accordion').click();
+			
+			// Auto-open a section if required
+			if (document.getElementById('autoopen')) {
+				document.getElementById('autoopen').click ();
+			}
 			
 			// Show layer control box when button clicked on
 			document.querySelector('#showrightbox button').addEventListener('click', function () {
