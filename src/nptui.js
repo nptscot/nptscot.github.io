@@ -579,33 +579,33 @@ const nptUi = (function () {
 		},
 		
 		
-		toggleLayer: function (layerName)
+		toggleLayer: function (layerId)
 		{
-			//console.log ('Toggling layer ' + layerName);
+			//console.log ('Toggling layer ' + layerId);
 			
-			// Check for a dynamic styling function, if any, as layerName + 'Styling', e.g. rnetStyling
-			const stylingFunction = layerName.replace('-', '_') + 'Styling'; // NB hyphens not legal in function names
+			// Check for a dynamic styling function, if any, as layerId + 'Styling', e.g. rnetStyling
+			const stylingFunction = layerId.replace('-', '_') + 'Styling'; // NB hyphens not legal in function names
 			if (typeof nptUi[stylingFunction] === 'function') {
-				nptUi[stylingFunction] (layerName, _map, _datasets, nptUi.createLegend);
+				nptUi[stylingFunction] (layerId, _map, _datasets, nptUi.createLegend);
 			}
 			
 			// Set the visibility of the layer, based on the checkbox value
-			const isVisible = document.getElementById(layerName + 'checkbox').checked;
-			_map.setLayoutProperty(layerName, 'visibility', (isVisible ? 'visible' : 'none'));
+			const isVisible = document.getElementById(layerId + 'checkbox').checked;
+			_map.setLayoutProperty(layerId, 'visibility', (isVisible ? 'visible' : 'none'));
 		},
 		
 		
 		// Rnet styling
-		rnetStyling: function (layerName, map, datasets, createLegend /* callback */)
+		rnetStyling: function (layerId, map, datasets, createLegend /* callback */)
 		{
-			nptUi.handleRnet (layerName, map, datasets, createLegend);
+			nptUi.handleRnet (layerId, map, datasets, createLegend);
 		},
 		
 		
 		// Rnet simplified styling
-		rnet_simplifiedStyling: function (layerName, map, datasets, createLegend /* callback */)
+		rnet_simplifiedStyling: function (layerId, map, datasets, createLegend /* callback */)
 		{
-			nptUi.handleRnet (layerName, map, datasets, createLegend);
+			nptUi.handleRnet (layerId, map, datasets, createLegend);
 		},
 		
 		
@@ -700,7 +700,7 @@ const nptUi = (function () {
 		
 		
 		// Data zones styling (including buildings styling)
-		data_zonesStyling: function (layerName, map, datasets, createLegend /* callback */)
+		data_zonesStyling: function (layerId, map, datasets, createLegend /* callback */)
 		{
 			// Update the legend (even if map layer is off)
 			const fieldId = document.getElementById('data_zones_selector').value;
