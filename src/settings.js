@@ -44,7 +44,7 @@ const settings = {
 	
 	// Buildings/placenames tiles URL; can use %tileserverUrl to represent the above
 	buildingsTilesUrl: 'pmtiles://%tileserverUrl/dasymetric-2023-12-17.pmtiles',
-	placenamesTilesUrl: 'pmtiles://%tileserverUrl/oszoom_names.pmtiles'
+	placenamesTilesUrl: 'pmtiles://%tileserverUrl/oszoom_names.pmtiles',
 	
 	// Manual
 	manualEditingUrl: 'https://github.com/nptscot/nptscot.github.io/edit/dev/%id/index.md',
