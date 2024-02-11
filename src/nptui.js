@@ -3,7 +3,7 @@
 /*jslint browser: true, white: true, single: true, for: true, unordered: true, long: true */
 /*global alert, console, window, maplibregl, pmtiles, MaplibreGeocoder, noUiSlider, tippy */
 
-var nptUi = (function () {
+const nptUi = (function () {
 	
 	'use strict';
 	
@@ -72,33 +72,33 @@ var nptUi = (function () {
 		manageAnalyticsCookie: function ()
 		{
 			// Disable tracking if the opt-out cookie exists.
-			var disableStr = 'ga-disable-' + _settings.gaProperty;
+			const disableStr = 'ga-disable-' + _settings.gaProperty;
 			if (document.cookie.indexOf(disableStr + '=true') > -1) {
 				window[disableStr] = true;
 			}
-
+			
 			// Define the cookie name
 			const cookieName = 'NPTtrack';
-
+			
 			// Handle cookie warning buttons
 			document.querySelectorAll('#cookiewarning button').forEach(function (button) {
 				button.addEventListener('click', function (e) {
 					cookieButton(button.value);
 				});
 			});
-
+			
 			// Show the cookie warning
 			showCookieWarning();
-
-
+			
+			
 			// Opt-out function
 			function gaOptout ()
 			{
 				document.cookie = disableStr + '=true; expires=Thu, 31 Dec 2099 23:59:59 UTC; path=/; SameSite=None; Secure';
 				window[disableStr] = true;
 			}
-
-
+			
+			
 			// Warning Control
 			function cookieButton (accepted)
 			{
@@ -109,17 +109,17 @@ var nptUi = (function () {
 					gaOptout();
 					nptUi.setCookie(cookieName, 'false');
 				}
-
-				var cookiewarning = document.getElementById("cookiewarning");
-				cookiewarning.style.display = "none";
+				
+				const cookiewarning = document.getElementById ('cookiewarning');
+				cookiewarning.style.display = 'none';
 			}
-
-
+			
+			
 			// Cookie warning
 			function showCookieWarning ()
 			{
-				var cookiewarning = document.getElementById("cookiewarning");
-				var NPTcookie = nptUi.getCookie(cookieName);
+				const cookiewarning = document.getElementById ('cookiewarning');
+				const NPTcookie = nptUi.getCookie (cookieName);
 				//console.log ("Cookie status: '" + NPTcookie + "'");
 				cookiewarning.style.display = (NPTcookie === '' ? 'block' : 'none');
 			}
@@ -202,7 +202,7 @@ var nptUi = (function () {
 					button.classList.toggle('active');
 					
 					// Toggle between hiding and showing the active panel
-					var panel = button.nextElementSibling;
+					const panel = button.nextElementSibling;
 					panel.style.display = (panel.style.display == 'block' ? 'none' : 'block');
 				}
 			});
@@ -230,10 +230,10 @@ var nptUi = (function () {
 			function showlayercontrols(show)
 			{
 				// Toggle box
-				var box = document.getElementById('rightbox');
+				const box = document.getElementById ('rightbox');
 				box.style.display = (show ? 'block' : 'none');
 				
-				var boxbutton = document.getElementById('showrightbox');
+				const boxbutton = document.getElementById ('showrightbox');
 				boxbutton.style.display = (show ? 'none' : 'block');
 			}
 		},
@@ -243,7 +243,7 @@ var nptUi = (function () {
 		topnav: function ()
 		{
 			document.getElementById ('expandtopnav').addEventListener ('click', function (e) {
-				var x = document.getElementById('myTopnav');
+				const x = document.getElementById('myTopnav');
 				if (x.className == 'topnav') {
 					x.classList.add ('responsive');
 				} else {
@@ -261,7 +261,7 @@ var nptUi = (function () {
 			nptUi.layerSwitcherHtml();
 			
 			// Main map setup
-			var map = new maplibregl.Map({
+			const map = new maplibregl.Map({
 				container: 'map',
 				style: 'tiles/style_' + nptUi.getBasemapStyle() + '.json',
 				center: settings.initialPosition.center,
@@ -324,7 +324,7 @@ var nptUi = (function () {
 					div.innerHTML = '<button aria-label="Change basemap"><img src="/images/basemap.svg" title="Change basemap" /></button>';
 					div.addEventListener('contextmenu', (e) => e.preventDefault());
 					div.addEventListener('click', function () {
-						var box = document.getElementById('basemapcontrol');
+						const box = document.getElementById('basemapcontrol');
 						box.style.display = (window.getComputedStyle(box).display == 'none' ? 'block' : 'none');
 					});
 					return div;
@@ -358,8 +358,8 @@ var nptUi = (function () {
 			
 			// Change map and reload state on basemap change
 			document.getElementById('basemapform').addEventListener('change', function () {
-				var styleName = nptUi.getBasemapStyle();
-				var styleCurrent = map.getStyle().name;
+				const styleName = nptUi.getBasemapStyle();
+				const styleCurrent = map.getStyle().name;
 				if (styleCurrent == styleName) {
 					return;
 				}
@@ -461,14 +461,14 @@ var nptUi = (function () {
 					
 					// Add each layer, respecting the initial checkbox state
 					Object.entries(placenameLayers).forEach(([layerId, layer]) => {
-						var checkbox = document.getElementById('placenamescheckbox');
+						const checkbox = document.getElementById('placenamescheckbox');
 						layer.visibility = (checkbox.checked ? 'visible' : 'none');
 						map.addLayer(layer);
 					});
 					
 					// Listen for checkbox changes
 					document.getElementById('placenamescheckbox').addEventListener('click', (e) => {
-						var checkbox = document.getElementById('placenamescheckbox');
+						const checkbox = document.getElementById('placenamescheckbox');
 						Object.entries(placenameLayers).forEach(([layerId, layer]) => {
 							map.setLayoutProperty(layerId, 'visibility', (checkbox.checked ? 'visible' : 'none'));
 						});
@@ -480,7 +480,7 @@ var nptUi = (function () {
 		// Geocoding API implementation
 		geocoderApi: function ()
 		{
-			var geocoder_api = {
+			const geocoder_api = {
 				forwardGeocode: async (config) => {
 					const features = [];
 					try {
@@ -610,7 +610,7 @@ var nptUi = (function () {
 		handleRnet: function (layerId)
 		{
 			// Update the Legend - Do this even if map layer is off
-			var layerColour = document.getElementById('rnet_colour_input').value;
+			const layerColour = document.getElementById('rnet_colour_input').value;
 			nptUi.createLegend(datasets.legends.rnet, layerColour, 'linecolourlegend');
 			
 			// No special handling needed if not visible
@@ -633,7 +633,7 @@ var nptUi = (function () {
 			});
 			
 			// Only filter cyclists if scenario set
-			var filter = ['all',
+			const filter = ['all',
 				['>=', layerWidthField, sliders.cycle.min],
 				['<=', layerWidthField, sliders.cycle.max],
 				['>=', "Quietness", sliders.quietness.min],
@@ -643,7 +643,7 @@ var nptUi = (function () {
 			];
 			
 			// Define line colour
-			var line_colours = {
+			const line_colours = {
 				'none': datasets.lineColours.rnet.none,
 				'flow': [
 					'step', ['get', layerWidthField],
@@ -665,7 +665,7 @@ var nptUi = (function () {
 			// Define line width
 			// Implements the formula y = (3 / (1 + exp(-3*(x/1000 - 1.6))) + 0.3)
 			// This code was hard to work out!
-			var line_width = [
+			const line_width = [
 				'interpolate',
 				['linear'],
 				['zoom'],
@@ -1211,19 +1211,19 @@ var nptUi = (function () {
 		// Generic cookie managment functions
 		setCookie: function (name, value)
 		{
-			var d = new Date();
+			const d = new Date();
 			d.setTime(d.getTime() + (1000 * 24 * 60 * 60 * 1000));
-			var expires = 'expires=' + d.toUTCString();
+			const expires = 'expires=' + d.toUTCString();
 			document.cookie = name + '=' + value + ';' + expires + ';path=/';
 		},
 		
 		
 		getCookie: function (name)
 		{
-			var name = name + '=';
-			var ca = document.cookie.split(';');
-			for (var i = 0; i < ca.length; i++) {
-				var c = ca[i];
+			name = name + '=';
+			const ca = document.cookie.split(';');
+			for (let i = 0; i < ca.length; i++) {
+				let c = ca[i];
 				while (c.charAt(0) == ' ') {
 					c = c.substring(1);
 				}
