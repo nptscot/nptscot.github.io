@@ -586,7 +586,7 @@ const nptUi = (function () {
 			// Check for a dynamic styling function, if any, as layerName + 'Styling', e.g. rnetStyling
 			const stylingFunction = layerName.replace('-', '_') + 'Styling'; // NB hyphens not legal in function names
 			if (typeof nptUi[stylingFunction] === 'function') {
-				nptUi[stylingFunction] (layerName);
+				nptUi[stylingFunction] (layerName, _map, _datasets, nptUi.createLegend);
 			}
 			
 			// Set the visibility of the layer, based on the checkbox value
@@ -596,24 +596,24 @@ const nptUi = (function () {
 		
 		
 		// Rnet styling
-		rnetStyling: function (layerName)
+		rnetStyling: function (layerName, map, datasets, createLegend /* callback */)
 		{
-			nptUi.handleRnet (layerName);
+			nptUi.handleRnet (layerName, map, datasets, createLegend);
 		},
 		
 		
 		// Rnet simplified styling
-		rnet_simplifiedStyling: function (layerName)
+		rnet_simplifiedStyling: function (layerName, map, datasets, createLegend /* callback */)
 		{
-			nptUi.handleRnet (layerName);
+			nptUi.handleRnet (layerName, map, datasets, createLegend);
 		},
 		
 		
-		handleRnet: function (layerId)
+		handleRnet: function (layerId, map, datasets, createLegend /* callback */)
 		{
 			// Update the Legend - Do this even if map layer is off
 			const layerColour = document.getElementById('rnet_colour_input').value;
-			nptUi.createLegend(_datasets.legends.rnet, layerColour, 'linecolourlegend');
+			createLegend (datasets.legends.rnet, layerColour, 'linecolourlegend');
 			
 			// No special handling needed if not visible
 			if (!document.getElementById(layerId + 'checkbox').checked) {
@@ -646,20 +646,20 @@ const nptUi = (function () {
 			
 			// Define line colour
 			const line_colours = {
-				'none': _datasets.lineColours.rnet.none,
+				'none': datasets.lineColours.rnet.none,
 				'flow': [
 					'step', ['get', layerWidthField],
-					..._datasets.lineColours.rnet.flow,
+					...datasets.lineColours.rnet.flow,
 					'#FF00C5'
 				],
 				'quietness': [
 					'step', ['get', 'Quietness'],
-					..._datasets.lineColours.rnet.quietness,
+					...datasets.lineColours.rnet.quietness,
 					'#000000'
 				],
 				'gradient': [
 					'step', ['get', 'Gradient'],
-					..._datasets.lineColours.rnet.gradient,
+					...datasets.lineColours.rnet.gradient,
 					'#000000'
 				]
 			};
@@ -679,11 +679,11 @@ const nptUi = (function () {
 			];
 			
 			// Set the filter
-			_map.setFilter(layerId, filter);
+			map.setFilter (layerId, filter);
 			
 			// Set paint properties
-			_map.setPaintProperty(layerId, 'line-color', line_colours[layerColour]);
-			_map.setPaintProperty(layerId, 'line-width', line_width);
+			map.setPaintProperty (layerId, 'line-color', line_colours[layerColour]);
+			map.setPaintProperty (layerId, 'line-width', line_width);
 		},
 		
 		
@@ -700,23 +700,23 @@ const nptUi = (function () {
 		
 		
 		// Data zones styling (including buildings styling)
-		data_zonesStyling: function (layerName)
+		data_zonesStyling: function (layerName, map, datasets, createLegend /* callback */)
 		{
 			// Update the legend (even if map layer is off)
 			const fieldId = document.getElementById('data_zones_selector').value;
-			nptUi.createLegend(_datasets.legends.data_zones, fieldId, 'dzlegend');
+			createLegend (datasets.legends.data_zones, fieldId, 'dzlegend');
 			
 			// Get UI state
 			const daysymetricMode = document.getElementById('data_zones_checkbox_dasymetric').checked;
 			
 			// Set paint properties
-			_map.setPaintProperty('data_zones', 'fill-color', ['step', ['get', fieldId], ...nptUi.getStyleColumn(fieldId)]);
-			_map.setPaintProperty('data_zones', 'fill-opacity', (daysymetricMode ? 0.1 : 0.8)); // Very faded-out in daysymetric mode, as the buildings are coloured
+			map.setPaintProperty ('data_zones', 'fill-color', ['step', ['get', fieldId], ...nptUi.getStyleColumn(fieldId, datasets)]);
+			map.setPaintProperty ('data_zones', 'fill-opacity', (daysymetricMode ? 0.1 : 0.8)); // Very faded-out in daysymetric mode, as the buildings are coloured
 			
 			// Set buildings layer colour/visibility
 			const buildingColour = nptUi.getBuildingsColour();
-			_map.setPaintProperty('dasymetric', 'fill-extrusion-color', (buildingColour || '#9c9898'));
-			_map.setLayoutProperty('dasymetric', 'visibility', (buildingColour ? 'visible' : 'none'));
+			map.setPaintProperty ('dasymetric', 'fill-extrusion-color', (buildingColour || '#9c9898'));
+			map.setLayoutProperty ('dasymetric', 'visibility', (buildingColour ? 'visible' : 'none'));
 		},
 		
 		
@@ -734,7 +734,7 @@ const nptUi = (function () {
 				const layerId = document.getElementById('data_zones_selector').value;
 				return ['step',
 					['get', layerId],
-					...nptUi.getStyleColumn(layerId)
+					...nptUi.getStyleColumn(layerId, datasets)
 				];
 			}
 			
@@ -744,10 +744,10 @@ const nptUi = (function () {
 		
 		
 		// Function to determine the style column
-		getStyleColumn: function (layerId)
+		getStyleColumn: function (layerId, datasets)
 		{
-			const style_col_selected = _datasets.lineColours.data_zones.hasOwnProperty(layerId) ? layerId : '_';
-			return _datasets.lineColours.data_zones[style_col_selected];
+			const style_col_selected = datasets.lineColours.data_zones.hasOwnProperty(layerId) ? layerId : '_';
+			return datasets.lineColours.data_zones[style_col_selected];
 		},
 		
 		
