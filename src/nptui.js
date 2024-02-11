@@ -24,9 +24,6 @@ const nptUi = (function () {
 			_settings = settings;
 			_datasets = datasets;
 			
-			// Manage analytics cookie setting
-			nptUi.manageAnalyticsCookie ();
-			
 			// Create welcome screen
 			nptUi.welcomeScreen ();
 			
@@ -64,64 +61,9 @@ const nptUi = (function () {
 			if (typeof _settings.uiCallback === 'function') {
 				_settings.uiCallback ();
 			}
-		},
-		
-		
-		// function to manage analytics cookie setting
-		manageAnalyticsCookie: function ()
-		{
-			// Disable tracking if the opt-out cookie exists.
-			const disableStr = 'ga-disable-' + _settings.gaProperty;
-			if (document.cookie.indexOf(disableStr + '=true') > -1) {
-				window[disableStr] = true;
-			}
 			
-			// Define the cookie name
-			const cookieName = 'analyticstrack';
-			
-			// Handle cookie warning buttons
-			document.querySelectorAll('#cookiewarning button').forEach(function (button) {
-				button.addEventListener('click', function (e) {
-					cookieButton(button.value);
-				});
-			});
-			
-			// Show the cookie warning
-			showCookieWarning();
-			
-			
-			// Opt-out function
-			function gaOptout ()
-			{
-				document.cookie = disableStr + '=true; expires=Thu, 31 Dec 2099 23:59:59 UTC; path=/; SameSite=None; Secure';
-				window[disableStr] = true;
-			}
-			
-			
-			// Warning Control
-			function cookieButton (accepted)
-			{
-				if (accepted) {
-					nptUi.setCookie(cookieName, 'true');
-				} else {
-					//alert("Tracking Op-Out Disabled");
-					gaOptout();
-					nptUi.setCookie(cookieName, 'false');
-				}
-				
-				const cookiewarning = document.getElementById ('cookiewarning');
-				cookiewarning.style.display = 'none';
-			}
-			
-			
-			// Cookie warning
-			function showCookieWarning ()
-			{
-				const cookiewarning = document.getElementById ('cookiewarning');
-				const cookie = nptUi.getCookie (cookieName);
-				//console.log ("Cookie status: '" + cookie + "'");
-				cookiewarning.style.display = (cookie === '' ? 'block' : 'none');
-			}
+			// Manage analytics cookie setting
+			nptUi.manageAnalyticsCookie ();
 		},
 		
 		
@@ -1039,6 +981,64 @@ const nptUi = (function () {
 					return title;
 				},
 			});
+		},
+		
+		
+		// function to manage analytics cookie setting
+		manageAnalyticsCookie: function ()
+		{
+			// Disable tracking if the opt-out cookie exists.
+			const disableStr = 'ga-disable-' + _settings.gaProperty;
+			if (document.cookie.indexOf(disableStr + '=true') > -1) {
+				window[disableStr] = true;
+			}
+			
+			// Define the cookie name
+			const cookieName = 'analyticstrack';
+			
+			// Handle cookie warning buttons
+			document.querySelectorAll('#cookiewarning button').forEach(function (button) {
+				button.addEventListener('click', function (e) {
+					cookieButton(button.value);
+				});
+			});
+			
+			// Show the cookie warning
+			showCookieWarning();
+			
+			
+			// Opt-out function
+			function gaOptout ()
+			{
+				document.cookie = disableStr + '=true; expires=Thu, 31 Dec 2099 23:59:59 UTC; path=/; SameSite=None; Secure';
+				window[disableStr] = true;
+			}
+			
+			
+			// Warning Control
+			function cookieButton (accepted)
+			{
+				if (accepted) {
+					nptUi.setCookie(cookieName, 'true');
+				} else {
+					//alert("Tracking Op-Out Disabled");
+					gaOptout();
+					nptUi.setCookie(cookieName, 'false');
+				}
+				
+				const cookiewarning = document.getElementById ('cookiewarning');
+				cookiewarning.style.display = 'none';
+			}
+			
+			
+			// Cookie warning
+			function showCookieWarning ()
+			{
+				const cookiewarning = document.getElementById ('cookiewarning');
+				const cookie = nptUi.getCookie (cookieName);
+				//console.log ("Cookie status: '" + cookie + "'");
+				cookiewarning.style.display = (cookie === '' ? 'block' : 'none');
+			}
 		},
 		
 		
