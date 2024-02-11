@@ -503,5 +503,37 @@ const datasets = {
 				['_ebike_quietest', 'Ebike (Quietest)']
 			]
 		}
+	},
+	
+	
+	// Popups
+	popups: {
+		
+		'rnet': {
+			layerId: 'rnet',
+			templateId: 'rnet-popup',
+			preprocessingCallback: popupCallback,	// Defined below
+			smallValuesThreshold: 10,
+			literalFields: ['Gradient', 'Quietness'] // #!# Gradient and Quietness are capitalised unlike other
+		},
+		
+		'rnet-simplified': {
+			templateId: 'rnet-popup',
+			preprocessingCallback: popupCallback,	// Defined below
+			smallValuesThreshold: 10,
+			literalFields: ['Gradient', 'Quietness'] // #!# Gradient and Quietness are capitalised unlike other
+		}
 	}
 };
+
+
+// Callbacks
+function popupCallback (feature)
+{
+	const layerPurpose = document.getElementById('rnet_purpose_input').value;
+	const layerType = document.getElementById('rnet_type_input').value;
+	const layerScenario = document.getElementById('rnet_scenario_input').value;
+	const layerField = layerPurpose + '_' + layerType + '_' + layerScenario;
+	feature.properties._ncycle = feature.properties[layerField];
+	return feature;
+}

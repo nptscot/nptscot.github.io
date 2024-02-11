@@ -793,15 +793,25 @@ var nptUi = (function () {
 		},
 		
 		
-		// Click on rnet for popup
-		// Options are: layerId, preprocessingCallback, smallValuesThreshold, literalFields
-		mapPopups: function (options)
+		// Function to create popups
+		createPopups: function ()
+		{
+			// Add to each layer
+			Object.entries (datasets.popups).forEach (([layerId, options]) => {
+				nptUi.mapPopups (layerId, options);
+			});
+		},
+		
+		
+		// Popup handler
+		// Options are: {preprocessingCallback, smallValuesThreshold, literalFields}
+		mapPopups: function (layerId, options)
 		{
 			// Enable cursor pointer
-			layerPointer(options.layerId);
+			layerPointer (layerId);
 			
 			// Register popup on click
-			_map.on ('click', options.layerId, function (e) {
+			_map.on ('click', layerId, function (e) {
 				
 				// Get the clicked co-ordinates
 				const coordinates = e.lngLat;
@@ -885,33 +895,6 @@ var nptUi = (function () {
 				properties._osmUrl = 'https://www.openstreetmap.org/#map=19/' + coordinates.lat + '/' + coordinates.lng;
 				return properties;
 			}
-		},
-		
-		
-		// Function to create popups
-		createPopups: function ()
-		{
-			// Callback to determine the field for number of cyclists
-			function ncycleField (feature) {
-				const layerPurpose = document.getElementById('rnet_purpose_input').value;
-				const layerType = document.getElementById('rnet_type_input').value;
-				const layerScenario = document.getElementById('rnet_scenario_input').value;
-				const layerField = layerPurpose + '_' + layerType + '_' + layerScenario;
-				feature.properties._ncycle = feature.properties[layerField];
-				return feature;
-			}
-			
-			// Add to each layer
-			const layerVariants = ['rnet', 'rnet-simplified'];
-			layerVariants.forEach(layerId => {
-				nptUi.mapPopups ({
-					layerId: layerId,
-					templateId: 'rnet-popup',
-					preprocessingCallback: ncycleField,
-					smallValuesThreshold: 10,
-					literalFields: ['Gradient', 'Quietness'] // #!# Gradient and Quietness are capitalised unlike other
-				});
-			});
 		},
 		
 		
