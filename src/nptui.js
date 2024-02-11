@@ -120,7 +120,7 @@ var nptUi = (function () {
 			{
 				var cookiewarning = document.getElementById("cookiewarning");
 				var NPTcookie = nptUi.getCookie(cookieName);
-				console.log("Cookie status: '" + NPTcookie + "'");
+				//console.log ("Cookie status: '" + NPTcookie + "'");
 				cookiewarning.style.display = (NPTcookie === '' ? 'block' : 'none');
 			}
 		},

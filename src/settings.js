@@ -63,7 +63,6 @@ const settings = {
 // Function to handle rnet checkbox proxying - the combination of the enabled and simplified checkboxes set the 'real' layer checkboxes
 function rnetCheckboxProxying ()
 {
-	console.log ('rnetCheckboxProxying');
 	// Define a function to calculate the real checkbox values based on the enabled/simplified boxes
 	function setRnetCheckboxes ()
 	{
