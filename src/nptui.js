@@ -27,6 +27,9 @@ var nptUi = (function () {
 			// Set OSM date in welcome message
 			nptUi.setOsmDate ();
 			
+			// Create welcome screen
+			nptUi.newModal ('welcome');
+			nptUi.updateDate ();
 		},
 		
 		

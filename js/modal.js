@@ -1,6 +1,6 @@
 
 // Function to manage modal dialogs
-const newModal = function (modalId)
+function newModal (modalId)
 {
   // Identify the modal
   const modal = document.getElementById(modalId);
