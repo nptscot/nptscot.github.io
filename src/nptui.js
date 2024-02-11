@@ -80,7 +80,7 @@ const nptUi = (function () {
 			}
 			
 			// Define the cookie name
-			const cookieName = 'NPTtrack';
+			const cookieName = 'analyticstrack';
 			
 			// Handle cookie warning buttons
 			document.querySelectorAll('#cookiewarning button').forEach(function (button) {
@@ -121,9 +121,9 @@ const nptUi = (function () {
 			function showCookieWarning ()
 			{
 				const cookiewarning = document.getElementById ('cookiewarning');
-				const NPTcookie = nptUi.getCookie (cookieName);
-				//console.log ("Cookie status: '" + NPTcookie + "'");
-				cookiewarning.style.display = (NPTcookie === '' ? 'block' : 'none');
+				const cookie = nptUi.getCookie (cookieName);
+				//console.log ("Cookie status: '" + cookie + "'");
+				cookiewarning.style.display = (cookie === '' ? 'block' : 'none');
 			}
 		},
 		
@@ -512,7 +512,7 @@ const nptUi = (function () {
 							features.push(point);
 						}
 					} catch (e) {
-						console.error(`Failed to forwardGeocode with error: ${e}`);
+						console.error (`Failed to forwardGeocode with error: ${e}`);
 					}
 					
 					return {
@@ -529,7 +529,7 @@ const nptUi = (function () {
 		manageLayers: function ()
 		{
 			// Add layers when the map is ready (including after a basemap change)
-			document.addEventListener('@map/ready', function () {
+			document.addEventListener ('@map/ready', function () {
 				
 				// Initialise datasets (sources and layers)
 				nptUi.initialiseDatasets();
@@ -973,20 +973,20 @@ const nptUi = (function () {
 		{
 			// Start an object to hold range, min, max, density, format
 			const sliderAttributes = {};
-		
+			
 			// Identify the datalist
 			const datalistElement = document.getElementById(sliderId + '-values');
 			if (!datalistElement) {
 				console.log('ERROR in HTML: No <datalist> defined for slider ' + sliderId);
 				return {};
 			}
-		
+			
 			// Loop through each datalist value, e.g. slider-cycle should be accompanied by <datalist id="slider-cycle-values">
 			sliderAttributes.range = {};
 			let increments;
 			const sliderOptions = Array.from(datalistElement.options);
 			sliderOptions.forEach((option, index) => {
-		
+				
 				// Determine the increment to the next; last item has no increment; use defined or calculated for others
 				if (index == (sliderOptions.length - 1)) { // Last
 					increments = null;
@@ -995,18 +995,18 @@ const nptUi = (function () {
 				} else { // Increments is difference from current to next, e.g. 1 then 10 => 9
 					increments = parseInt(sliderOptions[index + 1].value - option.value);
 				}
-		
+				
 				// Register result, e.g. {"12.5%": [1, 9], ...}
 				sliderAttributes.range[option.dataset.position] = [parseInt(option.value), increments]; // E.g. [1, 9]
 			});
-		
+			
 			// Add min/max
 			sliderAttributes.min = parseInt(sliderOptions[0].value);
 			sliderAttributes.max = parseInt(sliderOptions[sliderOptions.length - 1].value);
-		
+			
 			// Add density
 			sliderAttributes.density = parseInt(datalistElement.dataset.density);
-		
+			
 			// Add format labels, if any
 			const labels = {};
 			sliderOptions.forEach((option, index) => {
@@ -1023,7 +1023,7 @@ const nptUi = (function () {
 			} else {
 				sliderAttributes.format = null;
 			}
-		
+			
 			// Return the result
 			//console.log ('Slider values for id ' + sliderId + ':', sliderAttributes);
 			return sliderAttributes;
@@ -1034,15 +1034,15 @@ const nptUi = (function () {
 		tooltips: function ()
 		{
 			tippy('[title]', {
-				content(reference) {
-				const title = reference.getAttribute('title');
-				reference.removeAttribute('title');
-				return title;
+				content (reference) {
+					const title = reference.getAttribute('title');
+					reference.removeAttribute('title');
+					return title;
 				},
 			});
 		},
-
-
+		
+		
 		// Function to format a date
 		formatAsUKDate: function (date)
 		{
