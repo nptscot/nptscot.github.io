@@ -407,7 +407,7 @@ var nptUi = (function () {
 				if (!map.getSource ('dasymetric')) {
 					map.addSource ('dasymetric', {
 						'type': 'vector',
-						'url': settings.buildingsTilesUrl.replace('%tileserverUrl', settings.tileserverUrl),
+						'url': settings.buildingsTilesUrl.replace ('%tileserverUrl', settings.tileserverUrl),
 					});
 				}
 				
@@ -443,8 +443,7 @@ var nptUi = (function () {
 			// Add the source
 			map.addSource ('placenames', {
 				'type': 'vector',
-				// #!# Parameterise base server URL
-				'url': 'pmtiles://https://nptscot.blob.core.windows.net/pmtiles/oszoom_names.pmtiles',
+				'url': settings.placenamesTilesUrl.replace ('%tileserverUrl', settings.tileserverUrl),
 			});
 			
 			// Load the style definition
@@ -562,7 +561,7 @@ var nptUi = (function () {
 			// Replace tileserver URL placeholder in layer definitions
 			Object.entries(datasets.layers).forEach(([layerId, layer]) => {
 				let tileserverUrl = (settings.tileserverTempLocalOverrides[layerId] ? settings.tileserverTempLocalOverrides[layerId] : settings.tileserverUrl);
-				datasets.layers[layerId].source.url = layer.source.url.replace('%tileserverUrl', tileserverUrl)
+				datasets.layers[layerId].source.url = layer.source.url.replace ('%tileserverUrl', tileserverUrl)
 			});
 			
 			// Add layers, and their sources, initially not visible when initialised
