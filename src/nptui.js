@@ -46,27 +46,8 @@ var nptUi = (function () {
 			// Manage layers
 			nptUi.manageLayers ();
 			
-			// Callback to determine the field for number of cyclists
-			const ncycleField = function ncycleField(feature) {
-				const layerPurpose = document.getElementById('rnet_purpose_input').value;
-				const layerType = document.getElementById('rnet_type_input').value;
-				const layerScenario = document.getElementById('rnet_scenario_input').value;
-				const layerField = layerPurpose + '_' + layerType + '_' + layerScenario;
-				feature.properties._ncycle = feature.properties[layerField];
-				return feature;
-			}
-			
 			// Create popups
-			const layerVariants = ['rnet', 'rnet-simplified'];
-			layerVariants.forEach(layerId => {
-				nptUi.mapPopups ({
-					layerId: layerId,
-					templateId: 'rnet-popup',
-					preprocessingCallback: ncycleField,
-					smallValuesThreshold: 10,
-					literalFields: ['Gradient', 'Quietness'] // #!# Gradient and Quietness are capitalised unlike other
-				});
-			});
+			nptUi.createPopups ();
 			
 			// Create charts for the defined map layers
 			nptUi.charts (datasets.charts);
@@ -904,6 +885,33 @@ var nptUi = (function () {
 				properties._osmUrl = 'https://www.openstreetmap.org/#map=19/' + coordinates.lat + '/' + coordinates.lng;
 				return properties;
 			}
+		},
+		
+		
+		// Function to create popups
+		createPopups: function ()
+		{
+			// Callback to determine the field for number of cyclists
+			function ncycleField (feature) {
+				const layerPurpose = document.getElementById('rnet_purpose_input').value;
+				const layerType = document.getElementById('rnet_type_input').value;
+				const layerScenario = document.getElementById('rnet_scenario_input').value;
+				const layerField = layerPurpose + '_' + layerType + '_' + layerScenario;
+				feature.properties._ncycle = feature.properties[layerField];
+				return feature;
+			}
+			
+			// Add to each layer
+			const layerVariants = ['rnet', 'rnet-simplified'];
+			layerVariants.forEach(layerId => {
+				nptUi.mapPopups ({
+					layerId: layerId,
+					templateId: 'rnet-popup',
+					preprocessingCallback: ncycleField,
+					smallValuesThreshold: 10,
+					literalFields: ['Gradient', 'Quietness'] // #!# Gradient and Quietness are capitalised unlike other
+				});
+			});
 		},
 		
 		
