@@ -3,35 +3,35 @@
 
 const definitions = {
   
-  sources: [
-    ['rnet', 'pmtiles://%tileserverUrl/rnet-2023-12-17.pmtiles'],
-    ['rnet-simplified', 'pmtiles://%tileserverUrl/rnet_simplified-2023-12-17.pmtiles'],   // #!# Inconsistent path - needs fixing
-    ['data_zones', 'pmtiles://%tileserverUrl/data_zones-2023-12-17.pmtiles'],
-    ['schools', 'pmtiles://%tileserverUrl/schools-2023-12-17.pmtiles'],
-    ['wards', 'pmtiles://%tileserverUrl/wards.pmtiles'],
-    ['holyrood', 'pmtiles://%tileserverUrl/holyrood.pmtiles'],
-    ['scot_regions', 'pmtiles://%tileserverUrl/scot_regions.pmtiles'],
-    ['la', 'pmtiles://%tileserverUrl/la.pmtiles'],
-    ['cohesivenetwork', 'pmtiles://%tileserverUrl/cohesivenetwork.pmtiles'],
-  ],
-  
   layers: {
+    
     rnet: {
       'id': 'rnet',
-      'source': 'rnet',
+      'source': {
+        'type': 'vector',
+        'url': 'pmtiles://%tileserverUrl/rnet-2023-12-17.pmtiles',
+      },
       'source-layer': 'rnet',
       'type': 'line',
     },
+    
     'rnet-simplified': {
       'id': 'rnet-simplified',
-      'source': 'rnet-simplified',
+      'source': {
+        'type': 'vector',
+        'url': 'pmtiles://%tileserverUrl/rnet_simplified-2023-12-17.pmtiles',   // #!# Inconsistent path - needs fixing
+      },
       'source-layer': 'rnet',
       'type': 'line',
     },
+    
     data_zones: {
       'id': 'data_zones',
       'type': 'fill',
-      'source': 'data_zones',
+      'source': {
+        'type': 'vector',
+        'url': 'pmtiles://%tileserverUrl/data_zones-2023-12-17.pmtiles',
+      },
       'source-layer': 'data_zones',
       'paint': {
         'fill-color': '#9c9898',
@@ -39,10 +39,14 @@ const definitions = {
         'fill-outline-color': '#000000'
       }
     },
+    
     schools: {
       'id': 'schools',
       'type': 'circle',
-      'source': 'schools',
+      'source': {
+        'type': 'vector',
+        'url': 'pmtiles://%tileserverUrl/schools-2023-12-17.pmtiles',
+      },
       'source-layer': 'schools',
       'paint': {
         "circle-color": [
@@ -62,50 +66,70 @@ const definitions = {
         },
       } 
     },
+    
     wards: {
       'id': 'wards',
       'type': 'line',
-      'source': 'wards',
+      'source': {
+        'type': 'vector',
+        'url': 'pmtiles://%tileserverUrl/wards.pmtiles',
+      },
       'source-layer': 'wards',
       'paint': {
         'line-color': 'rgba(32, 107, 7, 1)',
         'line-width': 2
       }
     },
+    
     holyrood: {
       'id': 'holyrood',
       'type': 'line',
-      'source': 'holyrood',
+      'source': {
+        'type': 'vector',
+        'url': 'pmtiles://%tileserverUrl/holyrood.pmtiles',
+      },
       'source-layer': 'holyrood',
       'paint': {
         'line-color': 'rgba(83, 123, 252, 1)',
         'line-width': 2
       }
     },
+    
     scot_regions: {
       'id': 'scot_regions',
       'type': 'line',
-      'source': 'scot_regions',
+      'source': {
+        'type': 'vector',
+        'url': 'pmtiles://%tileserverUrl/scot_regions.pmtiles',
+      },
       'source-layer': 'scot_regions',
       'paint': {
         'line-color': 'rgba(186, 177, 6, 1)',
         'line-width': 2
       }
     },
+    
     la: {
       'id': 'la',
       'type': 'line',
-      'source': 'la',
+      'source': {
+        'type': 'vector',
+        'url': 'pmtiles://%tileserverUrl/la.pmtiles',
+      },
       'source-layer': 'la',
       'paint': {
         'line-color': 'rgba(107, 7, 7, 1)',
         'line-width': 2
       } 
     },
+    
     cohesivenetwork: {
       'id': 'cohesivenetwork',
       'type': 'line',
-      'source': 'cohesivenetwork',
+      'source': {
+        'type': 'vector',
+        'url': 'pmtiles://%tileserverUrl/cohesivenetwork.pmtiles',
+      },
       'source-layer': 'example_cohesive',	// #!# Needs fixing to 'cohesivenetwork'
       'paint': {
         'line-color': [
@@ -365,32 +389,17 @@ function initialiseDatasets ()
 {
   // console.log ('Initialising sources and layers');
   
-  // Add sources
-  definitions.sources.forEach (source => {
-    const [sourceId, url] = source;
-    
-    // Determine the tileserver to use
-    let tileserverUrl = settings.tileserverUrl;
-    if (settings.tileserverTempLocalOverrides[sourceId]) {
-      tileserverUrl = settings.tileserverTempLocalOverrides[sourceId];
-    }
-    
-    // Add the source, if it does not already exist
-    if (!map.getSource(sourceId)){
-      map.addSource(sourceId, {
-        'type': 'vector',
-        'url': url.replace ('%tileserverUrl', tileserverUrl),
-      });
-    }
+  // Replace tileserver URL placeholder in layer definitions
+  Object.entries (definitions.layers).forEach (([layerId, layer]) => {
+    let tileserverUrl = (settings.tileserverTempLocalOverrides[layerId] ? settings.tileserverTempLocalOverrides[layerId] : settings.tileserverUrl);
+    definitions.layers[layerId].source.url = layer.source.url.replace ('%tileserverUrl', tileserverUrl)
   });
   
-  // Add layers, initially not visible when initialised
+  // Add layers, and their sources, initially not visible when initialised
   Object.keys (definitions.layers).forEach (layerId => {
-    if (!map.getLayer (layerId)) {
-      const beforeId = (layerId == 'data_zones' ? 'roads 0 Guided Busway Casing' : 'placeholder_name');   // #!# Needs to be moved to definitions
-      definitions.layers[layerId].layout = {visibility: 'none'};
-      map.addLayer (definitions.layers[layerId], beforeId);
-    }
+    const beforeId = (layerId == 'data_zones' ? 'roads 0 Guided Busway Casing' : 'placeholder_name');   // #!# Needs to be moved to definitions
+    definitions.layers[layerId].layout = {visibility: 'none'};
+    map.addLayer (definitions.layers[layerId], beforeId);
   });
 }
 
