@@ -95,6 +95,77 @@ var nptUi = (function () {
 		},
 		
 		
+		// Function to manage modal dialogs
+		newModal: function (modalId)
+		{
+			// Identify the modal
+			const modal = document.getElementById(modalId);
+			
+			// When the user clicks on <span> (x), close the modal
+			const closeButton = document.querySelector('#' + modalId + ' .modal-close');
+			closeButton.addEventListener('click', function () {
+				hide();
+			});
+			
+			// Treat clicking outside of the modal as implied close
+			window.addEventListener('click', function (event) {
+				if (event.target == modal || event.target.id == 'overlay') {
+					hide();
+				}
+			});
+			
+			// Treat escape key as implied close
+			window.addEventListener('keyup', function (event) {
+				if (event.key == 'Escape') {
+					if (window.getComputedStyle(modal).display == 'block') { // I.e. is displayed
+						hide();
+					}
+				}
+			});
+			
+			// Show
+			const show = function ()
+			{
+				document.getElementById('overlay').style.display = 'block';
+				modal.style.display = 'block';
+			};
+			
+			// Hide
+			const hide = function ()
+			{
+				modal.style.display = 'none';
+				document.getElementById('overlay').style.display = 'none';
+			};
+			
+			// Accessor functions
+			return {
+				show: show,
+				hide: hide
+			};
+		},
+		
+		
+		// Function to set the update date in the welcome screen
+		updateDate: function ()
+		{
+			let text = 'Last updated: ' + nptUi.formatAsUKDate(document.lastModified) + '.';
+			text += ' You may need to <a href="https://www.minitool.com/news/f5-vs-ctrl-f5.html">clear your browser cache</a> to see the latest updates.'
+			document.getElementById('updatedate').innerHTML = text;
+		},
+		
+		
+		// Function to format a date
+		formatAsUKDate: function (date)
+		{
+			const options = {
+				year: 'numeric',
+				month: 'long',
+				day: 'numeric'
+			};
+			return new Date(date).toLocaleDateString('en-GB', options);
+		},
+		
+		
 		// Generic cookie managment functions
 		setCookie: function (name, value)
 		{
