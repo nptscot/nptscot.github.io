@@ -1,5 +1,5 @@
 
-// Settings definitions for this installation
+// Settings for this installation
 const settings = {
 	
 	// Map position
