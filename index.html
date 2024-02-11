@@ -6,7 +6,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="Description" content="An interactive map to aid cycle planning in Scotland">
   
-  <!--  Social Media Tags -->
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  
+  <!-- Social media -->
   <meta property="og:title" content="NPT Scotland">
   <meta property="og:description" content="An interactive map to aid cycle planning in Scotland">
   <meta property="og:image" content="/images/thumbnail.jpg">
@@ -24,21 +28,18 @@
   <meta name="theme-color" content="#0b38e6">
   <script src="/app.js" defer></script>
   
-  <!-- Set Up map -->
+  <!-- Map dependencies -->
   <script src="/js/lib/pmtiles/index-2.11.0.js"></script> <!-- v2.7.1 -->
   <script src="/js/lib/geocoder/maplibre-gl-geocoder.min.js"></script>
   <link rel="stylesheet" href="js/lib/geocoder/maplibre-gl-geocoder-small.css" type="text/css"/>
   <script src="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.js"></script>
   <link href="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.css" rel="stylesheet" />
   
-  <!-- Set Up CSS -->
-  <link rel="stylesheet" href="css/main.css">
-  <link rel="stylesheet" href="css/modal.css" defer>
-  
-
+  <!-- Sliders -->
   <link href="js/lib/noUiSlider_15_7_0/nouislider.min.css" rel="stylesheet">
   <script src="js/lib/noUiSlider_15_7_0/nouislider.min.js"></script>
   
+  <!-- Font Awesome -->
   <link href="/assets/fontawesome/css/fontawesome.css" rel="stylesheet">
   <link href="/assets/fontawesome/css/solid.min.css" rel="stylesheet">
   
@@ -52,7 +53,6 @@
   <!-- Charts -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1" defer></script>
   
-  
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-QZMHV92YXJ"></script>
   <script>
@@ -62,14 +62,25 @@
   
     gtag('config', 'G-QZMHV92YXJ');
   </script>
-
   
-  <!-- Set Up Icon -->
-  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  
+  <!-- Set Up CSS -->
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/modal.css" defer>
+  
+  <!-- NPT application -->
+  <script src="src/settings.js"></script>
+  <script src="src/datasets.js"></script>
+  <script src="src/nptui.js"></script>
+  <script>
+    document.addEventListener ('DOMContentLoaded', function () {
+      nptUi.initialise (settings);
+    });
+  </script>
   
 </head>
 <body>
+
   
 <!-- Menu -->
 <div class="nav-wrapper">
@@ -402,19 +413,6 @@
   
   </div>
 </template>
-
-
-
-
-<script src="src/settings.js"></script>
-<script src="src/datasets.js"></script>
-<script src="src/nptui.js"></script>
-<script>
-  document.addEventListener ('DOMContentLoaded', function () {
-    nptUi.initialise (settings);
-  });
-</script>
-
 
 
 </body>
