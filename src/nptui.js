@@ -36,6 +36,9 @@ var nptUi = (function () {
 			
 			// Layer controls box UI
 			nptUi.layerControlsBoxUi ();
+			
+			// General GUI topnav function
+			nptUi.topnav ();
 		},
 		
 		
@@ -212,6 +215,21 @@ var nptUi = (function () {
 		},
 		
 		
+		// Main menu responsive display
+		topnav: function ()
+		{
+			document.getElementById ('expandtopnav').addEventListener ('click', function (e) {
+				var x = document.getElementById('myTopnav');
+				if (x.className == 'topnav') {
+					x.classList.add ('responsive');
+				} else {
+					x.classList.remove ('responsive');
+				}
+				e.preventDefault ();
+			});
+		},
+
+
 		// Function to format a date
 		formatAsUKDate: function (date)
 		{
