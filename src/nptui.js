@@ -938,10 +938,10 @@ const nptUi = (function () {
 		{
 			// Find each div to be converted to a slider
 			document.querySelectorAll('div.slider-styled').forEach(div => {
-		
+				
 				// Calculate the attributes based on an associated <datalist>
 				const attributes = nptUi.sliderAttributes(div.id);
-		
+				
 				// Create the slider
 				noUiSlider.create(div, {
 					start: [attributes.min, attributes.max],
@@ -953,12 +953,12 @@ const nptUi = (function () {
 						format: attributes.format
 					}
 				});
-		
+				
 				// Define handler to proxy the result to hidden input fields, with value "<numStart>-<numFinish>"
-				const slider = div.id.replace('slider-', '');
-				div.noUiSlider.on('update', function () {
-					document.getElementById('rnet_slider-' + slider).value = Number(div.noUiSlider.get()[0]) + '-' + Number(div.noUiSlider.get()[1]);
-					document.getElementById('rnet_slider-' + slider).dispatchEvent(new Event('change'));
+				const inputField = div.id.replace ('-ui', '');
+				div.noUiSlider.on ('update', function () {
+					document.getElementById (inputField).value = Number (div.noUiSlider.get()[0]) + '-' + Number (div.noUiSlider.get()[1]);
+					document.getElementById (inputField).dispatchEvent (new Event('change'));
 				});
 			});
 		},

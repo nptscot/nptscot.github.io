@@ -203,8 +203,8 @@
 			<div class="panel">
 				<p><b>Filters</b><button aria-label="Help scenario" class="helpbutton" data-help="filters" title="Full details of filtering parts of the route network"><i class="fa fa-question-circle" aria-hidden="true"></i></button></p>
 				<p>Number of cyclists</p>
-				<div id="slider-cycle" class="slider-styled"></div>
-				<datalist id="slider-cycle-values" data-density="3">
+				<div id="rnet_slider-cycle-ui" class="slider-styled"></div>
+				<datalist id="rnet_slider-cycle-ui-values" data-density="3">
 					<option value="1"     data-position="min"></option>
 					<!-- #!# Should there be a zero value possibility? -->
 					<option value="10"    data-position="12.5%"></option>
@@ -219,8 +219,8 @@
 				<input type="hidden" id="rnet_slider-cycle" class="updatelayer" />
 				<p>&nbsp</p>
 				<p>Gradient (%)</p>
-				<div id="slider-gradient" class="slider-styled"></div>
-				<datalist id="slider-gradient-values" data-density="10">
+				<div id="rnet_slider-gradient-ui" class="slider-styled"></div>
+				<datalist id="rnet_slider-gradient-ui-values" data-density="10">
 					<option value="0"  data-position="min" data-increments="1"></option>
 					<option value="1"  data-position="10%" data-increments="1"></option>
 					<option value="3"  data-position="30%" data-increments="1"></option>
@@ -232,8 +232,8 @@
 				<input type="hidden" id="rnet_slider-gradient" class="updatelayer" />
 				<p>&nbsp</p>
 				<p>Cycle friendliness (%)</p>
-				<div id="slider-quietness" class="slider-styled"></div>
-				<datalist id="slider-quietness-values" data-density="10">
+				<div id="rnet_slider-quietness-ui" class="slider-styled"></div>
+				<datalist id="rnet_slider-quietness-ui-values" data-density="10">
 					<option value="0"   data-position="min" data-label="Hostile" data-increments="10"></option>
 					<option value="100" data-position="max" data-label="Quiet"></option>
 				</datalist>
