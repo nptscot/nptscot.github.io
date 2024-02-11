@@ -60,6 +60,9 @@ var nptUi = (function () {
 			
 			// Tooltip support
 			nptUi.tooltips ();
+			
+			// Add handler for proxy checkboxes - the combination of the enabled and simplified checkboxes set the 'real' layer checkboxes
+			nptUi.rnetCheckboxProxying ();
 		},
 		
 		
@@ -523,9 +526,6 @@ var nptUi = (function () {
 				
 				// Initialise datasets (sources and layers)
 				nptUi.initialiseDatasets();
-				
-				// Add handler for proxy checkboxes - the combination of the enabled and simplified checkboxes set the 'real' layer checkboxes
-				nptUi.rnetCheckboxProxying();
 				
 				// Set initial state for all layers
 				Object.keys(datasets.layers).forEach(layerId => {
