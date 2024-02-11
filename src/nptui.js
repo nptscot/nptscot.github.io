@@ -404,11 +404,10 @@ var nptUi = (function () {
 			map.once ('idle', function () {
 				
 				// Add the source
-				if (!map.getSource('dasymetric')) {
-					map.addSource('dasymetric', {
+				if (!map.getSource ('dasymetric')) {
+					map.addSource ('dasymetric', {
 						'type': 'vector',
-						// #!# Parameterise base server URL
-						'url': 'pmtiles://https://nptscot.blob.core.windows.net/pmtiles/dasymetric-2023-12-17.pmtiles',
+						'url': settings.buildingsTilesUrl.replace('%tileserverUrl', settings.tileserverUrl),
 					});
 				}
 				

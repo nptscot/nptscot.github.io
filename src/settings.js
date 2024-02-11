@@ -42,6 +42,9 @@ const settings = {
 		//cohesivenetwork: 'cohesivenetwork/',
 	},
 	
+	// Building tiles URL; can use %tileserverUrl to represent the above
+	buildingsTilesUrl: 'pmtiles://%tileserverUrl/dasymetric-2023-12-17.pmtiles',
+	
 	// Manual
 	manualEditingUrl: 'https://github.com/nptscot/nptscot.github.io/edit/dev/%id/index.md',
 	
