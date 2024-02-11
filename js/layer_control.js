@@ -3,17 +3,16 @@
 
 const definitions = {
   
-  // #!# Cases with path have inconsistent naming which would be good to align, then remove 'path' support
   sources: [
-    ['rnet', {dateBased: '2023-12-17', localUrl: 'utilitytrips/'}],
-    ['rnet-simplified', {path: 'rnet_simplified', dateBased: '2023-12-17'}],
-    ['data_zones', {dateBased: '2023-12-17'}],
-    ['schools', {dateBased: '2023-12-17'}],
-    ['wards'],
-    ['holyrood'],
-    ['scot_regions'],
-    ['la'],
-    ['cohesivenetwork', {localUrl: 'cohesivenetwork/'}],    // #!# To be deployed on NPT tilserver as cohesivenetwork.pmtiles:
+    ['rnet', 'pmtiles://%tileserverUrl/rnet-2023-12-17.pmtiles'],
+    ['rnet-simplified', 'pmtiles://%tileserverUrl/rnet_simplified-2023-12-17.pmtiles'],   // #!# Inconsistent path - needs fixing
+    ['data_zones', 'pmtiles://%tileserverUrl/data_zones-2023-12-17.pmtiles'],
+    ['schools', 'pmtiles://%tileserverUrl/schools-2023-12-17.pmtiles'],
+    ['wards', 'pmtiles://%tileserverUrl/wards.pmtiles'],
+    ['holyrood', 'pmtiles://%tileserverUrl/holyrood.pmtiles'],
+    ['scot_regions', 'pmtiles://%tileserverUrl/scot_regions.pmtiles'],
+    ['la', 'pmtiles://%tileserverUrl/la.pmtiles'],
+    ['cohesivenetwork', 'pmtiles://%tileserverUrl/cohesivenetwork.pmtiles'],
   ],
   
   layers: {
@@ -368,24 +367,19 @@ function initialiseDatasets ()
   
   // Add sources
   definitions.sources.forEach (source => {
-    const [sourceId, attributes = {}] = source;
+    const [sourceId, url] = source;
     
-    // Construct the URL
-    let url = 'pmtiles://';
-    if (settings.tileserverTempLocal && attributes.localUrl) {
-      url += attributes.localUrl;
-    } else {
-      url += settings.tileserverUrl;
+    // Determine the tileserver to use
+    let tileserverUrl = settings.tileserverUrl;
+    if (settings.tileserverTempLocalOverrides[sourceId]) {
+      tileserverUrl = settings.tileserverTempLocalOverrides[sourceId];
     }
-    url += (attributes.path || sourceId);
-    url += (attributes.dateBased ? '-' + attributes.dateBased : '');
-    url += '.pmtiles';
     
     // Add the source, if it does not already exist
     if (!map.getSource(sourceId)){
       map.addSource(sourceId, {
         'type': 'vector',
-        'url': url,
+        'url': url.replace ('%tileserverUrl', tileserverUrl),
       });
     }
   });

@@ -36,8 +36,11 @@ const settings = {
 	},
 	
 	// Tileserver for data layers
-	tileserverUrl: 'https://nptscot.blob.core.windows.net/pmtiles/',
-	tileserverTempLocal: false,  // Temporarily set to true to switch to localUrl cases
+	tileserverUrl: 'https://nptscot.blob.core.windows.net/pmtiles',		// Not slash-terminated
+	tileserverTempLocalOverrides: {		// Temporarily define any local folder paths where particular layers should come from
+		//rnet: 'utilitytrips/',
+		//cohesivenetwork: 'cohesivenetwork/',
+	},
 	
 	// Manual
 	manualEditingUrl: 'https://github.com/nptscot/nptscot.github.io/edit/dev/%id/index.md',
