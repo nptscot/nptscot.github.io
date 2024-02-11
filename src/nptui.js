@@ -1,7 +1,7 @@
 // NPT UI implementation code
 
 /*jslint browser: true, white: true, single: true, for: true, unordered: true, long: true */
-/*global alert, console, window */
+/*global alert, console, window, tippy */
 
 var nptUi = (function () {
 	
@@ -39,6 +39,9 @@ var nptUi = (function () {
 			
 			// General GUI topnav function
 			nptUi.topnav ();
+			
+			// Tooltip support
+			nptUi.tooltips ();
 		},
 		
 		
@@ -226,6 +229,19 @@ var nptUi = (function () {
 					x.classList.remove ('responsive');
 				}
 				e.preventDefault ();
+			});
+		},
+		
+		
+		// Function to add tooltips
+		tooltips: function ()
+		{
+			tippy('[title]', {
+				content(reference) {
+				const title = reference.getAttribute('title');
+				reference.removeAttribute('title');
+				return title;
+				},
 			});
 		},
 
