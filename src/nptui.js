@@ -3,17 +3,18 @@
 /*jslint browser: true, white: true, single: true, for: true, unordered: true, long: true */
 /*global alert, console, window */
 
-var nptui = (function () {
+var nptUi = (function () {
 	
 	'use strict';
+	
 	
 	// Settings
 	let _settings = {};		// Will be populated by constructor
 	
+	
+	// Functions
 	return {
 		
-		// Public functions
-			
 		// Main function
 		initialise: function (settings)
 		{
