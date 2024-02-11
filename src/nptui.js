@@ -13,6 +13,7 @@ const nptUi = (function () {
 	let _datasets = {};		// Will be populated by constructor
 	let _map;
 	
+	
 	// Functions
 	return {
 		
@@ -26,12 +27,8 @@ const nptUi = (function () {
 			// Manage analytics cookie setting
 			nptUi.manageAnalyticsCookie ();
 			
-			// Set OSM date in welcome message
-			nptUi.setOsmDate ();
-			
 			// Create welcome screen
-			nptUi.newModal ('welcome');
-			nptUi.updateDate ();
+			nptUi.welcomeScreen ();
 			
 			// Enable the accordion functionality for the layer controls box and popups
 			nptUi.accordion ();
@@ -128,10 +125,19 @@ const nptUi = (function () {
 		},
 		
 		
-		// Function to set the OSM date in the welcome message
-		setOsmDate: function ()
+		// Welcome screen
+		welcomeScreen: function ()
 		{
-			document.getElementById ('osmupdatedate').innerHTML = _settings.osmDate;
+			// Create modal
+			nptUi.newModal ('welcome');
+			
+			// Set OSM and update dates in the text, if present
+			if (document.getElementById ('osmupdatedate')) {
+				document.getElementById ('osmupdatedate').innerHTML = _settings.osmDate;
+			}
+			if (document.getElementById ('updatedate')) {
+				document.getElementById ('updatedate').innerText = nptUi.formatAsUKDate (document.lastModified);
+			}
 		},
 		
 		
@@ -182,13 +188,6 @@ const nptUi = (function () {
 				show: show,
 				hide: hide
 			};
-		},
-		
-		
-		// Function to set the update date in the welcome screen
-		updateDate: function ()
-		{
-			document.getElementById('updatedate').innerText = nptUi.formatAsUKDate(document.lastModified);
 		},
 		
 		
