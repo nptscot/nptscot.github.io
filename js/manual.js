@@ -1,6 +1,9 @@
 /* Convert Markdown to HTML */
 loadManual ();
 
+// Top nav
+topnav ();
+
 
 // Load the Markdown file as text and place it into the content div
 function loadManual ()
@@ -87,4 +90,19 @@ function createEditLink ()
   
   // Create new div and attach to body
   document.querySelector('#editlink').href = link;
+}
+
+
+// Main menu responsive display
+function topnav ()
+{
+  document.getElementById ('expandtopnav').addEventListener ('click', function (e) {
+    var x = document.getElementById('myTopnav');
+    if (x.className == 'topnav') {
+      x.classList.add ('responsive');
+    } else {
+      x.classList.remove ('responsive');
+    }
+    e.preventDefault ();
+  });
 }
