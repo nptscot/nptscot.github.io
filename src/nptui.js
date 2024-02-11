@@ -10,16 +10,18 @@ const nptUi = (function () {
 	
 	// Settings
 	let _settings = {};		// Will be populated by constructor
+	let _datasets = {};		// Will be populated by constructor
 	let _map;
 	
 	// Functions
 	return {
 		
 		// Main function
-		initialise: function (settings)
+		initialise: function (settings, datasets)
 		{
-			// Populate the settings class property
+			// Populate the settings and datasets class properties
 			_settings = settings;
+			_datasets = datasets;
 			
 			// Manage analytics cookie setting
 			nptUi.manageAnalyticsCookie ();
@@ -530,7 +532,7 @@ const nptUi = (function () {
 				nptUi.initialiseDatasets();
 				
 				// Set initial state for all layers
-				Object.keys(datasets.layers).forEach(layerId => {
+				Object.keys(_datasets.layers).forEach(layerId => {
 					nptUi.toggleLayer(layerId);
 				});
 				
@@ -561,18 +563,18 @@ const nptUi = (function () {
 			// console.log ('Initialising sources and layers');
 			
 			// Replace tileserver URL placeholder in layer definitions
-			Object.entries(datasets.layers).forEach(([layerId, layer]) => {
+			Object.entries(_datasets.layers).forEach(([layerId, layer]) => {
 				let tileserverUrl = (settings.tileserverTempLocalOverrides[layerId] ? settings.tileserverTempLocalOverrides[layerId] : settings.tileserverUrl);
-				datasets.layers[layerId].source.url = layer.source.url.replace ('%tileserverUrl', tileserverUrl)
+				_datasets.layers[layerId].source.url = layer.source.url.replace ('%tileserverUrl', tileserverUrl)
 			});
 			
 			// Add layers, and their sources, initially not visible when initialised
-			Object.keys(datasets.layers).forEach(layerId => {
+			Object.keys(_datasets.layers).forEach(layerId => {
 				const beforeId = (layerId == 'data_zones' ? 'roads 0 Guided Busway Casing' : 'placeholder_name'); // #!# Needs to be moved to definitions
-				datasets.layers[layerId].layout = {
+				_datasets.layers[layerId].layout = {
 					visibility: 'none'
 				};
-				_map.addLayer(datasets.layers[layerId], beforeId);
+				_map.addLayer(_datasets.layers[layerId], beforeId);
 			});
 		},
 		
@@ -611,7 +613,7 @@ const nptUi = (function () {
 		{
 			// Update the Legend - Do this even if map layer is off
 			const layerColour = document.getElementById('rnet_colour_input').value;
-			nptUi.createLegend(datasets.legends.rnet, layerColour, 'linecolourlegend');
+			nptUi.createLegend(_datasets.legends.rnet, layerColour, 'linecolourlegend');
 			
 			// No special handling needed if not visible
 			if (!document.getElementById(layerId + 'checkbox').checked) {
@@ -636,28 +638,28 @@ const nptUi = (function () {
 			const filter = ['all',
 				['>=', layerWidthField, sliders.cycle.min],
 				['<=', layerWidthField, sliders.cycle.max],
-				['>=', "Quietness", sliders.quietness.min],
-				['<=', "Quietness", sliders.quietness.max],
-				['>=', "Gradient", sliders.gradient.min],
-				['<=', "Gradient", sliders.gradient.max]
+				['>=', 'Quietness', sliders.quietness.min],
+				['<=', 'Quietness', sliders.quietness.max],
+				['>=', 'Gradient', sliders.gradient.min],
+				['<=', 'Gradient', sliders.gradient.max]
 			];
 			
 			// Define line colour
 			const line_colours = {
-				'none': datasets.lineColours.rnet.none,
+				'none': _datasets.lineColours.rnet.none,
 				'flow': [
 					'step', ['get', layerWidthField],
-					...datasets.lineColours.rnet.flow,
+					..._datasets.lineColours.rnet.flow,
 					'#FF00C5'
 				],
 				'quietness': [
 					'step', ['get', 'Quietness'],
-					...datasets.lineColours.rnet.quietness,
+					..._datasets.lineColours.rnet.quietness,
 					'#000000'
 				],
 				'gradient': [
 					'step', ['get', 'Gradient'],
-					...datasets.lineColours.rnet.gradient,
+					..._datasets.lineColours.rnet.gradient,
 					'#000000'
 				]
 			};
@@ -702,7 +704,7 @@ const nptUi = (function () {
 		{
 			// Update the legend (even if map layer is off)
 			const fieldId = document.getElementById('data_zones_selector').value;
-			nptUi.createLegend(datasets.legends.data_zones, fieldId, 'dzlegend');
+			nptUi.createLegend(_datasets.legends.data_zones, fieldId, 'dzlegend');
 			
 			// Get UI state
 			const daysymetricMode = document.getElementById('data_zones_checkbox_dasymetric').checked;
@@ -744,8 +746,8 @@ const nptUi = (function () {
 		// Function to determine the style column
 		getStyleColumn: function (layerId)
 		{
-			const style_col_selected = datasets.lineColours.data_zones.hasOwnProperty(layerId) ? layerId : '_';
-			return datasets.lineColours.data_zones[style_col_selected];
+			const style_col_selected = _datasets.lineColours.data_zones.hasOwnProperty(layerId) ? layerId : '_';
+			return _datasets.lineColours.data_zones[style_col_selected];
 		},
 		
 		
@@ -769,7 +771,7 @@ const nptUi = (function () {
 		createPopups: function ()
 		{
 			// Add to each layer
-			Object.entries (datasets.popups).forEach (([layerId, options]) => {
+			Object.entries (_datasets.popups).forEach (([layerId, options]) => {
 				nptUi.mapPopups (layerId, options);
 			});
 		},
@@ -1025,7 +1027,7 @@ const nptUi = (function () {
 			}
 			
 			// Create each set of charts
-			Object.entries (datasets.charts).forEach(([mapLayerId, chartDefinition]) => {
+			Object.entries (_datasets.charts).forEach(([mapLayerId, chartDefinition]) => {
 				chartsModal (mapLayerId, chartDefinition);
 			});
 		},
