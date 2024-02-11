@@ -1,8 +1,3 @@
-const manualSettings = {
-  url: 'https://github.com/nptscot/nptscot.github.io/edit/dev/%id/index.md'
-};
-
-
 /* Convert Markdown to HTML */
 loadManual ();
 
@@ -88,7 +83,7 @@ function createEditLink ()
   const slug = matches[1];
   
   // Assemble the link
-  const link = manualSettings.url.replace ('%id', slug);
+  const link = settings.manualEditingUrl.replace ('%id', slug);
   
   // Create new div and attach to body
   document.querySelector('#editlink').href = link;

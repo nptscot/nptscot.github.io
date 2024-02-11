@@ -1,12 +1,6 @@
 // Dependency: map.js must be loaded first - for basemaps[styleName].buildingColour
 
 
-
-const settings = {
-  tileserverUrl: 'https://nptscot.blob.core.windows.net/pmtiles/',
-  tileserverTempLocal: false,  // Temporarily set to true to switch to localUrl cases below
-}
-
 const definitions = {
   
   // #!# Cases with path have inconsistent naming which would be good to align, then remove 'path' support
@@ -577,7 +571,7 @@ function getBuildingsColour ()
   // If datazones is off, buildings shown, if vector style, as static colour appropriate to the basemap
   if (!document.getElementById('data_zonescheckbox').checked) {
     const styleName = getBasemapStyle ();
-    return basemaps[styleName].buildingColour;
+    return settings.basemapStyles[styleName].buildingColour;
   }
   
   // If dasymetric mode, use a colour set based on the layer

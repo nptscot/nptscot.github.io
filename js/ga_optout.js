@@ -1,7 +1,6 @@
 
 
-gaProperty = 'G-QZMHV92YXJ';
-manageAnalyticsCookie (gaProperty);
+manageAnalyticsCookie (settings.gaProperty);
 
 
 

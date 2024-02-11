@@ -1,29 +1,4 @@
 
-// Basemap styles
-const basemaps = {
-  'greyscale_nobuild': {
-    title: 'OS greyscale',
-    default: true,
-    buildingColour: '#d1cfcf'
-  },
-  'satellite': {
-    title: 'Satellite',
-    buildingColour: false   // No buildings
-  },
-  'opencyclemap': {
-    title: 'OpenCycleMap',
-    buildingColour: false   // No buildings
-  },
-  'google_nobuild': {
-    title: 'Outdoors',
-    buildingColour: '#f0eded'
-  },
-  'dark_nobuild': {
-    title: 'Dark',
-    buildingColour: '#000000'
-  },
-};
-
 
 
 // Setup map, and obtain the handle
@@ -36,8 +11,8 @@ function layerSwitcherHtml ()
 {
   // Create each switcher button
   const options = [];
-  Object.entries (basemaps).forEach (([id, basemap]) => {
-    let option  = `<input type="radio" name="basemap" id="${id}-basemap" value="${id}"` + (basemap.default ? ' checked="checked"' : '') + ' />';
+  Object.entries (settings.basemapStyles).forEach (([id, basemap]) => {
+    let option  = `<input type="radio" name="basemap" id="${id}-basemap" value="${id}"` + (id == settings.basemapStyleDefault ? ' checked="checked"' : '') + ' />';
     option += `<label for="${id}-basemap"><img src="images/basemaps/${id}.png" title="${basemap.title}" /></label>`;
     options.push (option);
   });
@@ -65,10 +40,10 @@ function createMap ()
   var map = new maplibregl.Map({
     container: 'map',
     style: 'tiles/style_' + getBasemapStyle () + '.json',
-    center: [-3.1382,55.9533],
-    zoom: 8,
-    maxZoom: 19,
-    minZoom: 6,
+    center: settings.initialPosition.center,
+    zoom: settings.initialPosition.zoom,
+    maxZoom: settings.maxZoom,
+    minZoom: settings.minZoom,
     maxPitch: 85,
     hash: true,
     antialias: document.getElementById('antialiascheckbox').checked
