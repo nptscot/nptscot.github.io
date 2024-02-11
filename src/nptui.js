@@ -396,7 +396,6 @@ const nptUi = (function () {
 			document.getElementById('basemapform').innerHTML = options.join(' ');
 		},
 		
-		
 		// Function to get the currently-checked basemap style
 		getBasemapStyle: function ()
 		{
@@ -583,171 +582,14 @@ const nptUi = (function () {
 		{
 			//console.log ('Toggling layer ' + layerId);
 			
-			// Check for a dynamic styling function, if any, as layerId + 'Styling', e.g. rnetStyling
-			const stylingFunction = layerId.replace('-', '_') + 'Styling'; // NB hyphens not legal in function names
-			if (typeof nptUi[stylingFunction] === 'function') {
-				nptUi[stylingFunction] (layerId, _map, _datasets, nptUi.createLegend);
+			// Check for a dynamic styling callback and run it
+			if (_datasets.layerStyling[layerId]) {
+				_datasets.layerStyling[layerId] (layerId, _map, _settings, _datasets, nptUi.createLegend);
 			}
 			
 			// Set the visibility of the layer, based on the checkbox value
 			const isVisible = document.getElementById(layerId + 'checkbox').checked;
 			_map.setLayoutProperty(layerId, 'visibility', (isVisible ? 'visible' : 'none'));
-		},
-		
-		
-		// Rnet styling
-		rnetStyling: function (layerId, map, datasets, createLegend /* callback */)
-		{
-			nptUi.handleRnet (layerId, map, datasets, createLegend);
-		},
-		
-		
-		// Rnet simplified styling
-		rnet_simplifiedStyling: function (layerId, map, datasets, createLegend /* callback */)
-		{
-			nptUi.handleRnet (layerId, map, datasets, createLegend);
-		},
-		
-		
-		handleRnet: function (layerId, map, datasets, createLegend /* callback */)
-		{
-			// Update the Legend - Do this even if map layer is off
-			const layerColour = document.getElementById('rnet_colour_input').value;
-			createLegend (datasets.legends.rnet, layerColour, 'linecolourlegend');
-			
-			// No special handling needed if not visible
-			if (!document.getElementById(layerId + 'checkbox').checked) {
-				return;
-			}
-			
-			// Determine the layer width field
-			const layerWidthField = nptUi.getLayerWidthField();
-			
-			// Parse route network sliders to be used as filters
-			const sliders = {};
-			document.querySelectorAll("input[id^='rnet_slider-']").forEach(slider => {
-				const sliderId = slider.id.replace('rnet_slider-', '');
-				const sliderValue = slider.value.split('-');
-				sliders[sliderId] = {
-					min: Number(sliderValue[0]),
-					max: Number(sliderValue[1])
-				};
-			});
-			
-			// Only filter cyclists if scenario set
-			const filter = ['all',
-				['>=', layerWidthField, sliders.cycle.min],
-				['<=', layerWidthField, sliders.cycle.max],
-				['>=', 'Quietness', sliders.quietness.min],
-				['<=', 'Quietness', sliders.quietness.max],
-				['>=', 'Gradient', sliders.gradient.min],
-				['<=', 'Gradient', sliders.gradient.max]
-			];
-			
-			// Define line colour
-			const line_colours = {
-				'none': datasets.lineColours.rnet.none,
-				'flow': [
-					'step', ['get', layerWidthField],
-					...datasets.lineColours.rnet.flow,
-					'#FF00C5'
-				],
-				'quietness': [
-					'step', ['get', 'Quietness'],
-					...datasets.lineColours.rnet.quietness,
-					'#000000'
-				],
-				'gradient': [
-					'step', ['get', 'Gradient'],
-					...datasets.lineColours.rnet.gradient,
-					'#000000'
-				]
-			};
-			
-			// Define line width
-			// Implements the formula y = (3 / (1 + exp(-3*(x/1000 - 1.6))) + 0.3)
-			// This code was hard to work out!
-			const line_width = [
-				'interpolate',
-				['linear'],
-				['zoom'],
-				12, ['*', 2.1, ['+', 0.3, ['/', 3, ['+', 1, ['^', 2.718, ['-', 2.94, ['*', ['get', layerWidthField], 0.0021]]]]]]],
-				14, ['*', 5.25, ['+', 0.3, ['/', 3, ['+', 1, ['^', 2.718, ['-', 2.94, ['*', ['get', layerWidthField], 0.0021]]]]]]],
-				15, ['*', 7.5, ['+', 0.3, ['/', 3, ['+', 1, ['^', 2.718, ['-', 2.94, ['*', ['get', layerWidthField], 0.0021]]]]]]],
-				16, ['*', 18, ['+', 0.3, ['/', 3, ['+', 1, ['^', 2.718, ['-', 2.94, ['*', ['get', layerWidthField], 0.0021]]]]]]],
-				18, ['*', 52.5, ['+', 0.3, ['/', 3, ['+', 1, ['^', 2.718, ['-', 2.94, ['*', ['get', layerWidthField], 0.0021]]]]]]],
-			];
-			
-			// Set the filter
-			map.setFilter (layerId, filter);
-			
-			// Set paint properties
-			map.setPaintProperty (layerId, 'line-color', line_colours[layerColour]);
-			map.setPaintProperty (layerId, 'line-width', line_width);
-		},
-		
-		
-		// Function to determine layer width field
-		// #!# Need to merge with popup.js: ncycleField ()
-		getLayerWidthField: function ()
-		{
-			const layerPurpose = document.getElementById('rnet_purpose_input').value;
-			const layerType = document.getElementById('rnet_type_input').value;
-			const layerScenario = document.getElementById('rnet_scenario_input').value;
-			const layerWidthField = layerPurpose + '_' + layerType + '_' + layerScenario;
-			return layerWidthField;
-		},
-		
-		
-		// Data zones styling (including buildings styling)
-		data_zonesStyling: function (layerId, map, datasets, createLegend /* callback */)
-		{
-			// Update the legend (even if map layer is off)
-			const fieldId = document.getElementById('data_zones_selector').value;
-			createLegend (datasets.legends.data_zones, fieldId, 'dzlegend');
-			
-			// Get UI state
-			const daysymetricMode = document.getElementById('data_zones_checkbox_dasymetric').checked;
-			
-			// Set paint properties
-			map.setPaintProperty ('data_zones', 'fill-color', ['step', ['get', fieldId], ...nptUi.getStyleColumn(fieldId, datasets)]);
-			map.setPaintProperty ('data_zones', 'fill-opacity', (daysymetricMode ? 0.1 : 0.8)); // Very faded-out in daysymetric mode, as the buildings are coloured
-			
-			// Set buildings layer colour/visibility
-			const buildingColour = nptUi.getBuildingsColour();
-			map.setPaintProperty ('dasymetric', 'fill-extrusion-color', (buildingColour || '#9c9898'));
-			map.setLayoutProperty ('dasymetric', 'visibility', (buildingColour ? 'visible' : 'none'));
-		},
-		
-		
-		// Function to determine the buildings colour
-		getBuildingsColour: function ()
-		{
-			// If datazones is off, buildings shown, if vector style, as static colour appropriate to the basemap
-			if (!document.getElementById('data_zonescheckbox').checked) {
-				const styleName = nptUi.getBasemapStyle();
-				return _settings.basemapStyles[styleName].buildingColour;
-			}
-			
-			// If dasymetric mode, use a colour set based on the layer
-			if (document.getElementById('data_zones_checkbox_dasymetric').checked) {
-				const layerId = document.getElementById('data_zones_selector').value;
-				return ['step',
-					['get', layerId],
-					...nptUi.getStyleColumn(layerId, datasets)
-				];
-			}
-			
-			// Default to gray
-			return '#9c9898';
-		},
-		
-		
-		// Function to determine the style column
-		getStyleColumn: function (layerId, datasets)
-		{
-			const style_col_selected = datasets.lineColours.data_zones.hasOwnProperty(layerId) ? layerId : '_';
-			return datasets.lineColours.data_zones[style_col_selected];
 		},
 		
 		
