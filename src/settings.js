@@ -54,5 +54,36 @@ const settings = {
 	
 	// Analytics
 	gaProperty: 'G-QZMHV92YXJ',
+	
+	// UI callback
+	uiCallback: rnetCheckboxProxying,	// Defined below
 };
   
+
+// Function to handle rnet checkbox proxying - the combination of the enabled and simplified checkboxes set the 'real' layer checkboxes
+function rnetCheckboxProxying ()
+{
+	console.log ('rnetCheckboxProxying');
+	// Define a function to calculate the real checkbox values based on the enabled/simplified boxes
+	function setRnetCheckboxes ()
+	{
+		const layerEnabled = document.getElementById ('rnetcheckboxproxy').checked;
+		const simplifiedMode = document.getElementById ('rnet-simplifiedcheckboxproxy').checked;
+		document.getElementById ('rnetcheckbox').checked = (layerEnabled && !simplifiedMode);
+		document.getElementById ('rnetcheckbox').dispatchEvent(new Event('change'));
+		document.getElementById ('rnet-simplifiedcheckbox').checked = (layerEnabled && simplifiedMode);
+		document.getElementById ('rnet-simplifiedcheckbox').dispatchEvent(new Event('change'));
+	}
+	
+	// Set initial state
+	setRnetCheckboxes ();
+	
+	// Change state
+	document.querySelectorAll('.rnetproxy').forEach ((input) => {
+		input.addEventListener ('change', function (e) {
+			setRnetCheckboxes ();
+		});
+	});
+}
+
+		
