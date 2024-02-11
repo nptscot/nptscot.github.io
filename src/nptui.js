@@ -64,8 +64,8 @@ const nptUi = (function () {
 			nptUi.tooltips ();
 			
 			// UI specialised function callback, if defined
-			if (typeof settings.uiCallback === 'function') {
-				settings.uiCallback ();
+			if (typeof _settings.uiCallback === 'function') {
+				_settings.uiCallback ();
 			}
 		},
 		
@@ -266,10 +266,10 @@ const nptUi = (function () {
 			const map = new maplibregl.Map({
 				container: 'map',
 				style: 'tiles/style_' + nptUi.getBasemapStyle() + '.json',
-				center: settings.initialPosition.center,
-				zoom: settings.initialPosition.zoom,
-				maxZoom: settings.maxZoom,
-				minZoom: settings.minZoom,
+				center: _settings.initialPosition.center,
+				zoom: _settings.initialPosition.zoom,
+				maxZoom: _settings.maxZoom,
+				minZoom: _settings.minZoom,
 				maxPitch: 85,
 				hash: true,
 				antialias: document.getElementById('antialiascheckbox').checked
@@ -386,8 +386,8 @@ const nptUi = (function () {
 		{
 			// Create each switcher button
 			const options = [];
-			Object.entries(settings.basemapStyles).forEach(([id, basemap]) => {
-				let option = `<input type="radio" name="basemap" id="${id}-basemap" value="${id}"` + (id == settings.basemapStyleDefault ? ' checked="checked"' : '') + ' />';
+			Object.entries(_settings.basemapStyles).forEach(([id, basemap]) => {
+				let option = `<input type="radio" name="basemap" id="${id}-basemap" value="${id}"` + (id == _settings.basemapStyleDefault ? ' checked="checked"' : '') + ' />';
 				option += `<label for="${id}-basemap"><img src="images/basemaps/${id}.png" title="${basemap.title}" /></label>`;
 				options.push(option);
 			});
@@ -414,7 +414,7 @@ const nptUi = (function () {
 				if (!map.getSource ('dasymetric')) {
 					map.addSource ('dasymetric', {
 						'type': 'vector',
-						'url': settings.buildingsTilesUrl.replace ('%tileserverUrl', settings.tileserverUrl),
+						'url': _settings.buildingsTilesUrl.replace ('%tileserverUrl', _settings.tileserverUrl),
 					});
 				}
 				
@@ -450,7 +450,7 @@ const nptUi = (function () {
 			// Add the source
 			map.addSource ('placenames', {
 				'type': 'vector',
-				'url': settings.placenamesTilesUrl.replace ('%tileserverUrl', settings.tileserverUrl),
+				'url': _settings.placenamesTilesUrl.replace ('%tileserverUrl', _settings.tileserverUrl),
 			});
 			
 			// Load the style definition
@@ -564,7 +564,7 @@ const nptUi = (function () {
 			
 			// Replace tileserver URL placeholder in layer definitions
 			Object.entries(_datasets.layers).forEach(([layerId, layer]) => {
-				let tileserverUrl = (settings.tileserverTempLocalOverrides[layerId] ? settings.tileserverTempLocalOverrides[layerId] : settings.tileserverUrl);
+				let tileserverUrl = (_settings.tileserverTempLocalOverrides[layerId] ? _settings.tileserverTempLocalOverrides[layerId] : _settings.tileserverUrl);
 				_datasets.layers[layerId].source.url = layer.source.url.replace ('%tileserverUrl', tileserverUrl)
 			});
 			
@@ -726,7 +726,7 @@ const nptUi = (function () {
 			// If datazones is off, buildings shown, if vector style, as static colour appropriate to the basemap
 			if (!document.getElementById('data_zonescheckbox').checked) {
 				const styleName = nptUi.getBasemapStyle();
-				return settings.basemapStyles[styleName].buildingColour;
+				return _settings.basemapStyles[styleName].buildingColour;
 			}
 			
 			// If dasymetric mode, use a colour set based on the layer
