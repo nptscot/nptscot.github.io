@@ -13,6 +13,10 @@
   }
 }
 
+body {
+  overflow: visible;
+}
+
 .content {
   padding:15px; 
   max-width: 800px;

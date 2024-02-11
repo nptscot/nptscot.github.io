@@ -1,10 +1,8 @@
-const manualSettings = {
-  url: 'https://github.com/nptscot/nptscot.github.io/edit/dev/%id/index.md'
-};
-
-
 /* Convert Markdown to HTML */
 loadManual ();
+
+// Top nav
+topnav ();
 
 
 // Load the Markdown file as text and place it into the content div
@@ -88,8 +86,23 @@ function createEditLink ()
   const slug = matches[1];
   
   // Assemble the link
-  const link = manualSettings.url.replace ('%id', slug);
+  const link = settings.manualEditingUrl.replace ('%id', slug);
   
   // Create new div and attach to body
   document.querySelector('#editlink').href = link;
+}
+
+
+// Main menu responsive display
+function topnav ()
+{
+  document.getElementById ('expandtopnav').addEventListener ('click', function (e) {
+    var x = document.getElementById('myTopnav');
+    if (x.className == 'topnav') {
+      x.classList.add ('responsive');
+    } else {
+      x.classList.remove ('responsive');
+    }
+    e.preventDefault ();
+  });
 }
