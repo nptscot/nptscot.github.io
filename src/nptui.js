@@ -24,6 +24,9 @@ var nptUi = (function () {
 			// Manage analytics cookie setting
 			nptUi.manageAnalyticsCookie ();
 			
+			// Set OSM date in welcome message
+			nptUi.setOsmDate ();
+			
 		},
 		
 		
@@ -82,6 +85,13 @@ var nptUi = (function () {
 				console.log("Cookie status: '" + NPTcookie + "'");
 				cookiewarning.style.display = (NPTcookie === '' ? 'block' : 'none');
 			}
+		},
+		
+		
+		// Function to set the OSM date in the welcome message
+		setOsmDate: function ()
+		{
+			document.getElementById ('osmupdatedate').innerHTML = _settings.osmDate;
 		},
 		
 		

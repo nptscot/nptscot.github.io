@@ -45,6 +45,9 @@ const settings = {
 	// Manual
 	manualEditingUrl: 'https://github.com/nptscot/nptscot.github.io/edit/dev/%id/index.md',
 	
+	// OSM data date
+	osmDate: '6 December 2023',
+	
 	// Analytics
 	gaProperty: 'G-QZMHV92YXJ',
 };
