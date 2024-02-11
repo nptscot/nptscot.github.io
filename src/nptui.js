@@ -30,6 +30,12 @@ var nptUi = (function () {
 			// Create welcome screen
 			nptUi.newModal ('welcome');
 			nptUi.updateDate ();
+			
+			// Enable the accordion functionality for the layer controls box and popups
+			nptUi.accordion ();
+			
+			// Layer controls box UI
+			nptUi.layerControlsBoxUi ();
 		},
 		
 		
@@ -154,6 +160,55 @@ var nptUi = (function () {
 			let text = 'Last updated: ' + nptUi.formatAsUKDate(document.lastModified) + '.';
 			text += ' You may need to <a href="https://www.minitool.com/news/f5-vs-ctrl-f5.html">clear your browser cache</a> to see the latest updates.'
 			document.getElementById('updatedate').innerHTML = text;
+		},
+		
+		
+		// Function to manage an accordion
+		accordion: function ()
+		{
+			// Listen for accordion clicks, on a late-bound basis
+			document.addEventListener('click', function (e) {
+				if (e.target.classList.contains('accordion')) {
+					const button = e.target;
+					
+					// Toggle between adding and removing the 'active' class, to highlight the button that controls the panel
+					button.classList.toggle('active');
+					
+					// Toggle between hiding and showing the active panel
+					var panel = button.nextElementSibling;
+					panel.style.display = (panel.style.display == 'block' ? 'none' : 'block');
+				}
+			});
+		},	
+		
+		
+		// Function to manage the layer controls box UI
+		layerControlsBoxUi: function ()
+		{
+			// Show the layer controls box, and open up the route network part of this
+			showlayercontrols(true);
+			document.getElementById('rnet_accordion').click();
+			
+			// Show layer control box when button clicked on
+			document.querySelector('#showrightbox button').addEventListener('click', function () {
+				showlayercontrols(true);
+			});
+			
+			// Close layer control box when X clicked on
+			document.querySelector('#rightbox button.close-button').addEventListener('click', function () {
+				showlayercontrols(false);
+			});
+			
+			/* Show and hide UI */
+			function showlayercontrols(show)
+			{
+				// Toggle box
+				var box = document.getElementById('rightbox');
+				box.style.display = (show ? 'block' : 'none');
+				
+				var boxbutton = document.getElementById('showrightbox');
+				boxbutton.style.display = (show ? 'none' : 'block');
+			}
 		},
 		
 		
