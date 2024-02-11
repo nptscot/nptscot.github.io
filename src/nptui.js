@@ -181,9 +181,7 @@ var nptUi = (function () {
 		// Function to set the update date in the welcome screen
 		updateDate: function ()
 		{
-			let text = 'Last updated: ' + nptUi.formatAsUKDate(document.lastModified) + '.';
-			text += ' You may need to <a href="https://www.minitool.com/news/f5-vs-ctrl-f5.html">clear your browser cache</a> to see the latest updates.'
-			document.getElementById('updatedate').innerHTML = text;
+			document.getElementById('updatedate').innerText = nptUi.formatAsUKDate(document.lastModified);
 		},
 		
 		
