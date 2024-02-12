@@ -724,6 +724,7 @@ const nptUi = (function () {
 				const template = document.querySelector(`#${mapLayerId}-chartsmodal .chart-template`);
 				charts.forEach((chart) => {
 					const chartBox = template.content.cloneNode(true);
+					chartBox.querySelector('.wrapper').id = chart[0] + '-chartrow';
 					chartBox.querySelector('.chart-title').innerText = chart[1];
 					chartBox.querySelector('.chart-description').innerText = chart[2];
 					chartBox.querySelector('.chart-container canvas').id = chart[0] + '-chart';
@@ -738,6 +739,11 @@ const nptUi = (function () {
 				// Create each chart
 				chartDefinition.charts.forEach((chart, i) => {
 					
+					// Clear existing if present
+					if (chartHandles[i]) {
+						chartHandles[i].destroy();
+					}
+					
 					// Assemble the datasets to be shown
 					const datasets = [];
 					chartDefinition.modes.forEach(mode => {
@@ -750,13 +756,20 @@ const nptUi = (function () {
 						});
 					});
 					
+					// Check for empty chart, i.e. all-undefined datasets, and if so, skip this chart, hiding its whole display row also to avoid the description showing
+					let valuesPresent = false;
+					datasets.forEach (dataset => {
+						dataset.data.forEach (value => {
+							if (typeof value !== 'undefined') {
+								valuesPresent = true;
+							}
+						});
+					});
+					document.getElementById (chart[0] + '-chartrow').style.display = (valuesPresent ? 'block' : 'none');
+					if (!valuesPresent) {return;	/* i.e. continue */}
+					
 					// Bar labels
 					const labels = chartDefinition.scenarios.map(scenario => scenario[1]);
-					
-					// Clear existing if present
-					if (chartHandles[i]) {
-						chartHandles[i].destroy();
-					}
 					
 					// Render the chart (and register it to a handle so it can be cleared in future)
 					chartHandles[i] = renderChart(chart[0] + '-chart', chart[3], datasets, labels);
