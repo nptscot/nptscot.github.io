@@ -538,12 +538,21 @@ const datasets = {
 // Callbacks
 function popupCallback (feature)
 {
-	const layerPurpose = document.getElementById('rnet_purpose_input').value;
-	const layerType = document.getElementById('rnet_type_input').value;
-	const layerScenario = document.getElementById('rnet_scenario_input').value;
-	const layerField = layerPurpose + '_' + layerType + '_' + layerScenario;
-	feature.properties._ncycle = feature.properties[layerField];
+	const layerWidthField = getLayerWidthField ();
+	feature.properties._ncycle = feature.properties[layerWidthField];
+	console.log (feature.properties._ncycle, layerWidthField);
 	return feature;
+}
+
+
+// Function to determine layer width field
+function getLayerWidthField ()
+{
+	const layerPurpose = document.getElementById ('rnet_purpose_input').value;
+	const layerType = document.getElementById ('rnet_type_input').value;
+	const layerScenario = document.getElementById ('rnet_scenario_input').value;
+	const layerWidthField = layerPurpose + '_' + layerType + '_' + layerScenario;
+	return layerWidthField;
 }
 
 
@@ -623,18 +632,6 @@ function rnetStyling (layerId, map, settings, datasets, createLegend /* callback
 	// Set paint properties
 	map.setPaintProperty (layerId, 'line-color', line_colours[layerColour]);
 	map.setPaintProperty (layerId, 'line-width', line_width);
-}
-
-
-// Function to determine layer width field
-// #!# Need to merge with popup.js: ncycleField ()
-function getLayerWidthField ()
-{
-	const layerPurpose = document.getElementById('rnet_purpose_input').value;
-	const layerType = document.getElementById('rnet_type_input').value;
-	const layerScenario = document.getElementById('rnet_scenario_input').value;
-	const layerWidthField = layerPurpose + '_' + layerType + '_' + layerScenario;
-	return layerWidthField;
 }
 
 
