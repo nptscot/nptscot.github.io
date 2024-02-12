@@ -700,8 +700,9 @@ const nptUi = (function () {
 							// Create the charts
 							createCharts(chartDefinition, locationData);
 						})
-						.catch(function (error) {
-							alert('Failed to get data for this location. Please try refreshing the page.');
+						.catch(function (error) {	// Any error, including within called code, not just retrieval failure
+							alert ('Failed to get data for this location, or to process it correctly. Please try refreshing the page.');
+							console.log (error);
 						});
 				});
 			}
