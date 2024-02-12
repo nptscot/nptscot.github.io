@@ -488,7 +488,7 @@ const datasets = {
 					// School Secondary Destination
 					'schl_secondary_dest',
 					'Secondary school modal split',
-					'The bar chart shows estimated mode shares for seconday school children under different scenarios.',
+					'The bar chart shows estimated mode shares for secondary school children under different scenarios.',
 					'Annual Average Daily Flow'
 				],
 			],
