@@ -293,9 +293,19 @@ const nptUi = (function () {
 		// Generate layer switcher HTML
 		antiAliasing: function ()
 		{
-			// Set form value if required
+			// Get the cookie value
 			const cookieName = 'antialias';
-			const cookieValue = nptUi.getCookie (cookieName);
+			let cookieValue = nptUi.getCookie (cookieName);
+			
+			// Enable anti-aliasing by default on desktop devices, since they are likely to have sufficient power
+			if (cookieValue == '') {
+				if (!nptUi.isMobileDevice ()) {
+					cookieValue = 'true';
+					nptUi.setCookie (cookieName, cookieValue);
+				}
+			}
+			
+			// Set form value if required
 			document.getElementById ('antialiascheckbox').checked = (cookieValue == 'true' ? 'checked' : '');
 			
 			// Force system reload on change
@@ -303,6 +313,13 @@ const nptUi = (function () {
 				nptUi.setCookie (cookieName, (document.getElementById ('antialiascheckbox').checked ? 'true' : 'false'));
 				location.reload ();
 			});
+		},
+		
+		
+		// Determine whether the device is a mobile device
+		isMobileDevice: function ()
+		{
+			return (typeof window.orientation !== 'undefined');
 		},
 		
 		
