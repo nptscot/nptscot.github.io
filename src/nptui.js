@@ -155,7 +155,10 @@ const nptUi = (function () {
 		createMap: function ()
 		{
 			// Create the layer switcher
-			nptUi.layerSwitcherHtml();
+			nptUi.layerSwitcherHtml ();
+			
+			// Manage anti-aliasing
+			nptUi.antiAliasing ();
 			
 			// Main map setup
 			const map = new maplibregl.Map({
@@ -241,11 +244,6 @@ const nptUi = (function () {
 				customAttribution: 'Contains OS data © Crown copyright 2021, Satelite map © ESRI 2023, © OpenStreetMap contributors'
 			}), 'bottom-right');
 			
-			// Antialias reload
-			document.getElementById('antialiascheckbox').addEventListener('click', function () {
-				location.reload();
-			});
-			
 			// Fire map ready when ready, which layer-enabling can be picked up
 			map.once('idle', function () {
 				document.dispatchEvent(new Event('@map/ready', {
@@ -290,6 +288,23 @@ const nptUi = (function () {
 			// Insert radiobuttons into form
 			document.getElementById('basemapform').innerHTML = options.join(' ');
 		},
+		
+		
+		// Generate layer switcher HTML
+		antiAliasing: function ()
+		{
+			// Set form value if required
+			const cookieName = 'antialias';
+			const cookieValue = nptUi.getCookie (cookieName);
+			document.getElementById ('antialiascheckbox').checked = (cookieValue == 'true' ? 'checked' : '');
+			
+			// Force system reload on change
+			document.getElementById ('antialiascheckbox').addEventListener ('click', function () {
+				nptUi.setCookie (cookieName, (document.getElementById ('antialiascheckbox').checked ? 'true' : 'false'));
+				location.reload ();
+			});
+		},
+		
 		
 		// Function to get the currently-checked basemap style
 		getBasemapStyle: function ()
