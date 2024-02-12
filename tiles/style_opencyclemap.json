@@ -11,7 +11,7 @@
   "sources": {
     "satellite": {
       "type": "raster",
-      	"tiles": ["https://tile.thunderforest.com/cycle/{z}/{x}/{y}.png?apikey=bf09fff64f1443028994661047c077f5"],
+      	"tiles": ["https://tile.thunderforest.com/cycle/{z}/{x}/{y}@2x.png?apikey=bf09fff64f1443028994661047c077f5"],
       	"tileSize": 256
     },
     "terrainSource": {
