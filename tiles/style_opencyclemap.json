@@ -32,7 +32,10 @@
     {
       "id": "satellite",
       "type": "raster",
-      "source": "satellite"
+      "source": "satellite",
+      "paint": {
+        "raster-opacity": 0.7
+      }
     },
     {
       "id": "roads 0 Guided Busway Casing",
