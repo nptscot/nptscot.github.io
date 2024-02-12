@@ -146,6 +146,14 @@ const datasets = {
 	},
 	
 	
+	// Layer styling callbacks functions, each defined below
+	layerStyling: {
+		rnet:				rnetStyling,
+		"rnet-simplified":	rnetStyling,
+		data_zones:			data_zonesStyling,
+	},
+	
+	
 	// #!# These need to be merged with lineColours
 	legends: {
 		
@@ -480,7 +488,7 @@ const datasets = {
 					// School Secondary Destination
 					'schl_secondary_dest',
 					'Secondary school modal split',
-					'The bar chart shows estimated mode shares for seconday school children under different scenarios.',
+					'The bar chart shows estimated mode shares for secondary school children under different scenarios.',
 					'Annual Average Daily Flow'
 				],
 			],
@@ -530,10 +538,151 @@ const datasets = {
 // Callbacks
 function popupCallback (feature)
 {
-	const layerPurpose = document.getElementById('rnet_purpose_input').value;
-	const layerType = document.getElementById('rnet_type_input').value;
-	const layerScenario = document.getElementById('rnet_scenario_input').value;
-	const layerField = layerPurpose + '_' + layerType + '_' + layerScenario;
-	feature.properties._ncycle = feature.properties[layerField];
+	const layerWidthField = getLayerWidthField ();
+	feature.properties._ncycle = feature.properties[layerWidthField];
+	console.log (feature.properties._ncycle, layerWidthField);
 	return feature;
 }
+
+
+// Function to determine layer width field
+function getLayerWidthField ()
+{
+	const layerPurpose = document.getElementById ('rnet_purpose_input').value;
+	const layerType = document.getElementById ('rnet_type_input').value;
+	const layerScenario = document.getElementById ('rnet_scenario_input').value;
+	const layerWidthField = layerPurpose + '_' + layerType + '_' + layerScenario;
+	return layerWidthField;
+}
+
+
+// Styling callback for rnet/rnet_simplified
+function rnetStyling (layerId, map, settings, datasets, createLegend /* callback */)
+{
+	// Update the Legend - Do this even if map layer is off
+	const layerColour = document.getElementById('rnet_colour_input').value;
+	createLegend (datasets.legends.rnet, layerColour, 'linecolourlegend');
+	
+	// No special handling needed if not visible
+	if (!document.getElementById(layerId + 'checkbox').checked) {
+		return;
+	}
+	
+	// Determine the layer width field
+	const layerWidthField = getLayerWidthField();
+	
+	// Parse route network sliders to be used as filters
+	const sliders = {};
+	document.querySelectorAll("input[id^='rnet_slider-']").forEach(slider => {
+		const sliderId = slider.id.replace('rnet_slider-', '');
+		const sliderValue = slider.value.split('-');
+		sliders[sliderId] = {
+			min: Number(sliderValue[0]),
+			max: Number(sliderValue[1])
+		};
+	});
+	
+	// Only filter cyclists if scenario set
+	const filter = ['all',
+		['>=', layerWidthField, sliders.cycle.min],
+		['<=', layerWidthField, sliders.cycle.max],
+		['>=', 'Quietness', sliders.quietness.min],
+		['<=', 'Quietness', sliders.quietness.max],
+		['>=', 'Gradient', sliders.gradient.min],
+		['<=', 'Gradient', sliders.gradient.max]
+	];
+	
+	// Define line colour
+	const line_colours = {
+		'none': datasets.lineColours.rnet.none,
+		'flow': [
+			'step', ['get', layerWidthField],
+			...datasets.lineColours.rnet.flow,
+			'#FF00C5'
+		],
+		'quietness': [
+			'step', ['get', 'Quietness'],
+			...datasets.lineColours.rnet.quietness,
+			'#000000'
+		],
+		'gradient': [
+			'step', ['get', 'Gradient'],
+			...datasets.lineColours.rnet.gradient,
+			'#000000'
+		]
+	};
+	
+	// Define line width
+	// Implements the formula y = (3 / (1 + exp(-3*(x/1000 - 1.6))) + 0.3)
+	// This code was hard to work out!
+	const line_width = [
+		'interpolate',
+		['linear'],
+		['zoom'],
+		12, ['*', 2.1, ['+', 0.3, ['/', 3, ['+', 1, ['^', 2.718, ['-', 2.94, ['*', ['get', layerWidthField], 0.0021]]]]]]],
+		14, ['*', 5.25, ['+', 0.3, ['/', 3, ['+', 1, ['^', 2.718, ['-', 2.94, ['*', ['get', layerWidthField], 0.0021]]]]]]],
+		15, ['*', 7.5, ['+', 0.3, ['/', 3, ['+', 1, ['^', 2.718, ['-', 2.94, ['*', ['get', layerWidthField], 0.0021]]]]]]],
+		16, ['*', 18, ['+', 0.3, ['/', 3, ['+', 1, ['^', 2.718, ['-', 2.94, ['*', ['get', layerWidthField], 0.0021]]]]]]],
+		18, ['*', 52.5, ['+', 0.3, ['/', 3, ['+', 1, ['^', 2.718, ['-', 2.94, ['*', ['get', layerWidthField], 0.0021]]]]]]],
+	];
+	
+	// Set the filter
+	map.setFilter (layerId, filter);
+	
+	// Set paint properties
+	map.setPaintProperty (layerId, 'line-color', line_colours[layerColour]);
+	map.setPaintProperty (layerId, 'line-width', line_width);
+}
+
+
+// Styling callback for data zones (including buildings styling)
+function data_zonesStyling (layerId, map, settings, datasets, createLegend /* callback */)
+{
+	// Update the legend (even if map layer is off)
+	const fieldId = document.getElementById('data_zones_selector').value;
+	createLegend (datasets.legends.data_zones, fieldId, 'dzlegend');
+	
+	// Get UI state
+	const daysymetricMode = document.getElementById('data_zones_checkbox_dasymetric').checked;
+	
+	// Set paint properties
+	map.setPaintProperty (layerId, 'fill-color', ['step', ['get', fieldId], ...getStyleColumn(fieldId, datasets)]);
+	map.setPaintProperty (layerId, 'fill-opacity', (daysymetricMode ? 0.1 : 0.8)); // Very faded-out in daysymetric mode, as the buildings are coloured
+	
+	// Set buildings layer colour/visibility
+	const buildingColour = getBuildingsColour(settings);
+	map.setPaintProperty ('dasymetric', 'fill-extrusion-color', (buildingColour || '#9c9898'));
+	map.setLayoutProperty ('dasymetric', 'visibility', (buildingColour ? 'visible' : 'none'));
+}
+
+
+// Function to determine the buildings colour
+function getBuildingsColour (settings)
+{
+	// If datazones is off, buildings shown, if vector style, as static colour appropriate to the basemap
+	if (!document.getElementById('data_zonescheckbox').checked) {
+		const styleName = document.querySelector('#basemapform input:checked').value;	// Same as nptUi.getBasemapStyle()
+		return settings.basemapStyles[styleName].buildingColour;
+	}
+	
+	// If dasymetric mode, use a colour set based on the layer
+	if (document.getElementById('data_zones_checkbox_dasymetric').checked) {
+		const layerId = document.getElementById('data_zones_selector').value;
+		return ['step',
+			['get', layerId],
+			...getStyleColumn(layerId, datasets)
+		];
+	}
+	
+	// Default to gray
+	return '#9c9898';
+}
+
+
+// Function to determine the style column
+function getStyleColumn (layerId, datasets)
+{
+	const style_col_selected = datasets.lineColours.data_zones.hasOwnProperty(layerId) ? layerId : '_';
+	return datasets.lineColours.data_zones[style_col_selected];
+}
+

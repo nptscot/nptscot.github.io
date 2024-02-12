@@ -13,6 +13,7 @@ const nptUi = (function () {
 	let _datasets = {};		// Will be populated by constructor
 	let _map;
 	
+	
 	// Functions
 	return {
 		
@@ -23,15 +24,8 @@ const nptUi = (function () {
 			_settings = settings;
 			_datasets = datasets;
 			
-			// Manage analytics cookie setting
-			nptUi.manageAnalyticsCookie ();
-			
-			// Set OSM date in welcome message
-			nptUi.setOsmDate ();
-			
 			// Create welcome screen
-			nptUi.newModal ('welcome');
-			nptUi.updateDate ();
+			nptUi.welcomeScreen ();
 			
 			// Enable the accordion functionality for the layer controls box and popups
 			nptUi.accordion ();
@@ -67,128 +61,25 @@ const nptUi = (function () {
 			if (typeof _settings.uiCallback === 'function') {
 				_settings.uiCallback ();
 			}
+			
+			// Manage analytics cookie setting
+			nptUi.manageAnalyticsCookie ();
 		},
 		
 		
-		// function to manage analytics cookie setting
-		manageAnalyticsCookie: function ()
+		// Welcome screen
+		welcomeScreen: function ()
 		{
-			// Disable tracking if the opt-out cookie exists.
-			const disableStr = 'ga-disable-' + _settings.gaProperty;
-			if (document.cookie.indexOf(disableStr + '=true') > -1) {
-				window[disableStr] = true;
+			// Create modal
+			nptUi.newModal ('welcome');
+			
+			// Set OSM and update dates in the text, if present
+			if (document.getElementById ('osmupdatedate')) {
+				document.getElementById ('osmupdatedate').innerHTML = _settings.osmDate;
 			}
-			
-			// Define the cookie name
-			const cookieName = 'NPTtrack';
-			
-			// Handle cookie warning buttons
-			document.querySelectorAll('#cookiewarning button').forEach(function (button) {
-				button.addEventListener('click', function (e) {
-					cookieButton(button.value);
-				});
-			});
-			
-			// Show the cookie warning
-			showCookieWarning();
-			
-			
-			// Opt-out function
-			function gaOptout ()
-			{
-				document.cookie = disableStr + '=true; expires=Thu, 31 Dec 2099 23:59:59 UTC; path=/; SameSite=None; Secure';
-				window[disableStr] = true;
+			if (document.getElementById ('updatedate')) {
+				document.getElementById ('updatedate').innerText = nptUi.formatAsUKDate (document.lastModified);
 			}
-			
-			
-			// Warning Control
-			function cookieButton (accepted)
-			{
-				if (accepted) {
-					nptUi.setCookie(cookieName, 'true');
-				} else {
-					//alert("Tracking Op-Out Disabled");
-					gaOptout();
-					nptUi.setCookie(cookieName, 'false');
-				}
-				
-				const cookiewarning = document.getElementById ('cookiewarning');
-				cookiewarning.style.display = 'none';
-			}
-			
-			
-			// Cookie warning
-			function showCookieWarning ()
-			{
-				const cookiewarning = document.getElementById ('cookiewarning');
-				const NPTcookie = nptUi.getCookie (cookieName);
-				//console.log ("Cookie status: '" + NPTcookie + "'");
-				cookiewarning.style.display = (NPTcookie === '' ? 'block' : 'none');
-			}
-		},
-		
-		
-		// Function to set the OSM date in the welcome message
-		setOsmDate: function ()
-		{
-			document.getElementById ('osmupdatedate').innerHTML = _settings.osmDate;
-		},
-		
-		
-		// Function to manage modal dialogs
-		newModal: function (modalId)
-		{
-			// Identify the modal
-			const modal = document.getElementById(modalId);
-			
-			// When the user clicks on <span> (x), close the modal
-			const closeButton = document.querySelector('#' + modalId + ' .modal-close');
-			closeButton.addEventListener('click', function () {
-				hide();
-			});
-			
-			// Treat clicking outside of the modal as implied close
-			window.addEventListener('click', function (event) {
-				if (event.target == modal || event.target.id == 'overlay') {
-					hide();
-				}
-			});
-			
-			// Treat escape key as implied close
-			window.addEventListener('keyup', function (event) {
-				if (event.key == 'Escape') {
-					if (window.getComputedStyle(modal).display == 'block') { // I.e. is displayed
-						hide();
-					}
-				}
-			});
-			
-			// Show
-			const show = function ()
-			{
-				document.getElementById('overlay').style.display = 'block';
-				modal.style.display = 'block';
-			};
-			
-			// Hide
-			const hide = function ()
-			{
-				modal.style.display = 'none';
-				document.getElementById('overlay').style.display = 'none';
-			};
-			
-			// Accessor functions
-			return {
-				show: show,
-				hide: hide
-			};
-		},
-		
-		
-		// Function to set the update date in the welcome screen
-		updateDate: function ()
-		{
-			document.getElementById('updatedate').innerText = nptUi.formatAsUKDate(document.lastModified);
 		},
 		
 		
@@ -214,9 +105,13 @@ const nptUi = (function () {
 		// Function to manage the layer controls box UI
 		layerControlsBoxUi: function ()
 		{
-			// Show the layer controls box, and open up the route network part of this
+			// Show the layer controls box
 			showlayercontrols(true);
-			document.getElementById('rnet_accordion').click();
+			
+			// Auto-open a section if required
+			if (document.getElementById('autoopen')) {
+				document.getElementById('autoopen').click ();
+			}
 			
 			// Show layer control box when button clicked on
 			document.querySelector('#showrightbox button').addEventListener('click', function () {
@@ -260,7 +155,10 @@ const nptUi = (function () {
 		createMap: function ()
 		{
 			// Create the layer switcher
-			nptUi.layerSwitcherHtml();
+			nptUi.layerSwitcherHtml ();
+			
+			// Manage anti-aliasing
+			nptUi.antiAliasing ();
 			
 			// Main map setup
 			const map = new maplibregl.Map({
@@ -346,11 +244,6 @@ const nptUi = (function () {
 				customAttribution: 'Contains OS data © Crown copyright 2021, Satelite map © ESRI 2023, © OpenStreetMap contributors'
 			}), 'bottom-right');
 			
-			// Antialias reload
-			document.getElementById('antialiascheckbox').addEventListener('click', function () {
-				location.reload();
-			});
-			
 			// Fire map ready when ready, which layer-enabling can be picked up
 			map.once('idle', function () {
 				document.dispatchEvent(new Event('@map/ready', {
@@ -394,6 +287,39 @@ const nptUi = (function () {
 			
 			// Insert radiobuttons into form
 			document.getElementById('basemapform').innerHTML = options.join(' ');
+		},
+		
+		
+		// Generate layer switcher HTML
+		antiAliasing: function ()
+		{
+			// Get the cookie value
+			const cookieName = 'antialias';
+			let cookieValue = nptUi.getCookie (cookieName);
+			
+			// Enable anti-aliasing by default on desktop devices, since they are likely to have sufficient power
+			if (cookieValue == '') {
+				if (!nptUi.isMobileDevice ()) {
+					cookieValue = 'true';
+					nptUi.setCookie (cookieName, cookieValue);
+				}
+			}
+			
+			// Set form value if required
+			document.getElementById ('antialiascheckbox').checked = (cookieValue == 'true' ? 'checked' : '');
+			
+			// Force system reload on change
+			document.getElementById ('antialiascheckbox').addEventListener ('click', function () {
+				nptUi.setCookie (cookieName, (document.getElementById ('antialiascheckbox').checked ? 'true' : 'false'));
+				location.reload ();
+			});
+		},
+		
+		
+		// Determine whether the device is a mobile device
+		isMobileDevice: function ()
+		{
+			return (typeof window.orientation !== 'undefined');
 		},
 		
 		
@@ -509,7 +435,7 @@ const nptUi = (function () {
 							features.push(point);
 						}
 					} catch (e) {
-						console.error(`Failed to forwardGeocode with error: ${e}`);
+						console.error (`Failed to forwardGeocode with error: ${e}`);
 					}
 					
 					return {
@@ -526,7 +452,7 @@ const nptUi = (function () {
 		manageLayers: function ()
 		{
 			// Add layers when the map is ready (including after a basemap change)
-			document.addEventListener('@map/ready', function () {
+			document.addEventListener ('@map/ready', function () {
 				
 				// Initialise datasets (sources and layers)
 				nptUi.initialiseDatasets();
@@ -579,175 +505,18 @@ const nptUi = (function () {
 		},
 		
 		
-		toggleLayer: function (layerName)
+		toggleLayer: function (layerId)
 		{
-			//console.log ('Toggling layer ' + layerName);
+			//console.log ('Toggling layer ' + layerId);
 			
-			// Check for a dynamic styling function, if any, as layerName + 'Styling', e.g. rnetStyling
-			const stylingFunction = layerName.replace('-', '_') + 'Styling'; // NB hyphens not legal in function names
-			if (typeof nptUi[stylingFunction] === 'function') {
-				nptUi[stylingFunction] (layerName, _map, _datasets, nptUi.createLegend);
+			// Check for a dynamic styling callback and run it
+			if (_datasets.layerStyling[layerId]) {
+				_datasets.layerStyling[layerId] (layerId, _map, _settings, _datasets, nptUi.createLegend);
 			}
 			
 			// Set the visibility of the layer, based on the checkbox value
-			const isVisible = document.getElementById(layerName + 'checkbox').checked;
-			_map.setLayoutProperty(layerName, 'visibility', (isVisible ? 'visible' : 'none'));
-		},
-		
-		
-		// Rnet styling
-		rnetStyling: function (layerName, map, datasets, createLegend /* callback */)
-		{
-			nptUi.handleRnet (layerName, map, datasets, createLegend);
-		},
-		
-		
-		// Rnet simplified styling
-		rnet_simplifiedStyling: function (layerName, map, datasets, createLegend /* callback */)
-		{
-			nptUi.handleRnet (layerName, map, datasets, createLegend);
-		},
-		
-		
-		handleRnet: function (layerId, map, datasets, createLegend /* callback */)
-		{
-			// Update the Legend - Do this even if map layer is off
-			const layerColour = document.getElementById('rnet_colour_input').value;
-			createLegend (datasets.legends.rnet, layerColour, 'linecolourlegend');
-			
-			// No special handling needed if not visible
-			if (!document.getElementById(layerId + 'checkbox').checked) {
-				return;
-			}
-			
-			// Determine the layer width field
-			const layerWidthField = nptUi.getLayerWidthField();
-			
-			// Parse route network sliders to be used as filters
-			const sliders = {};
-			document.querySelectorAll("input[id^='rnet_slider-']").forEach(slider => {
-				const sliderId = slider.id.replace('rnet_slider-', '');
-				const sliderValue = slider.value.split('-');
-				sliders[sliderId] = {
-					min: Number(sliderValue[0]),
-					max: Number(sliderValue[1])
-				};
-			});
-			
-			// Only filter cyclists if scenario set
-			const filter = ['all',
-				['>=', layerWidthField, sliders.cycle.min],
-				['<=', layerWidthField, sliders.cycle.max],
-				['>=', 'Quietness', sliders.quietness.min],
-				['<=', 'Quietness', sliders.quietness.max],
-				['>=', 'Gradient', sliders.gradient.min],
-				['<=', 'Gradient', sliders.gradient.max]
-			];
-			
-			// Define line colour
-			const line_colours = {
-				'none': datasets.lineColours.rnet.none,
-				'flow': [
-					'step', ['get', layerWidthField],
-					...datasets.lineColours.rnet.flow,
-					'#FF00C5'
-				],
-				'quietness': [
-					'step', ['get', 'Quietness'],
-					...datasets.lineColours.rnet.quietness,
-					'#000000'
-				],
-				'gradient': [
-					'step', ['get', 'Gradient'],
-					...datasets.lineColours.rnet.gradient,
-					'#000000'
-				]
-			};
-			
-			// Define line width
-			// Implements the formula y = (3 / (1 + exp(-3*(x/1000 - 1.6))) + 0.3)
-			// This code was hard to work out!
-			const line_width = [
-				'interpolate',
-				['linear'],
-				['zoom'],
-				12, ['*', 2.1, ['+', 0.3, ['/', 3, ['+', 1, ['^', 2.718, ['-', 2.94, ['*', ['get', layerWidthField], 0.0021]]]]]]],
-				14, ['*', 5.25, ['+', 0.3, ['/', 3, ['+', 1, ['^', 2.718, ['-', 2.94, ['*', ['get', layerWidthField], 0.0021]]]]]]],
-				15, ['*', 7.5, ['+', 0.3, ['/', 3, ['+', 1, ['^', 2.718, ['-', 2.94, ['*', ['get', layerWidthField], 0.0021]]]]]]],
-				16, ['*', 18, ['+', 0.3, ['/', 3, ['+', 1, ['^', 2.718, ['-', 2.94, ['*', ['get', layerWidthField], 0.0021]]]]]]],
-				18, ['*', 52.5, ['+', 0.3, ['/', 3, ['+', 1, ['^', 2.718, ['-', 2.94, ['*', ['get', layerWidthField], 0.0021]]]]]]],
-			];
-			
-			// Set the filter
-			map.setFilter (layerId, filter);
-			
-			// Set paint properties
-			map.setPaintProperty (layerId, 'line-color', line_colours[layerColour]);
-			map.setPaintProperty (layerId, 'line-width', line_width);
-		},
-		
-		
-		// Function to determine layer width field
-		// #!# Need to merge with popup.js: ncycleField ()
-		getLayerWidthField: function ()
-		{
-			const layerPurpose = document.getElementById('rnet_purpose_input').value;
-			const layerType = document.getElementById('rnet_type_input').value;
-			const layerScenario = document.getElementById('rnet_scenario_input').value;
-			const layerWidthField = layerPurpose + '_' + layerType + '_' + layerScenario;
-			return layerWidthField;
-		},
-		
-		
-		// Data zones styling (including buildings styling)
-		data_zonesStyling: function (layerName, map, datasets, createLegend /* callback */)
-		{
-			// Update the legend (even if map layer is off)
-			const fieldId = document.getElementById('data_zones_selector').value;
-			createLegend (datasets.legends.data_zones, fieldId, 'dzlegend');
-			
-			// Get UI state
-			const daysymetricMode = document.getElementById('data_zones_checkbox_dasymetric').checked;
-			
-			// Set paint properties
-			map.setPaintProperty ('data_zones', 'fill-color', ['step', ['get', fieldId], ...nptUi.getStyleColumn(fieldId, datasets)]);
-			map.setPaintProperty ('data_zones', 'fill-opacity', (daysymetricMode ? 0.1 : 0.8)); // Very faded-out in daysymetric mode, as the buildings are coloured
-			
-			// Set buildings layer colour/visibility
-			const buildingColour = nptUi.getBuildingsColour();
-			map.setPaintProperty ('dasymetric', 'fill-extrusion-color', (buildingColour || '#9c9898'));
-			map.setLayoutProperty ('dasymetric', 'visibility', (buildingColour ? 'visible' : 'none'));
-		},
-		
-		
-		// Function to determine the buildings colour
-		getBuildingsColour: function ()
-		{
-			// If datazones is off, buildings shown, if vector style, as static colour appropriate to the basemap
-			if (!document.getElementById('data_zonescheckbox').checked) {
-				const styleName = nptUi.getBasemapStyle();
-				return _settings.basemapStyles[styleName].buildingColour;
-			}
-			
-			// If dasymetric mode, use a colour set based on the layer
-			if (document.getElementById('data_zones_checkbox_dasymetric').checked) {
-				const layerId = document.getElementById('data_zones_selector').value;
-				return ['step',
-					['get', layerId],
-					...nptUi.getStyleColumn(layerId, datasets)
-				];
-			}
-			
-			// Default to gray
-			return '#9c9898';
-		},
-		
-		
-		// Function to determine the style column
-		getStyleColumn: function (layerId, datasets)
-		{
-			const style_col_selected = datasets.lineColours.data_zones.hasOwnProperty(layerId) ? layerId : '_';
-			return datasets.lineColours.data_zones[style_col_selected];
+			const isVisible = document.getElementById(layerId + 'checkbox').checked;
+			_map.setLayoutProperty(layerId, 'visibility', (isVisible ? 'visible' : 'none'));
 		},
 		
 		
@@ -931,8 +700,9 @@ const nptUi = (function () {
 							// Create the charts
 							createCharts(chartDefinition, locationData);
 						})
-						.catch(function (error) {
-							alert('Failed to get data for this location. Please try refreshing the page.');
+						.catch(function (error) {	// Any error, including within called code, not just retrieval failure
+							alert ('Failed to get data for this location, or to process it correctly. Please try refreshing the page.');
+							console.log (error);
 						});
 				});
 			}
@@ -954,6 +724,7 @@ const nptUi = (function () {
 				const template = document.querySelector(`#${mapLayerId}-chartsmodal .chart-template`);
 				charts.forEach((chart) => {
 					const chartBox = template.content.cloneNode(true);
+					chartBox.querySelector('.wrapper').id = chart[0] + '-chartrow';
 					chartBox.querySelector('.chart-title').innerText = chart[1];
 					chartBox.querySelector('.chart-description').innerText = chart[2];
 					chartBox.querySelector('.chart-container canvas').id = chart[0] + '-chart';
@@ -968,6 +739,11 @@ const nptUi = (function () {
 				// Create each chart
 				chartDefinition.charts.forEach((chart, i) => {
 					
+					// Clear existing if present
+					if (chartHandles[i]) {
+						chartHandles[i].destroy();
+					}
+					
 					// Assemble the datasets to be shown
 					const datasets = [];
 					chartDefinition.modes.forEach(mode => {
@@ -980,13 +756,20 @@ const nptUi = (function () {
 						});
 					});
 					
+					// Check for empty chart, i.e. all-undefined datasets, and if so, skip this chart, hiding its whole display row also to avoid the description showing
+					let valuesPresent = false;
+					datasets.forEach (dataset => {
+						dataset.data.forEach (value => {
+							if (typeof value !== 'undefined') {
+								valuesPresent = true;
+							}
+						});
+					});
+					document.getElementById (chart[0] + '-chartrow').style.display = (valuesPresent ? 'block' : 'none');
+					if (!valuesPresent) {return;	/* i.e. continue */}
+					
 					// Bar labels
 					const labels = chartDefinition.scenarios.map(scenario => scenario[1]);
-					
-					// Clear existing if present
-					if (chartHandles[i]) {
-						chartHandles[i].destroy();
-					}
 					
 					// Render the chart (and register it to a handle so it can be cleared in future)
 					chartHandles[i] = renderChart(chart[0] + '-chart', chart[3], datasets, labels);
@@ -1096,10 +879,10 @@ const nptUi = (function () {
 		{
 			// Find each div to be converted to a slider
 			document.querySelectorAll('div.slider-styled').forEach(div => {
-		
+				
 				// Calculate the attributes based on an associated <datalist>
 				const attributes = nptUi.sliderAttributes(div.id);
-		
+				
 				// Create the slider
 				noUiSlider.create(div, {
 					start: [attributes.min, attributes.max],
@@ -1111,12 +894,12 @@ const nptUi = (function () {
 						format: attributes.format
 					}
 				});
-		
+				
 				// Define handler to proxy the result to hidden input fields, with value "<numStart>-<numFinish>"
-				const slider = div.id.replace('slider-', '');
-				div.noUiSlider.on('update', function () {
-					document.getElementById('rnet_slider-' + slider).value = Number(div.noUiSlider.get()[0]) + '-' + Number(div.noUiSlider.get()[1]);
-					document.getElementById('rnet_slider-' + slider).dispatchEvent(new Event('change'));
+				const inputField = div.id.replace ('-ui', '');
+				div.noUiSlider.on ('update', function () {
+					document.getElementById (inputField).value = Number (div.noUiSlider.get()[0]) + '-' + Number (div.noUiSlider.get()[1]);
+					document.getElementById (inputField).dispatchEvent (new Event('change'));
 				});
 			});
 		},
@@ -1127,20 +910,20 @@ const nptUi = (function () {
 		{
 			// Start an object to hold range, min, max, density, format
 			const sliderAttributes = {};
-		
+			
 			// Identify the datalist
 			const datalistElement = document.getElementById(sliderId + '-values');
 			if (!datalistElement) {
 				console.log('ERROR in HTML: No <datalist> defined for slider ' + sliderId);
 				return {};
 			}
-		
+			
 			// Loop through each datalist value, e.g. slider-cycle should be accompanied by <datalist id="slider-cycle-values">
 			sliderAttributes.range = {};
 			let increments;
 			const sliderOptions = Array.from(datalistElement.options);
 			sliderOptions.forEach((option, index) => {
-		
+				
 				// Determine the increment to the next; last item has no increment; use defined or calculated for others
 				if (index == (sliderOptions.length - 1)) { // Last
 					increments = null;
@@ -1149,18 +932,18 @@ const nptUi = (function () {
 				} else { // Increments is difference from current to next, e.g. 1 then 10 => 9
 					increments = parseInt(sliderOptions[index + 1].value - option.value);
 				}
-		
+				
 				// Register result, e.g. {"12.5%": [1, 9], ...}
 				sliderAttributes.range[option.dataset.position] = [parseInt(option.value), increments]; // E.g. [1, 9]
 			});
-		
+			
 			// Add min/max
 			sliderAttributes.min = parseInt(sliderOptions[0].value);
 			sliderAttributes.max = parseInt(sliderOptions[sliderOptions.length - 1].value);
-		
+			
 			// Add density
 			sliderAttributes.density = parseInt(datalistElement.dataset.density);
-		
+			
 			// Add format labels, if any
 			const labels = {};
 			sliderOptions.forEach((option, index) => {
@@ -1177,7 +960,7 @@ const nptUi = (function () {
 			} else {
 				sliderAttributes.format = null;
 			}
-		
+			
 			// Return the result
 			//console.log ('Slider values for id ' + sliderId + ':', sliderAttributes);
 			return sliderAttributes;
@@ -1188,15 +971,123 @@ const nptUi = (function () {
 		tooltips: function ()
 		{
 			tippy('[title]', {
-				content(reference) {
-				const title = reference.getAttribute('title');
-				reference.removeAttribute('title');
-				return title;
+				content (reference) {
+					const title = reference.getAttribute('title');
+					reference.removeAttribute('title');
+					return title;
 				},
 			});
 		},
-
-
+		
+		
+		// function to manage analytics cookie setting
+		manageAnalyticsCookie: function ()
+		{
+			// Disable tracking if the opt-out cookie exists.
+			const disableStr = 'ga-disable-' + _settings.gaProperty;
+			if (document.cookie.indexOf(disableStr + '=true') > -1) {
+				window[disableStr] = true;
+			}
+			
+			// Define the cookie name
+			const cookieName = 'analyticstrack';
+			
+			// Handle cookie warning buttons
+			document.querySelectorAll('#cookiewarning button').forEach(function (button) {
+				button.addEventListener('click', function (e) {
+					cookieButton(button.value);
+				});
+			});
+			
+			// Show the cookie warning
+			showCookieWarning();
+			
+			
+			// Opt-out function
+			function gaOptout ()
+			{
+				document.cookie = disableStr + '=true; expires=Thu, 31 Dec 2099 23:59:59 UTC; path=/; SameSite=None; Secure';
+				window[disableStr] = true;
+			}
+			
+			
+			// Warning Control
+			function cookieButton (accepted)
+			{
+				if (accepted) {
+					nptUi.setCookie(cookieName, 'true');
+				} else {
+					//alert("Tracking Op-Out Disabled");
+					gaOptout();
+					nptUi.setCookie(cookieName, 'false');
+				}
+				
+				const cookiewarning = document.getElementById ('cookiewarning');
+				cookiewarning.style.display = 'none';
+			}
+			
+			
+			// Cookie warning
+			function showCookieWarning ()
+			{
+				const cookiewarning = document.getElementById ('cookiewarning');
+				const cookie = nptUi.getCookie (cookieName);
+				//console.log ("Cookie status: '" + cookie + "'");
+				cookiewarning.style.display = (cookie === '' ? 'block' : 'none');
+			}
+		},
+		
+		
+		// Function to manage modal dialogs
+		newModal: function (modalId)
+		{
+			// Identify the modal
+			const modal = document.getElementById(modalId);
+			
+			// When the user clicks on <span> (x), close the modal
+			const closeButton = document.querySelector('#' + modalId + ' .modal-close');
+			closeButton.addEventListener('click', function () {
+				hide();
+			});
+			
+			// Treat clicking outside of the modal as implied close
+			window.addEventListener('click', function (event) {
+				if (event.target == modal || event.target.id == 'overlay') {
+					hide();
+				}
+			});
+			
+			// Treat escape key as implied close
+			window.addEventListener('keyup', function (event) {
+				if (event.key == 'Escape') {
+					if (window.getComputedStyle(modal).display == 'block') { // I.e. is displayed
+						hide();
+					}
+				}
+			});
+			
+			// Show
+			const show = function ()
+			{
+				document.getElementById('overlay').style.display = 'block';
+				modal.style.display = 'block';
+			};
+			
+			// Hide
+			const hide = function ()
+			{
+				modal.style.display = 'none';
+				document.getElementById('overlay').style.display = 'none';
+			};
+			
+			// Accessor functions
+			return {
+				show: show,
+				hide: hide
+			};
+		},
+		
+		
 		// Function to format a date
 		formatAsUKDate: function (date)
 		{
