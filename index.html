@@ -209,7 +209,7 @@
 			<div class="panel">
 				<p><b>Filters</b><button aria-label="Help scenario" class="helpbutton" data-help="filters" title="Full details of filtering parts of the route network"><i class="fa fa-question-circle" aria-hidden="true"></i></button></p>
 				<p>Number of cyclists</p>
-				<div id="rnet_slider-cycle-ui" class="slider-styled"></div>
+				<div id="rnet_slider-cycle-ui" class="slider-styled" data-name="cycle"></div>
 				<datalist id="rnet_slider-cycle-ui-values" data-density="3">
 					<option value="1"     data-position="min"></option>
 					<!-- #!# Should there be a zero value possibility? -->
@@ -222,10 +222,10 @@
 					<option value="20000" data-position="max"></option>
 					<!-- TODO: Check max value -->
 				</datalist>
-				<input type="hidden" id="rnet_slider-cycle" class="updatelayer" />
+				<input type="hidden" name="cycle" class="updatelayer slider" data-layer="rnet" />
 				<p>&nbsp</p>
 				<p>Gradient (%)</p>
-				<div id="rnet_slider-gradient-ui" class="slider-styled"></div>
+				<div id="rnet_slider-gradient-ui" class="slider-styled" data-name="gradient"></div>
 				<datalist id="rnet_slider-gradient-ui-values" data-density="10">
 					<option value="0"  data-position="min" data-increments="1"></option>
 					<option value="1"  data-position="10%" data-increments="1"></option>
@@ -235,15 +235,15 @@
 					<option value="9"  data-position="90%" data-increments="91"></option>
 					<option value="100" data-position="max" data-label="10+"></option>
 				</datalist>
-				<input type="hidden" id="rnet_slider-gradient" class="updatelayer" />
+				<input type="hidden" name="gradient" class="updatelayer slider" data-layer="rnet" />
 				<p>&nbsp</p>
 				<p>Cycle friendliness (%)</p>
-				<div id="rnet_slider-quietness-ui" class="slider-styled"></div>
+				<div id="rnet_slider-quietness-ui" class="slider-styled" data-name="quietness"></div>
 				<datalist id="rnet_slider-quietness-ui-values" data-density="10">
 					<option value="0"   data-position="min" data-label="Hostile" data-increments="10"></option>
 					<option value="100" data-position="max" data-label="Quiet"></option>
 				</datalist>
-				<input type="hidden" id="rnet_slider-quietness" class="updatelayer" />
+				<input type="hidden" name="quietness" class="updatelayer slider" data-layer="rnet" />
 				<p>&nbsp</p>
 			</div>
 			<button class="accordion">Data Zones</button>

@@ -571,12 +571,11 @@ function rnetStyling (layerId, map, settings, datasets, createLegend /* callback
 	// Determine the layer width field
 	const layerWidthField = getLayerWidthField();
 	
-	// Parse route network sliders to be used as filters
+	// Parse route network slider input fields to be used as filters
 	const sliders = {};
-	document.querySelectorAll("input[id^='rnet_slider-']").forEach(slider => {
-		const sliderId = slider.id.replace('rnet_slider-', '');
-		const sliderValue = slider.value.split('-');
-		sliders[sliderId] = {
+	document.querySelectorAll ('input.slider[data-layer="rnet"]').forEach (sliderInput => {
+		const sliderValue = sliderInput.value.split ('-');
+		sliders[sliderInput.name] = {
 			min: Number(sliderValue[0]),
 			max: Number(sliderValue[1])
 		};

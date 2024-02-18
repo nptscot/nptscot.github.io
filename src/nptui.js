@@ -467,16 +467,9 @@ const nptUi = (function () {
 				});
 				
 				// Handle layer change controls, each marked with .showlayer or .updatelayer
-				document.querySelectorAll('.showlayer, .updatelayer').forEach((input) => {
-					input.addEventListener('change', function (e) {
-						let layerId = e.target.id;
-						// #!# The input IDs should be standardised, to replace this list of regexp matches
-						layerId = layerId.replace(/_slider-.+$/, ''); // Slider hidden inputs, e.g. rnet_slider-quietness => rnet
-						
-						// Use explicit layer ID if specified
-						if (input.dataset.layer) {
-							layerId = input.dataset.layer;
-						}
+				document.querySelectorAll ('.showlayer, .updatelayer').forEach ((input) => {
+					input.addEventListener ('change', function () {
+						const layerId = input.dataset.layer;
 						
 						nptUi.toggleLayer(layerId);
 						// #!# Workaround, pending adapting layerId to be a list of affected layers
@@ -902,10 +895,10 @@ const nptUi = (function () {
 				});
 				
 				// Define handler to proxy the result to hidden input fields, with value "<numStart>-<numFinish>"
-				const inputField = div.id.replace ('-ui', '');
 				div.noUiSlider.on ('update', function () {
-					document.getElementById (inputField).value = Number (div.noUiSlider.get()[0]) + '-' + Number (div.noUiSlider.get()[1]);
-					document.getElementById (inputField).dispatchEvent (new Event('change'));
+					const inputField = 'input.slider[data-layer="rnet"][name="' + div.dataset.name + '"]';
+					document.querySelector (inputField).value = Number (div.noUiSlider.get()[0]) + '-' + Number (div.noUiSlider.get()[1]);
+					document.querySelector (inputField).dispatchEvent (new Event('change'));
 				});
 			});
 		},
