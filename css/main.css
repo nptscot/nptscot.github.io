@@ -223,6 +223,17 @@ img.basemap {
   padding: 5px;
 }
 
+body .maplibregl-ctrl-geocoder.maplibregl-ctrl-geocoder--collapsed {
+  width: 35px;
+  height: 35px;
+  box-shadow: 0 0 0 2px rgba(0,0,0,.1);
+}
+
+body .maplibregl-ctrl-geocoder--input {
+  height: 35px;
+}
+
+
 .cookiewarning{
    position: fixed; 
    bottom: 0; 
