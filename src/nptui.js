@@ -911,9 +911,9 @@ const nptUi = (function () {
 			const sliderAttributes = {};
 			
 			// Identify the datalist
-			const datalistElement = document.getElementById(sliderId + '-values');
+			const datalistElement = document.querySelector ('datalist[list="' + sliderId + '"]');
 			if (!datalistElement) {
-				console.log('ERROR in HTML: No <datalist> defined for slider ' + sliderId);
+				console.log ('ERROR in HTML: No <datalist> defined for slider ' + sliderId);
 				return {};
 			}
 			
