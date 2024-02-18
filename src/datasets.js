@@ -548,10 +548,10 @@ function popupCallback (feature)
 // Function to determine layer width field
 function getLayerWidthField ()
 {
-	const layerPurpose = document.getElementById ('rnet_purpose_input').value;
-	const layerType = document.getElementById ('rnet_type_input').value;
-	const layerScenario = document.getElementById ('rnet_scenario_input').value;
-	const layerWidthField = layerPurpose + '_' + layerType + '_' + layerScenario;
+	const purpose  = document.querySelector ('select.updatelayer[data-layer="rnet"][name="purpose"]').value;
+	const type     = document.querySelector ('select.updatelayer[data-layer="rnet"][name="type"]').value;
+	const scenario = document.querySelector ('select.updatelayer[data-layer="rnet"][name="scenario"]').value;
+	const layerWidthField = purpose + '_' + type + '_' + scenario;
 	return layerWidthField;
 }
 
@@ -560,8 +560,8 @@ function getLayerWidthField ()
 function rnetStyling (layerId, map, settings, datasets, createLegend /* callback */)
 {
 	// Update the Legend - Do this even if map layer is off
-	const layerColour = document.getElementById('rnet_colour_input').value;
-	createLegend (datasets.legends.rnet, layerColour, 'linecolourlegend');
+	const colour = document.querySelector ('select.updatelayer[data-layer="rnet"][name="colour"]').value;
+	createLegend (datasets.legends.rnet, colour, 'linecolourlegend');
 	
 	// No special handling needed if not visible
 	if (!document.querySelector ('input.showlayer[data-layer="' + layerId + '"]').checked) {
@@ -630,7 +630,7 @@ function rnetStyling (layerId, map, settings, datasets, createLegend /* callback
 	map.setFilter (layerId, filter);
 	
 	// Set paint properties
-	map.setPaintProperty (layerId, 'line-color', line_colours[layerColour]);
+	map.setPaintProperty (layerId, 'line-color', line_colours[colour]);
 	map.setPaintProperty (layerId, 'line-width', line_width);
 }
 
