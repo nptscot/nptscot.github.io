@@ -603,20 +603,19 @@ input:checked + .slider:before {
 
 /* The Close Button */
 .modal-close {
-  color: white;
+  color: black;
   float: right;
   font-size: 28px;
   font-weight: bold;
 }
 
 .modal-close:hover, .modal-close:focus {
-  color: #000;
   text-decoration: none;
   cursor: pointer;
 }
 
-#welcome .modal-close, #help-modal .modal-close {
-  color: black;
+.modal-header .modal-close {
+  color: white;
 }
 
 .modal-header {
