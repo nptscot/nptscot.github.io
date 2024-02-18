@@ -432,14 +432,14 @@ const datasets = {
 				[
 					// visiting Origin
 					'visiting_orig',
-					'visiting friends and family trips leaving',
+					'Visiting friends and family trips leaving',
 					'The bar chart shows estimated mode shares of trips for visiting friends and family under different scenarios for trips leaving this zone.',
 					'Annual Average Daily Flow'
 				],
 				[
 					// visiting Destination
 					'visiting_dest',
-					'visiting friends and family trips arriving',
+					'Visiting friends and family trips arriving',
 					'The bar chart shows estimated mode shares of trips for visiting friends and family under different scenarios for trips arriving this zone.',
 					'Annual Average Daily Flow'
 				],
