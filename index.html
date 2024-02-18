@@ -161,8 +161,8 @@
 				<p>
 					<label><input type="checkbox" id="rnetcheckboxproxy" class="rnetproxy" checked>Show Layer</label>
 					<!-- These two checkboxes actually control the layers, but are set by the show/simplified checkboxes -->
-					<input type="checkbox" class="updatelayer hidden" data-layer="rnet" />
-					<input type="checkbox" class="updatelayer hidden" data-layer="rnet-simplified" />
+					<input type="checkbox" class="showlayer hidden" data-layer="rnet" />
+					<input type="checkbox" class="showlayer hidden" data-layer="rnet-simplified" />
 				</p>
 				<p>
 					<select id="rnet_purpose_input" name="rnet_purpose_input" class="updatelayer" aria-label="Route network trip purpose">
@@ -248,7 +248,7 @@
 			</div>
 			<button class="accordion">Data Zones</button>
 			<div class="panel">
-				<p><label><input type="checkbox" class="updatelayer" data-layer="data_zones" value="false">Show Layer</label></p>
+				<p><label><input type="checkbox" class="showlayer" data-layer="data_zones" value="false">Show Layer</label></p>
 				<p>
 					<select id="data_zones_selector" name="data_zones_selector" class="updatelayer" aria-label="Data zone layer">
 						<option value="pcycle">% commuter cycling (baseline)</option>
@@ -277,7 +277,7 @@
 			</div>
 			<button class="accordion">Other Layers</button>
 			<div class="panel">
-				<p><label><input type="checkbox" class="updatelayer" data-layer="schools" value="false">Schools</label></p>
+				<p><label><input type="checkbox" class="showlayer" data-layer="schools" value="false">Schools</label></p>
 				<div class="legend">
 					<div class="l_r">
 						<div class="lb"><span style="background-color: #313695"></span>Primary</div>
@@ -285,31 +285,31 @@
 						<div class="lb"><span style="background-color: #43f22c"></span>Other</div>
 					</div>
 				</div>
-				<p><label><input type="checkbox" class="updatelayer" data-layer="wards" value="false">Wards</label></p>
+				<p><label><input type="checkbox" class="showlayer" data-layer="wards" value="false">Wards</label></p>
 				<div class="legend">
 					<div class="l_r">
 						<div class="lb"><span style="background-color: #206b07"></span></div>
 					</div>
 				</div>
-				<p><label><input type="checkbox" class="updatelayer" data-layer="holyrood" value="false">Scottish Parliament Constituencies</label></p>
+				<p><label><input type="checkbox" class="showlayer" data-layer="holyrood" value="false">Scottish Parliament Constituencies</label></p>
 				<div class="legend">
 					<div class="l_r">
 						<div class="lb"><span style="background-color: #537bfc"></span></div>
 					</div>
 				</div>
-				<p><label><input type="checkbox" class="updatelayer" data-layer="scot_regions" value="false">Scottish Parliament Regions</label></p>
+				<p><label><input type="checkbox" class="showlayer" data-layer="scot_regions" value="false">Scottish Parliament Regions</label></p>
 				<div class="legend">
 					<div class="l_r">
 						<div class="lb"><span style="background-color: #bab106"></span></div>
 					</div>
 				</div>
-				<p><label><input type="checkbox" class="updatelayer" data-layer="la" value="false">Local Authorities</label></p>
+				<p><label><input type="checkbox" class="showlayer" data-layer="la" value="false">Local Authorities</label></p>
 				<div class="legend">
 					<div class="l_r">
 						<div class="lb"><span style="background-color: #6b0707"></span></div>
 					</div>
 				</div>
-				<p><label><input type="checkbox" class="updatelayer" data-layer="cohesivenetwork" value="false">Cohesive network</label></p>
+				<p><label><input type="checkbox" class="showlayer" data-layer="cohesivenetwork" value="false">Cohesive network</label></p>
 				<div class="legend">
 					<div class="l_r">
 						<div class="lb"><span style="background-color: #1230b4"></span>1</div>

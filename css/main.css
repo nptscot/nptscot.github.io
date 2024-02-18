@@ -557,4 +557,4 @@ input:checked + .slider:before {
 }
 
 /* Checkbox proxies */
-.updatelayer.hidden {display: none;}
+.showlayer.hidden {display: none;}

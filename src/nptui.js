@@ -4,7 +4,7 @@
 /*global alert, console, window, maplibregl, pmtiles, MaplibreGeocoder, noUiSlider, tippy */
 
 /* Expectations in HTML:
-- Layer toggles should be as follows, specifying the layerId in the data attribute: <input type="checkbox" class="updatelayer" data-layer="foo">
+- Layer toggles should be as follows, specifying the layerId in the data attribute: <input type="checkbox" class="showlayer" data-layer="foo">
 */
 
 const nptUi = (function () {
@@ -466,8 +466,8 @@ const nptUi = (function () {
 					nptUi.toggleLayer(layerId);
 				});
 				
-				// Handle layer change controls, each marked with the updatelayer class
-				document.querySelectorAll('.updatelayer').forEach((input) => {
+				// Handle layer change controls, each marked with .showlayer or .updatelayer
+				document.querySelectorAll('.showlayer, .updatelayer').forEach((input) => {
 					input.addEventListener('change', function (e) {
 						let layerId = e.target.id;
 						// #!# The input IDs should be standardised, to replace this list of regexp matches
@@ -524,7 +524,7 @@ const nptUi = (function () {
 			}
 			
 			// Set the visibility of the layer, based on the checkbox value
-			const isVisible = document.querySelector ('input.updatelayer[data-layer="' + layerId + '"]').checked;
+			const isVisible = document.querySelector ('input.showlayer[data-layer="' + layerId + '"]').checked;
 			_map.setLayoutProperty(layerId, 'visibility', (isVisible ? 'visible' : 'none'));
 		},
 		

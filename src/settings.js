@@ -68,10 +68,10 @@ function rnetCheckboxProxying ()
 	{
 		const layerEnabled = document.getElementById ('rnetcheckboxproxy').checked;
 		const simplifiedMode = document.getElementById ('rnet-simplifiedcheckboxproxy').checked;
-		document.querySelector ('input.updatelayer[data-layer="rnet"]').checked = (layerEnabled && !simplifiedMode);
-		document.querySelector ('input.updatelayer[data-layer="rnet"]').dispatchEvent (new Event('change'));
-		document.querySelector ('input.updatelayer[data-layer="rnet-simplified"]').checked = (layerEnabled && simplifiedMode);
-		document.querySelector ('input.updatelayer[data-layer="rnet-simplified"]').dispatchEvent (new Event('change'));
+		document.querySelector ('input.showlayer[data-layer="rnet"]').checked = (layerEnabled && !simplifiedMode);
+		document.querySelector ('input.showlayer[data-layer="rnet"]').dispatchEvent (new Event('change'));
+		document.querySelector ('input.showlayer[data-layer="rnet-simplified"]').checked = (layerEnabled && simplifiedMode);
+		document.querySelector ('input.showlayer[data-layer="rnet-simplified"]').dispatchEvent (new Event('change'));
 	}
 	
 	// Set initial state
