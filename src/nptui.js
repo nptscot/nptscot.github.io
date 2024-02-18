@@ -3,9 +3,37 @@
 /*jslint browser: true, white: true, single: true, for: true, unordered: true, long: true */
 /*global alert, console, window, maplibregl, pmtiles, MaplibreGeocoder, noUiSlider, tippy */
 
+
 /* Expectations in HTML:
-- Layer toggles should be as follows, specifying the layerId in the data attribute: <input type="checkbox" class="showlayer" data-layer="foo">
+
+- Layer toggles, to enable/disable a layer by a checkbox:
+	Should be as follows, specifying the layerId in the data attribute, e.g.:
+	<input type="checkbox" class="showlayer" data-layer="foo">
+	
+- Layer attributes, to set values for a layer:
+	Should be as follows, specifying the layerId in the data attribute, and a name for the field, e.g.:
+	<select name="purpose" class="updatelayer" data-layer="rnet" aria-label="Route network trip purpose">
+	
+- Slider UI:
+	Sliders should have .slider-styled, with a name for the field, and an ID that matches a datalist name, e.g.:
+	<div id="slider-gradient-ui" class="slider-styled" data-name="gradient"></div>
+	<datalist name="slider-gradient-ui">...</datalist>
+	<input type="hidden" name="gradient" class="updatelayer slider" data-layer="foo" />
+	
+- Modal dialogs:
+	Modals should be defined as a <template> with an id ending -modal, include an X in a span.modal-close
+	
+- Popups:
+	Popups should be defined as a <template> with an id ending -popup
+	They should have placeholders like {some_field} which will be matched to the data properties
+	Predefined placeholders {_streetViewUrl} and {_osmUrl} can be used for links to these services
+	
+- Help buttons:
+	Help buttons should have .helpbutton and a data-help="..." value which matches a comment marker
+	The comment marker in the .md file should be added around the relevant lines to be displayed, e.g.:
+	<!-- #scenario -->...<!-- /#scenario -->
 */
+
 
 const nptUi = (function () {
 	
