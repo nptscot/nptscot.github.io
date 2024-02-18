@@ -643,7 +643,7 @@ function data_zonesStyling (layerId, map, settings, datasets, createLegend /* ca
 	createLegend (datasets.legends.data_zones, field, 'dzlegend');
 	
 	// Get UI state
-	const daysymetricMode = document.getElementById('data_zones_checkbox_dasymetric').checked;
+	const daysymetricMode = document.querySelector ('input.updatelayer[data-layer="data_zones"][name="daysymetricmode"]').checked;
 	
 	// Set paint properties
 	map.setPaintProperty (layerId, 'fill-color', ['step', ['get', field], ...getStyleColumn (field, datasets)]);
@@ -666,7 +666,7 @@ function getBuildingsColour (settings)
 	}
 	
 	// If dasymetric mode, use a colour set based on the layer
-	if (document.getElementById('data_zones_checkbox_dasymetric').checked) {
+	if (document.querySelector ('input.updatelayer[data-layer="data_zones"][name="daysymetricmode"]').checked) {
 		const field = document.querySelector ('select.updatelayer[data-layer="data_zones"][name="field"]').value;
 		return ['step', ['get', field], ...getStyleColumn (field, datasets)];
 	}

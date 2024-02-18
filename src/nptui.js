@@ -471,7 +471,6 @@ const nptUi = (function () {
 					input.addEventListener('change', function (e) {
 						let layerId = e.target.id;
 						// #!# The input IDs should be standardised, to replace this list of regexp matches
-						layerId = layerId.replace(/_checkbox_.+$/, ''); // Checkboxes, e.g. data_zones_checkbox_dasymetric => data_zones
 						layerId = layerId.replace(/_slider-.+$/, ''); // Slider hidden inputs, e.g. rnet_slider-quietness => rnet
 						
 						// Use explicit layer ID if specified
