@@ -1128,10 +1128,10 @@ const nptUi = (function () {
 		
 		
 		// Generic cookie managment functions
-		setCookie: function (name, value)
+		setCookie: function (name, value, days = 1000)
 		{
 			const d = new Date();
-			d.setTime(d.getTime() + (1000 * 24 * 60 * 60 * 1000));
+			d.setTime(d.getTime() + (24 * 60 * 60 * days * 1000));	// setTime is in ms
 			const expires = 'expires=' + d.toUTCString();
 			document.cookie = name + '=' + value + ';' + expires + ';path=/';
 		},
