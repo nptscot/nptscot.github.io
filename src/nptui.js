@@ -886,8 +886,8 @@ const nptUi = (function () {
 				});
 			
 			// Show in modal
-			const help_modal = newModal ('help_modal');
-			help_modal.show();
+			const helpModal = nptUi.newModal ('help-modal');
+			helpModal.show();
 		},
 		
 		
