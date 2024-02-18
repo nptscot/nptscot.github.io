@@ -97,8 +97,8 @@
 			</div>
 		</div>
 		
-		<!-- Welcome Splash -->
-		<div id="welcome" class="welcome">
+		<!-- Welcome splash -->
+		<div id="welcome-modal" class="modal">
 			<span class="modal-close">&times;</span>
 			<div>
 				<h3>Network Planning Tool for Scotland</h3>
@@ -327,26 +327,24 @@
 		<!-- Template for chart modals, including a sub-template for the chart boxes, plus overlay -->
 		<template id="chart-modal">
 			<div class="modal">
-				<div class="modal-content">
-					<div class="modal-header">
-						<span class="modal-close">&times;</span>
-						<h2 class="modal-title">Summary</h2>
-					</div>
-					<div class="modal-body">
-						<template class="chart-template">
-							<div class="wrapper">
-								<div class="chart-text">
-									<h4 class="chart-title"></h4>
-									<p class="chart-description"></p>
-								</div>
-								<div class="chart-container" >
-									<canvas></canvas>
-								</div>
-							</div>
-						</template>
-					</div>
-					<div class="modal-footer"></div>
+				<div class="modal-header">
+					<span class="modal-close">&times;</span>
+					<h2 class="modal-title">Summary</h2>
 				</div>
+				<div class="modal-body">
+					<template class="chart-template">
+						<div class="wrapper">
+							<div class="chart-text">
+								<h4 class="chart-title"></h4>
+								<p class="chart-description"></p>
+							</div>
+							<div class="chart-container" >
+								<canvas></canvas>
+							</div>
+						</div>
+					</template>
+				</div>
+				<div class="modal-footer"></div>
 			</div>
 		</template>
 		<div id="overlay"></div>

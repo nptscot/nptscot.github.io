@@ -103,7 +103,8 @@ const nptUi = (function () {
 		welcomeScreen: function ()
 		{
 			// Create modal
-			nptUi.newModal ('welcome');
+			const welcomeModal = nptUi.newModal ('welcome-modal');
+			welcomeModal.show ();
 			
 			// Set OSM and update dates in the text, if present
 			if (document.getElementById ('osmupdatedate')) {
