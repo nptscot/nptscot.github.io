@@ -639,14 +639,14 @@ function rnetStyling (layerId, map, settings, datasets, createLegend /* callback
 function data_zonesStyling (layerId, map, settings, datasets, createLegend /* callback */)
 {
 	// Update the legend (even if map layer is off)
-	const fieldId = document.getElementById('data_zones_selector').value;
-	createLegend (datasets.legends.data_zones, fieldId, 'dzlegend');
+	const field = document.querySelector ('select.updatelayer[data-layer="data_zones"][name="field"]').value
+	createLegend (datasets.legends.data_zones, field, 'dzlegend');
 	
 	// Get UI state
 	const daysymetricMode = document.getElementById('data_zones_checkbox_dasymetric').checked;
 	
 	// Set paint properties
-	map.setPaintProperty (layerId, 'fill-color', ['step', ['get', fieldId], ...getStyleColumn(fieldId, datasets)]);
+	map.setPaintProperty (layerId, 'fill-color', ['step', ['get', field], ...getStyleColumn (field, datasets)]);
 	map.setPaintProperty (layerId, 'fill-opacity', (daysymetricMode ? 0.1 : 0.8)); // Very faded-out in daysymetric mode, as the buildings are coloured
 	
 	// Set buildings layer colour/visibility
@@ -667,11 +667,8 @@ function getBuildingsColour (settings)
 	
 	// If dasymetric mode, use a colour set based on the layer
 	if (document.getElementById('data_zones_checkbox_dasymetric').checked) {
-		const layerId = document.getElementById('data_zones_selector').value;
-		return ['step',
-			['get', layerId],
-			...getStyleColumn(layerId, datasets)
-		];
+		const field = document.querySelector ('select.updatelayer[data-layer="data_zones"][name="field"]').value;
+		return ['step', ['get', field], ...getStyleColumn (field, datasets)];
 	}
 	
 	// Default to gray
