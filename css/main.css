@@ -286,7 +286,7 @@ p.welcome-end {
   border: 0;
 }
 
-#help_modal {
+#help-modal {
   position: absolute;
   display: none;
   top: 50px;
@@ -623,7 +623,7 @@ input:checked + .slider:before {
   cursor: pointer;
 }
 
-#welcome .modal-close, #help_modal .modal-close {
+#welcome .modal-close, #help-modal .modal-close {
   color: black;
 }
 
