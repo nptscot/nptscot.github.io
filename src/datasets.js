@@ -540,7 +540,6 @@ function popupCallback (feature)
 {
 	const layerWidthField = getLayerWidthField ();
 	feature.properties._ncycle = feature.properties[layerWidthField];
-	console.log (feature.properties._ncycle, layerWidthField);
 	return feature;
 }
 
