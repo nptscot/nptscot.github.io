@@ -564,7 +564,7 @@ function rnetStyling (layerId, map, settings, datasets, createLegend /* callback
 	createLegend (datasets.legends.rnet, layerColour, 'linecolourlegend');
 	
 	// No special handling needed if not visible
-	if (!document.getElementById(layerId + 'checkbox').checked) {
+	if (!document.querySelector ('input.updatelayer[data-layer="' + layerId + '"]').checked) {
 		return;
 	}
 	
@@ -660,7 +660,7 @@ function data_zonesStyling (layerId, map, settings, datasets, createLegend /* ca
 function getBuildingsColour (settings)
 {
 	// If datazones is off, buildings shown, if vector style, as static colour appropriate to the basemap
-	if (!document.getElementById('data_zonescheckbox').checked) {
+	if (!document.querySelector ('input.updatelayer[data-layer="data_zones"]').checked) {
 		const styleName = document.querySelector('#basemapform input:checked').value;	// Same as nptUi.getBasemapStyle()
 		return settings.basemapStyles[styleName].buildingColour;
 	}

@@ -3,6 +3,10 @@
 /*jslint browser: true, white: true, single: true, for: true, unordered: true, long: true */
 /*global alert, console, window, maplibregl, pmtiles, MaplibreGeocoder, noUiSlider, tippy */
 
+/* Expectations in HTML:
+- Layer toggles should be as follows, specifying the layerId in the data attribute: <input type="checkbox" class="updatelayer" data-layer="foo">
+*/
+
 const nptUi = (function () {
 	
 	'use strict';
@@ -467,11 +471,16 @@ const nptUi = (function () {
 					input.addEventListener('change', function (e) {
 						let layerId = e.target.id;
 						// #!# The input IDs should be standardised, to replace this list of regexp matches
-						layerId = layerId.replace(/checkbox$/, ''); // Checkboxes, e.g. data_zonescheckbox => data_zones
 						layerId = layerId.replace(/_checkbox_.+$/, ''); // Checkboxes, e.g. data_zones_checkbox_dasymetric => data_zones
 						layerId = layerId.replace(/_slider-.+$/, ''); // Slider hidden inputs, e.g. rnet_slider-quietness => rnet
 						layerId = layerId.replace(/_selector$/, ''); // Dropdowns, e.g. data_zones_selector => data_zones   #!# Should be input, but currently data_zones_input would clash with rnet_*_input on next line
 						layerId = layerId.replace(/_[^_]+_input$/, ''); // Dropdowns, e.g. rnet_purpose_input => rnet
+						
+						// Use explicit layer ID if specified
+						if (input.dataset.layer) {
+							layerId = input.dataset.layer;
+						}
+						
 						nptUi.toggleLayer(layerId);
 						// #!# Workaround, pending adapting layerId to be a list of affected layers
 						if (layerId == 'rnet') {
@@ -515,7 +524,7 @@ const nptUi = (function () {
 			}
 			
 			// Set the visibility of the layer, based on the checkbox value
-			const isVisible = document.getElementById(layerId + 'checkbox').checked;
+			const isVisible = document.querySelector ('input.updatelayer[data-layer="' + layerId + '"]').checked;
 			_map.setLayoutProperty(layerId, 'visibility', (isVisible ? 'visible' : 'none'));
 		},
 		
