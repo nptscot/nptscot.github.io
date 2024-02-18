@@ -102,6 +102,10 @@ const nptUi = (function () {
 		// Welcome screen
 		welcomeScreen: function ()
 		{
+			// Show only first time
+			const cookieName = 'welcomescreen';
+			if (nptUi.getCookie (cookieName)) {return;}
+			
 			// Create modal
 			const welcomeModal = nptUi.newModal ('welcome-modal');
 			welcomeModal.show ();
@@ -113,6 +117,9 @@ const nptUi = (function () {
 			if (document.getElementById ('updatedate')) {
 				document.getElementById ('updatedate').innerText = nptUi.formatAsUKDate (document.lastModified);
 			}
+			
+			// Set cookie
+			nptUi.setCookie (cookieName, 'true');
 		},
 		
 		
