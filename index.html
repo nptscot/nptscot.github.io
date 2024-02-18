@@ -4,7 +4,6 @@
 	<head>
 		
 		<meta charset="utf-8">
-		<meta http-equiv="content-type" content="text/html">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta name="Description" content="An interactive map to aid cycle planning in Scotland">
 		
@@ -108,14 +107,13 @@
 				<p>The results are publicly available. The main intended audience is local authorities undertaking cycle network planning to support  evidence-based and transparent investment, scheme location and design decisions.</p>
 				<p>Last updated: <span id="updatedate"></span>. You may need to <a href="https://www.minitool.com/news/f5-vs-ctrl-f5.html">clear your browser cache</a> to see the latest updates.</p>
 				<p>To report issues or provide feedback, please use the <a href="https://forms.office.com/Pages/ResponsePage.aspx?id=qO3qvR3IzkWGPlIypTW3ywVZfmO0bwdAhK0UztpneQtUM1pCRlJQQjY1V0M3MUhBV0g0VTJRS1ZQVi4u" target="_blank">feedback form</a>.</p>
-				<p>Date of OSM Data on which network results are based: 
+				<p>Date of OSM Data on which network results are based:</p>
 				<p id="osmupdatedate"></p>
 				<p id="logos">
 					<a href="https://environment.leeds.ac.uk/transport" target="_blank"><img src="/images/logos/leeds.png" alt="University of Leeds" /></a>
 					<a href="https://www.sustrans.org.uk/about-us/our-work-in-scotland" target="_blank"><img src="/images/logos/sustrans.png" alt="Sustrans" /></a>
 					<a href="https://www.transport.gov.scot/" target="_blank"><img src="/images/logos/transportscotland.svg" alt="Transport Scotland" /></a>
 					<a href="https://www.cyclestreets.org/" target="_blank"><img src="/images/logos/cyclestreets.svg" alt="CycleStreets" /></a>
-					
 				</p>
 			</div>
 		</div>
@@ -137,11 +135,9 @@
 		<!-- Basemap control box -->
 		<div id="basemapcontrol">
 			<h3>Basemap</h3>
-			<p>
 			<form id="basemapform">
 				<!-- Values will be populated -->
 			</form>
-			</p>
 			<p><label class="switch"><input type="checkbox" id="placenamescheckbox" checked="checked" /><span class="slider round"></span></label> Place names</p>
 			<p title="Makes the map look smoother and clearer (not suitable for lower-powered devices)"><label class="switch"><input type="checkbox" id="antialiascheckbox" /><span class="slider round"></span></label> Anti-alias</p>
 		</div>
@@ -199,7 +195,7 @@
 				</p>
 				<div id="linecolourlegend" class="legend">
 					<div class="l_r">
-						<div class="lb"><span style="background-color: #ffffff"></span>&nbsp</div>
+						<div class="lb"><span style="background-color: #ffffff"></span>&nbsp;</div>
 					</div>
 				</div>
 				<p><label class="switch"><input type="checkbox" id="rnet-simplifiedcheckboxproxy" class="rnetproxy" aria-label="Simplify route network"><span class="slider round"></span></label> Simplified <button aria-label="Help simplified route network" class="helpbutton" data-help="simplified_rnet" title="Full details of streamlining the route network"><i class="fa fa-question-circle" aria-hidden="true"></i></button></p>
@@ -222,7 +218,7 @@
 					<!-- TODO: Check max value -->
 				</datalist>
 				<input type="hidden" name="cycle" class="updatelayer slider" data-layer="rnet" />
-				<p>&nbsp</p>
+				<p>&nbsp;</p>
 				<p>Gradient (%)</p>
 				<div id="slider-gradient-ui" class="slider-styled" data-name="gradient"></div>
 				<datalist list="slider-gradient-ui" data-density="10">
@@ -235,7 +231,7 @@
 					<option value="100" data-position="max" data-label="10+"></option>
 				</datalist>
 				<input type="hidden" name="gradient" class="updatelayer slider" data-layer="rnet" />
-				<p>&nbsp</p>
+				<p>&nbsp;</p>
 				<p>Cycle friendliness (%)</p>
 				<div id="slider-quietness-ui" class="slider-styled" data-name="quietness"></div>
 				<datalist list="slider-quietness-ui" data-density="10">
@@ -243,7 +239,7 @@
 					<option value="100" data-position="max" data-label="Quiet"></option>
 				</datalist>
 				<input type="hidden" name="quietness" class="updatelayer slider" data-layer="rnet" />
-				<p>&nbsp</p>
+				<p>&nbsp;</p>
 			</div>
 			<button class="accordion">Data Zones</button>
 			<div class="panel">
@@ -269,7 +265,7 @@
 				</p>
 				<div id="dzlegend" class="legend">
 					<div class="l_r">
-						<div class="lb"><span style="background-color: #ffffff"></span>&nbsp</div>
+						<div class="lb"><span style="background-color: #ffffff"></span>&nbsp;</div>
 					</div>
 				</div>
 				<p><label class="switch"><input type="checkbox" name="daysymetricmode" class="updatelayer" data-layer="data_zones" checked><span class="slider round"></span></label> Dasymetric</p>
@@ -357,7 +353,6 @@
 		
 		<!-- Template for map popup -->
 		<template id="rnet-popup">
-			<div class="mappopup">
 			<p>Cyclists: {_ncycle}</p>
 			<p>Gradient: {Gradient}%</p>
 			<p>Cycle-friendliness: {Quietness}%</p>
@@ -367,20 +362,20 @@
 				<h4>Fast/Direct network</h4>
 				<table>
 					<tr><th></th><th>Baseline</th><th>Go Dutch</th><th>Ebikes</th></tr>
-					<tr><th>All</td><td>{all_fastest_bicycle}</td><td>{all_fastest_bicycle_go_dutch}</td><td>{all_fastest_bicycle_ebike}</td></tr>
-					<tr><th>Commute</td><td>{commute_fastest_bicycle}</td><td>{commute_fastest_bicycle_go_dutch}</td><td>{commute_fastest_bicycle_ebike}</td></tr>
-					<tr><th>Primary</td><td>{primary_fastest_bicycle}</td><td>{primary_fastest_bicycle_go_dutch}</td><td>{primary_fastest_bicycle_ebike}</td></tr>
-					<tr><th>Secondary</td><td>{secondary_fastest_bicycle}</td><td>{secondary_fastest_bicycle_go_dutch}</td><td>{secondary_fastest_bicycle_ebike}</td></tr>
-					<tr><th>Utility</td><td>{utility_fastest_bicycle}</td><td>{utility_fastest_bicycle_go_dutch}</td><td>{utility_fastest_bicycle_ebike}</td></tr>
+					<tr><th>All</th><td>{all_fastest_bicycle}</td><td>{all_fastest_bicycle_go_dutch}</td><td>{all_fastest_bicycle_ebike}</td></tr>
+					<tr><th>Commute</th><td>{commute_fastest_bicycle}</td><td>{commute_fastest_bicycle_go_dutch}</td><td>{commute_fastest_bicycle_ebike}</td></tr>
+					<tr><th>Primary</th><td>{primary_fastest_bicycle}</td><td>{primary_fastest_bicycle_go_dutch}</td><td>{primary_fastest_bicycle_ebike}</td></tr>
+					<tr><th>Secondary</th><td>{secondary_fastest_bicycle}</td><td>{secondary_fastest_bicycle_go_dutch}</td><td>{secondary_fastest_bicycle_ebike}</td></tr>
+					<tr><th>Utility</th><td>{utility_fastest_bicycle}</td><td>{utility_fastest_bicycle_go_dutch}</td><td>{utility_fastest_bicycle_ebike}</td></tr>
 				</table>
 				<h4>Quiet/Indirect network</h4>
 				<table>
 					<tr><th></th><th>Baseline</th><th>Go Dutch</th><th>Ebikes</th></tr>
-					<tr><th>All</td><td>{all_quietest_bicycle}</td><td>{all_quietest_bicycle_go_dutch}</td><td>{all_quietest_bicycle_ebike}</td></tr>
-					<tr><th>Commute</td><td>{commute_quietest_bicycle}</td><td>{commute_quietest_bicycle_go_dutch}</td><td>{commute_quietest_bicycle_ebike}</td></tr>
-					<tr><th>Primary</td><td>{primary_quietest_bicycle}</td><td>{primary_quietest_bicycle_go_dutch}</td><td>{primary_quietest_bicycle_ebike}</td></tr>
-					<tr><th>Secondary</td><td>{secondary_quietest_bicycle}</td><td>{secondary_quietest_bicycle_go_dutch}</td><td>{secondary_quietest_bicycle_ebike}</td></tr>
-					<tr><th>Utility</td><td>{utility_quietest_bicycle}</td><td>{utility_quietest_bicycle_go_dutch}</td><td>{utility_quietest_bicycle_ebike}</td></tr>
+					<tr><th>All</th><td>{all_quietest_bicycle}</td><td>{all_quietest_bicycle_go_dutch}</td><td>{all_quietest_bicycle_ebike}</td></tr>
+					<tr><th>Commute</th><td>{commute_quietest_bicycle}</td><td>{commute_quietest_bicycle_go_dutch}</td><td>{commute_quietest_bicycle_ebike}</td></tr>
+					<tr><th>Primary</th><td>{primary_quietest_bicycle}</td><td>{primary_quietest_bicycle_go_dutch}</td><td>{primary_quietest_bicycle_ebike}</td></tr>
+					<tr><th>Secondary</th><td>{secondary_quietest_bicycle}</td><td>{secondary_quietest_bicycle_go_dutch}</td><td>{secondary_quietest_bicycle_ebike}</td></tr>
+					<tr><th>Utility</th><td>{utility_quietest_bicycle}</td><td>{utility_quietest_bicycle_go_dutch}</td><td>{utility_quietest_bicycle_ebike}</td></tr>
 				</table>
 			</div>
 		</template>

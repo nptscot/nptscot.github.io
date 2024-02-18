@@ -527,14 +527,6 @@ input:checked + .slider:before {
   max-width: 400px;
 }
 
-.mappopup {
-  line-height: 10px;
-}
-
-.mappopup.h4 {
-  line-height: 12px;
-}
-
 .layerpopup table th, .layerpopup table td {
   padding: 2px 4px;
 }
