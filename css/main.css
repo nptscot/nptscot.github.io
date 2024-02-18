@@ -227,6 +227,7 @@ a.smaller {
    background-color:#0b38e6; 
    font-size: 12px; 
    color:#fff;
+   display: none;
 }
 .cookiewarning a{
    color:#fff;
