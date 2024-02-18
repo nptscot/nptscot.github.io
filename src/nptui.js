@@ -1128,7 +1128,7 @@ const nptUi = (function () {
 		
 		
 		// Generic cookie managment functions
-		setCookie: function (name, value, days = 1000)
+		setCookie: function (name, value, days = 100)
 		{
 			const d = new Date();
 			d.setTime(d.getTime() + (24 * 60 * 60 * days * 1000));	// setTime is in ms
