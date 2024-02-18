@@ -217,6 +217,12 @@ a.smaller {
 #searchbutton {
   background-color: white;
 }
+
+img.basemap {
+  width: 25px;
+  padding: 5px;
+}
+
 .cookiewarning{
    position: fixed; 
    bottom: 0; 

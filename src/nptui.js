@@ -261,7 +261,7 @@ const nptUi = (function () {
 				onAdd(map) {
 					const div = document.createElement('div');
 					div.className = 'maplibregl-ctrl maplibregl-ctrl-group';
-					div.innerHTML = '<button aria-label="Change basemap"><img src="/images/basemap.svg" title="Change basemap" /></button>';
+					div.innerHTML = '<button aria-label="Change basemap"><img src="/images/basemap.svg" class="basemap" title="Change basemap" /></button>';
 					div.addEventListener('contextmenu', (e) => e.preventDefault());
 					div.addEventListener('click', function () {
 						const box = document.getElementById('basemapcontrol');
