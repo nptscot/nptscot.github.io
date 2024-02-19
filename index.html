@@ -81,21 +81,14 @@
 	<body>
 		
 		<!-- Menu -->
-		<div class="nav-wrapper">
-			<div class="topnav" id="myTopnav">
-				<div class="main-title">
-					<a href="/">NPT Scotland</a>
-				</div>
-				<a href="/about">About</a>
-				<a href="/data">Data</a>
-				<a href="/manual">Manual</a>
-				<a class="smaller" href="/privacy">Privacy &amp; accessibility</a>
-				<a href="#" id="expandtopnav" class="icon" aria-label="Expand Menu"><i class="fa fa-bars"></i></a>
-			</div>
-			<div class="logo">
-				<img src="/images/npt_logo.png" alt="NPT Logo" height="40">
-			</div>
-		</div>
+		<nav>
+			<a href="/" class="selected"><img src="/images/npt_logo.png" alt="NPT Logo" class="logo" /> NPT Scotland</a>
+			<a href="/about/">About</a>
+			<a href="/data/">Data</a>
+			<a href="/manual/">Manual</a>
+			<a href="/privacy/">Privacy</a>
+			<a href="#" id="expandtopnav" class="icon" aria-label="Expand menu"><i class="fa fa-bars"></i></a>
+		</nav>
 		
 		<!-- Welcome splash -->
 		<div id="welcome-modal" class="modal">
@@ -150,11 +143,11 @@
 		<!-- Layer Selection Panel -->
 		<div id="rightbox" class="rightbox">
 			<button class="close-button" aria-label="Hide layers"><i class="fas fa-times"></i></button>
-			<b>Layer Controls</b>
-			<button class="accordion" id="autoopen">Route Network</button>
+			<h2>Layer controls</h2>
+			<button class="accordion" id="autoopen">Route network</button>
 			<div class="panel">
 				<p>
-					<label><input type="checkbox" id="rnetcheckboxproxy" class="rnetproxy" checked>Show Layer</label>
+					<label><input type="checkbox" id="rnetcheckboxproxy" class="rnetproxy" checked>Show layer</label>
 					<!-- These two checkboxes actually control the layers, but are set by the show/simplified checkboxes -->
 					<input type="checkbox" class="showlayer hidden" data-layer="rnet" />
 					<input type="checkbox" class="showlayer hidden" data-layer="rnet-simplified" />
@@ -200,7 +193,7 @@
 				</div>
 				<p><label class="switch"><input type="checkbox" id="rnet-simplifiedcheckboxproxy" class="rnetproxy" aria-label="Simplify route network"><span class="slider round"></span></label> Simplified <button aria-label="Help simplified route network" class="helpbutton" data-help="simplified_rnet" title="Full details of streamlining the route network"><i class="fa fa-question-circle" aria-hidden="true"></i></button></p>
 			</div>
-			<button class="accordion">Route Network Filters</button>
+			<button class="accordion">Route network filters</button>
 			<div class="panel">
 				<p><b>Filters</b><button aria-label="Help scenario" class="helpbutton" data-help="filters" title="Full details of filtering parts of the route network"><i class="fa fa-question-circle" aria-hidden="true"></i></button></p>
 				<p>Number of cyclists</p>
@@ -241,9 +234,9 @@
 				<input type="hidden" name="quietness" class="updatelayer slider" data-layer="rnet" />
 				<p>&nbsp;</p>
 			</div>
-			<button class="accordion">Data Zones</button>
+			<button class="accordion">Data zones</button>
 			<div class="panel">
-				<p><label><input type="checkbox" class="showlayer" data-layer="data_zones" value="false">Show Layer</label></p>
+				<p><label><input type="checkbox" class="showlayer" data-layer="data_zones" value="false">Show layer</label></p>
 				<p>
 					<select name="field" class="updatelayer" data-layer="data_zones" aria-label="Data zone layer">
 						<option value="pcycle">% commuter cycling (baseline)</option>
@@ -270,7 +263,7 @@
 				</div>
 				<p><label class="switch"><input type="checkbox" name="daysymetricmode" class="updatelayer" data-layer="data_zones" checked><span class="slider round"></span></label> Dasymetric</p>
 			</div>
-			<button class="accordion">Other Layers</button>
+			<button class="accordion">Other layers</button>
 			<div class="panel">
 				<p><label><input type="checkbox" class="showlayer" data-layer="schools" value="false">Schools</label></p>
 				<div class="legend">

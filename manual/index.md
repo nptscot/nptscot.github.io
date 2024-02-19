@@ -88,7 +88,7 @@ The layer controls on the right side of the map control what information is show
 
 The NPT allows you to view a broad range of data about cycling by manipulating filters to showcase specific data points. This section describes each layer and its features.
 
-### Route Network
+### Route network
 
 The Route Network is the primary layer in the NPT and the only one that is on by default when the tool loads. The route network estimates the number of cyclists on each road. It is designed to emphasise roads with lots of cycling potential and so aid planners in deciding where cycling infrastructure is needed.
 
@@ -261,7 +261,7 @@ The popup provides a summary table for all the information available about the r
 
 <!-- #filters -->
 
-### Route Network Filters
+### Route network filters
 
 ![Route network filters](/images/rnet_filters.png)
 
@@ -283,7 +283,7 @@ Set the maximum and minimum quietness of roads that are visible. Quietness measu
 
 <!-- #data_zones -->
 
-### Data Zones
+### Data zones
 
 Data Zones are small statistical neighbourhoods created for the Census. In the NPT, they are used to provide contextual area-based information.
 
@@ -360,7 +360,7 @@ The bar chart shows estimated mode shares of trips for visiting friends and fami
 
 The bar chart shows estimated mode shares of trips for visiting friends and family under different scenarios for trips arriving this zone.
 
-### Other Layers
+### Other layers
 
 The NPT provides several supplementary map layers that enhance the contextual understanding of the cycling network
 

@@ -3,13 +3,16 @@ body, html{
     margin:0;
     position:relative;
     height:100%;
-    font-family: Arial, sans-serif;
 }
 body {
   overflow: hidden;
   line-height: 1.4;
   color: #444;
 }
+
+body, input, select, option, button {font-family: Avenir, 'Avenir Next LT Pro', Ebrima, Arial;}
+
+
 .regular {
     font-weight: 400;
 }
@@ -52,7 +55,6 @@ h1{
     outline: none;
     transition: 0.4s;
     font-size: 1em;
-    font-family: Arial, sans-serif;
 }
 .accordion:after {
   content: '+'; 
@@ -72,10 +74,9 @@ h1{
 
 
 .panel {
-    padding: 0 5px;
-    background-color: white;
     display: none;
     overflow: hidden;
+    padding-bottom: 20px;
 }
 
 .legenddot{
@@ -85,31 +86,37 @@ h1{
   margin-right: 5px; 
   width: 10px;
 }
-.topnav {
+nav {
+  height: 60px;
   overflow: hidden;
   background-color: #545454;
   z-index: 1100;
 }
-.topnav a {
+nav a {
   float: left;
-  display: block;
+  display: table-cell;
   color: #f2f2f2;
-  text-align: right;
-  padding: 18px 13px 12px 13px;
+  padding-top: auto;
+  padding-bottom: auto;
+  padding-left: 13px;
+  padding-right: 13px;
+  height: 60px;
+  line-height: 60px;
   text-decoration: none;
-  font-size: 0.95em;
-  text-transform: uppercase;
 }
-.topnav a:hover {
-  background-color: #0b38e6;
+nav a.selected {
+  background-color: #777;
+}
+nav a:hover {
+  background-color: gray;
   color: #fff;
-  padding: 18px 13px 12px 13px;
+  text-decoration: none;
 }
-.topnav a.active {
+nav a.active {
   background-color: #B8BEC1;
   color: white;
 }
-.topnav .icon {
+nav .icon {
   display: none;
 }
 .main-title {
@@ -127,20 +134,20 @@ a.smaller {
 	display: none;
 }
 @media screen and (max-width: 760px) {
-  .topnav a:not(:first-child) {display: none;}
-  .topnav a.icon {
+  nav a:not(:first-child) {display: none;}
+  nav a.icon {
     float: right;
     display: block;
   }
 }
 @media screen and (max-width: 760px) {
- .topnav.responsive {position: relative;}
- .topnav.responsive .icon {
+  nav.responsive {position: relative;}
+  nav.responsive .icon {
     position: absolute;
     right: 0;
     top: 0;
   }
-  .topnav.responsive a {
+  nav.responsive a {
     float: none;
     display: block;
     text-align: left;
@@ -149,14 +156,14 @@ a.smaller {
 @media screen and (min-width: 880px) {
 	.logo {
 		width: 110px;
-		height: auto;
-		display: block;
-		position: absolute;
-		top: 8px;
-		right: 16px;
+    height: 40px;
+    line-height: 60px;
+		display: inline;
+    vertical-align: middle;
+    margin-right: 3px;
 	}
-	.topnav a:first-child {
-		margin-right: 0.5em;
+	nav a:first-child {
+		margin-right: 15px;
 	}
 	a.smaller {
 	font-size: 0.85em;
@@ -167,28 +174,32 @@ a.smaller {
 }
 .rightbox {
   background-color: #fff;
-  border-radius: 3px;
   top: 60px;
-  max-height: calc(100% - 110px);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-  padding: 6px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  padding: 20px;
   position: absolute;
-  right: 10px;
+  right: 0;
+  bottom: 0;
   z-index: 3;
-  width: 289px;
-  overflow:auto;
+  width: 270px;
+  overflow: auto;
+  background-color: rgba(255, 255, 255, 0.8);
 }
 .rightbox button.close-button {
   float: right;
-  height: 34px;
-  width: 34px;
   background-color: transparent;
   border: none;
   font-size: 20px;
   cursor: pointer;
 }
+.rightbox h2 {
+  margin: 0;
+  padding: 0;
+  padding-bottom: 20px;
+  font-size: 1.2em;
+}
 .showrightbox {
-  top: 60px;
+  top: 70px;
   position: absolute;
   right: 15px;
   z-index: 2;
@@ -391,7 +402,7 @@ p.help-end {
 
 /* Legend */
 .legend {
-  width: 100%;
+  width: calc(100% - 2px);
   text-align: center;
   display: table;
   table-layout: fixed;
@@ -417,16 +428,15 @@ p.help-end {
 #basemapcontrol {
   display: none;  /* Hidden by default */
   background-color: #fff;
-  border-radius: 3px;
   top: 260px;
   max-height: calc(100% - 150px);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-  padding: 6px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  padding: 20px;
   position: absolute;
-  left: 45px;
+  left: 60px;
   z-index: 5;
   width: 230px;
-  overflow:auto;
+  overflow: auto;
 }
 
 #basemapcontrol:hover {
@@ -435,7 +445,9 @@ p.help-end {
 
 #basemapcontrol h3 {
   font-size: 16px;
-  margin: 5px;
+  margin-top: 0;
+  padding-top: 0;
+  margin-bottom: 20px;
 }
 
 
@@ -751,4 +763,3 @@ td, th {
 	font-size: 0.9em;
 	line-height: 1.4;
 }
-

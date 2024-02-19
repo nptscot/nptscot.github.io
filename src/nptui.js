@@ -180,11 +180,11 @@ const nptUi = (function () {
 		topnav: function ()
 		{
 			document.getElementById ('expandtopnav').addEventListener ('click', function (e) {
-				const x = document.getElementById('myTopnav');
-				if (x.className == 'topnav') {
-					x.classList.add ('responsive');
+				const nav = document.querySelector ('nav');
+				if (!nav.classList.contains ('responsive')) {
+					nav.classList.add ('responsive');
 				} else {
-					x.classList.remove ('responsive');
+					nav.classList.remove ('responsive');
 				}
 				e.preventDefault ();
 			});
@@ -272,17 +272,17 @@ const nptUi = (function () {
 			}
 			map.addControl(new BasemapButton(), 'top-left');
 			
+			// Add attribution
+			map.addControl(new maplibregl.AttributionControl({
+				compact: true,
+				customAttribution: 'Contains OS data © Crown copyright 2021, Satelite map © ESRI 2023, © OpenStreetMap contributors'
+			}), 'bottom-left');
+			
 			// Add scale
 			map.addControl(new maplibregl.ScaleControl({
 				maxWidth: 80,
 				unit: 'metric'
 			}), 'bottom-left');
-			
-			// Add attribution
-			map.addControl(new maplibregl.AttributionControl({
-				compact: true,
-				customAttribution: 'Contains OS data © Crown copyright 2021, Satelite map © ESRI 2023, © OpenStreetMap contributors'
-			}), 'bottom-right');
 			
 			// Fire map ready when ready, which layer-enabling can be picked up
 			map.once('idle', function () {

@@ -97,11 +97,11 @@ function createEditLink ()
 function topnav ()
 {
   document.getElementById ('expandtopnav').addEventListener ('click', function (e) {
-    var x = document.getElementById('myTopnav');
-    if (x.className == 'topnav') {
-      x.classList.add ('responsive');
+    var nav = document.querySelector ('nav');
+    if (!nav.classList.contains ('responsive')) {
+      nav.classList.add ('responsive');
     } else {
-      x.classList.remove ('responsive');
+      nav.classList.remove ('responsive');
     }
     e.preventDefault ();
   });
