@@ -3,6 +3,38 @@
 /*jslint browser: true, white: true, single: true, for: true, unordered: true, long: true */
 /*global alert, console, window, maplibregl, pmtiles, MaplibreGeocoder, noUiSlider, tippy */
 
+
+/* Expectations in HTML:
+
+- Layer toggles, to enable/disable a layer by a checkbox:
+	Should be as follows, specifying the layerId in the data attribute, e.g.:
+	<input type="checkbox" class="showlayer" data-layer="foo">
+	
+- Layer attributes, to set values for a layer:
+	Should be as follows, specifying the layerId in the data attribute, and a name for the field, e.g.:
+	<select name="purpose" class="updatelayer" data-layer="rnet" aria-label="Route network trip purpose">
+	
+- Slider UI:
+	Sliders should have .slider-styled, with a name for the field, and an ID that matches a datalist name, e.g.:
+	<div id="slider-gradient-ui" class="slider-styled" data-name="gradient"></div>
+	<datalist name="slider-gradient-ui">...</datalist>
+	<input type="hidden" name="gradient" class="updatelayer slider" data-layer="foo" />
+	
+- Modal dialogs:
+	Modals should be defined as a <template> with an id ending -modal, include an X in a span.modal-close
+	
+- Popups:
+	Popups should be defined as a <template> with an id ending -popup
+	They should have placeholders like {some_field} which will be matched to the data properties
+	Predefined placeholders {_streetViewUrl} and {_osmUrl} can be used for links to these services
+	
+- Help buttons:
+	Help buttons should have .helpbutton and a data-help="..." value which matches a comment marker
+	The comment marker in the .md file should be added around the relevant lines to be displayed, e.g.:
+	<!-- #scenario -->...<!-- /#scenario -->
+*/
+
+
 const nptUi = (function () {
 	
 	'use strict';
@@ -70,8 +102,13 @@ const nptUi = (function () {
 		// Welcome screen
 		welcomeScreen: function ()
 		{
+			// Show only first time
+			const cookieName = 'welcomescreen';
+			if (nptUi.getCookie (cookieName)) {return;}
+			
 			// Create modal
-			nptUi.newModal ('welcome');
+			const welcomeModal = nptUi.newModal ('welcome-modal');
+			welcomeModal.show ();
 			
 			// Set OSM and update dates in the text, if present
 			if (document.getElementById ('osmupdatedate')) {
@@ -80,6 +117,9 @@ const nptUi = (function () {
 			if (document.getElementById ('updatedate')) {
 				document.getElementById ('updatedate').innerText = nptUi.formatAsUKDate (document.lastModified);
 			}
+			
+			// Set cookie
+			nptUi.setCookie (cookieName, 'true');
 		},
 		
 		
@@ -221,7 +261,7 @@ const nptUi = (function () {
 				onAdd(map) {
 					const div = document.createElement('div');
 					div.className = 'maplibregl-ctrl maplibregl-ctrl-group';
-					div.innerHTML = '<button aria-label="Change basemap"><img src="/images/basemap.svg" title="Change basemap" /></button>';
+					div.innerHTML = '<button aria-label="Change basemap"><img src="/images/basemap.svg" class="basemap" title="Change basemap" /></button>';
 					div.addEventListener('contextmenu', (e) => e.preventDefault());
 					div.addEventListener('click', function () {
 						const box = document.getElementById('basemapcontrol');
@@ -462,16 +502,11 @@ const nptUi = (function () {
 					nptUi.toggleLayer(layerId);
 				});
 				
-				// Handle layer change controls, each marked with the updatelayer class
-				document.querySelectorAll('.updatelayer').forEach((input) => {
-					input.addEventListener('change', function (e) {
-						let layerId = e.target.id;
-						// #!# The input IDs should be standardised, to replace this list of regexp matches
-						layerId = layerId.replace(/checkbox$/, ''); // Checkboxes, e.g. data_zonescheckbox => data_zones
-						layerId = layerId.replace(/_checkbox_.+$/, ''); // Checkboxes, e.g. data_zones_checkbox_dasymetric => data_zones
-						layerId = layerId.replace(/_slider-.+$/, ''); // Slider hidden inputs, e.g. rnet_slider-quietness => rnet
-						layerId = layerId.replace(/_selector$/, ''); // Dropdowns, e.g. data_zones_selector => data_zones   #!# Should be input, but currently data_zones_input would clash with rnet_*_input on next line
-						layerId = layerId.replace(/_[^_]+_input$/, ''); // Dropdowns, e.g. rnet_purpose_input => rnet
+				// Handle layer change controls, each marked with .showlayer or .updatelayer
+				document.querySelectorAll ('.showlayer, .updatelayer').forEach ((input) => {
+					input.addEventListener ('change', function () {
+						const layerId = input.dataset.layer;
+						
 						nptUi.toggleLayer(layerId);
 						// #!# Workaround, pending adapting layerId to be a list of affected layers
 						if (layerId == 'rnet') {
@@ -515,7 +550,7 @@ const nptUi = (function () {
 			}
 			
 			// Set the visibility of the layer, based on the checkbox value
-			const isVisible = document.getElementById(layerId + 'checkbox').checked;
+			const isVisible = document.querySelector ('input.showlayer[data-layer="' + layerId + '"]').checked;
 			_map.setLayoutProperty(layerId, 'visibility', (isVisible ? 'visible' : 'none'));
 		},
 		
@@ -724,7 +759,7 @@ const nptUi = (function () {
 				const template = document.querySelector(`#${mapLayerId}-chartsmodal .chart-template`);
 				charts.forEach((chart) => {
 					const chartBox = template.content.cloneNode(true);
-					chartBox.querySelector('.wrapper').id = chart[0] + '-chartrow';
+					chartBox.querySelector('.chart-wrapper').id = chart[0] + '-chartrow';
 					chartBox.querySelector('.chart-title').innerText = chart[1];
 					chartBox.querySelector('.chart-description').innerText = chart[2];
 					chartBox.querySelector('.chart-container canvas').id = chart[0] + '-chart';
@@ -859,8 +894,8 @@ const nptUi = (function () {
 				});
 			
 			// Show in modal
-			const help_modal = newModal ('help_modal');
-			help_modal.show();
+			const helpModal = nptUi.newModal ('help-modal');
+			helpModal.show();
 		},
 		
 		
@@ -896,10 +931,10 @@ const nptUi = (function () {
 				});
 				
 				// Define handler to proxy the result to hidden input fields, with value "<numStart>-<numFinish>"
-				const inputField = div.id.replace ('-ui', '');
 				div.noUiSlider.on ('update', function () {
-					document.getElementById (inputField).value = Number (div.noUiSlider.get()[0]) + '-' + Number (div.noUiSlider.get()[1]);
-					document.getElementById (inputField).dispatchEvent (new Event('change'));
+					const inputField = 'input.slider[data-layer="rnet"][name="' + div.dataset.name + '"]';
+					document.querySelector (inputField).value = Number (div.noUiSlider.get()[0]) + '-' + Number (div.noUiSlider.get()[1]);
+					document.querySelector (inputField).dispatchEvent (new Event('change'));
 				});
 			});
 		},
@@ -912,9 +947,9 @@ const nptUi = (function () {
 			const sliderAttributes = {};
 			
 			// Identify the datalist
-			const datalistElement = document.getElementById(sliderId + '-values');
+			const datalistElement = document.querySelector ('datalist[list="' + sliderId + '"]');
 			if (!datalistElement) {
-				console.log('ERROR in HTML: No <datalist> defined for slider ' + sliderId);
+				console.log ('ERROR in HTML: No <datalist> defined for slider ' + sliderId);
 				return {};
 			}
 			
@@ -1101,10 +1136,10 @@ const nptUi = (function () {
 		
 		
 		// Generic cookie managment functions
-		setCookie: function (name, value)
+		setCookie: function (name, value, days = 100)
 		{
 			const d = new Date();
-			d.setTime(d.getTime() + (1000 * 24 * 60 * 60 * 1000));
+			d.setTime(d.getTime() + (24 * 60 * 60 * days * 1000));	// setTime is in ms
 			const expires = 'expires=' + d.toUTCString();
 			document.cookie = name + '=' + value + ';' + expires + ';path=/';
 		},

@@ -4,7 +4,6 @@
 	<head>
 		
 		<meta charset="utf-8">
-		<meta http-equiv="content-type" content="text/html">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta name="Description" content="An interactive map to aid cycle planning in Scotland">
 		
@@ -66,7 +65,6 @@
 		
 		<!-- Styles -->
 		<link rel="stylesheet" href="css/main.css">
-		<link rel="stylesheet" href="css/modal.css" defer>
 		
 		<!-- NPT application -->
 		<script src="src/settings.js"></script>
@@ -99,8 +97,8 @@
 			</div>
 		</div>
 		
-		<!-- Welcome Splash -->
-		<div id="welcome" class="welcome">
+		<!-- Welcome splash -->
+		<div id="welcome-modal" class="modal">
 			<span class="modal-close">&times;</span>
 			<div>
 				<h3>Network Planning Tool for Scotland</h3>
@@ -109,14 +107,13 @@
 				<p>The results are publicly available. The main intended audience is local authorities undertaking cycle network planning to support  evidence-based and transparent investment, scheme location and design decisions.</p>
 				<p>Last updated: <span id="updatedate"></span>. You may need to <a href="https://www.minitool.com/news/f5-vs-ctrl-f5.html">clear your browser cache</a> to see the latest updates.</p>
 				<p>To report issues or provide feedback, please use the <a href="https://forms.office.com/Pages/ResponsePage.aspx?id=qO3qvR3IzkWGPlIypTW3ywVZfmO0bwdAhK0UztpneQtUM1pCRlJQQjY1V0M3MUhBV0g0VTJRS1ZQVi4u" target="_blank">feedback form</a>.</p>
-				<p>Date of OSM Data on which network results are based: 
+				<p>Date of OSM Data on which network results are based:</p>
 				<p id="osmupdatedate"></p>
 				<p id="logos">
 					<a href="https://environment.leeds.ac.uk/transport" target="_blank"><img src="/images/logos/leeds.png" alt="University of Leeds" /></a>
 					<a href="https://www.sustrans.org.uk/about-us/our-work-in-scotland" target="_blank"><img src="/images/logos/sustrans.png" alt="Sustrans" /></a>
 					<a href="https://www.transport.gov.scot/" target="_blank"><img src="/images/logos/transportscotland.svg" alt="Transport Scotland" /></a>
 					<a href="https://www.cyclestreets.org/" target="_blank"><img src="/images/logos/cyclestreets.svg" alt="CycleStreets" /></a>
-					
 				</p>
 			</div>
 		</div>
@@ -138,11 +135,9 @@
 		<!-- Basemap control box -->
 		<div id="basemapcontrol">
 			<h3>Basemap</h3>
-			<p>
 			<form id="basemapform">
 				<!-- Values will be populated -->
 			</form>
-			</p>
 			<p><label class="switch"><input type="checkbox" id="placenamescheckbox" checked="checked" /><span class="slider round"></span></label> Place names</p>
 			<p title="Makes the map look smoother and clearer (not suitable for lower-powered devices)"><label class="switch"><input type="checkbox" id="antialiascheckbox" /><span class="slider round"></span></label> Anti-alias</p>
 		</div>
@@ -161,11 +156,11 @@
 				<p>
 					<label><input type="checkbox" id="rnetcheckboxproxy" class="rnetproxy" checked>Show Layer</label>
 					<!-- These two checkboxes actually control the layers, but are set by the show/simplified checkboxes -->
-					<input type="checkbox" id="rnetcheckbox" class="updatelayer rnethiddenproxy" />
-					<input type="checkbox" id="rnet-simplifiedcheckbox" class="updatelayer rnethiddenproxy" />
+					<input type="checkbox" class="showlayer hidden" data-layer="rnet" />
+					<input type="checkbox" class="showlayer hidden" data-layer="rnet-simplified" />
 				</p>
 				<p>
-					<select id="rnet_purpose_input" name="rnet_purpose_input" class="updatelayer" aria-label="Route network trip purpose">
+					<select name="purpose" class="updatelayer" data-layer="rnet" aria-label="Route network trip purpose">
 						<option value="all" selected>All</option>
 						<option value="commute" >Commute</option>
 						<option value="primary" >Primary School</option>
@@ -175,7 +170,7 @@
 					Trip purpose <button aria-label="Help purpose" class="helpbutton" title="Full details of trip purpose" data-help="purpose"><i class="fa fa-question-circle" aria-hidden="true"></i></button>
 				</p>
 				<p>
-					<select id="rnet_scenario_input" name="rnet_scenario_input" class="updatelayer" aria-label="Route network scenario">
+					<select name="scenario" class="updatelayer" data-layer="rnet" aria-label="Route network scenario">
 						<option value="bicycle">Baseline (2011)</option>
 						<option value="bicycle_go_dutch" selected>Go Dutch</option>
 						<option value="bicycle_ebike">Ebike</option>
@@ -183,14 +178,14 @@
 					Scenario <button aria-label="Help scenario" class="helpbutton" data-help="scenario" title="Full details of scenarios"><i class="fa fa-question-circle" aria-hidden="true"></i></button>
 				</p>
 				<p>
-					<select id="rnet_type_input" name="rnet_type_input" class="updatelayer" aria-label="Route network type">
+					<select name="type" class="updatelayer" data-layer="rnet" aria-label="Route network type">
 						<option value="fastest" selected>Fast/Direct</option>
 						<option value="quietest">Quiet/Indirect</option>
 					</select>
 					Network type <button aria-label="Help type" class="helpbutton" data-help="type" title="Full details of type of network choice by cyclists"><i class="fa fa-question-circle" aria-hidden="true"></i></button>
 				</p>
 				<p>
-					<select id="rnet_colour_input" name="rnet_colour_input" class="updatelayer" aria-label="Route network colour">
+					<select name="colour" class="updatelayer" data-layer="rnet" aria-label="Route network colour">
 						<option value="none">None</option>
 						<option value="flow" selected>Number of cyclists</option>
 						<option value="quietness">Cycle friendliness</option>
@@ -200,7 +195,7 @@
 				</p>
 				<div id="linecolourlegend" class="legend">
 					<div class="l_r">
-						<div class="lb"><span style="background-color: #ffffff"></span>&nbsp</div>
+						<div class="lb"><span style="background-color: #ffffff"></span>&nbsp;</div>
 					</div>
 				</div>
 				<p><label class="switch"><input type="checkbox" id="rnet-simplifiedcheckboxproxy" class="rnetproxy" aria-label="Simplify route network"><span class="slider round"></span></label> Simplified <button aria-label="Help simplified route network" class="helpbutton" data-help="simplified_rnet" title="Full details of streamlining the route network"><i class="fa fa-question-circle" aria-hidden="true"></i></button></p>
@@ -209,8 +204,8 @@
 			<div class="panel">
 				<p><b>Filters</b><button aria-label="Help scenario" class="helpbutton" data-help="filters" title="Full details of filtering parts of the route network"><i class="fa fa-question-circle" aria-hidden="true"></i></button></p>
 				<p>Number of cyclists</p>
-				<div id="rnet_slider-cycle-ui" class="slider-styled"></div>
-				<datalist id="rnet_slider-cycle-ui-values" data-density="3">
+				<div id="slider-cycle-ui" class="slider-styled" data-name="cycle"></div>
+				<datalist list="slider-cycle-ui" data-density="3">
 					<option value="1"     data-position="min"></option>
 					<!-- #!# Should there be a zero value possibility? -->
 					<option value="10"    data-position="12.5%"></option>
@@ -222,11 +217,11 @@
 					<option value="20000" data-position="max"></option>
 					<!-- TODO: Check max value -->
 				</datalist>
-				<input type="hidden" id="rnet_slider-cycle" class="updatelayer" />
-				<p>&nbsp</p>
+				<input type="hidden" name="cycle" class="updatelayer slider" data-layer="rnet" />
+				<p>&nbsp;</p>
 				<p>Gradient (%)</p>
-				<div id="rnet_slider-gradient-ui" class="slider-styled"></div>
-				<datalist id="rnet_slider-gradient-ui-values" data-density="10">
+				<div id="slider-gradient-ui" class="slider-styled" data-name="gradient"></div>
+				<datalist list="slider-gradient-ui" data-density="10">
 					<option value="0"  data-position="min" data-increments="1"></option>
 					<option value="1"  data-position="10%" data-increments="1"></option>
 					<option value="3"  data-position="30%" data-increments="1"></option>
@@ -235,22 +230,22 @@
 					<option value="9"  data-position="90%" data-increments="91"></option>
 					<option value="100" data-position="max" data-label="10+"></option>
 				</datalist>
-				<input type="hidden" id="rnet_slider-gradient" class="updatelayer" />
-				<p>&nbsp</p>
+				<input type="hidden" name="gradient" class="updatelayer slider" data-layer="rnet" />
+				<p>&nbsp;</p>
 				<p>Cycle friendliness (%)</p>
-				<div id="rnet_slider-quietness-ui" class="slider-styled"></div>
-				<datalist id="rnet_slider-quietness-ui-values" data-density="10">
+				<div id="slider-quietness-ui" class="slider-styled" data-name="quietness"></div>
+				<datalist list="slider-quietness-ui" data-density="10">
 					<option value="0"   data-position="min" data-label="Hostile" data-increments="10"></option>
 					<option value="100" data-position="max" data-label="Quiet"></option>
 				</datalist>
-				<input type="hidden" id="rnet_slider-quietness" class="updatelayer" />
-				<p>&nbsp</p>
+				<input type="hidden" name="quietness" class="updatelayer slider" data-layer="rnet" />
+				<p>&nbsp;</p>
 			</div>
 			<button class="accordion">Data Zones</button>
 			<div class="panel">
-				<p><label><input type="checkbox" id="data_zonescheckbox" class="updatelayer" value="false">Show Layer</label></p>
+				<p><label><input type="checkbox" class="showlayer" data-layer="data_zones" value="false">Show Layer</label></p>
 				<p>
-					<select id="data_zones_selector" name="data_zones_selector" class="updatelayer" aria-label="Data zone layer">
+					<select name="field" class="updatelayer" data-layer="data_zones" aria-label="Data zone layer">
 						<option value="pcycle">% commuter cycling (baseline)</option>
 						<option value="pcycle_go_dutch" selected>% commuter cycling (Go Dutch)</option>
 						<option value="population_density">Population density (per hectare)</option>
@@ -270,14 +265,14 @@
 				</p>
 				<div id="dzlegend" class="legend">
 					<div class="l_r">
-						<div class="lb"><span style="background-color: #ffffff"></span>&nbsp</div>
+						<div class="lb"><span style="background-color: #ffffff"></span>&nbsp;</div>
 					</div>
 				</div>
-				<p><label class="switch"><input type="checkbox" id="data_zones_checkbox_dasymetric" class="updatelayer" checked><span class="slider round"></span></label> Dasymetric</p>
+				<p><label class="switch"><input type="checkbox" name="daysymetricmode" class="updatelayer" data-layer="data_zones" checked><span class="slider round"></span></label> Dasymetric</p>
 			</div>
 			<button class="accordion">Other Layers</button>
 			<div class="panel">
-				<p><label><input type="checkbox" id="schoolscheckbox" class="updatelayer" value="false">Schools</label></p>
+				<p><label><input type="checkbox" class="showlayer" data-layer="schools" value="false">Schools</label></p>
 				<div class="legend">
 					<div class="l_r">
 						<div class="lb"><span style="background-color: #313695"></span>Primary</div>
@@ -285,31 +280,31 @@
 						<div class="lb"><span style="background-color: #43f22c"></span>Other</div>
 					</div>
 				</div>
-				<p><label><input type="checkbox" id="wardscheckbox" class="updatelayer" value="false">Wards</label></p>
+				<p><label><input type="checkbox" class="showlayer" data-layer="wards" value="false">Wards</label></p>
 				<div class="legend">
 					<div class="l_r">
 						<div class="lb"><span style="background-color: #206b07"></span></div>
 					</div>
 				</div>
-				<p><label><input type="checkbox" id="holyroodcheckbox" class="updatelayer" value="false">Scottish Parliament Constituencies</label></p>
+				<p><label><input type="checkbox" class="showlayer" data-layer="holyrood" value="false">Scottish Parliament Constituencies</label></p>
 				<div class="legend">
 					<div class="l_r">
 						<div class="lb"><span style="background-color: #537bfc"></span></div>
 					</div>
 				</div>
-				<p><label><input type="checkbox" id="scot_regionscheckbox" class="updatelayer" value="false">Scottish Parliament Regions</label></p>
+				<p><label><input type="checkbox" class="showlayer" data-layer="scot_regions" value="false">Scottish Parliament Regions</label></p>
 				<div class="legend">
 					<div class="l_r">
 						<div class="lb"><span style="background-color: #bab106"></span></div>
 					</div>
 				</div>
-				<p><label><input type="checkbox" id="lacheckbox" class="updatelayer" value="false">Local Authorities</label></p>
+				<p><label><input type="checkbox" class="showlayer" data-layer="la" value="false">Local Authorities</label></p>
 				<div class="legend">
 					<div class="l_r">
 						<div class="lb"><span style="background-color: #6b0707"></span></div>
 					</div>
 				</div>
-				<p><label><input type="checkbox" id="cohesivenetworkcheckbox" class="updatelayer" value="false">Cohesive network</label></p>
+				<p><label><input type="checkbox" class="showlayer" data-layer="cohesivenetwork" value="false">Cohesive network</label></p>
 				<div class="legend">
 					<div class="l_r">
 						<div class="lb"><span style="background-color: #1230b4"></span>1</div>
@@ -322,7 +317,7 @@
 		</div>
 		
 		<!-- Help box -->
-		<div id="help_modal" class="modal">
+		<div id="help-modal" class="modal">
 			<span class="modal-close">&times;</span>
 			<div id="helpcontent">
 				<p><em>Help content loading&hellip;</em></p>
@@ -332,25 +327,22 @@
 		<!-- Template for chart modals, including a sub-template for the chart boxes, plus overlay -->
 		<template id="chart-modal">
 			<div class="modal">
-				<div class="modal-content">
-					<div class="modal-header">
-						<span class="modal-close">&times;</span>
-						<h2 class="modal-title">Summary</h2>
-					</div>
-					<div class="modal-body">
-						<template class="chart-template">
-							<div class="wrapper">
-								<div class="chart-text">
-									<h4 class="chart-title"></h4>
-									<p class="chart-description"></p>
-								</div>
-								<div class="chart-container" >
-									<canvas></canvas>
-								</div>
+				<div class="modal-header">
+					<span class="modal-close">&times;</span>
+					<h2 class="modal-title">Summary</h2>
+				</div>
+				<div class="modal-body">
+					<template class="chart-template">
+						<div class="chart-wrapper">
+							<div class="chart-text">
+								<h4 class="chart-title"></h4>
+								<p class="chart-description"></p>
 							</div>
-						</template>
-					</div>
-					<div class="modal-footer"></div>
+							<div class="chart-container" >
+								<canvas></canvas>
+							</div>
+						</div>
+					</template>
 				</div>
 			</div>
 		</template>
@@ -358,7 +350,6 @@
 		
 		<!-- Template for map popup -->
 		<template id="rnet-popup">
-			<div class="mappopup">
 			<p>Cyclists: {_ncycle}</p>
 			<p>Gradient: {Gradient}%</p>
 			<p>Cycle-friendliness: {Quietness}%</p>
@@ -368,20 +359,20 @@
 				<h4>Fast/Direct network</h4>
 				<table>
 					<tr><th></th><th>Baseline</th><th>Go Dutch</th><th>Ebikes</th></tr>
-					<tr><th>All</td><td>{all_fastest_bicycle}</td><td>{all_fastest_bicycle_go_dutch}</td><td>{all_fastest_bicycle_ebike}</td></tr>
-					<tr><th>Commute</td><td>{commute_fastest_bicycle}</td><td>{commute_fastest_bicycle_go_dutch}</td><td>{commute_fastest_bicycle_ebike}</td></tr>
-					<tr><th>Primary</td><td>{primary_fastest_bicycle}</td><td>{primary_fastest_bicycle_go_dutch}</td><td>{primary_fastest_bicycle_ebike}</td></tr>
-					<tr><th>Secondary</td><td>{secondary_fastest_bicycle}</td><td>{secondary_fastest_bicycle_go_dutch}</td><td>{secondary_fastest_bicycle_ebike}</td></tr>
-					<tr><th>Utility</td><td>{utility_fastest_bicycle}</td><td>{utility_fastest_bicycle_go_dutch}</td><td>{utility_fastest_bicycle_ebike}</td></tr>
+					<tr><th>All</th><td>{all_fastest_bicycle}</td><td>{all_fastest_bicycle_go_dutch}</td><td>{all_fastest_bicycle_ebike}</td></tr>
+					<tr><th>Commute</th><td>{commute_fastest_bicycle}</td><td>{commute_fastest_bicycle_go_dutch}</td><td>{commute_fastest_bicycle_ebike}</td></tr>
+					<tr><th>Primary</th><td>{primary_fastest_bicycle}</td><td>{primary_fastest_bicycle_go_dutch}</td><td>{primary_fastest_bicycle_ebike}</td></tr>
+					<tr><th>Secondary</th><td>{secondary_fastest_bicycle}</td><td>{secondary_fastest_bicycle_go_dutch}</td><td>{secondary_fastest_bicycle_ebike}</td></tr>
+					<tr><th>Utility</th><td>{utility_fastest_bicycle}</td><td>{utility_fastest_bicycle_go_dutch}</td><td>{utility_fastest_bicycle_ebike}</td></tr>
 				</table>
 				<h4>Quiet/Indirect network</h4>
 				<table>
 					<tr><th></th><th>Baseline</th><th>Go Dutch</th><th>Ebikes</th></tr>
-					<tr><th>All</td><td>{all_quietest_bicycle}</td><td>{all_quietest_bicycle_go_dutch}</td><td>{all_quietest_bicycle_ebike}</td></tr>
-					<tr><th>Commute</td><td>{commute_quietest_bicycle}</td><td>{commute_quietest_bicycle_go_dutch}</td><td>{commute_quietest_bicycle_ebike}</td></tr>
-					<tr><th>Primary</td><td>{primary_quietest_bicycle}</td><td>{primary_quietest_bicycle_go_dutch}</td><td>{primary_quietest_bicycle_ebike}</td></tr>
-					<tr><th>Secondary</td><td>{secondary_quietest_bicycle}</td><td>{secondary_quietest_bicycle_go_dutch}</td><td>{secondary_quietest_bicycle_ebike}</td></tr>
-					<tr><th>Utility</td><td>{utility_quietest_bicycle}</td><td>{utility_quietest_bicycle_go_dutch}</td><td>{utility_quietest_bicycle_ebike}</td></tr>
+					<tr><th>All</th><td>{all_quietest_bicycle}</td><td>{all_quietest_bicycle_go_dutch}</td><td>{all_quietest_bicycle_ebike}</td></tr>
+					<tr><th>Commute</th><td>{commute_quietest_bicycle}</td><td>{commute_quietest_bicycle_go_dutch}</td><td>{commute_quietest_bicycle_ebike}</td></tr>
+					<tr><th>Primary</th><td>{primary_quietest_bicycle}</td><td>{primary_quietest_bicycle_go_dutch}</td><td>{primary_quietest_bicycle_ebike}</td></tr>
+					<tr><th>Secondary</th><td>{secondary_quietest_bicycle}</td><td>{secondary_quietest_bicycle_go_dutch}</td><td>{secondary_quietest_bicycle_ebike}</td></tr>
+					<tr><th>Utility</th><td>{utility_quietest_bicycle}</td><td>{utility_quietest_bicycle_go_dutch}</td><td>{utility_quietest_bicycle_ebike}</td></tr>
 				</table>
 			</div>
 		</template>

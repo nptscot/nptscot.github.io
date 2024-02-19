@@ -432,14 +432,14 @@ const datasets = {
 				[
 					// visiting Origin
 					'visiting_orig',
-					'visiting friends and family trips leaving',
+					'Visiting friends and family trips leaving',
 					'The bar chart shows estimated mode shares of trips for visiting friends and family under different scenarios for trips leaving this zone.',
 					'Annual Average Daily Flow'
 				],
 				[
 					// visiting Destination
 					'visiting_dest',
-					'visiting friends and family trips arriving',
+					'Visiting friends and family trips arriving',
 					'The bar chart shows estimated mode shares of trips for visiting friends and family under different scenarios for trips arriving this zone.',
 					'Annual Average Daily Flow'
 				],
@@ -540,7 +540,6 @@ function popupCallback (feature)
 {
 	const layerWidthField = getLayerWidthField ();
 	feature.properties._ncycle = feature.properties[layerWidthField];
-	console.log (feature.properties._ncycle, layerWidthField);
 	return feature;
 }
 
@@ -548,10 +547,10 @@ function popupCallback (feature)
 // Function to determine layer width field
 function getLayerWidthField ()
 {
-	const layerPurpose = document.getElementById ('rnet_purpose_input').value;
-	const layerType = document.getElementById ('rnet_type_input').value;
-	const layerScenario = document.getElementById ('rnet_scenario_input').value;
-	const layerWidthField = layerPurpose + '_' + layerType + '_' + layerScenario;
+	const purpose  = document.querySelector ('select.updatelayer[data-layer="rnet"][name="purpose"]').value;
+	const type     = document.querySelector ('select.updatelayer[data-layer="rnet"][name="type"]').value;
+	const scenario = document.querySelector ('select.updatelayer[data-layer="rnet"][name="scenario"]').value;
+	const layerWidthField = purpose + '_' + type + '_' + scenario;
 	return layerWidthField;
 }
 
@@ -560,23 +559,22 @@ function getLayerWidthField ()
 function rnetStyling (layerId, map, settings, datasets, createLegend /* callback */)
 {
 	// Update the Legend - Do this even if map layer is off
-	const layerColour = document.getElementById('rnet_colour_input').value;
-	createLegend (datasets.legends.rnet, layerColour, 'linecolourlegend');
+	const colour = document.querySelector ('select.updatelayer[data-layer="rnet"][name="colour"]').value;
+	createLegend (datasets.legends.rnet, colour, 'linecolourlegend');
 	
 	// No special handling needed if not visible
-	if (!document.getElementById(layerId + 'checkbox').checked) {
+	if (!document.querySelector ('input.showlayer[data-layer="' + layerId + '"]').checked) {
 		return;
 	}
 	
 	// Determine the layer width field
 	const layerWidthField = getLayerWidthField();
 	
-	// Parse route network sliders to be used as filters
+	// Parse route network slider input fields to be used as filters
 	const sliders = {};
-	document.querySelectorAll("input[id^='rnet_slider-']").forEach(slider => {
-		const sliderId = slider.id.replace('rnet_slider-', '');
-		const sliderValue = slider.value.split('-');
-		sliders[sliderId] = {
+	document.querySelectorAll ('input.slider[data-layer="rnet"]').forEach (sliderInput => {
+		const sliderValue = sliderInput.value.split ('-');
+		sliders[sliderInput.name] = {
 			min: Number(sliderValue[0]),
 			max: Number(sliderValue[1])
 		};
@@ -630,7 +628,7 @@ function rnetStyling (layerId, map, settings, datasets, createLegend /* callback
 	map.setFilter (layerId, filter);
 	
 	// Set paint properties
-	map.setPaintProperty (layerId, 'line-color', line_colours[layerColour]);
+	map.setPaintProperty (layerId, 'line-color', line_colours[colour]);
 	map.setPaintProperty (layerId, 'line-width', line_width);
 }
 
@@ -639,14 +637,14 @@ function rnetStyling (layerId, map, settings, datasets, createLegend /* callback
 function data_zonesStyling (layerId, map, settings, datasets, createLegend /* callback */)
 {
 	// Update the legend (even if map layer is off)
-	const fieldId = document.getElementById('data_zones_selector').value;
-	createLegend (datasets.legends.data_zones, fieldId, 'dzlegend');
+	const field = document.querySelector ('select.updatelayer[data-layer="data_zones"][name="field"]').value
+	createLegend (datasets.legends.data_zones, field, 'dzlegend');
 	
 	// Get UI state
-	const daysymetricMode = document.getElementById('data_zones_checkbox_dasymetric').checked;
+	const daysymetricMode = document.querySelector ('input.updatelayer[data-layer="data_zones"][name="daysymetricmode"]').checked;
 	
 	// Set paint properties
-	map.setPaintProperty (layerId, 'fill-color', ['step', ['get', fieldId], ...getStyleColumn(fieldId, datasets)]);
+	map.setPaintProperty (layerId, 'fill-color', ['step', ['get', field], ...getStyleColumn (field, datasets)]);
 	map.setPaintProperty (layerId, 'fill-opacity', (daysymetricMode ? 0.1 : 0.8)); // Very faded-out in daysymetric mode, as the buildings are coloured
 	
 	// Set buildings layer colour/visibility
@@ -660,18 +658,15 @@ function data_zonesStyling (layerId, map, settings, datasets, createLegend /* ca
 function getBuildingsColour (settings)
 {
 	// If datazones is off, buildings shown, if vector style, as static colour appropriate to the basemap
-	if (!document.getElementById('data_zonescheckbox').checked) {
+	if (!document.querySelector ('input.showlayer[data-layer="data_zones"]').checked) {
 		const styleName = document.querySelector('#basemapform input:checked').value;	// Same as nptUi.getBasemapStyle()
 		return settings.basemapStyles[styleName].buildingColour;
 	}
 	
 	// If dasymetric mode, use a colour set based on the layer
-	if (document.getElementById('data_zones_checkbox_dasymetric').checked) {
-		const layerId = document.getElementById('data_zones_selector').value;
-		return ['step',
-			['get', layerId],
-			...getStyleColumn(layerId, datasets)
-		];
+	if (document.querySelector ('input.updatelayer[data-layer="data_zones"][name="daysymetricmode"]').checked) {
+		const field = document.querySelector ('select.updatelayer[data-layer="data_zones"][name="field"]').value;
+		return ['step', ['get', field], ...getStyleColumn (field, datasets)];
 	}
 	
 	// Default to gray

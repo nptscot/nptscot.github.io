@@ -58,7 +58,7 @@ const settings = {
 	// UI callback
 	uiCallback: rnetCheckboxProxying,	// Defined below
 };
-  
+
 
 // Function to handle rnet checkbox proxying - the combination of the enabled and simplified checkboxes set the 'real' layer checkboxes
 function rnetCheckboxProxying ()
@@ -68,10 +68,10 @@ function rnetCheckboxProxying ()
 	{
 		const layerEnabled = document.getElementById ('rnetcheckboxproxy').checked;
 		const simplifiedMode = document.getElementById ('rnet-simplifiedcheckboxproxy').checked;
-		document.getElementById ('rnetcheckbox').checked = (layerEnabled && !simplifiedMode);
-		document.getElementById ('rnetcheckbox').dispatchEvent(new Event('change'));
-		document.getElementById ('rnet-simplifiedcheckbox').checked = (layerEnabled && simplifiedMode);
-		document.getElementById ('rnet-simplifiedcheckbox').dispatchEvent(new Event('change'));
+		document.querySelector ('input.showlayer[data-layer="rnet"]').checked = (layerEnabled && !simplifiedMode);
+		document.querySelector ('input.showlayer[data-layer="rnet"]').dispatchEvent (new Event('change'));
+		document.querySelector ('input.showlayer[data-layer="rnet-simplified"]').checked = (layerEnabled && simplifiedMode);
+		document.querySelector ('input.showlayer[data-layer="rnet-simplified"]').dispatchEvent (new Event('change'));
 	}
 	
 	// Set initial state
