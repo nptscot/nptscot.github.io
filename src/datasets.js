@@ -63,6 +63,8 @@ const datasets = {
 						[22, 180]
 					]
 				},
+				'circle-stroke-color': '#ccc',
+				'circle-stroke-width': 1
 			}
 		},
 		
