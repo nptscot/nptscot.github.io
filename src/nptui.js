@@ -222,7 +222,10 @@ const nptUi = (function () {
 				nptUi.geocoderApi (), {
 					maplibregl: maplibregl,
 					collapsed: true,
-					marker: false
+					marker: false,
+					flyTo: {
+						zoom: 13
+					}
 				}
 			), 'top-left');
 			
