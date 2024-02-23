@@ -367,7 +367,6 @@ The NPT provides several supplementary map layers that enhance the contextual un
 * Schools (click on a school to see current and potential future mode split data): Revealing the locations of primary, secondary, and other educational institutions, this layer allows users to click on individual schools to review the present and potential future distribution of travel modes among students
 * Wards: This layer overlays the boundaries of local electoral wards onto the map
 * Scottish Parliamentary Constituencies: Users can display the geographic divisions for Scottish parliamentary representation
-* Scottish Parliament Regions: This adds another political layer, showing the larger regions that make up the Scottish parliamentary electoral system.
 * Local Authority: Highlight the administrative areas within Scotland, aiding in planning and analysis at a local government level.
 
 <!--

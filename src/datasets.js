@@ -94,20 +94,6 @@ const datasets = {
 			}
 		},
 		
-		scot_regions: {
-			'id': 'scot_regions',
-			'type': 'line',
-			'source': {
-				'type': 'vector',
-				'url': 'pmtiles://%tileserverUrl/scot_regions.pmtiles',
-			},
-			'source-layer': 'scot_regions',
-			'paint': {
-				'line-color': 'rgba(186, 177, 6, 1)',
-				'line-width': 2
-			}
-		},
-		
 		la: {
 			'id': 'la',
 			'type': 'line',
