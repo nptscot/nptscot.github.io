@@ -224,6 +224,7 @@ const nptUi = (function () {
 					collapsed: true,
 					marker: false,
 					flyTo: {
+						// #!# Ideally should be bounds: ... but this requires using .on and then result, which means bigger changes
 						zoom: 13
 					}
 				}
@@ -548,7 +549,7 @@ const nptUi = (function () {
 		{
 			//console.log ('Toggling layer ' + layerId);
 			
-			// Check for a dynamic styling callback and run it
+			// Check for a dynamic styling callback and run it if present
 			if (_datasets.layerStyling[layerId]) {
 				_datasets.layerStyling[layerId] (layerId, _map, _settings, _datasets, nptUi.createLegend);
 			}
