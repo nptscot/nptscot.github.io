@@ -217,11 +217,12 @@ const nptUi = (function () {
 			let protocol = new pmtiles.Protocol();
 			maplibregl.addProtocol('pmtiles', protocol.tile);
 			
-			// Add geocoder control; see: https://github.com/maplibre/maplibre-gl-geocoder
-			map.addControl(new MaplibreGeocoder(
-				nptUi.geocoderApi(), {
+			// Add geocoder control; see: https://github.com/maplibre/maplibre-gl-geocoder/blob/main/API.md
+			map.addControl (new MaplibreGeocoder(
+				nptUi.geocoderApi (), {
 					maplibregl: maplibregl,
-					collapsed: true
+					collapsed: true,
+					marker: false
 				}
 			), 'top-left');
 			
