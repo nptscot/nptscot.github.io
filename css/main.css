@@ -184,6 +184,7 @@ a.smaller {
   width: 270px;
   overflow: auto;
   background-color: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(6px);
 }
 .rightbox button.close-button {
   float: right;
