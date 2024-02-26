@@ -7,6 +7,12 @@ The Network Planning Tool for Scotland (NPT) is a planning support system, resea
 
 See the [manual](/manual) for more information on how to use the tool.
 
+<p id="logos">
+	<a href="https://environment.leeds.ac.uk/transport" target="_blank"><img src="/images/logos/leeds.png" alt="University of Leeds" /></a>
+	<a href="https://www.sustrans.org.uk/about-us/our-work-in-scotland" target="_blank"><img src="/images/logos/sustrans.png" alt="Sustrans" /></a>
+	<a href="https://www.transport.gov.scot/" target="_blank"><img src="/images/logos/transportscotland.svg" alt="Transport Scotland" /></a>
+	<a href="https://www.cyclestreets.org/" target="_blank"><img src="/images/logos/cyclestreets.svg" alt="CycleStreets" /></a>
+</p>
 
 ## The Team
 
