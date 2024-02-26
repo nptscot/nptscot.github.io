@@ -50,7 +50,7 @@ You have the option to refuse analytics cookies which will prevent your visit to
 
 ### Contact
 
-If you wish to raise any queries or concerns about this privacy policy, please contact us at XXXXXXXXXXXXXXX.
+If you wish to raise any queries or concerns about this privacy policy, please contact us at nptscotland<span>&#64;</span>gmail.com.
 
 
 ## Cookies
@@ -66,6 +66,8 @@ These cookies are related to the operation of Google Analytics
 **ga-disable-G-XXXXXXXXX**
 
 This optional cookie is set if you choose to opt-out of Google Analytics.
+
+(XXXXXXXXX represents the specific analytics ID in use.)
 
 **NPTtrack**
 
