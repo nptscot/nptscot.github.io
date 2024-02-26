@@ -380,3 +380,4 @@ Clicking on any school shows the schools popup
 Travel data can be summarised by origins or destinations. Consider work travel; typically, people travel from many residential areas at the edge of cities into a few city centre areas where most jobs are concentrated. So mapping cycling by origins shows information about residents. But mapping by destination shows information about workers.
 
 -->
+

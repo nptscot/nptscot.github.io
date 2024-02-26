@@ -67,6 +67,11 @@ We encourage feedback and contributions to the project:
 * For general enquiries you can contact us on: [nptscotland@gmail.com](mailto:nptscotland@gmail.com)
 
 
+## Privacy
+
+Our [privacy policy](/privacy/) is available.
+
+
 ## References
 
 * Lovelace, Robin. ‘Mapping out the Future of Cycling’. _Get Britain Cycling_, [2016](http://eprints.whiterose.ac.uk/100080/).
