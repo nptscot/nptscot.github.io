@@ -568,7 +568,7 @@ function rnetStyling (layerId, map, settings, datasets, createLegend /* callback
 		};
 	});
 	
-	// Only filter cyclists if scenario set
+	// Only filter people cycling if scenario set
 	const filter = ['all',
 		['>=', layerWidthField, sliders.cycle.min],
 		['<=', layerWidthField, sliders.cycle.max],

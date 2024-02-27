@@ -90,7 +90,7 @@ The NPT allows you to view a broad range of data about cycling by manipulating f
 
 ### Route network
 
-The Route Network is the primary layer in the NPT and the only one that is on by default when the tool loads. The route network estimates the number of cyclists on each road. It is designed to emphasise roads with lots of cycling potential and so aid planners in deciding where cycling infrastructure is needed.
+The Route Network is the primary layer in the NPT and the only one that is on by default when the tool loads. The route network estimates the number of people cycling on each road. It is designed to emphasise roads with lots of cycling potential and so aid planners in deciding where cycling infrastructure is needed.
 
 The route network provides a range of options and filters to allow you to view different networks based on different journey purposes and assumptions. Whether you're considering daily commutes or leisurely excursions, the Route Network layer adapts to reflect different cycling possibilities and planning assumptions.
 
@@ -128,7 +128,7 @@ Personal trips captures the cycling patterns of individuals visiting friends and
 
 ##### What’s missing from the NPT
 
-The NPT does not currently consider recreational cycling. This is more complex to model as cyclists may not have a specific destination in mind.
+The NPT does not currently consider recreational cycling. This is more complex to model as people cycling may not have a specific destination in mind.
 
 The NPT currently only considers direct journeys where the whole trip is by bicycle. It does not consider mixed-mode journeys such as cycling to the station and then taking a train to your final destination. This means that the NPT slightly underestimates cycling potential overall and may significantly underestimate cycling potential in specific places (such as around train stations).
 
@@ -148,13 +148,13 @@ The baseline scenario represents the current level of cycling. As such, it is in
 
 The Go Dutch scenario imagines a future with a high level of cycling, where people in Scotland are as likely to travel by cycle as people in the Netherlands while accounting for differences in trip distance and hilliness between locations. People in the Netherlands make 28.4% of trips by bicycle, greater than twenty times higher than the figure of 1.2% in Scotland in 2019 ().The Go Dutch scenario scales up the baseline scenario to a Dutch modal share for cycling in Scotland. This is not produced by scaling up baseline trips by a uniform factor, rather it takes account of trip distance and hilliness. So for example, in flatter areas the Go Dutch scenario will show a greater increase over baseline than equivalent more hilly areas. As such, this network shows how a Dutch modal share for cycling could be distributed across Scotland.
 
-Planners should seek to design cycle networks that meet the needs of both current and future cyclists. But they may phase the construction to prioritise roads that will meet the needs of current cyclists and enable new people to cycle.
+Planners should seek to design cycle networks that meet the needs of those currently cycling and those who may in future. But they may phase the construction to prioritise roads that will meet the needs of those currently cycling and enable new people to do so.
 
 ##### EBikes
 
-The Ebike scenario models the additional increase in cycling that would be achieved on top of the Go Dutch scenario, through the widespread uptake of electric cycles The scenarios alters both the assumptions around cycling uptake and the routes choices made by cyclists, for example a reduced penalty for going up hills. Pedal cyclists incur a significant time and effort penalty from going uphill. Hence, a longer but flatter route is often faster. A good ebike can enable cyclists to ride uphill at 15 mph without breaking a sweat. Thus ebike riders may choose shorter but hillier routes than pedal cyclists.
+The Ebike scenario models the additional increase in cycling that would be achieved on top of the Go Dutch scenario, through the widespread uptake of electric cycles The scenarios alters both the assumptions around cycling uptake and the routes choices made by people cycling, for example a reduced penalty for going up hills. People using a pedal cycle incur a significant time and effort penalty from going uphill. Hence, a longer but flatter route is often faster. A good ebike can enable people to ride uphill at 15 mph without breaking a sweat. Thus ebike riders may choose shorter but hillier routes than those using a pedal cycle.
 
-As ebikes increase a cyclist’s range and carrying capacity while reducing effort and journey times, a world with many ebikes would expect higher levels of cycling than one with only pedal cycles.
+As ebikes increase the range a typical person can cycle, as well as carrying capacity, while reducing effort and journey times, a world with many ebikes would expect higher levels of cycling than one with only pedal cycles.
 
 <!-- /#scenario -->
 
@@ -162,31 +162,31 @@ As ebikes increase a cyclist’s range and carrying capacity while reducing effo
 
 #### Network type
 
-The 'network type' reflects route choices cyclists make. There is strong evidence that cyclists prefer the most direct route, and it reduces journey times and the physical effort of cycling.
+The 'network type' reflects route choices people make when cycling. There is strong evidence that people prefer the most direct route, and it reduces journey times and the physical effort of cycling.
 
 The need to prioritise creation of a network of safe & direct cycle routes, is central to Transport Scotland's Cycling Framework for Active Travel and Active Travel Strategy Guidance. Cycling By Design defines how to achieve a high level of service for cycling, either through providing cycling facilities physically separated from traffic or on carriageway where traffic speed and volume is sufficiently low.
 
-However, until such a safe & direct network is created, cyclists may make detours away from roads that are (or are perceived to be) dangerous. There is strong evidence that safety concerns are the main barrier to more people cycling.
+However, until such a safe & direct network is created, people cycling may make detours away from roads that are (or are perceived to be) dangerous. There is strong evidence that safety concerns are the main barrier to more people cycling.
 
-Cyclestreets calculate the routes taken by cyclists, and each network type is based on one of their routeing [algorithms](https://www.cyclestreets.net/help/journey/howitworks/). The route choices are based on the current road infrastructure and don't account for planned improvements or missing links.
+Cyclestreets calculate the routes likely taken by people cycling, and each network type is based on one of their routeing [algorithms](https://www.cyclestreets.net/help/journey/howitworks/). The route choices are based on the current road infrastructure and don't account for planned improvements or missing links.
 
 ![Route network types](/images/rnet_types.png)
 
-Examples of the two network types in Edinburgh show how different assumptions about the routes cyclists take affect where the busiest parts (pink) of the network are predicted to be.
+Examples of the two network types in Edinburgh show how different assumptions about the routes people cycling take affect where the busiest parts (pink) of the network are predicted to be.
 
-Note that the choice of network type does not just change the routes cyclists take but also the number of cyclists predicted under each scenario. This is because quieter routes are typically longer and hillier than the direct route which discourages cycling.
+Note that the choice of network type does not just change the routes people take but also the number of people cycling predicted under each scenario. This is because quieter routes are typically longer and hillier than the direct route which discourages cycling.
 
 ##### Fast/Direct (preferred)
 
 This network type should be treated as the default.
 
-The fastest network is based on cyclists taking the most direct (legal) routes. While cyclists prefer direct routes, this will often bring them onto busy and dangerous major roads, which are a barrier to cycling without the provision of cycle infrastructure separated from traffic. Planners seeking to maximise cycling will build high-quality cycle infrastructure along main roads, which form part of the fastest cycle route network.
+The fastest network is based on people taking the most direct (legal) routes. While people prefer direct routes, this will often bring them onto busy and dangerous major roads, which are a barrier to cycling without the provision of cycle infrastructure separated from traffic. Planners seeking to maximise cycling will build high-quality cycle infrastructure along main roads, which form part of the fastest cycle route network.
 
-High quality cycle network plans, particularly in urban areas, will be based on joining up the fast/direct routes with the highest predicted numbers of cyclists to create a dense & coherent network. Supplementary guidance on how the tool should be used to generate these dense & coherent cycle networks will be developed to support cycle network planning.
+High quality cycle network plans, particularly in urban areas, will be based on joining up the fast/direct routes with the highest predicted numbers of people cycling to create a dense & coherent network. Supplementary guidance on how the tool should be used to generate these dense & coherent cycle networks will be developed to support cycle network planning.
 
 ##### Quiet/indirect
 
-The quiet network assumes that cyclists will avoid busy roads and be willing to take significant detours. While directing cyclists away from busy roads and onto quieter back streets may seem like a good idea, it can have significant downsides. Quiet routes are often longer and more challenging to navigate as they weave around the back streets. Even if the roads are safe, longer and more complex journeys discourage cycling. The NPT captures this effect, and the total number of cyclists on the quiet route network is less than on the fast route network.
+The quiet network assumes that people will avoid busy roads and be willing to take significant detours. While directing people away from busy roads and onto quieter back streets may seem like a good idea, it can have significant downsides. Quiet routes are often longer and more challenging to navigate as they weave around the back streets. Even if the roads are safe, longer and more complex journeys discourage cycling. The NPT captures this effect, and the total number of people cycling on the quiet route network is less than on the fast route network.
 
 The most likely application of the 'Quiet/Indirect' network type is to:
 
@@ -197,7 +197,7 @@ Quiet networks work best when the directness penalty is small. For example, a ci
 
 ![Amsterdam car and cycle networks](/images/amsterdam_networks.JPG)
 
-The image above ([source](https://maps.amsterdam.nl/plushoofdnetten/)) shows how Amsterdam uses its grid layout to have parallel but separate networks for cars (red, orange, black) and bicycles (green). Notice how the cycling network is much denser than the car network, ensuring that cyclists almost always benefit from a more direct route.
+The image above ([source](https://maps.amsterdam.nl/plushoofdnetten/)) shows how Amsterdam uses its grid layout to have parallel but separate networks for cars (red, orange, black) and bicycles (green). Notice how the cycling network is much denser than the car network, ensuring that people who cycle almost always benefit from a more direct route.
 
 <!-- /#type -->
 
@@ -207,11 +207,11 @@ The image above ([source](https://maps.amsterdam.nl/plushoofdnetten/)) shows how
 
 The line colour option allows you to visualise different characteristics of the route network. Below the line colour option is a contextual legend which shows the meaning of the colours on the map.
 
-##### Number of cyclists
+##### Number of people cycling
 
-![Number of cyclists](/images/number_of_cyclists.png)
+![Number of people cycling](/images/number_of_cyclists.png)
 
-The number of cyclists is the default view. It shows an estimate of the number of cyclists on each road for the selected trip purpose, network type, and scenario. The thickness of the lines in the route network is also defined by the number of cyclists, with thicker lines representing more cyclists.
+The number of people cycling is the default view. It shows an estimate of the number of people cycling on each road for the selected trip purpose, network type, and scenario. The thickness of the lines in the route network is also defined by the number of people cycling, with thicker lines representing more people cycling.
 
 ##### Cycle friendliness
 
@@ -245,7 +245,7 @@ The average gradient of the road is shown as a percentage. Steeper roads are a b
 
 #### Simplified Route Network
 
-The NPT includes a 'Simplified' toggle that streamlines the route network display. Major road corridors can be complex with multiple carriageways, cycle paths, and footways. It can be confusing to judge overall demand if the cyclists are split across multiple overlapping routes. The simplified network attempts to address this problem by combining parallel routes into a single line. However, this consolidation is intricate and may lead to a loss of detail. For a comprehensive analysis, it's advisable to consider both the simplified and the full route networks in tandem when evaluating cycling demand. This dual approach helps balance the big-picture overview with the nuanced details of specific routes.
+The NPT includes a 'Simplified' toggle that streamlines the route network display. Major road corridors can be complex with multiple carriageways, cycle paths, and footways. It can be confusing to judge overall demand if people cycling are split across multiple overlapping routes. The simplified network attempts to address this problem by combining parallel routes into a single line. However, this consolidation is intricate and may lead to a loss of detail. For a comprehensive analysis, it's advisable to consider both the simplified and the full route networks in tandem when evaluating cycling demand. This dual approach helps balance the big-picture overview with the nuanced details of specific routes.
 
 ![Simplified Network](/images/simplified.png)
 
@@ -257,7 +257,7 @@ Clicking on any segment within the route network on the map will display a pop-u
 
 ![Popup](/images/rnet_popup.png)
 
-The popup provides a summary table for all the information available about the route network. The table displays the number of cyclists for each scenarioâ€”such as baseline, Go Dutch, and e-bikesâ€”and distinguishes between the Fast/Direct and Quiet/Indirect network types. Below the table, the average gradient of the road and its cycle friendliness score are shown, which assesses the suitability of the road for cycling. Additionally, there's an option to directly access the Google Street View of the road, if available, for a more grounded perspective.
+The popup provides a summary table for all the information available about the route network. The table displays the number of people cycling for each scenario - such as baseline, Go Dutch, and e-bikes - and distinguishes between the Fast/Direct and Quiet/Indirect network types. Below the table, the average gradient of the road and its cycle friendliness score are shown, which assesses the suitability of the road for cycling. Additionally, there's an option to directly access the Google Street View of the road, if available, for a more grounded perspective.
 
 <!-- #filters -->
 
@@ -267,7 +267,7 @@ The popup provides a summary table for all the information available about the r
 
 The sliders allow you to show/hide parts of the route network. You can filter on three variables:
 
-#### Numbers of cyclists
+#### Numbers of people cycling
 
 Tailor the map to display routes with a particular range of predicted cycling traffic, reflecting the selected scenario and route type.
 
