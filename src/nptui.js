@@ -217,11 +217,16 @@ const nptUi = (function () {
 			let protocol = new pmtiles.Protocol();
 			maplibregl.addProtocol('pmtiles', protocol.tile);
 			
-			// Add geocoder control; see: https://github.com/maplibre/maplibre-gl-geocoder
-			map.addControl(new MaplibreGeocoder(
-				nptUi.geocoderApi(), {
+			// Add geocoder control; see: https://github.com/maplibre/maplibre-gl-geocoder/blob/main/API.md
+			map.addControl (new MaplibreGeocoder(
+				nptUi.geocoderApi (), {
 					maplibregl: maplibregl,
-					collapsed: true
+					collapsed: true,
+					marker: false,
+					flyTo: {
+						// #!# Ideally should be bounds: ... but this requires using .on and then result, which means bigger changes
+						zoom: 13
+					}
 				}
 			), 'top-left');
 			
@@ -544,7 +549,7 @@ const nptUi = (function () {
 		{
 			//console.log ('Toggling layer ' + layerId);
 			
-			// Check for a dynamic styling callback and run it
+			// Check for a dynamic styling callback and run it if present
 			if (_datasets.layerStyling[layerId]) {
 				_datasets.layerStyling[layerId] (layerId, _map, _settings, _datasets, nptUi.createLegend);
 			}

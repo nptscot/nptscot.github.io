@@ -63,6 +63,8 @@ const datasets = {
 						[22, 180]
 					]
 				},
+				'circle-stroke-color': '#ccc',
+				'circle-stroke-width': 1
 			}
 		},
 		
@@ -90,20 +92,6 @@ const datasets = {
 			'source-layer': 'holyrood',
 			'paint': {
 				'line-color': 'rgba(83, 123, 252, 1)',
-				'line-width': 2
-			}
-		},
-		
-		scot_regions: {
-			'id': 'scot_regions',
-			'type': 'line',
-			'source': {
-				'type': 'vector',
-				'url': 'pmtiles://%tileserverUrl/scot_regions.pmtiles',
-			},
-			'source-layer': 'scot_regions',
-			'paint': {
-				'line-color': 'rgba(186, 177, 6, 1)',
 				'line-width': 2
 			}
 		},
@@ -580,7 +568,7 @@ function rnetStyling (layerId, map, settings, datasets, createLegend /* callback
 		};
 	});
 	
-	// Only filter cyclists if scenario set
+	// Only filter people cycling if scenario set
 	const filter = ['all',
 		['>=', layerWidthField, sliders.cycle.min],
 		['<=', layerWidthField, sliders.cycle.max],
