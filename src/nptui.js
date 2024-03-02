@@ -239,12 +239,15 @@ const nptUi = (function () {
 			// Manage anti-aliasing
 			nptUi.antiAliasing ();
 			
+			// Determine initial centre/zoom location, based on the hash if present, else the settings location
+			const initialPosition = (nptUi.parseMapHash () || _settings.initialPosition);
+			
 			// Main map setup
 			const map = new maplibregl.Map({
 				container: 'map',
 				style: 'tiles/style_' + nptUi.getBasemapStyle() + '.json',
-				center: _settings.initialPosition.center,
-				zoom: _settings.initialPosition.zoom,
+				center: initialPosition.center,
+				zoom: initialPosition.zoom,
 				maxZoom: _settings.maxZoom,
 				minZoom: _settings.minZoom,
 				maxPitch: 85,
@@ -397,8 +400,7 @@ const nptUi = (function () {
 				}
 			}
 			
-			// On initial state and hash change, set the map location
-			setLocationFromHash (map);
+			// On hash change, set the map location; initial is set in map initialisation for efficiency
 			addEventListener ('hashchange', function () {
 				setLocationFromHash (map);
 			});
