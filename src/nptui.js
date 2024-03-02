@@ -590,9 +590,19 @@ const nptUi = (function () {
 			document.addEventListener ('@map/ready', function () {
 				
 				// Initialise datasets (sources and layers)
-				nptUi.initialiseDatasets();
+				nptUi.initialiseDatasets ();
 				
-				// Set initial state for all layers
+				// Set initial visibility based on URL state, by ensuring each such checkbox is ticked
+				const initialLayersString = _hashComponents.layers.replace (new RegExp ('^/'), '').replace (new RegExp ('/$'), '');		// Trim start/end slash(es)
+				if (initialLayersString.length) {
+					const initialLayers = initialLayersString.split (',');
+					Object.keys (_datasets.layers).forEach (layerId => {
+						const isEnabled = (initialLayers.includes (layerId));
+						document.querySelector ('input.showlayer[data-layer="' + layerId + '"]').checked = isEnabled;
+					});
+				}
+				
+				// Implement initial visibility state for all layers
 				Object.keys(_datasets.layers).forEach(layerId => {
 					nptUi.toggleLayer(layerId);
 				});
