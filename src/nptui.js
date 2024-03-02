@@ -617,6 +617,7 @@ const nptUi = (function () {
 					Object.keys (_datasets.layers).forEach (layerId => {
 						const isEnabled = (initialLayers.includes (layerId));
 						document.querySelector ('input.showlayer[data-layer="' + layerId + '"]').checked = isEnabled;
+						document.querySelector ('input.showlayer[data-layer="' + layerId + '"]').dispatchEvent (new CustomEvent ('change'));
 					});
 				}
 				
