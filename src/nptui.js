@@ -209,9 +209,12 @@ const nptUi = (function () {
 				maxZoom: _settings.maxZoom,
 				minZoom: _settings.minZoom,
 				maxPitch: 85,
-				hash: true,
+				hash: false,	// Emulating the hash manually for now; see layerStateUrl
 				antialias: document.getElementById('antialiascheckbox').checked
 			});
+			
+			// Manage hash manually, while we need full control of hashes to contain layer state
+			nptUi.manageMapHash (map);
 			
 			// pmtiles
 			let protocol = new pmtiles.Protocol();
@@ -316,6 +319,55 @@ const nptUi = (function () {
 			
 			// Return the map handle
 			return map;
+		},
+		
+		
+		// Function to manage the map hash manually; this is a minimal implementation covering only what we need
+		// Covers zoon,lat,lon; no support for bearing or pitch
+		// Based on the native implementation at: https://github.com/maplibre/maplibre-gl-js/blob/main/src/ui/hash.ts#L11
+		manageMapHash: function (map)
+		{
+			// Function to determine the map hash
+			function mapHash (map)
+			{
+				// Assemble the map hash from the map position
+				const center = map.getCenter ();
+				const zoom = Math.round (map.getZoom () * 100) / 100;
+				// derived from equation: 512px * 2^z / 360 / 10^d < 0.5px
+				const precision = Math.ceil ((zoom * Math.LN2 + Math.log (512 / 360 / 0.5)) / Math.LN10);
+				const m = Math.pow (10, precision);
+				const lng = Math.round (center.lng * m) / m;
+				const lat = Math.round (center.lat * m) / m;
+				const mapHash = `${zoom}/${lat}/${lng}`;
+				
+				// Set the map hash
+				const location = window.location.href.replace (/(#.+)?$/, '#' + mapHash);
+				window.history.replaceState (window.history.state, null, location);
+			}
+			
+			// In initial state and after moving the map, set the hash in the URL
+			mapHash (map);
+			map.on ('moveend', function () {
+				mapHash (map);
+			});
+			
+			// Function to determine the map state
+			function setLocationFromHash (map) {
+				const hash = window.location.hash.replace ('#', '');
+				const parts = hash.split ('/');
+				if (parts.length == 3) {
+					map.jumpTo ({
+						center: [parts[2], parts[1]],
+						zoom: parts[0]
+					});
+				}
+			}
+			
+			// On initial state and hash change, set the map location
+			setLocationFromHash (map);
+			addEventListener ('hashchange', function () {
+				setLocationFromHash (map);
+			});
 		},
 		
 		
