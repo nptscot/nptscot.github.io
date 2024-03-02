@@ -44,6 +44,7 @@ const nptUi = (function () {
 	let _settings = {};		// Will be populated by constructor
 	let _datasets = {};		// Will be populated by constructor
 	let _map;
+	let _hashComponents = {layers: '/', map: ''};
 	
 	
 	// Functions
@@ -67,6 +68,9 @@ const nptUi = (function () {
 			
 			// General GUI topnav function
 			nptUi.topnav ();
+			
+			// Parse URL hash state
+			nptUi.parseUrl ();
 			
 			// Create the map UI
 			_map = nptUi.createMap ();
@@ -188,6 +192,41 @@ const nptUi = (function () {
 				}
 				e.preventDefault ();
 			});
+		},
+		
+		
+		// Function to parse the URL hash state
+		parseUrl: function ()
+		{
+			// Get the hash, e.g. "/layer1,layer2/#8/55.953/-3.138" would be extracted from https://example.com/#/layer1,layer2/#8/55.953/-3.138
+			const hash = window.location.hash.replace (/^#/, '');
+			
+			// Split path component from map compoment
+			const hashComponents = hash.split ('#');
+			
+			// End if not the intended format of /layers/#map , thus retaining the default state of the _hashComponents property
+			if (hashComponents.length != 2) {return;}
+			
+			// Register the change in the state
+			_hashComponents.layers = hashComponents[0];
+			_hashComponents.map = hashComponents[1];
+			//console.log (_hashComponents);
+		},
+		
+		
+		// Function to register a state change, adjusting the URL
+		registerUrlStateChange: function (component, value)
+		{
+			// Update the registry
+			_hashComponents[component] = value;
+			//console.log (_hashComponents);
+			
+			// Construct the new hash state
+			const hashState = '#' + _hashComponents.layers + _hashComponents.map;
+			
+			// Update the hash state in the browser history
+			const location = window.location.href.replace (/(#.+)?$/, hashState);	// Does correctly work from the first hash onwards (when multiple)
+			window.history.replaceState (window.history.state, null, location);
 		},
 		
 		
@@ -338,11 +377,10 @@ const nptUi = (function () {
 				const m = Math.pow (10, precision);
 				const lng = Math.round (center.lng * m) / m;
 				const lat = Math.round (center.lat * m) / m;
-				const mapHash = `${zoom}/${lat}/${lng}`;
+				const mapHash = `#${zoom}/${lat}/${lng}`;
 				
-				// Set the map hash
-				const location = window.location.href.replace (/(#.+)?$/, '#' + mapHash);
-				window.history.replaceState (window.history.state, null, location);
+				// Update the hash state
+				nptUi.registerUrlStateChange ('map', mapHash);
 			}
 			
 			// In initial state and after moving the map, set the hash in the URL
@@ -353,8 +391,8 @@ const nptUi = (function () {
 			
 			// Function to determine the map state
 			function setLocationFromHash (map) {
-				const hash = window.location.hash.replace ('#', '');
-				const parts = hash.split ('/');
+				const mapHash = _hashComponents.map.replace (new RegExp ('^#'), '');	// Do not read window.location.hash directly, as that will contain layer state
+				const parts = mapHash.split ('/');
 				if (parts.length == 3) {
 					map.jumpTo ({
 						center: [parts[2], parts[1]],
@@ -645,7 +683,9 @@ const nptUi = (function () {
 			
 			// Compile the layer state URL
 			const enabledLayersHash = '/' + enabledLayers.join (',') + (enabledLayers.length ? '/' : '');
-			console.log (enabledLayersHash);
+			
+			// Register a state change for the URL
+			nptUi.registerUrlStateChange ('layers', enabledLayersHash);
 		},
 		
 		
