@@ -391,13 +391,9 @@ const nptUi = (function () {
 			
 			// Function to determine the map state
 			function setLocationFromHash (map) {
-				const mapHash = _hashComponents.map.replace (new RegExp ('^#'), '');	// Do not read window.location.hash directly, as that will contain layer state
-				const parts = mapHash.split ('/');
-				if (parts.length == 3) {
-					map.jumpTo ({
-						center: [parts[2], parts[1]],
-						zoom: parts[0]
-					});
+				const location = nptUi.parseMapHash ();
+				if (location) {
+					map.jumpTo (location);
 				}
 			}
 			
@@ -406,6 +402,26 @@ const nptUi = (function () {
 			addEventListener ('hashchange', function () {
 				setLocationFromHash (map);
 			});
+		},
+		
+		
+		// Function to parse a map hash location to center and zoom components
+		parseMapHash: function ()
+		{
+			// Extract the hash and split by /
+			const mapHash = _hashComponents.map.replace (new RegExp ('^#'), '');	// Do not read window.location.hash directly, as that will contain layer state
+			const parts = mapHash.split ('/');
+			
+			// If three parts, parse out
+			if (parts.length == 3) {
+				return {
+					center: [parts[2], parts[1]],
+					zoom: parts[0]
+				};
+			}
+			
+			// Else return false
+			return false;
 		},
 		
 		
