@@ -609,6 +609,9 @@ const nptUi = (function () {
 			// Set the visibility of the layer, based on the checkbox value
 			const isVisible = document.querySelector ('input.showlayer[data-layer="' + layerId + '"]').checked;
 			_map.setLayoutProperty(layerId, 'visibility', (isVisible ? 'visible' : 'none'));
+			
+			// Update the layer state for the URL
+			nptUi.layerStateUrl ();
 		},
 		
 		
@@ -625,6 +628,24 @@ const nptUi = (function () {
 			
 			// Set the legend
 			document.getElementById(selector).innerHTML = legendHtml;
+		},
+		
+		
+		// Function to manage layer state URL
+		layerStateUrl: function ()
+		{
+			// Register the IDs of all checked layers, first resetting the list
+			const enabledLayers = [];
+			Object.entries (_datasets.layers).forEach (([layerId, layer]) => {
+				const isEnabled = document.querySelector ('input.showlayer[data-layer="' + layerId + '"]').checked;
+				if (isEnabled) {
+					enabledLayers.push (layerId);
+				}
+			});
+			
+			// Compile the layer state URL
+			const enabledLayersHash = '/' + enabledLayers.join (',') + (enabledLayers.length ? '/' : '');
+			console.log (enabledLayersHash);
 		},
 		
 		
