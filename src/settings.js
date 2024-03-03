@@ -63,22 +63,29 @@ const settings = {
 // Function to handle rnet checkbox proxying - the combination of the enabled and simplified checkboxes set the 'real' layer checkboxes
 function rnetCheckboxProxying ()
 {
+	// Create handles to the real checkbox values and the enabled/simplified boxes
+	const rnetCheckboxProxy = document.getElementById ('rnetcheckboxproxy');
+	const rnetsimplifiedCheckboxProxy = document.getElementById ('rnet-simplifiedcheckboxproxy');
+	const rnetCheckbox = document.querySelector ('input.showlayer[data-layer="rnet"]');
+	const rnetsimplifiedCheckbox = document.querySelector ('input.showlayer[data-layer="rnet-simplified"]');
+	
 	// Define a function to calculate the real checkbox values based on the enabled/simplified boxes
 	function setRnetCheckboxes ()
 	{
-		const layerEnabled = document.getElementById ('rnetcheckboxproxy').checked;
-		const simplifiedMode = document.getElementById ('rnet-simplifiedcheckboxproxy').checked;
-		document.querySelector ('input.showlayer[data-layer="rnet"]').checked = (layerEnabled && !simplifiedMode);
-		document.querySelector ('input.showlayer[data-layer="rnet"]').dispatchEvent (new Event('change'));
-		document.querySelector ('input.showlayer[data-layer="rnet-simplified"]').checked = (layerEnabled && simplifiedMode);
-		document.querySelector ('input.showlayer[data-layer="rnet-simplified"]').dispatchEvent (new Event('change'));
+		// Calculate the real checkbox values based on the enabled/simplified boxes
+		const layerEnabled = rnetCheckboxProxy.checked;
+		const simplifiedMode = rnetsimplifiedCheckboxProxy.checked;
+		rnetCheckbox.checked = (layerEnabled && !simplifiedMode);
+		rnetCheckbox.dispatchEvent (new CustomEvent ('change'));
+		rnetsimplifiedCheckbox.checked = (layerEnabled && simplifiedMode);
+		rnetsimplifiedCheckbox.dispatchEvent (new CustomEvent ('change'));
 	}
 	
 	// Set initial state
 	setRnetCheckboxes ();
 	
 	// Change state
-	document.querySelectorAll('.rnetproxy').forEach ((input) => {
+	document.querySelectorAll ('.rnetproxy').forEach ((input) => {
 		input.addEventListener ('change', function (e) {
 			setRnetCheckboxes ();
 		});
