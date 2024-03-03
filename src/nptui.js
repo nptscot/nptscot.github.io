@@ -620,6 +620,7 @@ const nptUi = (function () {
 						document.querySelector ('input.showlayer[data-layer="' + layerId + '"]').dispatchEvent (new CustomEvent ('change'));
 					});
 				}
+				document.dispatchEvent (new Event ('@map/initiallayersset', {'bubbles': true}));
 				
 				// Implement initial visibility state for all layers
 				Object.keys(_datasets.layers).forEach(layerId => {

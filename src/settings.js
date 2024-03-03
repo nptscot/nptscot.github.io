@@ -60,7 +60,7 @@ const settings = {
 };
 
 
-// Function to handle rnet checkbox proxying - the combination of the enabled and simplified checkboxes set the 'real' layer checkboxes
+// Function to handle bi-directional rnet checkbox proxying - the combination of the enabled and simplified checkboxes set the 'real' layer checkboxes
 function rnetCheckboxProxying ()
 {
 	// Create handles to the real checkbox values and the enabled/simplified boxes
@@ -84,11 +84,20 @@ function rnetCheckboxProxying ()
 	// Set initial state
 	setRnetCheckboxes ();
 	
-	// Change state
+	// Change state when the visible UI checkboxes change
 	document.querySelectorAll ('.rnetproxy').forEach ((input) => {
 		input.addEventListener ('change', function (e) {
 			setRnetCheckboxes ();
 		});
+	});
+	
+	// Ensure the visible enabled/simplified boxes are set to match the real checkbox values on initial load due to URL state
+	document.addEventListener ('@map/initiallayersset', function (event) {
+		const layerProxyEnabled = (rnetCheckbox.checked || rnetsimplifiedCheckbox.checked);
+		const simplifiedModeProxyEnabled = rnetsimplifiedCheckbox.checked;
+		rnetCheckboxProxy.checked = (layerProxyEnabled);
+		rnetsimplifiedCheckboxProxy.checked = (layerProxyEnabled && simplifiedModeProxyEnabled);
+		// Events are not dispatched, to avoid event loop
 	});
 }
 
