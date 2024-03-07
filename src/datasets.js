@@ -117,7 +117,7 @@ const datasets = {
 				'type': 'vector',
 				'url': 'pmtiles://%tileserverUrl/cohesivenetwork.pmtiles',
 			},
-			'source-layer': 'example_cohesive',	// #!# Needs fixing to 'cohesivenetwork'
+			'source-layer': 'cohesivenetwork',
 			'paint': {
 				'line-color': [
 					'match',
