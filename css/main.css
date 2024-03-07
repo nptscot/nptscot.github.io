@@ -324,7 +324,7 @@ p.help-end {
 }
 */
 
-/* Sliders */
+/* Sliders; see: https://refreshless.com/nouislider/examples/#section-styling */
 .slider-styled{
   margin: auto;
   width: 87%;
@@ -332,18 +332,48 @@ p.help-end {
 
 .slider-styled .noUi-connect{
   background: #0b38e6;
-  
+}
+
+.slider-styled {
+  height: 10px;
+  font-size: 0.83em;
+}
+
+.slider-styled .noUi-connect {
+  background: gray;
+}
+.slider-styled .noUi-handle {
+  height: 20px;
+  width: 20px;
+  top: -5px;
+  right: -10px; /* half the width */
+  border-radius: 10px;
+  border-color: #aaa;
+  cursor: ew-resize;
+}
+
+.slider-styled .noUi-handle:before, .slider-styled .noUi-handle:after {
+  display: none;
+}
+
+.noUi-pips-horizontal {
+  padding-top: 10px;
+}
+
+.noUi-marker-horizontal.noUi-marker-large {
+  height: 10px;
+}
+
+.noUi-pips-horizontal .noUi-value-large {
+  font-size: 0.9em;
 }
 
 /*
-.noUi-pips-horizontal:nth-child(2).noUi-value {
+.noUi-pips-horizontal .noUi-value-large:first-child {
     text-align: left;
 }
 
-.noUi-pips-horizontal:nth-child(2).noUi-value {
-    text-align: left;
-}
-.noUi-pips-horizontal:last-child {
+.noUi-pips-horizontal .noUi-value-large:last-child {
     text-align: right;
 }
 */

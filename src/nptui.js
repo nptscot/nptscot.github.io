@@ -44,6 +44,7 @@ const nptUi = (function () {
 	let _settings = {};		// Will be populated by constructor
 	let _datasets = {};		// Will be populated by constructor
 	let _map;
+	let _hashComponents = {layers: '/', map: ''};
 	
 	
 	// Functions
@@ -67,6 +68,9 @@ const nptUi = (function () {
 			
 			// General GUI topnav function
 			nptUi.topnav ();
+			
+			// Parse URL hash state
+			nptUi.parseUrl ();
 			
 			// Create the map UI
 			_map = nptUi.createMap ();
@@ -191,6 +195,41 @@ const nptUi = (function () {
 		},
 		
 		
+		// Function to parse the URL hash state
+		parseUrl: function ()
+		{
+			// Get the hash, e.g. "/layer1,layer2/#8/55.953/-3.138" would be extracted from https://example.com/#/layer1,layer2/#8/55.953/-3.138
+			const hash = window.location.hash.replace (/^#/, '');
+			
+			// Split path component from map compoment
+			const hashComponents = hash.split ('#');
+			
+			// End if not the intended format of /layers/#map , thus retaining the default state of the _hashComponents property
+			if (hashComponents.length != 2) {return;}
+			
+			// Register the change in the state
+			_hashComponents.layers = hashComponents[0];
+			_hashComponents.map = hashComponents[1];
+			//console.log (_hashComponents);
+		},
+		
+		
+		// Function to register a state change, adjusting the URL
+		registerUrlStateChange: function (component, value)
+		{
+			// Update the registry
+			_hashComponents[component] = value;
+			//console.log (_hashComponents);
+			
+			// Construct the new hash state
+			const hashState = '#' + _hashComponents.layers + _hashComponents.map;
+			
+			// Update the hash state in the browser history
+			const location = window.location.href.replace (/(#.+)?$/, hashState);	// Does correctly work from the first hash onwards (when multiple)
+			window.history.replaceState (window.history.state, null, location);
+		},
+		
+		
 		// Function to set up the map UI and controls
 		createMap: function ()
 		{
@@ -200,18 +239,24 @@ const nptUi = (function () {
 			// Manage anti-aliasing
 			nptUi.antiAliasing ();
 			
+			// Determine initial centre/zoom location, based on the hash if present, else the settings location
+			const initialPosition = (nptUi.parseMapHash () || _settings.initialPosition);
+			
 			// Main map setup
 			const map = new maplibregl.Map({
 				container: 'map',
 				style: 'tiles/style_' + nptUi.getBasemapStyle() + '.json',
-				center: _settings.initialPosition.center,
-				zoom: _settings.initialPosition.zoom,
+				center: initialPosition.center,
+				zoom: initialPosition.zoom,
 				maxZoom: _settings.maxZoom,
 				minZoom: _settings.minZoom,
 				maxPitch: 85,
-				hash: true,
+				hash: false,	// Emulating the hash manually for now; see layerStateUrl
 				antialias: document.getElementById('antialiascheckbox').checked
 			});
+			
+			// Manage hash manually, while we need full control of hashes to contain layer state
+			nptUi.manageMapHash (map);
 			
 			// pmtiles
 			let protocol = new pmtiles.Protocol();
@@ -316,6 +361,69 @@ const nptUi = (function () {
 			
 			// Return the map handle
 			return map;
+		},
+		
+		
+		// Function to manage the map hash manually; this is a minimal implementation covering only what we need
+		// Covers zoon,lat,lon; no support for bearing or pitch
+		// Based on the native implementation at: https://github.com/maplibre/maplibre-gl-js/blob/main/src/ui/hash.ts#L11
+		manageMapHash: function (map)
+		{
+			// Function to determine the map hash
+			function mapHash (map)
+			{
+				// Assemble the map hash from the map position
+				const center = map.getCenter ();
+				const zoom = Math.round (map.getZoom () * 100) / 100;
+				// derived from equation: 512px * 2^z / 360 / 10^d < 0.5px
+				const precision = Math.ceil ((zoom * Math.LN2 + Math.log (512 / 360 / 0.5)) / Math.LN10);
+				const m = Math.pow (10, precision);
+				const lng = Math.round (center.lng * m) / m;
+				const lat = Math.round (center.lat * m) / m;
+				const mapHash = `#${zoom}/${lat}/${lng}`;
+				
+				// Update the hash state
+				nptUi.registerUrlStateChange ('map', mapHash);
+			}
+			
+			// In initial state and after moving the map, set the hash in the URL
+			mapHash (map);
+			map.on ('moveend', function () {
+				mapHash (map);
+			});
+			
+			// Function to determine the map state
+			function setLocationFromHash (map) {
+				const location = nptUi.parseMapHash ();
+				if (location) {
+					map.jumpTo (location);
+				}
+			}
+			
+			// On hash change, set the map location; initial is set in map initialisation for efficiency
+			addEventListener ('hashchange', function () {
+				setLocationFromHash (map);
+			});
+		},
+		
+		
+		// Function to parse a map hash location to center and zoom components
+		parseMapHash: function ()
+		{
+			// Extract the hash and split by /
+			const mapHash = _hashComponents.map.replace (new RegExp ('^#'), '');	// Do not read window.location.hash directly, as that will contain layer state
+			const parts = mapHash.split ('/');
+			
+			// If three parts, parse out
+			if (parts.length == 3) {
+				return {
+					center: [parts[2], parts[1]],
+					zoom: parts[0]
+				};
+			}
+			
+			// Else return false
+			return false;
 		},
 		
 		
@@ -500,9 +608,21 @@ const nptUi = (function () {
 			document.addEventListener ('@map/ready', function () {
 				
 				// Initialise datasets (sources and layers)
-				nptUi.initialiseDatasets();
+				nptUi.initialiseDatasets ();
 				
-				// Set initial state for all layers
+				// Set initial visibility based on URL state, by ensuring each such checkbox is ticked
+				const initialLayersString = _hashComponents.layers.replace (new RegExp ('^/'), '').replace (new RegExp ('/$'), '');		// Trim start/end slash(es)
+				if (initialLayersString.length) {
+					const initialLayers = initialLayersString.split (',');
+					Object.keys (_datasets.layers).forEach (layerId => {
+						const isEnabled = (initialLayers.includes (layerId));
+						document.querySelector ('input.showlayer[data-layer="' + layerId + '"]').checked = isEnabled;
+						document.querySelector ('input.showlayer[data-layer="' + layerId + '"]').dispatchEvent (new CustomEvent ('change'));
+					});
+				}
+				document.dispatchEvent (new Event ('@map/initiallayersset', {'bubbles': true}));
+				
+				// Implement initial visibility state for all layers
 				Object.keys(_datasets.layers).forEach(layerId => {
 					nptUi.toggleLayer(layerId);
 				});
@@ -557,6 +677,9 @@ const nptUi = (function () {
 			// Set the visibility of the layer, based on the checkbox value
 			const isVisible = document.querySelector ('input.showlayer[data-layer="' + layerId + '"]').checked;
 			_map.setLayoutProperty(layerId, 'visibility', (isVisible ? 'visible' : 'none'));
+			
+			// Update the layer state for the URL
+			nptUi.layerStateUrl ();
 		},
 		
 		
@@ -573,6 +696,26 @@ const nptUi = (function () {
 			
 			// Set the legend
 			document.getElementById(selector).innerHTML = legendHtml;
+		},
+		
+		
+		// Function to manage layer state URL
+		layerStateUrl: function ()
+		{
+			// Register the IDs of all checked layers, first resetting the list
+			const enabledLayers = [];
+			Object.entries (_datasets.layers).forEach (([layerId, layer]) => {
+				const isEnabled = document.querySelector ('input.showlayer[data-layer="' + layerId + '"]').checked;
+				if (isEnabled) {
+					enabledLayers.push (layerId);
+				}
+			});
+			
+			// Compile the layer state URL
+			const enabledLayersHash = '/' + enabledLayers.join (',') + (enabledLayers.length ? '/' : '');
+			
+			// Register a state change for the URL
+			nptUi.registerUrlStateChange ('layers', enabledLayersHash);
 		},
 		
 		
