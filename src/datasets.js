@@ -122,10 +122,7 @@ const datasets = {
 				'line-color': [
 					'match',
 					['get', 'group'],
-					1, '#1230b4',
-					2, '#894cf7',
-					3, '#f07984',
-					4, '#fff551',
+					...colourGradient ('#191970', '#b6d0e2', 12),
 					/* other */ 'gray'
 					],
 				'line-width': 2
