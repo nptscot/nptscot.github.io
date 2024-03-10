@@ -709,7 +709,7 @@ function colourGradient (start, finish, stops)
 		matchList.push (index + 1);
 		matchList.push (colour);
 	});
-	console.log (matchList);
+	//console.log (matchList);
 	
 	// Return the colours
 	return matchList;
