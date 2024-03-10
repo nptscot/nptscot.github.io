@@ -122,10 +122,7 @@ const datasets = {
 				'line-color': [
 					'match',
 					['get', 'group'],
-					1, '#1230b4',
-					2, '#894cf7',
-					3, '#f07984',
-					4, '#fff551',
+					...colourGradient ('#191970', '#b6d0e2', 12)[1],
 					/* other */ 'gray'
 					],
 				'line-width': 2
@@ -144,6 +141,8 @@ const datasets = {
 	
 	// #!# These need to be merged with lineColours
 	legends: {
+		
+		cohesivenetwork: colourGradient ('#191970', '#b6d0e2', 12)[0],
 		
 		rnet: {
 			'none': [
@@ -668,4 +667,54 @@ function getStyleColumn (layerId, datasets)
 	const style_col_selected = datasets.lineColours.data_zones.hasOwnProperty(layerId) ? layerId : '_';
 	return datasets.lineColours.data_zones[style_col_selected];
 }
+
+
+// Function to generate a colour scheme
+function colourGradient (start, finish, stops)
+{
+	// Start list of colours
+	const colours = [];
+	
+	// Determine increment between stops
+	const increment = 1 / (stops - 1);
+	
+	// Define a colour interpolation function
+	const interpolateColour = function (colour1, colour2, factor)
+	{
+		const r1 = parseInt (colour1.substring (1, 3), 16);
+		const g1 = parseInt (colour1.substring (3, 5), 16);
+		const b1 = parseInt (colour1.substring (5, 7), 16);
+		
+		const r2 = parseInt (colour2.substring (1, 3), 16);
+		const g2 = parseInt (colour2.substring (3, 5), 16);
+		const b2 = parseInt (colour2.substring (5, 7), 16);
+		
+		const r = Math.round (r1 + factor * (r2 - r1));
+		const g = Math.round (g1 + factor * (g2 - g1));
+		const b = Math.round (b1 + factor * (b2 - b1));
+		
+		return '#' + ((1 << 24) + (r << 16) + (g << 8) + b).toString (16).slice (1);
+	}
+	
+	// Get each stop
+	let i;
+	factor = 0;
+	for (i = 0; i < stops; i++) {
+		colours.push ([(i + 1), interpolateColour (start, finish, factor)]);
+		factor += increment;
+	}
+	
+	// Format as a flat list, e.g. (1, #nnnnnn, 2, #nnnnnn, ...)
+	const matchList = [];
+	colours.forEach (function ([value, colour]) {
+		matchList.push (value);
+		matchList.push (colour);
+	});
+	
+	//console.log (colours, matchList);
+	
+	// Return the colours and the matchlist
+	return [colours, matchList];
+}
+
 
