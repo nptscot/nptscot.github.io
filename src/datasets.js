@@ -122,7 +122,7 @@ const datasets = {
 				'line-color': [
 					'match',
 					['get', 'group'],
-					...colourGradient ('#191970', '#b6d0e2', 12),
+					...colourGradient ('#191970', '#b6d0e2', 12)[1],
 					/* other */ 'gray'
 					],
 				'line-width': 2
@@ -141,6 +141,8 @@ const datasets = {
 	
 	// #!# These need to be merged with lineColours
 	legends: {
+		
+		cohesivenetwork: colourGradient ('#191970', '#b6d0e2', 12)[0],
 		
 		rnet: {
 			'none': [
@@ -698,21 +700,21 @@ function colourGradient (start, finish, stops)
 	let i;
 	factor = 0;
 	for (i = 0; i < stops; i++) {
-		colours.push (interpolateColour (start, finish, factor));
+		colours.push ([(i + 1), interpolateColour (start, finish, factor)]);
 		factor += increment;
 	}
-	//console.log (colours);
 	
 	// Format as a flat list, e.g. (1, #nnnnnn, 2, #nnnnnn, ...)
 	const matchList = [];
-	colours.forEach (function (colour, index) {
-		matchList.push (index + 1);
+	colours.forEach (function ([value, colour]) {
+		matchList.push (value);
 		matchList.push (colour);
 	});
-	//console.log (matchList);
 	
-	// Return the colours
-	return matchList;
+	//console.log (colours, matchList);
+	
+	// Return the colours and the matchlist
+	return [colours, matchList];
 }
 
 
