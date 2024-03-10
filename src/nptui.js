@@ -672,6 +672,8 @@ const nptUi = (function () {
 			// Check for a dynamic styling callback and run it if present
 			if (_datasets.layerStyling[layerId]) {
 				_datasets.layerStyling[layerId] (layerId, _map, _settings, _datasets, nptUi.createLegend);
+			} else {
+				nptUi.createLegend (datasets.legends, layerId, layerId + 'legend');
 			}
 			
 			// Set the visibility of the layer, based on the checkbox value
@@ -685,6 +687,9 @@ const nptUi = (function () {
 		
 		createLegend: function (legendColours, selected, selector)
 		{
+			// Do nothing if no selector for where the legend will be added
+			if (!document.getElementById(selector)) {return;}
+			
 			// Create the legend HTML
 			// #!# Should be a list, not nested divs
 			let legendHtml = '<div class="l_r">';
