@@ -652,6 +652,7 @@ const nptUi = (function () {
 			Object.entries(_datasets.layers).forEach(([layerId, layer]) => {
 				let tileserverUrl = (_settings.tileserverTempLocalOverrides[layerId] ? _settings.tileserverTempLocalOverrides[layerId] : _settings.tileserverUrl);
 				_datasets.layers[layerId].source.url = layer.source.url.replace ('%tileserverUrl', tileserverUrl)
+				console.log (`Setting source.url for layer ${layerId} to ${_datasets.layers[layerId].source.url}`);
 			});
 			
 			// Add layers, and their sources, initially not visible when initialised
