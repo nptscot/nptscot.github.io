@@ -170,7 +170,7 @@ However, until such a safe & direct network is created, people cycling may make 
 
 Cyclestreets calculate the routes likely taken by people cycling, and each network type is based on one of their routeing [algorithms](https://www.cyclestreets.net/help/journey/howitworks/). The route choices are based on the current road infrastructure and don't account for planned improvements or missing links.
 
-![Route network types](/images/rnet_types.png)
+<img src="/images/rnet_types.png" width="1000" height="500">
 
 Examples of the two network types in Edinburgh show how different assumptions about the routes people cycling take affect where the busiest parts (pink) of the network are predicted to be.
 
@@ -247,7 +247,7 @@ The average gradient of the road is shown as a percentage. Steeper roads are a b
 
 The NPT includes a 'Simplified' toggle that streamlines the route network display. Major road corridors can be complex with multiple carriageways, cycle paths, and footways. It can be confusing to judge overall demand if people cycling are split across multiple overlapping routes. The simplified network attempts to address this problem by combining parallel routes into a single line. However, this consolidation is intricate and may lead to a loss of detail. For a comprehensive analysis, it's advisable to consider both the simplified and the full route networks in tandem when evaluating cycling demand. This dual approach helps balance the big-picture overview with the nuanced details of specific routes.
 
-![Simplified Network](/images/simplified.png)
+<img src="/images/simplified.png" width="1000" height="500">
 
 <!-- /#simplified_rnet -->
 
@@ -310,7 +310,7 @@ The data zone options are:
 
 By default, the data zones are shown as a [dasymetric map](https://en.wikipedia.org/wiki/Dasymetric_map). This means that the buildings within a zone are coloured to display information. If you turn off dasymetric mode, a simple [choropleth map](https://en.wikipedia.org/wiki/Choropleth_map) is shown where the whole Data Zone is coloured. Note that the same underlying data is being visualised in both modes, and the differences between modes are merely aesthetic. However, dasymetric maps are intended to better represent the data by emphasising the true locations of people who are not uniformly distributed across the Data Zone. 
 
-![Dasymetric maps](/images/dasymetric.png)
+<img src="/images/dasymetric.png" width="1000" height="500">
 
 Dasymetric map (left) and choropleth map (right) for the Index of Multiple Deprivation in Edinburgh.
 
