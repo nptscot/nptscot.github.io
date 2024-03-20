@@ -164,7 +164,7 @@ As ebikes increase the range a typical person can cycle, as well as carrying cap
 
 The 'network type' reflects route choices people make when cycling. There is strong evidence that people prefer the most direct route, and it reduces journey times and the physical effort of cycling.
 
-The need to prioritise creation of a network of safe & direct cycle routes, is central to Transport Scotland's Cycling Framework for Active Travel and Active Travel Strategy Guidance. Cycling By Design defines how to achieve a high level of service for cycling, either through providing cycling facilities physically separated from traffic or on carriageway where traffic speed and volume is sufficiently low.
+The need to prioritise creation of a network of safe & direct cycle routes, is central to Transport Scotland's Cycling Framework for Active Travel and Active Travel Strategy Guidance. [Cycling By Design](https://www.transport.gov.scot/publication/cycling-by-design/) defines how to achieve a high level of service for cycling, either through providing cycling facilities physically separated from traffic or on carriageway where traffic speed and volume is sufficiently low.
 
 However, until such a safe & direct network is created, people cycling may make detours away from roads that are (or are perceived to be) dangerous. There is strong evidence that safety concerns are the main barrier to more people cycling.
 
