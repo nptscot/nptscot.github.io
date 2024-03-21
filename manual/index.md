@@ -10,6 +10,8 @@ Welcome to the Network Planning Tool (NPT) for Scotland, a cutting-edge web appl
 
 The NPT is Scotland’s nationwide web-based strategic network planning tool that estimates cycling potential down to the street level.
 
+The easiest way to access the NPT website is hosted at [www.npt.scot](http://www.npt.scot).
+
 The NPT includes:
 
 1.  the [map user interface](https://www.npt.scot/), 
@@ -21,45 +23,6 @@ The NPT is an open-source tool, meaning the source code is transparent and in th
 The online interface can serve many needs, including gaining insight into the network of routes where cycling potential is highest and quantifying the benefits of cycling uptake. However, we recommend that intermediate and advanced users download data on zones, routes and route networks for in-house analysis.
 
 The NPT allows users to visualise results baseline data and how cycling would change under different scenarios. The journey purposes and scenarios are described in detail below.
-
-
-## Accessing the NPT 
-
-
-The easiest way to access the NPT website is hosted at [www.npt.scot](http://www.npt.scot).
-
-### Progressive Web App
-
-The NPT is a Progressive Web App (PWA), which can be installed on many devices, including your smartphone. The App provides the same features as the website. Still, it includes additional benefits such as pining the App to your device’s home screen and full-screen support.
-
-How to install the NPT App
-
-#### Android
-
-1.  Visit [www.npt.scot](http://www.npt.scot) using Google Chrome
-2.  Click the “Add NPT to Home screen” and follow the instructions
-
-If the “Add NPT to Home screen” option does not appear, you can also select the “Install app” option from the main chrome menu (…)
-
-#### Windows 10 & 11 and Linux
-
-1.  Visit [www.npt.scot](http://www.npt.scot) using Microsoft Edge or Chrome
-2.  In the address bar, click the App install button
-3.  Click install
-
-#### iOS
-
-1.  Visit [www.npt.scot](http://www.npt.scot) using Safari
-2.  In the bottom menu bar, click the share button (middle button)
-3.  Click “Add to Home Screen”
-4.  Click “Add”
-
-#### macOS
-
-1.  Visit [www.npt.scot](http://www.npt.scot) using Safari
-2.  In the address bar, click the App install button
-3.  Click install
-
 
 ## NPT User Interface Guide
 
@@ -368,6 +331,40 @@ The NPT provides several supplementary map layers that enhance the contextual un
 * Wards: This layer overlays the boundaries of local electoral wards onto the map
 * Scottish Parliamentary Constituencies: Users can display the geographic divisions for Scottish parliamentary representation
 * Local Authority: Highlight the administrative areas within Scotland, aiding in planning and analysis at a local government level.
+
+## Accessing the NPT 
+
+### Progressive Web App
+
+The NPT is a Progressive Web App (PWA), which can be installed on many devices, including your smartphone. The App provides the same features as the website. Still, it includes additional benefits such as pining the App to your device’s home screen and full-screen support.
+
+How to install the NPT App
+
+#### Android
+
+1.  Visit [www.npt.scot](http://www.npt.scot) using Google Chrome
+2.  Click the “Add NPT to Home screen” and follow the instructions
+
+If the “Add NPT to Home screen” option does not appear, you can also select the “Install app” option from the main chrome menu (…)
+
+#### Windows 10 & 11 and Linux
+
+1.  Visit [www.npt.scot](http://www.npt.scot) using Microsoft Edge or Chrome
+2.  In the address bar, click the App install button
+3.  Click install
+
+#### iOS
+
+1.  Visit [www.npt.scot](http://www.npt.scot) using Safari
+2.  In the bottom menu bar, click the share button (middle button)
+3.  Click “Add to Home Screen”
+4.  Click “Add”
+
+#### macOS
+
+1.  Visit [www.npt.scot](http://www.npt.scot) using Safari
+2.  In the address bar, click the App install button
+3.  Click install
 
 <!--
 
