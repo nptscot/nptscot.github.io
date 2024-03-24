@@ -119,12 +119,7 @@ const datasets = {
 			},
 			'source-layer': 'cohesivenetwork',
 			'paint': {
-				'line-color': [
-					'match',
-					['get', 'group'],
-					...colourGradient ('#191970', '#b6d0e2', 12)[1],
-					/* other */ 'gray'
-					],
+				'line-color': '#606ca4',
 				'line-width': 2
 			}
 		}
@@ -142,7 +137,9 @@ const datasets = {
 	// #!# These need to be merged with lineColours
 	legends: {
 		
-		cohesivenetwork: colourGradient ('#191970', '#b6d0e2', 12)[0],
+		cohesivenetwork: [
+				['&nbsp;',	'#606ca4']
+		],
 		
 		rnet: {
 			'none': [
