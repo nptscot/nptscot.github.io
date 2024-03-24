@@ -198,15 +198,15 @@
 				<p>People cycling per day</p>
 				<div id="slider-cycle-ui" class="slider-styled" data-name="cycle"></div>
 				<datalist list="slider-cycle-ui" data-density="3">
-					<option value="1"     data-position="min"></option>
-					<!-- #!# Should there be a zero value possibility? -->
-					<option value="10"    data-position="12.5%"></option>
-					<option value="50"    data-position="25%"></option>
-					<option value="100"   data-position="37.5%"></option>
-					<option value="250"   data-position="50%"></option>
-					<option value="500"   data-position="65%"></option>
-					<option value="1000"  data-position="80%" data-increments="1000"></option>
-					<option value="20000" data-position="max"></option>
+					<option value="0"     data-position="min"></option>
+					<option value="100"   data-position="12.5%"></option>
+					<option value="250"   data-position="25%"></option>
+					<option value="500"   data-position="37.5%"></option>
+					<option value="1000"  data-position="50%"   data-label="1k"></option>
+					<option value="2500"  data-position="62.5%" data-label="2.5k"></option>
+					<option value="5000"  data-position="75%"   data-label="5k"></option>
+					<option value="10000" data-position="87.5%" data-label="10k"></option>
+					<option value="20000" data-position="max"   data-label="20k"></option>
 					<!-- TODO: Check max value -->
 				</datalist>
 				<input type="hidden" name="cycle" class="updatelayer slider" data-layer="rnet" />
