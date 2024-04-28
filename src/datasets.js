@@ -8,7 +8,7 @@ const datasets = {
 			'id': 'rnet',
 			'source': {
 				'type': 'vector',
-				'url': 'pmtiles://%tileserverUrl/rnet-2023-12-17.pmtiles',
+				'url': 'pmtiles://%tileserverUrl/rnet_2024-04-27.pmtiles',
 			},
 			'source-layer': 'rnet',
 			'type': 'line',
