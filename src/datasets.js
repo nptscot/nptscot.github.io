@@ -528,6 +528,11 @@ const datasets = {
 			preprocessingCallback: popupCallback,	// Defined below
 			smallValuesThreshold: 10,
 			literalFields: ['Gradient', 'Quietness'] // #!# Gradient and Quietness are capitalised unlike other
+		},
+		
+		'clos': {
+			layerId: 'clos',
+			templateId: 'clos-popup'
 		}
 	}
 };
