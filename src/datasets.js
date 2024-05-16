@@ -110,6 +110,20 @@ const datasets = {
 			} 
 		},
 		
+		clos: {
+			'id': 'clos',
+			'type': 'line',
+			'source': {
+				'type': 'vector',
+				'url': 'pmtiles://%tileserverUrl/cbd_layer.pmtiles',
+			},
+			'source-layer': 'cbd_layer',
+			'paint': {
+				'line-color': '#603',
+				'line-width': 2
+			}
+		},
+		
 		cohesivenetwork: {
 			'id': 'cohesivenetwork',
 			'type': 'line',
