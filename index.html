@@ -245,6 +245,15 @@
 			<div class="panel">
 				<p>Analyis of the Cycling Level of Service (LoS).</p>
 				<p><label><input type="checkbox" class="showlayer" data-layer="clos" value="false"> Show LoS</label></p>
+				<p>
+					<select name="clos-layer" class="updatelayer" data-layer="clos" aria-label="LoS detail">
+						<option value="Level of Service" selected="selected">Current LoS</option>
+						<option value="Traffic volume">Current traffic volume</option>
+						<option value="Speed limit">Current speed limit</option>
+						<option value="Infrastructure type">Existing infrastructure</option>
+						<option value="Infrastructure type (detailed)">Existing infrastructure (baseline)</option>
+					</select>
+				</p>
 			</div>
 			
 			<button class="accordion">Data zones</button>

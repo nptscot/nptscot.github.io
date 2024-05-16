@@ -145,6 +145,7 @@ const datasets = {
 		rnet:				rnetStyling,
 		"rnet-simplified":	rnetStyling,
 		data_zones:			data_zonesStyling,
+		clos:				closStyling,
 	},
 	
 	
@@ -351,6 +352,25 @@ const datasets = {
 				'#000000'
 			]
 		},
+		
+		clos: {
+			// #!# These are lookups so order is value,colour; need to generalise this
+			'Level of Service': [
+				'High', '#6495ed',
+				'Medium', 'orange',
+				'Low', 'red',
+				'gray'		// No match - default
+			],
+			// #!# Not yet implemented
+			'Traffic volume': [
+			],
+			'Speed limit': [
+			],
+			'Infrastructure type': [
+			],
+			'Infrastructure type (detailed)': [
+			],
+		}
 	},
 	
 	
@@ -732,5 +752,24 @@ function colourGradient (start, finish, stops)
 	// Return the colours and the matchlist
 	return [colours, matchList];
 }
+
+
+// Styling callback for clos
+function closStyling (layerId, map, settings, datasets, createLegend /* callback */)
+{
+	// Determine the field
+	const field = document.querySelector ('select.updatelayer[data-layer="clos"][name="clos-layer"]').value;
+	
+	// Arrange the colour
+	const colour = [
+		'match',
+		['get', field],
+		...datasets.lineColours[layerId][field]
+	];
+	
+	// Set paint properties
+	map.setPaintProperty (layerId, 'line-color', colour);
+}
+
 
 
