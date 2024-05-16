@@ -356,9 +356,9 @@ const datasets = {
 		clos: {
 			// #!# These are lookups so order is value,colour; need to generalise this
 			'Level of Service': [
-				'High', '#6495ed',
-				'Medium', 'orange',
-				'Low', 'red',
+				'High', '#28338a',
+				'Medium', '#107f80',
+				'Low', '#12aee7',
 				'gray'		// No match - default
 			],
 			// #!# Not yet implemented
