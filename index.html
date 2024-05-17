@@ -233,12 +233,29 @@
 				<input type="hidden" name="quietness" class="updatelayer slider" data-layer="rnet" />
 				<p>&nbsp;</p>
 			</div>
+			
 			<button class="accordion">Cohesive network</button>
 			<div class="panel">
 				<p>Indicates a suggested order in which the network should grow.</p>
 				<p><label><input type="checkbox" class="showlayer" data-layer="cohesivenetwork" value="false"> Show cohesive network</label></p>
 				<div id="cohesivenetworklegend" class="legend"></div>
 			</div>
+			
+			<button class="accordion">Level of Service (LoS) and existing infrastructure</button>
+			<div class="panel">
+				<p>Analyis of the Cycling Level of Service (LoS).</p>
+				<p><label><input type="checkbox" class="showlayer" data-layer="clos" value="false"> Show LoS</label></p>
+				<p>
+					<select name="clos-layer" class="updatelayer" data-layer="clos" aria-label="LoS detail">
+						<option value="Level of Service" selected="selected">Current LoS</option>
+						<option value="Traffic volume">Current traffic volume</option>
+						<option value="Speed limit">Current speed limit</option>
+						<option value="Infrastructure type">Existing infrastructure</option>
+						<option value="Infrastructure type (detailed)">Existing infrastructure (baseline)</option>
+					</select>
+				</p>
+			</div>
+			
 			<button class="accordion">Data zones</button>
 			<div class="panel">
 				<p><label><input type="checkbox" class="showlayer" data-layer="data_zones" value="false">Show layer</label></p>
@@ -360,6 +377,35 @@
 			</div>
 		</template>
 		
+		<!-- Template for map popup -->
+		<template id="clos-popup">
+			<table>
+				<tr>
+					<td>osm_id</td>
+					<td>{osm_id}</td>
+				</tr>
+				<tr>
+					<td>Traffic volume</td>
+					<td>{Traffic volume}</td>
+				</tr>
+				<tr>
+					<td>Speed limit</td>
+					<td>{Speed limit}</td>
+				</tr>
+				<tr>
+					<td>Infrastructure type</td>
+					<td>{Infrastructure type}</td>
+				</tr>
+				<tr>
+					<td>Infrastructure type (detailed)</td>
+					<td>{Infrastructure type (detailed)}</td>
+				</tr>
+				<tr>
+					<td>Level of Service</td>
+					<td>{Level of Service}</td>
+				</tr>
+			</table>
+		</template>
 	</body>
 	
 </html>

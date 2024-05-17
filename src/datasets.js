@@ -110,6 +110,20 @@ const datasets = {
 			} 
 		},
 		
+		clos: {
+			'id': 'clos',
+			'type': 'line',
+			'source': {
+				'type': 'vector',
+				'url': 'pmtiles://%tileserverUrl/cbd_layer.pmtiles',
+			},
+			'source-layer': 'cbd_layer',
+			'paint': {
+				'line-color': '#603',
+				'line-width': 2
+			}
+		},
+		
 		cohesivenetwork: {
 			'id': 'cohesivenetwork',
 			'type': 'line',
@@ -131,6 +145,7 @@ const datasets = {
 		rnet:				rnetStyling,
 		"rnet-simplified":	rnetStyling,
 		data_zones:			data_zonesStyling,
+		clos:				closStyling,
 	},
 	
 	
@@ -337,6 +352,25 @@ const datasets = {
 				'#000000'
 			]
 		},
+		
+		clos: {
+			// #!# These are lookups so order is value,colour; need to generalise this
+			'Level of Service': [
+				'High', '#28338a',
+				'Medium', '#107f80',
+				'Low', '#12aee7',
+				'gray'		// No match - default
+			],
+			// #!# Not yet implemented
+			'Traffic volume': [
+			],
+			'Speed limit': [
+			],
+			'Infrastructure type': [
+			],
+			'Infrastructure type (detailed)': [
+			],
+		}
 	},
 	
 	
@@ -514,6 +548,11 @@ const datasets = {
 			preprocessingCallback: popupCallback,	// Defined below
 			smallValuesThreshold: 10,
 			literalFields: ['Gradient', 'Quietness'] // #!# Gradient and Quietness are capitalised unlike other
+		},
+		
+		'clos': {
+			layerId: 'clos',
+			templateId: 'clos-popup'
 		}
 	}
 };
@@ -713,5 +752,24 @@ function colourGradient (start, finish, stops)
 	// Return the colours and the matchlist
 	return [colours, matchList];
 }
+
+
+// Styling callback for clos
+function closStyling (layerId, map, settings, datasets, createLegend /* callback */)
+{
+	// Determine the field
+	const field = document.querySelector ('select.updatelayer[data-layer="clos"][name="clos-layer"]').value;
+	
+	// Arrange the colour
+	const colour = [
+		'match',
+		['get', field],
+		...datasets.lineColours[layerId][field]
+	];
+	
+	// Set paint properties
+	map.setPaintProperty (layerId, 'line-color', colour);
+}
+
 
 
