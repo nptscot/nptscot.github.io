@@ -3,7 +3,12 @@
 
 ## The Tool
 
-The Network Planning Tool for Scotland (NPT) is a planning support system, research project, and web application to support strategic active travel network planning. The 2023 version is focused on cycle network planning and builds on the [Propensity to Cycle Tool](https://www.pct.bike/) for England and Wales. NPT provides evidence on levels of cycling and potential down to the road network nationwide across Scotland. It is designed to be used by local authorities, community groups and other organisations to help them plan for cycling.
+The Network Planning Tool for Scotland (NPT) is a planning support system, research project, and web application to support strategic planning for active travel. The 2023 version is focused on cycle network planning and builds on the Department for Transport funded [Propensity to Cycle Tool](https://www.pct.bike/) for England and Wales.
+
+The NPT uses data from the census and other reliable sources to estimate what the demand for cycling would be across Scotland if it had high quality cycle infrastructure and high levels of cycling. It estimates what journeys would be taken by bike based on where people live, work, shop and socialise and the distances and hills between them, and a routing algorithm to assign the journeys to the existing road and path network.
+This evidence on estimated baseline and future potential cycling levels is provided at the network level, down to individual streets and cycleways nationwide across Scotland, allowing it to be used for planning and prioritising investment in joined up and cost-effective cycle networks.
+
+It is designed to be used by local authorities, community groups and other organisations to help them plan for cycling but is open access and can be used by anyone to support more evidence-based and data-driven discussions about and decisions on cycling infrastructure and investment.
 
 See the [manual](/manual) for more information on how to use the tool.
 
