@@ -8,7 +8,7 @@ const datasets = {
 			'id': 'rnet',
 			'source': {
 				'type': 'vector',
-				'url': 'pmtiles://%tileserverUrl/rnet-2023-12-17.pmtiles',
+				'url': 'pmtiles://%tileserverUrl/rnet_2024-05-17.pmtiles',
 			},
 			'source-layer': 'rnet',
 			'type': 'line',
@@ -18,7 +18,7 @@ const datasets = {
 			'id': 'rnet-simplified',
 			'source': {
 				'type': 'vector',
-				'url': 'pmtiles://%tileserverUrl/rnet_simplified-2023-12-17.pmtiles',	 // #!# Inconsistent path - needs fixing
+				'url': 'pmtiles://%tileserverUrl/rnet_simplified_2024-05-17.pmtiles',	 // #!# Inconsistent path - needs fixing
 			},
 			'source-layer': 'rnet',
 			'type': 'line',
@@ -540,14 +540,14 @@ const datasets = {
 			templateId: 'rnet-popup',
 			preprocessingCallback: popupCallback,	// Defined below
 			smallValuesThreshold: 10,
-			literalFields: ['Gradient', 'Quietness'] // #!# Gradient and Quietness are capitalised unlike other
+			literalFields: ['gradient', 'quietness']
 		},
 		
 		'rnet-simplified': {
 			templateId: 'rnet-popup',
 			preprocessingCallback: popupCallback,	// Defined below
 			smallValuesThreshold: 10,
-			literalFields: ['Gradient', 'Quietness'] // #!# Gradient and Quietness are capitalised unlike other
+			literalFields: ['gradient', 'quietness']
 		},
 		
 		'clos': {
