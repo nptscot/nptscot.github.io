@@ -607,10 +607,10 @@ function rnetStyling (layerId, map, settings, datasets, createLegend /* callback
 	const filter = ['all',
 		['>=', layerWidthField, sliders.cycle.min],
 		['<=', layerWidthField, sliders.cycle.max],
-		['>=', 'Quietness', sliders.quietness.min],
-		['<=', 'Quietness', sliders.quietness.max],
-		['>=', 'Gradient', sliders.gradient.min],
-		['<=', 'Gradient', sliders.gradient.max]
+		['>=', 'quietness', sliders.quietness.min],
+		['<=', 'quietness', sliders.quietness.max],
+		['>=', 'gradient', sliders.gradient.min],
+		['<=', 'gradient', sliders.gradient.max]
 	];
 	
 	// Define line colour
@@ -622,12 +622,12 @@ function rnetStyling (layerId, map, settings, datasets, createLegend /* callback
 			'#FF00C5'
 		],
 		'quietness': [
-			'step', ['get', 'Quietness'],
+			'step', ['get', 'quietness'],
 			...datasets.lineColours.rnet.quietness,
 			'#000000'
 		],
 		'gradient': [
-			'step', ['get', 'Gradient'],
+			'step', ['get', 'gradient'],
 			...datasets.lineColours.rnet.gradient,
 			'#000000'
 		]
