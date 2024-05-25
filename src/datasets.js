@@ -20,7 +20,7 @@ const datasets = {
 				'type': 'vector',
 				'url': 'pmtiles://%tileserverUrl/rnet_simplified_2024-05-23.pmtiles',	 // #!# Inconsistent path - needs fixing
 			},
-			'source-layer': 'rnet',
+			'source-layer': 'rnet_simplified',
 			'type': 'line',
 		},
 		
