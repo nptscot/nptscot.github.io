@@ -703,9 +703,20 @@ const nptUi = (function () {
 			// Set each style (e.g. line-color)
 			Object.entries (sublayer.styles).forEach (function ([style, styleValuePairs]) {
 				
+				// Determine the mode directives
+				let mode;
+				switch (sublayer.type) {
+					case 'match':
+						mode = ['match'];
+						break;
+					case 'interpolate':
+						mode = ['interpolate', ['linear']];
+						break;
+				}
+				
 				// Arrange the style definition
 				const styleDefinition = [
-					sublayer.type,
+					...mode,
 					['get', fieldname],
 					...nptUi.flattenPairs (styleValuePairs),
 				];
