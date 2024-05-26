@@ -438,25 +438,6 @@ const datasets = {
 				'#67001f', 200,
 				'#000000'
 			]
-		},
-		
-		clos: {
-			// #!# These are lookups so order is value,colour; need to generalise this
-			'Level of Service': [
-				'High', '#28338a',
-				'Medium', '#107f80',
-				'Low', '#12aee7',
-				'gray'		// No match - default
-			],
-			// #!# Not yet implemented
-			'Traffic volume': [
-			],
-			'Speed limit': [
-			],
-			'Infrastructure type': [
-			],
-			'Infrastructure type (detailed)': [
-			],
 		}
 	},
 	

@@ -671,6 +671,7 @@ const nptUi = (function () {
 			//console.log ('Toggling layer ' + layerId);
 			
 			// Use static sublayer styling definitions, if present, on initial load and on sublayer change
+			// #!# This is incrementally added each time toggle is done; should be moved up a level so there is only a single registration
 			if (_datasets.sublayers[layerId]) {
 				nptUi.setSublayerStyle (layerId);
 				document.querySelector ('select.updatelayer[data-layer="' + layerId + '"]').addEventListener ('change', function () {
