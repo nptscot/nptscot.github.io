@@ -37,6 +37,8 @@ const settings = {
 	
 	// Tileserver for data layers
 	tileserverUrl: 'https://nptscot.blob.core.windows.net/pmtiles',		// Not slash-terminated
+	// Local tileserver in tiles/ folder:
+	// tileserverUrl: 'http://127.0.0.1:4321/tiles',
 	tileserverTempLocalOverrides: {		// Temporarily define any local folder paths where particular layers should come from
 		//rnet: 'utilitytrips/',
 		//cohesivenetwork: 'cohesivenetwork/',

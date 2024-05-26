@@ -8,7 +8,7 @@ const datasets = {
 			'id': 'rnet',
 			'source': {
 				'type': 'vector',
-				'url': 'pmtiles://%tileserverUrl/rnet-2023-12-17.pmtiles',
+				'url': 'pmtiles://%tileserverUrl/rnet_2024-05-23.pmtiles',
 			},
 			'source-layer': 'rnet',
 			'type': 'line',
@@ -18,9 +18,9 @@ const datasets = {
 			'id': 'rnet-simplified',
 			'source': {
 				'type': 'vector',
-				'url': 'pmtiles://%tileserverUrl/rnet_simplified-2023-12-17.pmtiles',	 // #!# Inconsistent path - needs fixing
+				'url': 'pmtiles://%tileserverUrl/rnet_simplified_2024-05-23.pmtiles',	 // #!# Inconsistent path - needs fixing
 			},
-			'source-layer': 'rnet',
+			'source-layer': 'rnet_simplified',
 			'type': 'line',
 		},
 		
@@ -540,14 +540,14 @@ const datasets = {
 			templateId: 'rnet-popup',
 			preprocessingCallback: popupCallback,	// Defined below
 			smallValuesThreshold: 10,
-			literalFields: ['Gradient', 'Quietness'] // #!# Gradient and Quietness are capitalised unlike other
+			literalFields: ['gradient', 'quietness']
 		},
 		
 		'rnet-simplified': {
 			templateId: 'rnet-popup',
 			preprocessingCallback: popupCallback,	// Defined below
 			smallValuesThreshold: 10,
-			literalFields: ['Gradient', 'Quietness'] // #!# Gradient and Quietness are capitalised unlike other
+			literalFields: ['gradient', 'quietness']
 		},
 		
 		'clos': {
@@ -607,10 +607,10 @@ function rnetStyling (layerId, map, settings, datasets, createLegend /* callback
 	const filter = ['all',
 		['>=', layerWidthField, sliders.cycle.min],
 		['<=', layerWidthField, sliders.cycle.max],
-		['>=', 'Quietness', sliders.quietness.min],
-		['<=', 'Quietness', sliders.quietness.max],
-		['>=', 'Gradient', sliders.gradient.min],
-		['<=', 'Gradient', sliders.gradient.max]
+		['>=', 'quietness', sliders.quietness.min],
+		['<=', 'quietness', sliders.quietness.max],
+		['>=', 'gradient', sliders.gradient.min],
+		['<=', 'gradient', sliders.gradient.max]
 	];
 	
 	// Define line colour
@@ -622,12 +622,12 @@ function rnetStyling (layerId, map, settings, datasets, createLegend /* callback
 			'#FF00C5'
 		],
 		'quietness': [
-			'step', ['get', 'Quietness'],
+			'step', ['get', 'quietness'],
 			...datasets.lineColours.rnet.quietness,
 			'#000000'
 		],
 		'gradient': [
-			'step', ['get', 'Gradient'],
+			'step', ['get', 'gradient'],
 			...datasets.lineColours.rnet.gradient,
 			'#000000'
 		]
