@@ -703,11 +703,18 @@ const nptUi = (function () {
 			// Set each style (e.g. line-color)
 			Object.entries (sublayer.styles).forEach (function ([style, styleValuePairs]) {
 				
-				// Determine the mode directives
+				// Parse the style value pairs
+				let styleValues = nptUi.flattenPairs (styleValuePairs);
+				
+				// Determine the mode
 				let mode;
 				switch (sublayer.type) {
 					case 'match':
 						mode = ['match'];
+						break;
+					case 'step':	// See: https://stackoverflow.com/a/53506912/
+						mode = ['step'];
+						styleValues.shift ();		// First should be base value without key
 						break;
 					case 'interpolate':
 						mode = ['interpolate', ['linear']];
@@ -718,7 +725,7 @@ const nptUi = (function () {
 				const styleDefinition = [
 					...mode,
 					['get', fieldname],
-					...nptUi.flattenPairs (styleValuePairs),
+					...styleValues,
 				];
 				
 				// Set paint properties

@@ -141,7 +141,7 @@ const datasets = {
 	
 	
 	// Sublayers - unified definitions handling style rendering for each selectable sublayer
-	// Type is either match (fixed values) / interpolate (linear)
+	// Type is either match (fixed values) / step (steps, with the first being treated as the 'base' value) / interpolate (linear)
 	// Use of key _ is the default
 	// #!# Migrate existing layers to this unified format
 	sublayers: {
