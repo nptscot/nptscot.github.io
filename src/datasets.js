@@ -161,6 +161,20 @@ const datasets = {
 			}
 		},
 		*/
+		clos: {
+			'Level of Service': {
+				label: 'Current LoS',
+				type: 'match',
+				styles: {
+					'line-color': {
+						'High': '#28338a',
+						'Medium': '#107f80',
+						'Low': '#12aee7',
+						'_': 'gray',
+					}
+				}
+			},
+		}
 	},
 	
 	
@@ -169,7 +183,6 @@ const datasets = {
 		rnet:				rnetStyling,
 		"rnet-simplified":	rnetStyling,
 		data_zones:			data_zonesStyling,
-		clos:				closStyling,
 	},
 	
 	
@@ -776,24 +789,3 @@ function colourGradient (start, finish, stops)
 	// Return the colours and the matchlist
 	return [colours, matchList];
 }
-
-
-// Styling callback for clos
-function closStyling (layerId, map, settings, datasets, createLegend /* callback */)
-{
-	// Determine the field
-	const field = document.querySelector ('select.updatelayer[data-layer="clos"][name="clos-layer"]').value;
-	
-	// Arrange the colour
-	const colour = [
-		'match',
-		['get', field],
-		...datasets.lineColours[layerId][field]
-	];
-	
-	// Set paint properties
-	map.setPaintProperty (layerId, 'line-color', colour);
-}
-
-
-
