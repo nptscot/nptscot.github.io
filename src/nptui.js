@@ -701,10 +701,10 @@ const nptUi = (function () {
 			const sublayer = _datasets.sublayers[layerId][fieldname];
 			
 			// Set each style (e.g. line-color)
-			Object.entries (sublayer.styles).forEach (function ([style, styleValuePairs]) {
+			Object.entries (sublayer.styles).forEach (function ([style, styleValueLookups]) {
 				
 				// Parse the style value pairs
-				let styleValues = nptUi.flattenPairs (styleValuePairs);
+				let styleValues = nptUi.associativeToFlattenedArray (styleValueLookups);
 				
 				// Determine the mode
 				let mode;
@@ -730,12 +730,16 @@ const nptUi = (function () {
 				
 				// Set paint properties
 				_map.setPaintProperty (layerId, style, styleDefinition);
+				
+				// Set legend
+				const legendColours = nptUi.associativeToPairs (styleValueLookups);
+				nptUi.createLegend (legendColours, layerId + '-legend');
 			});
 		},
 		
 		
 		// Function to flatten key-value pairs of an object to a simple array
-		flattenPairs: function (object)
+		associativeToFlattenedArray: function (object)
 		{
 			// Convert key-value pairs to list
 			const array = [];
@@ -747,6 +751,19 @@ const nptUi = (function () {
 					array.push (key);
 				}
 				array.push (value);
+			});
+			return array;
+		},
+		
+		
+		// Function to convert key-value pairs of an object to pairs
+		associativeToPairs: function (object)
+		{
+			// Convert key-value pairs to list
+			const array = [];
+			Object.entries (object).forEach (function ([key, value]) {
+				if (key == '_') {return; /* i.e. continue */}		// Omit fallback value (_)
+				array.push ([key, value]);
 			});
 			return array;
 		},
