@@ -670,8 +670,29 @@ const nptUi = (function () {
 		{
 			//console.log ('Toggling layer ' + layerId);
 			
+			// Obtain static sublayer styling definitions, if present
+			if (_datasets.sublayers[layerId]) {
+				
+				// Determine the field
+				const fieldname = document.querySelector ('select.updatelayer[data-layer="' + layerId + '"]').value;
+				const sublayer = _datasets.sublayers[layerId][fieldname];
+				
+				// Set each style (e.g. line-color)
+				Object.entries (sublayer.styles).forEach (function ([style, styleValuePairs]) {
+					
+					// Arrange the style definition
+					const styleDefinition = [
+						sublayer.type,
+						['get', fieldname],
+						...nptUi.flattenPairs (styleValuePairs),
+					];
+					
+					// Set paint properties
+					_map.setPaintProperty (layerId, style, styleDefinition);
+				});
+				
 			// Check for a dynamic styling callback and run it if present
-			if (_datasets.layerStyling[layerId]) {
+			} else if (_datasets.layerStyling[layerId]) {
 				_datasets.layerStyling[layerId] (layerId, _map, _settings, _datasets, nptUi.createLegend);
 			} else {
 				nptUi.createLegend (datasets.legends, layerId, layerId + 'legend');
@@ -683,6 +704,21 @@ const nptUi = (function () {
 			
 			// Update the layer state for the URL
 			nptUi.layerStateUrl ();
+		},
+		
+		
+		// Function to flatten key-value pairs of an object to a simple array
+		flattenPairs: function (object)
+		{
+			// Convert key-value pairs to list
+			const array = [];
+			Object.entries (object).forEach (function ([key, value]) {
+				if (key != '_') {		// For a default (_), omit the key, so there is just the value
+					array.push (key);
+				}
+				array.push (value);
+			});
+			return array;
 		},
 		
 		

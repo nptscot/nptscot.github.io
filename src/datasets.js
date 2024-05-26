@@ -140,6 +140,30 @@ const datasets = {
 	},
 	
 	
+	// Sublayers - unified definitions handling style rendering for each selectable sublayer
+	// Type is either match (fixed values) / scalar
+	// Use of key _ is the default
+	// #!# Migrate existing layers to this unified format
+	sublayers: {
+		/*
+		layer: {
+			fieldname: {
+				label: 'Label',
+				type: 'match',
+				styles: {
+					'line-color': {
+						value1: colour1,
+						value2: colour2,
+						...
+					},
+					...
+				}
+			}
+		},
+		*/
+	},
+	
+	
 	// Layer styling callbacks functions, each defined below
 	layerStyling: {
 		rnet:				rnetStyling,
