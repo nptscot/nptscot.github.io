@@ -722,6 +722,9 @@ const nptUi = (function () {
 			// Convert key-value pairs to list
 			const array = [];
 			Object.entries (object).forEach (function ([key, value]) {
+				if (!isNaN (key)) {
+					key = Number (key);
+				}
 				if (key != '_') {		// For a default (_), omit the key, so there is just the value
 					array.push (key);
 				}
