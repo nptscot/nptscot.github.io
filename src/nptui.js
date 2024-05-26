@@ -730,11 +730,12 @@ const nptUi = (function () {
 				
 				// Set paint properties
 				_map.setPaintProperty (layerId, style, styleDefinition);
-				
-				// Set legend
-				const legendColours = nptUi.associativeToPairs (styleValueLookups);
-				nptUi.createLegend (legendColours, layerId + '-legend');
 			});
+			
+			// Set legend, using the first style if more than one
+			const styleValueLookupsFirst = Object.values (sublayer.styles) [0];
+			const legendColours = nptUi.associativeToPairs (styleValueLookupsFirst);
+			nptUi.createLegend (legendColours, layerId + '-legend');
 		},
 		
 		
