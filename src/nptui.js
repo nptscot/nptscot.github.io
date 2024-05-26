@@ -681,7 +681,7 @@ const nptUi = (function () {
 			} else if (_datasets.layerStyling[layerId]) {
 				_datasets.layerStyling[layerId] (layerId, _map, _settings, _datasets, nptUi.createLegend);
 			} else {
-				nptUi.createLegend (datasets.legends, layerId, layerId + 'legend');
+				nptUi.createLegend (datasets.legends[layerId], layerId + 'legend');
 			}
 			
 			// Set the visibility of the layer, based on the checkbox value
@@ -752,7 +752,7 @@ const nptUi = (function () {
 		},
 		
 		
-		createLegend: function (legendColours, selected, selector)
+		createLegend: function (legendColours, selector)
 		{
 			// Do nothing if no selector for where the legend will be added
 			if (!document.getElementById(selector)) {return;}
@@ -760,8 +760,7 @@ const nptUi = (function () {
 			// Create the legend HTML
 			// #!# Should be a list, not nested divs
 			let legendHtml = '<div class="l_r">';
-			selected = (legendColours.hasOwnProperty(selected) ? selected : '_');
-			legendColours[selected].forEach(legendColour => {
+			legendColours.forEach(legendColour => {
 				legendHtml += `<div class="lb"><span style="background-color: ${legendColour[1]}"></span>${legendColour[0]}</div>`;
 			})
 			legendHtml += '</div>';
