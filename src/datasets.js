@@ -176,15 +176,12 @@ const datasets = {
 			},
 			'Traffic volume': {
 				label: 'Current traffic volume',
-				type: 'interpolate',
+				type: 'step',
 				styles: {
 					'line-color': {
-						0: '#61fa61',
-						500: '#fce8af',
-						1000: '#f6b879',
-						2000: '#e27474',
-						5000: '#d43131',
-						999999: '#ff0000',
+						0: '#27918d',
+						900: '#fae826',
+						5000: '#440154',
 					}
 				}
 			},
