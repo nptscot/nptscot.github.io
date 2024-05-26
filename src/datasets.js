@@ -174,6 +174,59 @@ const datasets = {
 					}
 				}
 			},
+			'Traffic volume': {
+				label: 'Current traffic volume',
+				type: 'interpolate',
+				styles: {
+					'line-color': {
+						0: '#61fa61',
+						500: '#fce8af',
+						1000: '#f6b879',
+						2000: '#e27474',
+						5000: '#d43131',
+						999999: '#ff0000',
+					}
+				}
+			},
+			'Speed limit': {
+				label: 'Current speed limit',
+				type: 'match',
+				styles: {
+					'line-color': {
+						20: '#8a9a5b',
+						30: '#ffc300',
+						40: '#cc5500',
+						50: '#c70039',
+						60: '#900c3f',
+						70: '#581845',
+						'_': 'gray',
+					}
+				}
+			},
+			'Infrastructure type': {
+				label: 'Existing infrastructure',
+				type: 'match',
+				styles: {
+					'line-color': {
+						'Cycle track': 'green',
+						'Mixed traffic': 'blue',
+						'Roadside cycle track': 'darkgreen',
+						'_': 'gray',
+					}
+				}
+			},
+			'Infrastructure type (detailed)': {
+				label: 'Existing infrastructure (baseline)',
+				type: 'match',
+				styles: {
+					'line-color': {
+						'Cycle track': 'green',
+						'Mixed traffic': 'blue',
+						'Level track': 'orange',
+						'_': 'gray',
+					}
+				}
+			},
 		}
 	},
 	
