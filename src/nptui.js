@@ -670,25 +670,11 @@ const nptUi = (function () {
 		{
 			//console.log ('Toggling layer ' + layerId);
 			
-			// Obtain static sublayer styling definitions, if present
+			// Use static sublayer styling definitions, if present, on initial load and on sublayer change
 			if (_datasets.sublayers[layerId]) {
-				
-				// Determine the field
-				const fieldname = document.querySelector ('select.updatelayer[data-layer="' + layerId + '"]').value;
-				const sublayer = _datasets.sublayers[layerId][fieldname];
-				
-				// Set each style (e.g. line-color)
-				Object.entries (sublayer.styles).forEach (function ([style, styleValuePairs]) {
-					
-					// Arrange the style definition
-					const styleDefinition = [
-						sublayer.type,
-						['get', fieldname],
-						...nptUi.flattenPairs (styleValuePairs),
-					];
-					
-					// Set paint properties
-					_map.setPaintProperty (layerId, style, styleDefinition);
+				nptUi.setSublayerStyle (layerId);
+				document.querySelector ('select.updatelayer[data-layer="' + layerId + '"]').addEventListener ('change', function () {
+					nptUi.setSublayerStyle (layerId);
 				});
 				
 			// Check for a dynamic styling callback and run it if present
@@ -704,6 +690,29 @@ const nptUi = (function () {
 			
 			// Update the layer state for the URL
 			nptUi.layerStateUrl ();
+		},
+		
+		
+		// Function to set style from a definition
+		setSublayerStyle: function (layerId)
+		{
+			// Determine the field
+			const fieldname = document.querySelector ('select.updatelayer[data-layer="' + layerId + '"]').value;
+			const sublayer = _datasets.sublayers[layerId][fieldname];
+			
+			// Set each style (e.g. line-color)
+			Object.entries (sublayer.styles).forEach (function ([style, styleValuePairs]) {
+				
+				// Arrange the style definition
+				const styleDefinition = [
+					sublayer.type,
+					['get', fieldname],
+					...nptUi.flattenPairs (styleValuePairs),
+				];
+				
+				// Set paint properties
+				_map.setPaintProperty (layerId, style, styleDefinition);
+			});
 		},
 		
 		
