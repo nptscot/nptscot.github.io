@@ -290,9 +290,12 @@ const nptUi = (function () {
 				nptUi.addBuildings(map);
 			});
 			
-			// Add placenames support
-			map.once('idle', function () {
-				nptUi.placenames(map);
+			// Add placenames support, loading at start and on basemap change
+			map.once ('idle', function () {
+				nptUi.placenames (map);
+				document.addEventListener ('@map/ready', function () {
+					nptUi.placenames (map);
+				});
 			});
 			
 			// Add geolocation control
@@ -488,11 +491,13 @@ const nptUi = (function () {
 		// Function to manage display of placenames
 		placenames: function (map)
 		{
-			// Add the source
-			map.addSource ('placenames', {
-				'type': 'vector',
-				'url': _settings.placenamesTilesUrl.replace ('%tileserverUrl', _settings.tileserverUrl),
-			});
+			// Add the source, if not already present
+			if (!map.getSource ('placenames')) {
+				map.addSource ('placenames', {
+					'type': 'vector',
+					'url': _settings.placenamesTilesUrl.replace ('%tileserverUrl', _settings.tileserverUrl),
+				});
+			}
 			
 			// Load the style definition
 			// #!# The .json file is currently not a complete style definition, e.g. with version number etc.
@@ -502,11 +507,16 @@ const nptUi = (function () {
 				})
 				.then (function (placenameLayers) {
 					
+					// Register the list
+					placenameLayers = placenameLayers;
+					
 					// Add each layer, respecting the initial checkbox state
-					Object.entries(placenameLayers).forEach(([layerId, layer]) => {
-						const checkbox = document.getElementById('placenamescheckbox');
+					Object.entries (placenameLayers).forEach (([layerId, layer]) => {
+						const checkbox = document.getElementById ('placenamescheckbox');
 						layer.visibility = (checkbox.checked ? 'visible' : 'none');
-						map.addLayer(layer);
+						if (!map.getLayer (layerId)) {
+							map.addLayer (layer);
+						}
 					});
 					
 					// Listen for checkbox changes
