@@ -13,6 +13,10 @@
 - Layer attributes, to set values for a layer:
 	Should be as follows, specifying the layerId in the data attribute, and a name for the field, e.g.:
 	<select name="purpose" class="updatelayer" data-layer="rnet" aria-label="Route network trip purpose">
+
+- Legends:
+	Should be as follows, specifying the layerId followed by -legend in the id:
+	<div id="clos-legend" class="legend"></div>
 	
 - Slider UI:
 	Sliders should have .slider-styled, with a name for the field, and an ID that matches a datalist name, e.g.:
@@ -736,7 +740,8 @@ const nptUi = (function () {
 			// Set legend, using the first style if more than one
 			const styleValueLookupsFirst = Object.values (sublayer.styles) [0];
 			const legendColours = nptUi.associativeToPairs (styleValueLookupsFirst);
-			nptUi.createLegend (legendColours, layerId + '-legend');
+			const isRangeType = (sublayer.type == 'step' || sublayer.type == 'interpolate');
+			nptUi.createLegend (legendColours, layerId + '-legend', isRangeType);
 		},
 		
 		
@@ -771,7 +776,7 @@ const nptUi = (function () {
 		},
 		
 		
-		createLegend: function (legendColours, selector)
+		createLegend: function (legendColours, selector, isRangeType)
 		{
 			// Do nothing if no selector for where the legend will be added
 			if (!document.getElementById(selector)) {return;}
@@ -779,7 +784,8 @@ const nptUi = (function () {
 			// Create the legend HTML
 			// #!# Should be a list, not nested divs
 			let legendHtml = '<div class="l_r">';
-			legendColours.forEach(legendColour => {
+			legendColours.forEach (legendColour => {
+				if (isRangeType) {legendColour[0] = '≥' + legendColour[0];}
 				legendHtml += `<div class="lb"><span style="background-color: ${legendColour[1]}"></span>${legendColour[0]}</div>`;
 			})
 			legendHtml += '</div>';
