@@ -670,32 +670,19 @@ const nptUi = (function () {
 		{
 			//console.log ('Toggling layer ' + layerId);
 			
-			// Obtain static sublayer styling definitions, if present
+			// Use static sublayer styling definitions, if present, on initial load and on sublayer change
+			// #!# This is incrementally added each time toggle is done; should be moved up a level so there is only a single registration
 			if (_datasets.sublayers[layerId]) {
-				
-				// Determine the field
-				const fieldname = document.querySelector ('select.updatelayer[data-layer="' + layerId + '"]').value;
-				const sublayer = _datasets.sublayers[layerId][fieldname];
-				
-				// Set each style (e.g. line-color)
-				Object.entries (sublayer.styles).forEach (function ([style, styleValuePairs]) {
-					
-					// Arrange the style definition
-					const styleDefinition = [
-						sublayer.type,
-						['get', fieldname],
-						...nptUi.flattenPairs (styleValuePairs),
-					];
-					
-					// Set paint properties
-					_map.setPaintProperty (layerId, style, styleDefinition);
+				nptUi.setSublayerStyle (layerId);
+				document.querySelector ('select.updatelayer[data-layer="' + layerId + '"]').addEventListener ('change', function () {
+					nptUi.setSublayerStyle (layerId);
 				});
 				
 			// Check for a dynamic styling callback and run it if present
 			} else if (_datasets.layerStyling[layerId]) {
 				_datasets.layerStyling[layerId] (layerId, _map, _settings, _datasets, nptUi.createLegend);
 			} else {
-				nptUi.createLegend (datasets.legends, layerId, layerId + 'legend');
+				nptUi.createLegend (datasets.legends[layerId], layerId + 'legend');
 			}
 			
 			// Set the visibility of the layer, based on the checkbox value
@@ -707,12 +694,61 @@ const nptUi = (function () {
 		},
 		
 		
+		// Function to set style from a definition
+		setSublayerStyle: function (layerId)
+		{
+			// Determine the field
+			const fieldname = document.querySelector ('select.updatelayer[data-layer="' + layerId + '"]').value;
+			const sublayer = _datasets.sublayers[layerId][fieldname];
+			
+			// Set each style (e.g. line-color)
+			Object.entries (sublayer.styles).forEach (function ([style, styleValueLookups]) {
+				
+				// Parse the style value pairs
+				let styleValues = nptUi.associativeToFlattenedArray (styleValueLookups);
+				
+				// Determine the mode
+				let mode;
+				switch (sublayer.type) {
+					case 'match':
+						mode = ['match'];
+						break;
+					case 'step':	// See: https://stackoverflow.com/a/53506912/
+						mode = ['step'];
+						styleValues.shift ();		// First should be base value without key
+						break;
+					case 'interpolate':
+						mode = ['interpolate', ['linear']];
+						break;
+				}
+				
+				// Arrange the style definition
+				const styleDefinition = [
+					...mode,
+					['get', fieldname],
+					...styleValues,
+				];
+				
+				// Set paint properties
+				_map.setPaintProperty (layerId, style, styleDefinition);
+			});
+			
+			// Set legend, using the first style if more than one
+			const styleValueLookupsFirst = Object.values (sublayer.styles) [0];
+			const legendColours = nptUi.associativeToPairs (styleValueLookupsFirst);
+			nptUi.createLegend (legendColours, layerId + '-legend');
+		},
+		
+		
 		// Function to flatten key-value pairs of an object to a simple array
-		flattenPairs: function (object)
+		associativeToFlattenedArray: function (object)
 		{
 			// Convert key-value pairs to list
 			const array = [];
 			Object.entries (object).forEach (function ([key, value]) {
+				if (!isNaN (key)) {
+					key = Number (key);
+				}
 				if (key != '_') {		// For a default (_), omit the key, so there is just the value
 					array.push (key);
 				}
@@ -722,7 +758,20 @@ const nptUi = (function () {
 		},
 		
 		
-		createLegend: function (legendColours, selected, selector)
+		// Function to convert key-value pairs of an object to pairs
+		associativeToPairs: function (object)
+		{
+			// Convert key-value pairs to list
+			const array = [];
+			Object.entries (object).forEach (function ([key, value]) {
+				if (key == '_') {return; /* i.e. continue */}		// Omit fallback value (_)
+				array.push ([key, value]);
+			});
+			return array;
+		},
+		
+		
+		createLegend: function (legendColours, selector)
 		{
 			// Do nothing if no selector for where the legend will be added
 			if (!document.getElementById(selector)) {return;}
@@ -730,8 +779,7 @@ const nptUi = (function () {
 			// Create the legend HTML
 			// #!# Should be a list, not nested divs
 			let legendHtml = '<div class="l_r">';
-			selected = (legendColours.hasOwnProperty(selected) ? selected : '_');
-			legendColours[selected].forEach(legendColour => {
+			legendColours.forEach(legendColour => {
 				legendHtml += `<div class="lb"><span style="background-color: ${legendColour[1]}"></span>${legendColour[0]}</div>`;
 			})
 			legendHtml += '</div>';

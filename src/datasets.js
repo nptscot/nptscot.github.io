@@ -140,8 +140,8 @@ const datasets = {
 	},
 	
 	
-	// Sublayers - unified definitions handling style rendering for each selectable sublayer
-	// Type is either match (fixed values) / scalar
+	// Sublayers - unified definitions handling style rendering for each selectable sublayer, including legends
+	// Type is either match (fixed values) / step (steps, with the first being treated as the 'base' value) / interpolate (linear)
 	// Use of key _ is the default
 	// #!# Migrate existing layers to this unified format
 	sublayers: {
@@ -161,6 +161,70 @@ const datasets = {
 			}
 		},
 		*/
+		clos: {
+			'Level of Service': {
+				label: 'Current LoS',
+				type: 'match',
+				styles: {
+					'line-color': {
+						'High': '#28338a',
+						'Medium': '#107f80',
+						'Low': '#12aee7',
+						'_': 'gray',
+					}
+				}
+			},
+			'Traffic volume': {
+				label: 'Current traffic volume',
+				type: 'step',
+				styles: {
+					'line-color': {
+						0: '#27918d',
+						900: '#fae826',
+						5000: '#440154',
+					}
+				}
+			},
+			'Speed limit': {
+				label: 'Current speed limit',
+				type: 'match',
+				styles: {
+					'line-color': {
+						20: '#8a9a5b',
+						30: '#ffc300',
+						40: '#cc5500',
+						50: '#c70039',
+						60: '#900c3f',
+						70: '#581845',
+						'_': 'gray',
+					}
+				}
+			},
+			'Infrastructure type': {
+				label: 'Existing infrastructure',
+				type: 'match',
+				styles: {
+					'line-color': {
+						'Cycle track': 'green',
+						'Mixed traffic': 'blue',
+						'Roadside cycle track': 'darkgreen',
+						'_': 'gray',
+					}
+				}
+			},
+			'Infrastructure type (detailed)': {
+				label: 'Existing infrastructure (baseline)',
+				type: 'match',
+				styles: {
+					'line-color': {
+						'Cycle track': 'green',
+						'Mixed traffic': 'blue',
+						'Level track': 'orange',
+						'_': 'gray',
+					}
+				}
+			},
+		}
 	},
 	
 	
@@ -169,7 +233,6 @@ const datasets = {
 		rnet:				rnetStyling,
 		"rnet-simplified":	rnetStyling,
 		data_zones:			data_zonesStyling,
-		clos:				closStyling,
 	},
 	
 	
@@ -375,25 +438,6 @@ const datasets = {
 				'#67001f', 200,
 				'#000000'
 			]
-		},
-		
-		clos: {
-			// #!# These are lookups so order is value,colour; need to generalise this
-			'Level of Service': [
-				'High', '#28338a',
-				'Medium', '#107f80',
-				'Low', '#12aee7',
-				'gray'		// No match - default
-			],
-			// #!# Not yet implemented
-			'Traffic volume': [
-			],
-			'Speed limit': [
-			],
-			'Infrastructure type': [
-			],
-			'Infrastructure type (detailed)': [
-			],
 		}
 	},
 	
@@ -607,7 +651,7 @@ function rnetStyling (layerId, map, settings, datasets, createLegend /* callback
 {
 	// Update the Legend - Do this even if map layer is off
 	const colour = document.querySelector ('select.updatelayer[data-layer="rnet"][name="colour"]').value;
-	createLegend (datasets.legends.rnet, colour, 'linecolourlegend');
+	createLegend (datasets.legends.rnet[colour], 'linecolourlegend');
 	
 	// No special handling needed if not visible
 	if (!document.querySelector ('input.showlayer[data-layer="' + layerId + '"]').checked) {
@@ -685,7 +729,8 @@ function data_zonesStyling (layerId, map, settings, datasets, createLegend /* ca
 {
 	// Update the legend (even if map layer is off)
 	const field = document.querySelector ('select.updatelayer[data-layer="data_zones"][name="field"]').value
-	createLegend (datasets.legends.data_zones, field, 'dzlegend');
+	const legendColours = (datasets.legends.data_zones.hasOwnProperty(field) ? datasets.legends.data_zones[field] : datasets.legends.data_zones['_']);
+	createLegend (legendColours, 'dzlegend');
 	
 	// Get UI state
 	const daysymetricMode = document.querySelector ('input.updatelayer[data-layer="data_zones"][name="daysymetricmode"]').checked;
@@ -776,24 +821,3 @@ function colourGradient (start, finish, stops)
 	// Return the colours and the matchlist
 	return [colours, matchList];
 }
-
-
-// Styling callback for clos
-function closStyling (layerId, map, settings, datasets, createLegend /* callback */)
-{
-	// Determine the field
-	const field = document.querySelector ('select.updatelayer[data-layer="clos"][name="clos-layer"]').value;
-	
-	// Arrange the colour
-	const colour = [
-		'match',
-		['get', field],
-		...datasets.lineColours[layerId][field]
-	];
-	
-	// Set paint properties
-	map.setPaintProperty (layerId, 'line-color', colour);
-}
-
-
-
