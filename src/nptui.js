@@ -307,20 +307,7 @@ const nptUi = (function () {
 			map.addControl(new maplibregl.FullscreenControl(), 'top-left');
 			
 			// Add basemap change control
-			class BasemapButton {
-				onAdd(map) {
-					const div = document.createElement('div');
-					div.className = 'maplibregl-ctrl maplibregl-ctrl-group';
-					div.innerHTML = '<button aria-label="Change basemap"><img src="/images/basemap.svg" class="basemap" title="Change basemap" /></button>';
-					div.addEventListener('contextmenu', (e) => e.preventDefault());
-					div.addEventListener('click', function () {
-						const box = document.getElementById('basemapcontrol');
-						box.style.display = (window.getComputedStyle(box).display == 'none' ? 'block' : 'none');
-					});
-					return div;
-				}
-			}
-			map.addControl(new BasemapButton(), 'top-left');
+			nptUi.basemapUi (map, 'top-left');
 			
 			// Add attribution
 			map.addControl(new maplibregl.AttributionControl({
@@ -339,24 +326,6 @@ const nptUi = (function () {
 				document.dispatchEvent(new Event('@map/ready', {
 					'bubbles': true
 				}));
-			});
-			
-			// Change map and reload state on basemap change
-			document.getElementById('basemapform').addEventListener('change', function () {
-				const styleName = nptUi.getBasemapStyle();
-				const styleCurrent = map.getStyle().name;
-				if (styleCurrent == styleName) {
-					return;
-				}
-				console.log('Restyling from ' + styleCurrent + ' to ' + styleName);
-				map.setStyle('tiles/style_' + styleName + '.json');
-				
-				// Fire map ready event when ready
-				map.once('idle', function () {
-					document.dispatchEvent(new Event('@map/ready', {
-						'bubbles': true
-					}));
-				});
 			});
 			
 			// Return the map handle
@@ -476,13 +445,6 @@ const nptUi = (function () {
 		},
 		
 		
-		// Function to get the currently-checked basemap style
-		getBasemapStyle: function ()
-		{
-			return document.querySelector('#basemapform input:checked').value;
-		},
-		
-		
 		// Function to add the buildings layer
 		addBuildings: function (map)
 		{
@@ -555,6 +517,54 @@ const nptUi = (function () {
 						});
 					});
 				});
+		},
+		
+		
+		// Basemap UI
+		basemapUi: function (map, position)
+		{
+			// Define the button
+			class BasemapButton {
+				onAdd(map) {
+					const div = document.createElement('div');
+					div.className = 'maplibregl-ctrl maplibregl-ctrl-group';
+					div.innerHTML = '<button aria-label="Change basemap"><img src="/images/basemap.svg" class="basemap" title="Change basemap" /></button>';
+					div.addEventListener('contextmenu', (e) => e.preventDefault());
+					div.addEventListener('click', function () {
+						const box = document.getElementById('basemapcontrol');
+						box.style.display = (window.getComputedStyle(box).display == 'none' ? 'block' : 'none');
+					});
+					return div;
+				}
+			}
+			
+			// Add the button
+			map.addControl (new BasemapButton (), position);
+			
+			// Change map and reload state on basemap change
+			document.getElementById ('basemapform').addEventListener ('change', function () {
+				const styleName = nptUi.getBasemapStyle ();
+				const styleCurrent = map.getStyle().name;
+				if (styleCurrent == styleName) {
+					return;
+				}
+				console.log ('Restyling from ' + styleCurrent + ' to ' + styleName);
+				map.setStyle ('tiles/style_' + styleName + '.json');
+				
+				// Fire map ready event when ready
+				map.once ('idle', function () {
+					document.dispatchEvent (new Event ('@map/ready', {
+						'bubbles': true
+					}));
+				});
+			});
+		},
+		
+		
+		// Function to get the currently-checked basemap style
+		getBasemapStyle: function ()
+		{
+			return document.querySelector('#basemapform input:checked').value;
 		},
 		
 		
