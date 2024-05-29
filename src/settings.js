@@ -52,7 +52,7 @@ const settings = {
 	manualEditingUrl: 'https://github.com/nptscot/nptscot.github.io/edit/dev/%id/index.md',
 	
 	// OSM data date
-	osmDate: '6 December 2023',
+	osmDate: '1 May 2024',
 	
 	// Analytics
 	gaProperty: 'G-QZMHV92YXJ',
