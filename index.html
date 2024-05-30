@@ -382,19 +382,11 @@
 		<template id="clos-popup">
 			<table>
 				<tr>
-					<td>OpenStreetMap ID</td>
-					<td><a href="https://www.openstreetmap.org/way/{osm_id}/" target="_blank" title="[Link opens in a new window]">Way #{osm_id}</a></td>
+					<td>Level of Service</td>
+					<td><strong>{Level of Service}</strong></td>
 				</tr>
 				<tr>
-					<td>Traffic volume</td>
-					<td>{Traffic volume}</td>
-				</tr>
-				<tr>
-					<td>Speed limit</td>
-					<td>{Speed limit}</td>
-				</tr>
-				<tr>
-					<td>Infrastructure type</td>
+					<td>Physical cycle infrastructure</td>
 					<td>{Infrastructure type}</td>
 				</tr>
 				<tr>
@@ -402,8 +394,16 @@
 					<td>{Infrastructure type (detailed)}</td>
 				</tr>
 				<tr>
-					<td>Level of Service</td>
-					<td>{Level of Service}</td>
+					<td>Traffic volume<br />Two-way traffic flow</td>
+					<td>{Traffic volume}<br />pcu per day</td>
+				</tr>
+				<tr>
+					<td>Speed limit</td>
+					<td>{Speed limit}mph</td>
+				</tr>
+				<tr>
+					<td>OpenStreetMap ID</td>
+					<td><a href="https://www.openstreetmap.org/way/{osm_id}/" target="_blank" title="[Link opens in a new window]">Way #{osm_id}</a></td>
 				</tr>
 			</table>
 		</template>
