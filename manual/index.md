@@ -244,6 +244,18 @@ Set the maximum and minimum quietness of roads that are visible. Quietness measu
 
 <!-- /#filters -->
 
+<!-- #clos -->
+
+### Cycling by Design compliance
+
+This section provides data on existing infrastructure, speed limits, volumes and estimated Cycling Level of Service (LoS).
+
+The ratings for Level of Service reflect the [Cycling by Design guidance](https://www.transport.gov.scot/media/50323/cycling-by-design-update-2019-final-document-15-september-2021-1.pdf) - see table 3.2 on page 51.
+
+![Table 3.2: When to separate cycle users from motor traffic](/images/clos_facilities.png)
+
+<!-- /#clos -->
+
 <!-- #data_zones -->
 
 ### Data zones
