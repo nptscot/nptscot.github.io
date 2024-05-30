@@ -124,6 +124,28 @@ const datasets = {
 			}
 		},
 		
+		streetspace: {
+			'id': 'streetspace',
+			'type': 'line',
+			'source': {
+				'type': 'vector',
+				'url': 'pmtiles://%tileserverUrl/road_width_sample_data.pmtiles',
+			},
+			'source-layer': 'roadwidth',
+			'paint': {
+				'line-color': [
+					'match',
+					['get', 'road_width_category_2_unidirectional'],
+					'Wider than minimum', '#dd7777',
+					'Wider than absolute minimum', '#f29551',
+					'Not enough space', '#f9c647',
+					'Plenty of space', '#75a375',
+					/* other */ 'gray'
+				],
+				'line-width': 2
+			}
+		},
+		
 		cohesivenetwork: {
 			'id': 'cohesivenetwork',
 			'type': 'line',
