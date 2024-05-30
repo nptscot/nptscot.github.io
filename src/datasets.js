@@ -167,9 +167,9 @@ const datasets = {
 				type: 'match',
 				styles: {
 					'line-color': {
-						'High': '#28338a',
-						'Medium': '#107f80',
-						'Low': '#12aee7',
+						'Low': 'red',
+						'Medium': 'orange',
+						'High': 'mediumseagreen',
 						'_': 'gray',
 					}
 				}
