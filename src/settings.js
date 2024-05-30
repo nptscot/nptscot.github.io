@@ -41,7 +41,7 @@ const settings = {
 	// tileserverUrl: 'http://127.0.0.1:4321/tiles',
 	tileserverTempLocalOverrides: {		// Temporarily define any local folder paths where particular layers should come from
 		//rnet: 'utilitytrips/',
-		//cohesivenetwork: 'cohesivenetwork/',
+		//coherentnetwork: 'coherentnetwork/',
 	},
 	
 	// Buildings/placenames tiles URL; can use %tileserverUrl to represent the above

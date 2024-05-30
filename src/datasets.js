@@ -124,8 +124,9 @@ const datasets = {
 			}
 		},
 		
-		cohesivenetwork: {
-			'id': 'cohesivenetwork',
+		// #!# Tiles filename, and source layer still reflect the old name, and need to be updated
+		coherentnetwork: {
+			'id': 'coherentnetwork',
 			'type': 'line',
 			'source': {
 				'type': 'vector',
@@ -245,7 +246,7 @@ const datasets = {
 	// #!# These need to be merged with lineColours
 	legends: {
 		
-		cohesivenetwork: [
+		coherentnetwork: [
 				['&nbsp;',	'#606ca4']
 		],
 		
