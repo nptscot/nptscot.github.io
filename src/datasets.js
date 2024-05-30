@@ -210,9 +210,10 @@ const datasets = {
 				type: 'match',
 				styles: {
 					'line-color': {
-						'Cycle track': 'green',
-						'Mixed traffic': 'blue',
-						'Roadside cycle track': 'darkgreen',
+						'Separated cycle track': 'green',
+						'Roadside infrastructure': 'darkgreen',
+						'Cycle lane on carriageway': 'lightblue',
+						'No infrastructure mixed with motor traffic': 'blue',
 						'_': 'gray',
 					}
 				}
