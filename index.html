@@ -146,7 +146,7 @@
 			<button class="accordion" id="autoopen">Route network</button>
 			<div class="panel">
 				<p>
-					<label><input type="checkbox" id="rnetcheckboxproxy" class="rnetproxy" checked>Show layer</label>
+					<label><input type="checkbox" id="rnetcheckboxproxy" class="rnetproxy" checked> Show layer</label>
 					<!-- These two checkboxes actually control the layers, but are set by the show/simplified checkboxes -->
 					<input type="checkbox" class="showlayer hidden" data-layer="rnet" />
 					<input type="checkbox" class="showlayer hidden" data-layer="rnet-simplified" />
@@ -237,7 +237,7 @@
 			<button class="accordion">Coherent network</button>
 			<div class="panel">
 				<p>Indicates a suggested order in which the network should grow.</p>
-				<p><label><input type="checkbox" class="showlayer" data-layer="coherentnetwork" value="false"> Show coherent network</label></p>
+				<p><label><input type="checkbox" class="showlayer" data-layer="coherentnetwork" value="false"> Show layer</label></p>
 				<div id="coherentnetworklegend" class="legend"></div>
 			</div>
 			
@@ -256,9 +256,23 @@
 				<div id="clos-legend" class="legend"></div>
 			</div>
 			
+			<button class="accordion">Street space</button>
+			<div class="panel">
+				<p>Analyis of the space available within each street.</p>
+				<p><label><input type="checkbox" class="showlayer" data-layer="streetspace" value="false"> Show LoS</label></p>
+				<div class="legend">
+					<div class="l_r">
+						<div class="lb"><span style="background-color: #dd7777;"></span>Wider than minimum</div>
+						<div class="lb"><span style="background-color: #f29551;"></span>Wider than absolute minimum</div>
+						<div class="lb"><span style="background-color: #f9c647;"></span>Not enough space</div>
+						<div class="lb"><span style="background-color: #75a375;"></span>Plenty of space</div>
+					</div>
+				</div>
+			</div>
+			
 			<button class="accordion">Data zones</button>
 			<div class="panel">
-				<p><label><input type="checkbox" class="showlayer" data-layer="data_zones" value="false">Show layer</label></p>
+				<p><label><input type="checkbox" class="showlayer" data-layer="data_zones" value="false"> Show layer</label></p>
 				<p>
 					<select name="field" class="updatelayer" data-layer="data_zones" aria-label="Data zone layer">
 						<option value="pcycle">% commuter cycling (baseline)</option>
