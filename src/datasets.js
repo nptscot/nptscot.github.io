@@ -227,7 +227,7 @@ const datasets = {
 					}
 				}
 			},
-			'Infrastructure type (detailed)': {
+			'Cycle infrastructure': {
 				label: 'Cycle infrastructure',
 				type: 'match',
 				styles: {
