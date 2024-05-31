@@ -115,7 +115,7 @@ const datasets = {
 			'type': 'line',
 			'source': {
 				'type': 'vector',
-				'url': 'pmtiles://%tileserverUrl/cbd_layer_2024-05-23.pmtiles',
+				'url': 'pmtiles://%tileserverUrl/cbd_layer_2024-05-23_test.pmtiles',
 			},
 			'source-layer': 'cbd_layer',
 			'paint': {
@@ -232,9 +232,10 @@ const datasets = {
 				type: 'match',
 				styles: {
 					'line-color': {
-						'Cycle track': 'green',
+						'Separated cycle track': 'green',
+						'Roadside infrastructure': 'orange',
+						'Cycle lane on carriageway': 'red',
 						'Mixed traffic': 'blue',
-						'Level track': 'orange',
 						'_': 'gray',
 					}
 				}
