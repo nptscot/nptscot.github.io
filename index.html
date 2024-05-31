@@ -237,21 +237,20 @@
 			<button class="accordion">Coherent network</button>
 			<div class="panel">
 				<p>Indicates a suggested order in which the network should grow.</p>
-				<p><label><input type="checkbox" class="showlayer" data-layer="cohesivenetwork" value="false"> Show cohesive network</label></p>
-				<div id="cohesivenetworklegend" class="legend"></div>
+				<p><label><input type="checkbox" class="showlayer" data-layer="coherentnetwork" value="false"> Show coherent network</label></p>
+				<div id="coherentnetworklegend" class="legend"></div>
 			</div>
 			
-			<button class="accordion">Cycling by design compliance</button>
+			<button class="accordion">Cycling by Design compliance</button>
 			<div class="panel">
-				<p>Data on existing infrastructure, speed limits, volumes and estimated Cycling Level of Service (LoS).</p>
-				<p><label><input type="checkbox" class="showlayer" data-layer="clos" value="false"> Show LoS</label></p>
+				<p>Data on existing infrastructure, speed limits, volumes and estimated Cycling Level of Service (LoS), as per the <a href="https://www.transport.gov.scot/media/50323/cycling-by-design-update-2019-final-document-15-september-2021-1.pdf" target="_blank" title="[Link opens in a new window]">Cycling by Design guidance</a>. <button aria-label="Help on LoS" class="helpbutton" data-help="clos"><i class="fa fa-question-circle" aria-hidden="true"></i></button></p>
+				<p><label><input type="checkbox" class="showlayer" data-layer="clos" value="false"> Show layer</label></p>
 				<p>
 					<select name="clos-layer" class="updatelayer" data-layer="clos" aria-label="LoS detail">
 						<option value="Level of Service" selected="selected">Current LoS</option>
 						<option value="Traffic volume">Current traffic volume</option>
 						<option value="Speed limit">Current speed limit</option>
-						<option value="Infrastructure type">Existing infrastructure</option>
-						<option value="Infrastructure type (detailed)">Existing infrastructure (baseline)</option>
+						<option value="Infrastructure type (detailed)">Cycle infrastructure</option>
 					</select>
 				</p>
 				<div id="clos-legend" class="legend"></div>
@@ -396,19 +395,11 @@
 		<template id="clos-popup">
 			<table>
 				<tr>
-					<td>osm_id</td>
-					<td>{osm_id}</td>
+					<td>Level of Service</td>
+					<td><strong>{Level of Service}</strong></td>
 				</tr>
 				<tr>
-					<td>Traffic volume</td>
-					<td>{Traffic volume}</td>
-				</tr>
-				<tr>
-					<td>Speed limit</td>
-					<td>{Speed limit}</td>
-				</tr>
-				<tr>
-					<td>Infrastructure type</td>
+					<td>Physical cycle infrastructure</td>
 					<td>{Infrastructure type}</td>
 				</tr>
 				<tr>
@@ -416,8 +407,16 @@
 					<td>{Infrastructure type (detailed)}</td>
 				</tr>
 				<tr>
-					<td>Level of Service</td>
-					<td>{Level of Service}</td>
+					<td>Traffic volume<br />Two-way traffic flow</td>
+					<td>{Traffic volume}<br />pcu per day</td>
+				</tr>
+				<tr>
+					<td>Speed limit</td>
+					<td>{Speed limit}mph</td>
+				</tr>
+				<tr>
+					<td>OpenStreetMap ID</td>
+					<td><a href="https://www.openstreetmap.org/way/{osm_id}/" target="_blank" title="[Link opens in a new window]">Way #{osm_id}</a></td>
 				</tr>
 			</table>
 		</template>

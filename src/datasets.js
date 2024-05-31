@@ -115,7 +115,7 @@ const datasets = {
 			'type': 'line',
 			'source': {
 				'type': 'vector',
-				'url': 'pmtiles://%tileserverUrl/cbd_layer.pmtiles',
+				'url': 'pmtiles://%tileserverUrl/cbd_layer_2024-05-23.pmtiles',
 			},
 			'source-layer': 'cbd_layer',
 			'paint': {
@@ -123,7 +123,6 @@ const datasets = {
 				'line-width': 2
 			}
 		},
-		
 		streetspace: {
 			'id': 'streetspace',
 			'type': 'line',
@@ -146,8 +145,9 @@ const datasets = {
 			}
 		},
 		
-		cohesivenetwork: {
-			'id': 'cohesivenetwork',
+		// #!# Tiles filename, and source layer still reflect the old name, and need to be updated
+		coherentnetwork: {
+			'id': 'coherentnetwork',
 			'type': 'line',
 			'source': {
 				'type': 'vector',
@@ -189,9 +189,9 @@ const datasets = {
 				type: 'match',
 				styles: {
 					'line-color': {
-						'High': '#28338a',
-						'Medium': '#107f80',
-						'Low': '#12aee7',
+						'Low': 'red',
+						'Medium': 'orange',
+						'High': 'mediumseagreen',
 						'_': 'gray',
 					}
 				}
@@ -202,8 +202,13 @@ const datasets = {
 				styles: {
 					'line-color': {
 						0: '#27918d',
-						900: '#fae826',
+						2000: '#ffaa33',
 						5000: '#440154',
+					},
+					'line-width': {
+						0: 1,
+						2000: 2,
+						5000: 3,
 					}
 				}
 			},
@@ -222,20 +227,8 @@ const datasets = {
 					}
 				}
 			},
-			'Infrastructure type': {
-				label: 'Existing infrastructure',
-				type: 'match',
-				styles: {
-					'line-color': {
-						'Cycle track': 'green',
-						'Mixed traffic': 'blue',
-						'Roadside cycle track': 'darkgreen',
-						'_': 'gray',
-					}
-				}
-			},
 			'Infrastructure type (detailed)': {
-				label: 'Existing infrastructure (baseline)',
+				label: 'Cycle infrastructure',
 				type: 'match',
 				styles: {
 					'line-color': {
@@ -261,7 +254,7 @@ const datasets = {
 	// #!# These need to be merged with lineColours
 	legends: {
 		
-		cohesivenetwork: [
+		coherentnetwork: [
 				['&nbsp;',	'#606ca4']
 		],
 		
