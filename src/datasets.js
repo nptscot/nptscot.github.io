@@ -206,21 +206,8 @@ const datasets = {
 					}
 				}
 			},
-			'Infrastructure type': {
-				label: 'Existing infrastructure',
-				type: 'match',
-				styles: {
-					'line-color': {
-						'Separated cycle track': 'green',
-						'Roadside infrastructure': 'darkgreen',
-						'Cycle lane on carriageway': 'lightblue',
-						'No infrastructure mixed with motor traffic': 'blue',
-						'_': 'gray',
-					}
-				}
-			},
 			'Infrastructure type (detailed)': {
-				label: 'Existing infrastructure (baseline)',
+				label: 'Cycle infrastructure',
 				type: 'match',
 				styles: {
 					'line-color': {
