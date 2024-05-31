@@ -115,7 +115,7 @@ const datasets = {
 			'type': 'line',
 			'source': {
 				'type': 'vector',
-				'url': 'pmtiles://%tileserverUrl/cbd_layer.pmtiles',
+				'url': 'pmtiles://%tileserverUrl/cbd_layer_2024-05-23.pmtiles',
 			},
 			'source-layer': 'cbd_layer',
 			'paint': {
@@ -206,21 +206,8 @@ const datasets = {
 					}
 				}
 			},
-			'Infrastructure type': {
-				label: 'Existing infrastructure',
-				type: 'match',
-				styles: {
-					'line-color': {
-						'Separated cycle track': 'green',
-						'Roadside infrastructure': 'darkgreen',
-						'Cycle lane on carriageway': 'lightblue',
-						'No infrastructure mixed with motor traffic': 'blue',
-						'_': 'gray',
-					}
-				}
-			},
 			'Infrastructure type (detailed)': {
-				label: 'Existing infrastructure (baseline)',
+				label: 'Cycle infrastructure',
 				type: 'match',
 				styles: {
 					'line-color': {
