@@ -227,15 +227,16 @@ const datasets = {
 					}
 				}
 			},
-			'Infrastructure type (detailed)': {
+			'Cycle infrastructure': {
 				label: 'Cycle infrastructure',
 				type: 'match',
 				styles: {
 					'line-color': {
-						'Cycle track': 'green',
-						'Mixed traffic': 'blue',
-						'Level track': 'orange',
-						'_': 'gray',
+						'Separated cycle track': '#008000', // Green
+						'Roadside infrastructure': '#FFBF00', // Amber
+						'Cycle lane on carriageway': '#FF0000', // Red
+						'Mixed traffic': '#EFD1C5', // Almond
+						'_': '#808080', // Gray
 					}
 				}
 			},

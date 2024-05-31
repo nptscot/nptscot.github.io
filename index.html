@@ -250,7 +250,7 @@
 						<option value="Level of Service" selected="selected">Current LoS</option>
 						<option value="Traffic volume">Current traffic volume</option>
 						<option value="Speed limit">Current speed limit</option>
-						<option value="Infrastructure type (detailed)">Cycle infrastructure</option>
+						<option value="Cycle infrastructure">Cycle infrastructure</option>
 					</select>
 				</p>
 				<div id="clos-legend" class="legend"></div>
@@ -395,11 +395,10 @@
 		<template id="clos-popup">
 			<table>
 				<tr>
-					<td>Level of Service</td>
-					<td><strong>{Level of Service}</strong></td>
-				</tr>
+					<td>Highway type</td>
+					<td style="text-transform: capitalize;">{highway}</td>
 				<tr>
-					<td>Physical cycle infrastructure</td>
+					<td>Cycle infrastructure</td>
 					<td>{Infrastructure type}</td>
 				</tr>
 				<tr>
@@ -407,12 +406,16 @@
 					<td>{Infrastructure type (detailed)}</td>
 				</tr>
 				<tr>
-					<td>Traffic volume<br />Two-way traffic flow</td>
-					<td>{Traffic volume}<br />pcu per day</td>
+					<td>Average daily motor traffic</td>
+					<td>{Traffic volume}</td>
 				</tr>
 				<tr>
 					<td>Speed limit</td>
 					<td>{Speed limit}mph</td>
+				</tr>
+				<tr>
+					<td>Level of Service</td>
+					<td><strong>{Level of Service}</strong></td>
 				</tr>
 				<tr>
 					<td>OpenStreetMap ID</td>
