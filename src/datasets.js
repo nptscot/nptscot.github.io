@@ -227,8 +227,8 @@ const datasets = {
 					}
 				}
 			},
-			'Cycle infrastructure': {
-				label: 'Cycle infrastructure',
+			'Infrastructure type': {
+				label: 'Infrastructure type',
 				type: 'match',
 				styles: {
 					'line-color': {
