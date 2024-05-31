@@ -124,8 +124,9 @@ const datasets = {
 			}
 		},
 		
-		cohesivenetwork: {
-			'id': 'cohesivenetwork',
+		// #!# Tiles filename, and source layer still reflect the old name, and need to be updated
+		coherentnetwork: {
+			'id': 'coherentnetwork',
 			'type': 'line',
 			'source': {
 				'type': 'vector',
@@ -167,9 +168,9 @@ const datasets = {
 				type: 'match',
 				styles: {
 					'line-color': {
-						'High': '#28338a',
-						'Medium': '#107f80',
-						'Low': '#12aee7',
+						'Low': 'red',
+						'Medium': 'orange',
+						'High': 'mediumseagreen',
 						'_': 'gray',
 					}
 				}
@@ -180,8 +181,13 @@ const datasets = {
 				styles: {
 					'line-color': {
 						0: '#27918d',
-						900: '#fae826',
+						2000: '#ffaa33',
 						5000: '#440154',
+					},
+					'line-width': {
+						0: 1,
+						2000: 2,
+						5000: 3,
 					}
 				}
 			},
@@ -205,9 +211,10 @@ const datasets = {
 				type: 'match',
 				styles: {
 					'line-color': {
-						'Cycle track': 'green',
-						'Mixed traffic': 'blue',
-						'Roadside cycle track': 'darkgreen',
+						'Separated cycle track': 'green',
+						'Roadside infrastructure': 'darkgreen',
+						'Cycle lane on carriageway': 'lightblue',
+						'No infrastructure mixed with motor traffic': 'blue',
 						'_': 'gray',
 					}
 				}
@@ -239,7 +246,7 @@ const datasets = {
 	// #!# These need to be merged with lineColours
 	legends: {
 		
-		cohesivenetwork: [
+		coherentnetwork: [
 				['&nbsp;',	'#606ca4']
 		],
 		
