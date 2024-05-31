@@ -232,11 +232,11 @@ const datasets = {
 				type: 'match',
 				styles: {
 					'line-color': {
-						'Separated cycle track': 'green',
-						'Roadside infrastructure': 'orange',
-						'Cycle lane on carriageway': 'red',
-						'Mixed traffic': 'blue',
-						'_': 'gray',
+						'Separated cycle track': '#008000', // Green
+						'Roadside infrastructure': '#FFBF00', // Amber
+						'Cycle lane on carriageway': '#FF0000', // Red
+						'Mixed traffic': '#EFD1C5', // Almond
+						'_': '#808080', // Gray
 					}
 				}
 			},
