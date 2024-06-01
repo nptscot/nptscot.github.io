@@ -151,7 +151,7 @@ const datasets = {
 			'type': 'line',
 			'source': {
 				'type': 'vector',
-				'url': 'pmtiles://%tileserverUrl/combined_coherent_network.pmtiles',
+				'url': 'pmtiles://%tileserverUrl/cohesivenetwork.pmtiles',
 			},
 			'source-layer': 'cohesivenetwork',
 			'paint': {
