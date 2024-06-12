@@ -135,9 +135,9 @@ const datasets = {
 				'line-color': [
 					'match',
 					['get', 'road_width_category_2_unidirectional'],
-					'Wider than minimum', '#dd7777',
-					'Wider than absolute minimum', '#f29551',
-					'Not enough space', '#f9c647',
+					'Not enough space', '#dd7777',
+					'Wider than minimum', '#f29551',
+					'Wider than absolute minimum', '#f9c647',
 					'Plenty of space', '#75a375',
 					/* other */ 'gray'
 				],
