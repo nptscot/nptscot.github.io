@@ -185,7 +185,7 @@ const datasets = {
 		*/
 		clos: {
 			'Level of Service': {
-				label: 'Current LoS',
+				label: 'Estimated LoS',
 				type: 'match',
 				styles: {
 					'line-color': {
@@ -197,7 +197,7 @@ const datasets = {
 				}
 			},
 			'Traffic volume': {
-				label: 'Current traffic volume',
+				label: 'Estimated traffic volume',
 				type: 'step',
 				styles: {
 					'line-color': {
@@ -213,7 +213,7 @@ const datasets = {
 				}
 			},
 			'Speed limit': {
-				label: 'Current speed limit',
+				label: 'Estimated speed limit',
 				type: 'match',
 				styles: {
 					'line-color': {
