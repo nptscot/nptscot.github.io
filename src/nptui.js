@@ -590,6 +590,12 @@ const nptUi = (function () {
 					const features = [];
 					try {
 						let request = 'https://nominatim.openstreetmap.org/search?q=' + config.query + '&format=geojson&polygon_geojson=1&addressdetails=1&countrycodes=gb';
+						if (_settings.geocoderViewbox) {
+							request += '&viewbox=' + _settings.geocoderViewbox;
+							if (_settings.geocoderBounded) {
+								request += '&bounded=' + _settings.geocoderBounded;
+							}
+						}
 						const response = await fetch(request);
 						const geojson = await response.json();
 						for (let feature of geojson.features) {
