@@ -494,7 +494,7 @@ const datasets = {
 			
 			// Data fields
 			// #!# Should use a main server URL setting
-			dataUrl: 'https://nptscot.blob.core.windows.net/json/DataZone/%id.json',
+			dataUrl: 'https://nptscot.blob.core.windows.net/json/DataZone_2024-06-01/%id.json',
 			propertiesField: 'DataZone',
 			titleField: 'DataZone',
 			
