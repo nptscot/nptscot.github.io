@@ -11,7 +11,7 @@ const settings = {
 	minZoom: 6,
 	
 	// Geocoder
-	geocoderViewbox: '-7.957465,54.576074,-0.150894,61.147476',	// Prefer results to this area
+	geocoderViewbox: '-7.957465,54.576074,-0.150894,61.147476',	// Prefer results to this area; this is Scotland
 	geocoderBounded: 1,	// Whether to force results to be within the viewbox
 	
 	// Basemap styles
