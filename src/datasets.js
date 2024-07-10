@@ -151,26 +151,18 @@ const datasets = {
 			'type': 'line',
 			'source': {
 				'type': 'vector',
-				'url': 'pmtiles://%tileserverUrl/combined_coherent_network.pmtiles',
+				'url': 'pmtiles://%tileserverUrl/combined_networks_2024-07-02.pmtiles',
 			},
 			'source-layer': 'coherent_networks',
 			'paint': {
 				'line-color': [
-					'match',
-					['get', 'group'],
-					1, '#030e13',
-					2, '#0d485e',
-					3, '#0d485e',
-					4, '#126583',
-					5, '#1782a8',
-					6, '#1c9fce',
-					7, '#31b4e3',
-					8, '#57c2e8',
-					9, '#a1ddf2',
-					10, '#c7ebf7',
-					11, '#ecf8fc',
-					12, '#ecf8fc',
-					'gray'
+					'step',
+					['get', 'all_fastest_bicycle_go_dutch'],
+					'#ecf8fc', // Default color for values less than 0 (not likely needed but here for structure)
+							10, '#030e13',
+							20000, '#0d485e',
+							90000, '#a1ddf2',
+							110000, '#ecf8fc',
 				],
 				'line-width': 2
 			}
