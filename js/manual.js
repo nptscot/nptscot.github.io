@@ -119,3 +119,16 @@ function topnav ()
     e.preventDefault ();
   });
 }
+
+
+function updateNetworkSource() {
+    var selectedUrl = document.getElementById("networkSelector").value;
+    var fullUrl = 'pmtiles://%tileserverUrl/' + selectedUrl;
+
+    // Assuming 'map' is your map instance and 'coherentnetwork' is the layer ID
+    if (map.getSource('coherentnetwork')) {
+        map.getSource('coherentnetwork').url = fullUrl;
+        map.setStyle(map.getStyle()); // Re-apply the current style to update the source
+    }
+}
+
