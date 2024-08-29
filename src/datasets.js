@@ -159,16 +159,19 @@ const datasets = {
 					'step',
 					['get', 'all_fastest_bicycle_go_dutch'],
 					'#ecf8fc', // Default color for values less than 0 (not likely needed but here for structure)
-							10, '#030e13',
-							20000, '#0d485e',
-							90000, '#a1ddf2',
-							110000, '#ecf8fc',
+							1, '#9C9C9C',
+							50, '#FFFF73',
+							100, '#AFFF00',
+							250, '#00FFFF',
+							500, '#30B0FF',
+							1000, '#2E5FFF',
+							2000, '#0000FF',
+							3000, '#FF00C5'
 				],
 				'line-width': 2
 			}
 		}
 	},
-	
 	
 	// Sublayers - unified definitions handling style rendering for each selectable sublayer, including legends
 	// Type is either match (fixed values) / step (steps, with the first being treated as the 'base' value) / interpolate (linear)
