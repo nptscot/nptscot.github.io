@@ -155,7 +155,7 @@ const datasets = {
 			},
 			'source-layer': 'coherent_networks',
 			'paint': {
-				'line-color': '#000000',
+				'line-color': '#030e13',
 				'line-width': 2
 			}
 		}
