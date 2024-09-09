@@ -260,6 +260,7 @@ const nptUi = (function () {
 				minZoom: _settings.minZoom,
 				maxPitch: 85,
 				hash: false,	// Emulating the hash manually for now; see layerStateUrl
+				attributionControl: false,	// Created manually below
 				antialias: document.getElementById('antialiascheckbox').checked
 			});
 			
