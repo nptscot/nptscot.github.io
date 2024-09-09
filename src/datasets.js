@@ -255,21 +255,6 @@ const datasets = {
 	// #!# These need to be merged with lineColours
 	legends: {
 		
-		coherentnetwork: [
-			[1, '#030e13'],
-			[2, '#0d485e'],
-			[3, '#0d485e'],
-			[4, '#126583'],
-			[5, '#1782a8'],
-			[6, '#1c9fce'],
-			[7, '#31b4e3'],
-			[8, '#57c2e8'],
-			[9, '#a1ddf2'],
-			[10, '#c7ebf7'],
-			[11, '#ecf8fc'],
-			[12, '#ecf8fc']
-		],
-		
 		rnet: {
 			'none': [
 				['&nbsp;',	'#304ce7']
