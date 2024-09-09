@@ -473,6 +473,8 @@ const datasets = {
 	// #!# Need to define more clearly the assumed data structure, e.g. the 'charts' key shows a part field
 	charts: {
 
+		// #!# Disabled this popup as of September 2024 - can be deleted later if data issues resolved
+	/*
 		// Data zones
 		data_zones: {
 			
@@ -576,6 +578,7 @@ const datasets = {
 				['_ebike_quietest', 'Ebike (Quietest)']
 			]
 		},
+	*/
 		
 		
 		// Travel to School Modeshare
