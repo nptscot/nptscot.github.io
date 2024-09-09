@@ -31,6 +31,10 @@
 	Popups should be defined as a <template> with an id ending -popup
 	They should have placeholders like {some_field} which will be matched to the data properties
 	Predefined placeholders {_streetViewUrl} and {_osmUrl} can be used for links to these services
+
+- Charts popups:
+	To create automatic chart popups, add an entry in the charts section of datasets.js.
+	The key should be the layer name. The data should be as per the other examples present in the file.
 	
 - Help buttons:
 	Help buttons should have .helpbutton and a data-help="..." value which matches a comment marker
