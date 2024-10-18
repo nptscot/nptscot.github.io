@@ -294,7 +294,7 @@ We have categorised the various types of cycle infrastructure as follows:
 	<tr>
 		<td>Shared Footway</td>
 		<td>Roadside shared pedestrian/cycle path/footway</td>
-		<td><a href="https://www.cyclestreets.net/location/57095/" target="_blank"><img src="/manual/shareduse.jpg" alt="Shared footway" /></a></td>
+		<td><a href="https://www.cyclestreets.net/location/92805/" target="_blank"><img src="/manual/shareduse.jpg" alt="Shared footway" /></a></td>
 		<td><span style="background-color: #ffbf00; color: white;">Orange</span></td>
 		<td>Maybe/?</td>
 	</tr>
