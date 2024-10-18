@@ -266,37 +266,43 @@ We have categorised the various types of cycle infrastructure as follows:
 	<tr>
 		<th>Infrastructure type/name</th>
 		<th>Description</th>
+		<th>Example</th>
 		<th>Colour on map</th>
 		<th>CBD compliance</th>
 	</tr>
 	<tr>
 		<td>Segregated track (wide)</td>
 		<td>Segregated roadside cycle track (&gt; min width)</td>
-		<td>Dark green</td>
+		<td><a href="https://www.cyclestreets.net/location/81274/" target="_blank"><img src="/manual/segregated.jpg" alt="Segregated track (wide)" /></a></td>
+		<td><span style="background-color: #054d05; color: white;">Dark green</span></td>
 		<td>Yes</td>
 	</tr>
 	<tr>
 		<td>Off road cycleway</td>
 		<td>Off road / detached cycle track/path</td>
-		<td>Mid green</td>
+		<td><a href="https://www.cyclestreets.net/location/86744/" target="_blank"><img src="/manual/offroad.jpg" alt="Off road cycleway" /></a></td>
+		<td><span style="background-color: #3a9120; color: white;">Mid green</span></td>
 		<td>Yes</td>
 	</tr>
 	<tr>
 		<td>Segregated track (narrow)</td>
 		<td>Segregated roadside cycle track (&lt; min width/?)</td>
-		<td>Light green</td>
+		<td><a href="https://www.cyclestreets.net/location/196620/" target="_blank"><img src="/manual/segregated-narrow.jpg" alt="Segregated track (narrow)" /></a></td>
+		<td><span style="background-color: #87d668; color: white;">Light green</span></td>
 		<td>Maybe/?</td>
 	</tr>
 	<tr>
 		<td>Shared footway</td>
 		<td>Roadside shared pedestrian/cycle path/footway</td>
-		<td>Orange</td>
+		<td><a href="https://www.cyclestreets.net/location/57095/" target="_blank"><img src="/manual/shareduse.jpg" alt="Shared footway" /></a></td>
+		<td><span style="background-color: #ffbf00; color: white;">Orange</span></td>
 		<td>Maybe/?</td>
 	</tr>
 	<tr>
 		<td>Painted cycle lane</td>
 		<td>On-carriageway cycle lane</td>
-		<td>Red</td>
+		<td><a href="https://www.cyclestreets.net/location/81341/" target="_blank"><img src="/manual/lane.jpg" alt="Painted cycle lane" /></a></td>
+		<td><span style="background-color: #ff0000; color: white;">Red</span></td>
 		<td>No</td>
 	</tr>
 </table>
