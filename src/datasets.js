@@ -115,7 +115,7 @@ const datasets = {
 			'type': 'line',
 			'source': {
 				'type': 'vector',
-				'url': 'pmtiles://%tileserverUrl/cbd_layer_2024-05-23.pmtiles',
+				'url': 'pmtiles://%tileserverUrl/cbd_layer_2024-10-01.pmtiles',
 			},
 			'source-layer': 'cbd_layer',
 			'paint': {
@@ -232,10 +232,11 @@ const datasets = {
 				type: 'match',
 				styles: {
 					'line-color': {
-						'Separated cycle track': '#008000', // Green
-						'Roadside infrastructure': '#FFBF00', // Amber
-						'Cycle lane on carriageway': '#FF0000', // Red
-						'Mixed traffic': '#EFD1C5', // Almond
+						'Segregated Track (wide)': '#054d05',
+						'Off Road Cycleway': '#3a9120',
+						'Segregated Track (narrow)': '#87d668',
+						'Shared Footway': '#ffbf00',
+						'Painted Cycle Lane': '#ff0000',
 						'_': '#808080', // Gray
 					}
 				}
