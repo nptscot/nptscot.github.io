@@ -256,6 +256,54 @@ The ratings for Level of Service reflect the [Cycling by Design guidance](https:
 
 <!-- /#clos -->
 
+<!-- #infrastructuretypes -->
+
+### Cycle infrastructure types
+
+We have categorised the various types of cycle infrastructure as follows:
+
+<table>
+	<tr>
+		<th>Infrastructure type/name</th>
+		<th>Description</th>
+		<th>Colour on map</th>
+		<th>CBD compliance</th>
+	</tr>
+	<tr>
+		<td>Segregated track (wide)</td>
+		<td>Segregated roadside cycle track (&gt; min width)</td>
+		<td>Dark green</td>
+		<td>Yes</td>
+	</tr>
+	<tr>
+		<td>Off road cycleway</td>
+		<td>Off road / detached cycle track/path</td>
+		<td>Mid green</td>
+		<td>Yes</td>
+	</tr>
+	<tr>
+		<td>Segregated track (narrow)</td>
+		<td>Segregated roadside cycle track (&lt; min width/?)</td>
+		<td>Light green</td>
+		<td>Maybe/?</td>
+	</tr>
+	<tr>
+		<td>Shared footway</td>
+		<td>Roadside shared pedestrian/cycle path/footway</td>
+		<td>Orange</td>
+		<td>Maybe/?</td>
+	</tr>
+	<tr>
+		<td>Painted cycle lane</td>
+		<td>On-carriageway cycle lane</td>
+		<td>Red</td>
+		<td>No</td>
+	</tr>
+</table>
+
+
+<!-- /#infrastructuretypes -->
+
 <!-- #data_zones -->
 
 ### Data zones
