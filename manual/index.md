@@ -271,7 +271,7 @@ We have categorised the various types of cycle infrastructure as follows:
 		<th>CBD compliance</th>
 	</tr>
 	<tr>
-		<td>Segregated track (wide)</td>
+		<td>Segregated Track (wide)</td>
 		<td>Segregated roadside cycle track (&gt; min width)</td>
 		<td><a href="https://www.cyclestreets.net/location/81274/" target="_blank"><img src="/manual/segregated.jpg" alt="Segregated track (wide)" /></a></td>
 		<td><span style="background-color: #054d05; color: white;">Dark green</span></td>
