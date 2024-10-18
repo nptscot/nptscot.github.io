@@ -302,9 +302,6 @@ const nptUi = (function () {
 			// Add placenames support, loading at start and on basemap change
 			map.once ('idle', function () {
 				nptUi.placenames (map);
-				document.addEventListener ('@map/ready', function () {
-					nptUi.placenames (map);
-				});
 			});
 			
 			// Add geolocation control
@@ -500,14 +497,6 @@ const nptUi = (function () {
 		// Function to manage display of placenames
 		placenames: function (map)
 		{
-			// Add the source, if not already present
-			if (!map.getSource ('placenames')) {
-				map.addSource ('placenames', {
-					'type': 'vector',
-					'url': _settings.placenamesTilesUrl.replace ('%tileserverUrl', _settings.tileserverUrl),
-				});
-			}
-			
 			// Load the style definition
 			// #!# The .json file is currently not a complete style definition, e.g. with version number etc.
 			fetch ('/tiles/partial-style_oszoom_names.json')
@@ -516,24 +505,45 @@ const nptUi = (function () {
 				})
 				.then (function (placenameLayers) {
 					
-					// Register the list
-					placenameLayers = placenameLayers;
-					
-					// Add each layer, respecting the initial checkbox state
-					Object.entries (placenameLayers).forEach (([layerId, layer]) => {
-						const checkbox = document.getElementById ('placenamescheckbox');
-						layer.visibility = (checkbox.checked ? 'visible' : 'none');
-						if (!map.getLayer (layerId)) {
-							map.addLayer (layer);
+					// Define load function
+					const loadPlacenames = function ()
+					{
+						// Add the source, if not already present
+						if (!map.getSource ('placenames')) {
+							map.addSource ('placenames', {
+								'type': 'vector',
+								'url': _settings.placenamesTilesUrl.replace ('%tileserverUrl', _settings.tileserverUrl),
+							});
 						}
-					});
-					
-					// Listen for checkbox changes
-					document.getElementById('placenamescheckbox').addEventListener('click', (e) => {
-						const checkbox = document.getElementById('placenamescheckbox');
-						Object.entries(placenameLayers).forEach(([layerId, layer]) => {
-							map.setLayoutProperty(layerId, 'visibility', (checkbox.checked ? 'visible' : 'none'));
+						
+						// Register the list
+						placenameLayers = placenameLayers;
+						
+						// Add each layer, respecting the initial checkbox state
+						const checkbox = document.getElementById ('placenamescheckbox');
+						Object.entries (placenameLayers).forEach (([layerId, layer]) => {
+							layer.visibility = (checkbox.checked ? 'visible' : 'none');
+							if (!map.getLayer (layerId)) {
+								map.addLayer (layer);
+							}
 						});
+						
+						// Define handler function to change placenames visibility
+						const placenamesVisibilityHandler = function () {
+							const checkbox = document.getElementById('placenamescheckbox');
+							Object.entries(placenameLayers).forEach(([layerId, layer]) => {
+								map.setLayoutProperty(layerId, 'visibility', (checkbox.checked ? 'visible' : 'none'));
+							});
+						}
+						
+						// Listen for checkbox changes
+						document.getElementById('placenamescheckbox').addEventListener('click', placenamesVisibilityHandler);
+					};
+					
+					// Run initially and on style change
+					loadPlacenames ();
+					document.addEventListener ('@map/ready', function () {
+						loadPlacenames ();
 					});
 				});
 		},
