@@ -238,6 +238,14 @@ const datasets = {
 						'Shared Footway': '#ffbf00',
 						'Painted Cycle Lane': '#ff0000',
 						'_': '#808080', // Gray
+					},
+				    'line-width': {
+						'Segregated Track (wide)': 6,
+						'Off Road Cycleway': 4,
+						'Segregated Track (narrow)': 4,
+						'Shared Footway': 3,
+						'Painted Cycle Lane': 3,
+						'_': 2,
 					}
 				}
 			},
