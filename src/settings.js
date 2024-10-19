@@ -56,7 +56,7 @@ const settings = {
 	manualEditingUrl: 'https://github.com/nptscot/nptscot.github.io/edit/dev/%id/index.md',
 	
 	// Boundaries
-	boundariesUrl: '/scheme-sketcher/assets/boundaries-3d573d2e.geojson',
+	boundariesUrl: 'https://nptscot.github.io/scheme-sketcher/assets/boundaries-3d573d2e.geojson',
 	
 	// OSM data date
 	osmDate: '1 May 2024',
