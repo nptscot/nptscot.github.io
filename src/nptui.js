@@ -505,6 +505,9 @@ const nptUi = (function () {
 				})
 				.then (function (placenameLayers) {
 					
+					// Create a handle to the toggle handler; this is used to avoid compounding event listeners given that a @map/ready does not directly provide the ability to take down an existing handler, resulting in a dangling reference
+					let placenamesVisibilityHandler = null;
+					
 					// Define load function
 					const loadPlacenames = function ()
 					{
@@ -516,10 +519,7 @@ const nptUi = (function () {
 							});
 						}
 						
-						// Register the list
-						placenameLayers = placenameLayers;
-						
-						// Add each layer, respecting the initial checkbox state
+						// Add each placename layer, respecting the initial checkbox state
 						const checkbox = document.getElementById ('placenamescheckbox');
 						Object.entries (placenameLayers).forEach (([layerId, layer]) => {
 							layer.visibility = (checkbox.checked ? 'visible' : 'none');
@@ -528,13 +528,18 @@ const nptUi = (function () {
 							}
 						});
 						
-						// Define handler function to change placenames visibility
-						const placenamesVisibilityHandler = function () {
+						// If an existing event listener exists, remove it to avoid compounding listeners unnecessarily
+						if (placenamesVisibilityHandler) {
+							document.getElementById('placenamescheckbox').removeEventListener('click', placenamesVisibilityHandler);
+						}
+						
+						// Set handler function to change placenames visibility
+						placenamesVisibilityHandler = function () {
 							const checkbox = document.getElementById('placenamescheckbox');
-							Object.entries(placenameLayers).forEach(([layerId, layer]) => {
+							Object.entries (placenameLayers).forEach (([layerId, layer]) => {
 								map.setLayoutProperty(layerId, 'visibility', (checkbox.checked ? 'visible' : 'none'));
 							});
-						}
+						};
 						
 						// Listen for checkbox changes
 						document.getElementById('placenamescheckbox').addEventListener('click', placenamesVisibilityHandler);
