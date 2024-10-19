@@ -522,7 +522,7 @@ const nptUi = (function () {
 						// Add each placename layer, respecting the initial checkbox state
 						const checkbox = document.getElementById ('placenamescheckbox');
 						Object.entries (placenameLayers).forEach (([layerId, layer]) => {
-							layer.visibility = (checkbox.checked ? 'visible' : 'none');
+							layer.layout.visibility = (checkbox.checked ? 'visible' : 'none');
 							if (!map.getLayer (layerId)) {
 								map.addLayer (layer);
 							}
