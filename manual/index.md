@@ -256,6 +256,54 @@ The ratings for Level of Service reflect the [Cycling by Design guidance](https:
 
 <!-- /#clos -->
 
+<!-- #infrastructuretypes -->
+
+### Cycle infrastructure types
+
+We have categorised the various types of cycle infrastructure as follows:
+
+<table>
+    <tr>
+        <th>Infrastructure type/name</th>
+        <th>Description</th>
+        <th>Example</th>
+        <th>Colour on map</th>
+    </tr>
+    <tr>
+        <td>Segregated Track (wide)</td>
+        <td>Segregated (including light segregation and tracks carriageway or footway level based on <a href="https://www.transport.gov.scot/media/50323/cycling-by-design-update-2019-final-document-15-september-2021-1.pdf#page=56" target="_blank">Cycling by Design</a> guidance) roadside cycle track that is the <a href="https://www.transport.gov.scot/media/50323/cycling-by-design-update-2019-final-document-15-september-2021-1.pdf#page=85" target="_blank">desirable minimum width</a> (2 m) or more according to OpenStreetMap <a href="https://wiki.openstreetmap.org/wiki/Key:width" target="_blank">width</a> or <a href="https://wiki.openstreetmap.org/wiki/Key:est_width" target="_blank">est_width</a> tags. Likely compliant with Cycling by Design guidance.</td>
+        <td><a href="https://www.cyclestreets.net/location/81274/" target="_blank"><img src="/manual/segregated.jpg" alt="Segregated track (wide)" /></a></td>
+        <td><span style="background-color: #054d05; color: white;">Dark green</span></td>
+    </tr>
+    <tr>
+        <td>Off Road Cycleway</td>
+        <td>Off road or 'detached' cycle track/path that is far (at least 10 m in its centre) from roads. Likely compliant with Cycling by Design guidance.</td>
+        <td><a href="https://www.cyclestreets.net/location/86744/" target="_blank"><img src="/manual/offroad.jpg" alt="Off road cycleway" /></a></td>
+        <td><span style="background-color: #3a9120; color: white;">Mid green</span></td>
+    </tr>
+    <tr>
+        <td>Segregated Track (narrow)</td>
+        <td>Segregated roadside cycle track that is less than the <a href="https://www.transport.gov.scot/media/50323/cycling-by-design-update-2019-final-document-15-september-2021-1.pdf#page=85" target="_blank">desirable minimum width</a> (2 m) according to OpenStreetMap <a href="https://wiki.openstreetmap.org/wiki/Key:width" target="_blank">width</a> or <a href="https://wiki.openstreetmap.org/wiki/Key:est_width" target="_blank">est_width</a> tags. May or may not be Cycling by Design compliant.</td>
+        <td><a href="https://www.cyclestreets.net/location/196620/" target="_blank"><img src="/manual/segregated-narrow.jpg" alt="Segregated track (narrow)" /></a></td>
+        <td><span style="background-color: #87d668; color: white;">Light green</span></td>
+    </tr>
+    <tr>
+        <td>Shared Footway</td>
+        <td>Roadside shared pedestrian/cycle path/footway. May or may not be Cycling by Design compliant.</td>
+        <td><a href="https://www.cyclestreets.net/location/92805/" target="_blank"><img src="/manual/shareduse.jpg" alt="Shared footway" /></a></td>
+        <td><span style="background-color: #ffbf00; color: white;">Orange</span></td>
+    </tr>
+    <tr>
+        <td>Painted Cycle Lane</td>
+        <td>On-carriageway cycle lane. Not Cycling by Design compliant.</td>
+        <td><a href="https://www.cyclestreets.net/location/81341/" target="_blank"><img src="/manual/lane.jpg" alt="Painted cycle lane" /></a></td>
+        <td><span style="background-color: #ff0000; color: white;">Red</span></td>
+    </tr>
+</table>
+
+
+<!-- /#infrastructuretypes -->
+
 <!-- #data_zones -->
 
 ### Data zones
