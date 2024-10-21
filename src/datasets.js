@@ -237,7 +237,7 @@ const datasets = {
 						'Segregated Track (narrow)': '#87d668',
 						'Shared Footway': '#ffbf00',
 						'Painted Cycle Lane': '#ff0000',
-						'_': '#808080', // Gray
+						'_': 'rgba(0, 0, 0, 0)', // Invisible
 					},
 				    'line-width': {
 						'Segregated Track (wide)': 6,
