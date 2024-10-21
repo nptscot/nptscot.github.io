@@ -189,6 +189,7 @@ const datasets = {
 				type: 'match',
 				styles: {
 					'line-color': {
+						'Should not be used': 'darkred',
 						'Low': 'red',
 						'Medium': 'orange',
 						'High': 'mediumseagreen',
