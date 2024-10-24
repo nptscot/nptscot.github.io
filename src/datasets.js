@@ -189,7 +189,8 @@ const datasets = {
 				type: 'match',
 				styles: {
 					'line-color': {
-						'Should not be used': 'darkred',
+						// Commented out as not used, requires upstream work in osmactive
+						// 'Should not be used': 'darkred',
 						'Low': 'red',
 						'Medium': 'orange',
 						'High': 'mediumseagreen',
