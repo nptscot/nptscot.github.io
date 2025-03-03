@@ -39,6 +39,20 @@ const datasets = {
 			}
 		},
 		
+		busroutes: {
+			'id': 'busroutes',
+			'type': 'line',
+			'source': {
+				'type': 'vector',
+				'url': 'pmtiles://%tileserverUrl/osm_bus_route_pmtiles.pmtiles',
+			},
+			'source-layer': 'osm_bus_route',
+			'paint': {
+				'line-color': 'red',
+				'line-width': 2
+			}
+		},
+		
 		schools: {
 			'id': 'schools',
 			'type': 'circle',
@@ -642,6 +656,7 @@ const datasets = {
 	
 	
 	// Popups
+	// #!# Need to add support for auto-popups if <template> is present, as this is becoming boilerplate code
 	popups: {
 		
 		'rnet': {
@@ -662,6 +677,11 @@ const datasets = {
 		'clos': {
 			layerId: 'clos',
 			templateId: 'clos-popup'
+		},
+		
+		'busroutes': {
+			layerId: 'busroutes',
+			templateId: 'busroutes-popup'
 		},
 		
 		'streetspace': {
