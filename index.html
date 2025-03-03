@@ -336,6 +336,9 @@
 			
 			<button class="accordion">Other layers</button>
 			<div class="panel">
+				<p><label><input type="checkbox" class="showlayer" data-layer="busroutes" value="false">Bus routes</label></p>
+				<div class="layertools layertools-busroutes">
+				</div>
 				<p><label><input type="checkbox" class="showlayer" data-layer="schools" value="false">Schools</label></p>
 				<div class="layertools layertools-schools">
 					<div class="legend">
@@ -505,6 +508,17 @@
 			</table>
 			<p><a class="externallink" target="_blank" href="{_streetViewUrl}">Google Street View <i class="fa fa-external-link" aria-hidden="true"></i></a></p>
 		</template>
+		
+		<!-- Template for busroutes popup -->
+		<template id="busroutes-popup">
+			<h3 tabindex="0">Bus routes</h3>
+			<p>{name}</p>
+			<p>
+				<a class="externallink" target="_blank" href="{_streetViewUrl}">Google Street View <i class="fa fa-external-link" aria-hidden="true"></i></a><br />
+				<a href="https://www.openstreetmap.org/relation/{osm_id}/" target="_blank" title="[Link opens in a new window]">OpenStreetMap Relation #{osm_id}</a>
+			</p>
+		</template>
+		
 	</body>
 	
 </html>
