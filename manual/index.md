@@ -305,7 +305,7 @@ The Cycling Level of Service (LoS) layer provides an overview of the existing cy
 
 The traffic volume layer visualises modelled traffic levels into categories for every major road on which cycling is permitted. The results are presented as categories which correspond to guidance in the [Cycling by Design document](https://www.transport.gov.scot/media/50323/cycling-by-design-update-2019-final-document-15-september-2021-1.pdf#page=68).
 
-The traffic volume estimates are based on a model that uses network metrics such as centrality and additional predictors such as population density and employment density that was trained on a dataset from Edinburgh. The model was then applied to the whole of Scotland.
+The traffic volume estimates are based on a model that uses metrics such as [centrality](https://en.wikipedia.org/wiki/Centrality) (a measure of how central segments are to the network) and additional predictors such as population density and employment density that was trained on a dataset from Edinburgh. The model was then applied to the whole of Scotland.
 
 Note: for major roads, traffic volumes were taken directly from the Department for Transport.
 
