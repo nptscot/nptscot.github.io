@@ -198,7 +198,7 @@ const datasets = {
 		*/
 		clos: {
 			'Level of Service': {
-				label: 'Estimated LoS',
+				label: 'Level of service',
 				type: 'match',
 				styles: {
 					'line-color': {
