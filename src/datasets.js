@@ -124,6 +124,20 @@ const datasets = {
 			} 
 		},
 		
+		urbanrural: {
+			'id': 'urbanrural',
+			'type': 'line',
+			'source': {
+				'type': 'vector',
+				'url': 'pmtiles://%tileserverUrl/SG_Urban_2020.pmtiles',
+			},
+			'source-layer': 'coherent_networks',
+			'paint': {
+				'line-color': '#8dd3c7',
+				'line-width': 2,
+			}
+		},
+		
 		clos: {
 			'id': 'clos',
 			'type': 'line',
