@@ -272,6 +272,8 @@ Ordnance Survey Open Roads (OS) provides the foundational structure, complemente
 
 Route selection for the coherent network is based on two key attributes: road classification and cycling connectivity potential, both of which influence the "arterialness" score. This score prioritises routes that balance road hierarchy with accessibility for cyclists. Using a spatial clustering algorithm (DBSCAN), high-flow areas are identified, forming a focused core network by filtering out redundant or isolated segments. This method ensures that selected routes maximize connectivity and suitability, aligning the network’s structure with both directness and density requirements.
 
+Routes are classified into primary and secondary categories based on road type. A roads are classified as primary routes, forming the backbone of the cycling network. All other roads, including B roads, minor roads, and off-road paths, are classified as secondary routes, providing supplementary connections and ensuring comprehensive coverage.
+
 #### Directness and density optimisation
 
 The network is adjusted to ensure direct routes with optimal density, following Transport Scotland’s specifications (250m in urban centres, 400m in suburban areas). This allows the network to meet a wide range of origin-destination trip needs, improving access and usability.
