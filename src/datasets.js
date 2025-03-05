@@ -53,20 +53,6 @@ const datasets = {
 			}
 		},
 		
-		urbanrural: {
-			'id': 'urbanrural',
-			'type': 'line',
-			'source': {
-				'type': 'vector',
-				'url': 'pmtiles://%tileserverUrl/SG_Urban_2020.pmtiles',
-			},
-			'source-layer': 'coherent_networks',
-			'paint': {
-				'line-color': '#8dd3c7',
-				'line-width': 2,
-			}
-		},
-		
 		schools: {
 			'id': 'schools',
 			'type': 'circle',
@@ -136,6 +122,20 @@ const datasets = {
 				'line-color': 'rgba(107, 7, 7, 1)',
 				'line-width': 2
 			} 
+		},
+		
+		urbanrural: {
+			'id': 'urbanrural',
+			'type': 'line',
+			'source': {
+				'type': 'vector',
+				'url': 'pmtiles://%tileserverUrl/SG_Urban_2020.pmtiles',
+			},
+			'source-layer': 'coherent_networks',
+			'paint': {
+				'line-color': '#8dd3c7',
+				'line-width': 2,
+			}
 		},
 		
 		clos: {
