@@ -222,7 +222,8 @@ const datasets = {
 						'Medium': 'orange',
 						'High': 'mediumseagreen',
 						'_': 'gray',
-					}
+					},
+					'line-width': 2
 				}
 			},
 			'Traffic volume category': {
@@ -236,10 +237,10 @@ const datasets = {
 						'_': 'gray',
 					},
 					'line-width': {
-						'0 to 1999': 1,
-						'2000 to 3999': 2,
-						'4000+': 3,
-						'_': 1,
+						'0 to 1999': 2,
+						'2000 to 3999': 3,
+						'4000+': 4,
+						'_': 2,
 					}
 				}
 			},
@@ -255,7 +256,8 @@ const datasets = {
 						60: '#900c3f',
 						70: '#581845',
 						'_': 'gray',
-					}
+					},
+					'line-width': 2
 				}
 			},
 			'Infrastructure type': {
