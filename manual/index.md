@@ -385,7 +385,7 @@ In cases where a single OpenRoads centreline represents two or more carriageways
 ##### Corridor width (Edge to edge)
 
 - **Definition:** The total width of the corridor, encompassing both the carriageway and manmade roadside features (e.g., pavements). 
-- **Usage:** Where local policy allows, part of the footway or other manmade roadside features may be reallocated for cycle infrastructure, provided that minimum safe footway widths are maintained.
+- **Usage:** Where local policy allows, part of the footway or other manmade roadside features may be reallocated for cycle infrastructure, provided that minimum safe footway widths are maintained (2x 2 m pavement width).
 
 #### Cycle infrastructure width requirements
 
