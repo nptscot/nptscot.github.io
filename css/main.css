@@ -823,3 +823,5 @@ table.filters td:first-child {width: 5.5em; height: 3.5em; font-size: 0.75em; li
 div.layertools {opacity: 0.2; pointer-events: none;}
 div.layertools.enabled {opacity: 1; pointer-events: auto;}
 
+/* License note */
+p.license {font-size: 0.77em; color: gray;}
