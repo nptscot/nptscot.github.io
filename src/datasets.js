@@ -216,14 +216,21 @@ const datasets = {
 				type: 'match',
 				styles: {
 					'line-color': {
-						// Commented out as not used, requires upstream work in osmactive
-						// 'Should not be used': 'darkred',
+						'Should not be used (non-compliant intervention)': 'darkred',
+						'Should not be used (mixed traffic)': 'darkred',
 						'Low': 'red',
 						'Medium': 'orange',
 						'High': 'mediumseagreen',
 						'_': 'gray',
 					},
-					'line-width': 2
+					'line-width': {
+						'Should not be used (non-compliant intervention)': 2,
+						'Should not be used (mixed traffic)': 2,
+						'Low': 2,
+						'Medium': 2,
+						'High': 2,
+						'_': 2,
+					}
 				}
 			},
 			'Traffic volume category': {
