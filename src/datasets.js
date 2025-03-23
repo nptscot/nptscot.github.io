@@ -223,7 +223,12 @@ const datasets = {
 						'High': 'mediumseagreen',
 						'_': 'gray',
 					},
-					'line-width': 2
+					'line-width': {
+						'Low': 2,
+						'Medium': 2,
+						'High': 2,
+						'_': 2,
+					}
 				}
 			},
 			'Traffic volume category': {
@@ -257,7 +262,15 @@ const datasets = {
 						70: '#581845',
 						'_': 'gray',
 					},
-					'line-width': 2
+					'line-width': {
+						20: 2,
+						30: 2,
+						40: 2,
+						50: 2,
+						60: 2,
+						70: 2,
+						'_': 2,
+					}
 				}
 			},
 			'Infrastructure type': {
