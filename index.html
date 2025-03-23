@@ -283,14 +283,13 @@
 				<p><label><input type="checkbox" class="showlayer" data-layer="streetspace" value="false"> Show layer</label></p>
 				<p>This layer allows at-a-glance evaluation of the <em>spatial</em> deliverability of segregated cycle infrastructure (on links requiring dedicated infrastructure). <button aria-label="Help on infrastructure scenario" class="helpbutton" data-help="streetspace"><i class="fa fa-question-circle" aria-hidden="true"></i></button></p>
 				<div class="layertools layertools-streetspace">
-					<p>
-						<label for="streetspace">Infrastructure scenario</label>
-						<select name="streetspace" class="updatelayer" data-layer="streetspace" aria-label="Infrastructure scenario">
-							<option value="carriageway_1way">2x 1-way tracks, within road width</option>
-							<option value="combined_1way">2x 1-way tracks, using edge-to-edge</option>
-							<option value="carriageway_2way">2-way track, within road width</option>
-							<option value="combined_2way">2-way track, using edge-to-edge</option>
-						</select>
+					<p>Infrastructure scenario:</p>
+						<p>2x 1-way tracks:<br />
+						<label><input type="radio" class="updatelayer" data-layer="streetspace" name="streetspace" value="carriageway_1way" checked="checked">Within road width</input></label><br />
+						<label><input type="radio" class="updatelayer" data-layer="streetspace" name="streetspace" value="combined_1way">Using edge-to-edge</input></label></p>
+						<p>2-way track:<br />
+						<label><input type="radio" class="updatelayer" data-layer="streetspace" name="streetspace" value="carriageway_2way">Within road width</input></label><br />
+						<label><input type="radio" class="updatelayer" data-layer="streetspace" name="streetspace" value="combined_2way">Using edge-to-edge</input></label></p>
 					</p>
 					<div class="legend">
 						<div class="l_r">
