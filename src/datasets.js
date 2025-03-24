@@ -216,7 +216,7 @@ const datasets = {
 				type: 'match',
 				styles: {
 					'line-color': {
-						// Commented out as not used, requires upstream work in osmactive
+						// Commented out as not used, requires new data
 						// 'Should not be used': 'darkred',
 						'Low': 'red',
 						'Medium': '#d27d2d',
@@ -224,10 +224,10 @@ const datasets = {
 						'_': 'gray',
 					},
 					'line-width': {
-						'Low': 2,
-						'Medium': 2,
-						'High': 2,
-						'_': 2,
+						'Low': 4,
+						'Medium': 4,
+						'High': 4,
+						'_': 4,
 					}
 				}
 			},
