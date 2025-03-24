@@ -290,7 +290,7 @@ const datasets = {
 						'Off Road Cycleway': 4,
 						'Segregated Track (narrow)': 4,
 						'Shared Footway': 3,
-						'Painted Cycle Lane': 1,
+						'Painted Cycle Lane': 1.8,
 						'_': 2,
 					}
 				}
