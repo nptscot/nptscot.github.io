@@ -219,7 +219,7 @@ const datasets = {
 						// Commented out as not used, requires upstream work in osmactive
 						// 'Should not be used': 'darkred',
 						'Low': 'red',
-						'Medium': 'orange',
+						'Medium': '#d27d2d',
 						'High': 'mediumseagreen',
 						'_': 'gray',
 					},
