@@ -216,14 +216,16 @@ const datasets = {
 				type: 'match',
 				styles: {
 					'line-color': {
-						// Commented out as not used, requires new data
-						// 'Should not be used': 'darkred',
+						'Should not be used (non-compliant intervention)': '#4a0404',
+						'Should not be used (mixed traffic)': 'darkred',
 						'Low': 'red',
 						'Medium': '#d27d2d',
 						'High': 'mediumseagreen',
 						'_': 'gray',
 					},
 					'line-width': {
+						'Should not be used (non-compliant intervention)': 4,
+						'Should not be used (mixed traffic)': 4,
 						'Low': 4,
 						'Medium': 4,
 						'High': 4,
