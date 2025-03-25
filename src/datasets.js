@@ -216,7 +216,7 @@ const datasets = {
 				type: 'match',
 				styles: {
 					'line-color': {
-						'Should not be used (non-compliant intervention)': 'darkred',
+						'Should not be used (non-compliant intervention)': '#4a0404',
 						'Should not be used (mixed traffic)': 'darkred',
 						'Low': 'red',
 						'Medium': 'orange',
