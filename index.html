@@ -5,7 +5,7 @@
 		
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<meta name="Description" content="An interactive map to aid cycle planning in Scotland">
+		<meta name="Description" content="Network Planning Tool for Scotland: A web application for strategic cycle network planning across Scotland">
 		
 		<!-- Favicon -->
 		<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
@@ -13,7 +13,7 @@
 		
 		<!-- Social media -->
 		<meta property="og:title" content="NPT Scotland">
-		<meta property="og:description" content="An interactive map to aid cycle planning in Scotland">
+		<meta property="og:description" content="Network Planning Tool for Scotland: A web application for strategic cycle network planning across Scotland">
 		<meta property="og:image" content="/images/thumbnail.jpg">
 		<meta property="twitter:image" content="/images/thumbnail.jpg">
 		<meta property="og:url" content="https://www.npt.scot">
@@ -97,9 +97,9 @@
 			<div>
 				<h3>Network Planning Tool for Scotland</h3>
 				<p>The Network Planning Tool for Scotland (NPT Scotland, hosted at <a href="https://www.npt.scot">www.npt.scot</a>) is a web application for strategic cycle network planning.</p>
-				<p>Note the results of the Commute layer are based  on the 2011 Census travel to work data and results for other trip purposes are based on pre-pandemic data. Users should be aware that the results are model-based estimates and that patterns have changed since the pandemic. Future versions of the tool will include more recent Census and other datasets when they become available.</p>
-				<p>The results are publicly available. The main intended audience is local authorities undertaking cycle network planning to support  evidence-based and transparent investment, scheme location and design decisions.</p>
-				<p>Last updated: <span id="updatedate"></span>. You may need to <a href="https://www.minitool.com/news/f5-vs-ctrl-f5.html">clear your browser cache</a> to see the latest updates.</p>
+				<p>Please note: Commute layer results are based on 2011 Census data, and other trip purpose results are based on pre-pandemic data. These model-based estimates may not reflect current patterns which have changed since the pandemic. Updated datasets will be included in future versions.</p>
+				<p>These results are publicly available, primarily intended for local authorities for evidence-based cycle network planning and investment decisions.</p>
+				<p>Last updated: <span id="updatedate"></span>. You may need to <a href="https://www.minitool.com/news/f5-vs-ctrl-f5.html">refresh your browser</a> to see the latest updates.</p>
 				<p>To report issues or provide feedback, please use the <a href="https://forms.office.com/Pages/ResponsePage.aspx?id=qO3qvR3IzkWGPlIypTW3ywVZfmO0bwdAhK0UztpneQtUM1pCRlJQQjY1V0M3MUhBV0g0VTJRS1ZQVi4u" target="_blank">feedback form</a>.</p>
 				<p>Date of OSM data on which network results are based: <span id="osmupdatedate"></span>.</p>
 				<p id="logos">
@@ -269,7 +269,7 @@
 						<select name="clos-layer" class="updatelayer" data-layer="clos" aria-label="LoS detail">
 							<option value="Level of Service" selected="selected">Level of service</option>
 							<option value="Traffic volume category">Estimated traffic volume</option>
-							<option value="Speed limit">Estimated speed limit</option>
+							<option value="Speed limit">Speed limit</option>
 							<option value="Infrastructure type">Cycle infrastructure</option>
 						</select>
 					</p>
@@ -283,14 +283,13 @@
 				<p><label><input type="checkbox" class="showlayer" data-layer="streetspace" value="false"> Show layer</label></p>
 				<p>This layer allows at-a-glance evaluation of the <em>spatial</em> deliverability of segregated cycle infrastructure (on links requiring dedicated infrastructure). <button aria-label="Help on infrastructure scenario" class="helpbutton" data-help="streetspace"><i class="fa fa-question-circle" aria-hidden="true"></i></button></p>
 				<div class="layertools layertools-streetspace">
-					<p>
-						<label for="streetspace">Infrastructure scenario</label>
-						<select name="streetspace" class="updatelayer" data-layer="streetspace" aria-label="Infrastructure scenario">
-							<option value="carriageway_1way">2x 1-way tracks, within road width</option>
-							<option value="combined_1way">2x 1-way tracks, using edge-to-edge</option>
-							<option value="carriageway_2way">2-way track, within road width</option>
-							<option value="combined_2way">2-way track, using edge-to-edge</option>
-						</select>
+					<p>Infrastructure scenario:</p>
+						<p>2x 1-way tracks:<br />
+						<label><input type="radio" class="updatelayer" data-layer="streetspace" name="streetspace" value="carriageway_1way" checked="checked">Within road width</input></label><br />
+						<label><input type="radio" class="updatelayer" data-layer="streetspace" name="streetspace" value="combined_1way">Using edge-to-edge</input></label></p>
+						<p>2-way track:<br />
+						<label><input type="radio" class="updatelayer" data-layer="streetspace" name="streetspace" value="carriageway_2way">Within road width</input></label><br />
+						<label><input type="radio" class="updatelayer" data-layer="streetspace" name="streetspace" value="combined_2way">Using edge-to-edge</input></label></p>
 					</p>
 					<div class="legend">
 						<div class="l_r">
@@ -478,6 +477,9 @@
 					<td>{road_function}</td>
 				</tr>
 				<tr>
+					<td>Road type:</td>
+					<td>{road_types}</td>
+				<tr>
 					<td>Carriageway width:</td>
 					<td>{carriageway_width}m</td>
 				</tr>
@@ -486,16 +488,16 @@
 					<td>{edge_to_edge_width}m</td>
 				</tr>
 				<tr>
+					<td>Assumed lane widths:</td>
+					<td>{assumed_lane_widths}</td>
+				</tr>
+				<tr>
 					<td>Is bus route?:</td>
 					<td>{is_bus_route}</td>
 				</tr>
 				<tr>
 					<td>Number of lanes:</td>
-					<td>{num_lanes}</td>
-				</tr>
-				<tr>
-					<td>Number of bus lanes:</td>
-					<td>{number_of_bus_lanes}</td>
+					<td>{total_lanes}</td>
 				</tr>
 				<tr>
 					<td>Speed limit:</td>

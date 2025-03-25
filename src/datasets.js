@@ -219,17 +219,17 @@ const datasets = {
 						'Should not be used (non-compliant intervention)': '#4a0404',
 						'Should not be used (mixed traffic)': 'darkred',
 						'Low': 'red',
-						'Medium': 'orange',
+						'Medium': '#d27d2d',
 						'High': 'mediumseagreen',
 						'_': 'gray',
 					},
 					'line-width': {
-						'Should not be used (non-compliant intervention)': 2,
-						'Should not be used (mixed traffic)': 2,
-						'Low': 2,
-						'Medium': 2,
-						'High': 2,
-						'_': 2,
+						'Should not be used (non-compliant intervention)': 4,
+						'Should not be used (mixed traffic)': 4,
+						'Low': 4,
+						'Medium': 4,
+						'High': 4,
+						'_': 4,
 					}
 				}
 			},
@@ -264,7 +264,15 @@ const datasets = {
 						70: '#581845',
 						'_': 'gray',
 					},
-					'line-width': 2
+					'line-width': {
+						20: 2,
+						30: 2,
+						40: 2,
+						50: 2,
+						60: 2,
+						70: 2,
+						'_': 2,
+					}
 				}
 			},
 			'Infrastructure type': {
@@ -284,7 +292,7 @@ const datasets = {
 						'Off Road Cycleway': 4,
 						'Segregated Track (narrow)': 4,
 						'Shared Footway': 3,
-						'Painted Cycle Lane': 3,
+						'Painted Cycle Lane': 1.8,
 						'_': 2,
 					}
 				}

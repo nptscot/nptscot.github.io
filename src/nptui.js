@@ -339,7 +339,9 @@ const nptUi = (function () {
 						break;
 						
 					case 'radio':
-						// #!# Not yet implemented; needs to check for :checked
+						if (input.checked) {
+							components[input.name] = input.value;	// Only one will ever match, so this is fine to run in a loop
+						}
 						break;
 						
 					// Scalar fields, e.g. text, textarea, hidden, select, number, etc.
@@ -380,12 +382,16 @@ const nptUi = (function () {
 						break;
 						
 					case 'radio':
-						// #!# Not yet implemented; needs to check for :checked
+						// Having identified the first radio button in the set, get all of them, and check the one with the matching input value
+						const radiobuttons = document.querySelectorAll (selector + ' [name="' + field + '"]');
+						radiobuttons.forEach (function (input) {
+							input.checked = (input.value == value);
+						});
 						break;
 						
 					// Scalar fields, e.g. text, textarea, hidden, select, number, etc.
 					default:
-						console.log (input, value);
+						//console.log (input, value);
 						input.value = value;
 				}
 			});
@@ -963,7 +969,7 @@ const nptUi = (function () {
 			// #!# This is incrementally added each time toggle is done; should be moved up a level so there is only a single registration
 			if (_datasets.sublayers[layerId]) {
 				nptUi.setSublayerStyle (layerId);
-				document.querySelector ('select.updatelayer[data-layer="' + layerId + '"]').addEventListener ('change', function () {
+				document.querySelector ('.updatelayer[data-layer="' + layerId + '"]').addEventListener ('change', function () {
 					nptUi.setSublayerStyle (layerId);
 				});
 				
@@ -1001,7 +1007,8 @@ const nptUi = (function () {
 		setSublayerStyle: function (layerId)
 		{
 			// Determine the field
-			const fieldname = document.querySelector ('select.updatelayer[data-layer="' + layerId + '"]').value;
+			const control = document.querySelector ('.updatelayer[data-layer="' + layerId + '"]');
+			const fieldname = document.querySelector ('.updatelayer[data-layer="' + layerId + '"]' + (control.type == 'radio' ? ':checked' : '')).value;
 			const sublayer = _datasets.sublayers[layerId][fieldname];
 			
 			// Set each style (e.g. line-color)
