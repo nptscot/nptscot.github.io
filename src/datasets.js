@@ -256,12 +256,12 @@ const datasets = {
 				type: 'match',
 				styles: {
 					'line-color': {
-						20: '#8a9a5b',
-						30: '#ffc300',
-						40: '#cc5500',
-						50: '#c70039',
-						60: '#900c3f',
-						70: '#581845',
+						20: 'seagreen',
+						30: '#cc5500',
+						40: 'orangered',
+						50: 'red',
+						60: 'firebrick',
+						70: 'darkred',
 						'_': 'gray',
 					},
 					'line-width': {
