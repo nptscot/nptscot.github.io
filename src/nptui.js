@@ -921,6 +921,9 @@ const nptUi = (function () {
 						}
 					});
 				});
+				
+				// Handle in-layer filtering
+				nptUi.inLayerFiltering ();
 			});
 		},
 		
@@ -1102,6 +1105,30 @@ const nptUi = (function () {
 			
 			// Set the legend
 			document.getElementById (selector).innerHTML = legendHtml;
+		},
+		
+		
+		// Function to handle in-layer filtering; see: https://docs.mapbox.com/mapbox-gl-js/example/filter-symbols-expression/
+		inLayerFiltering: function ()
+		{
+			// Late-bind checkboxes
+			document.addEventListener ('change', function (e) {
+				if (e.target.className == 'legendfilter') {
+					const checkbox = e.target;
+					
+					// Determine the layer and its field to filter on
+					const layerId = checkbox.name;
+					const field = _datasets.layers[layerId]._filtering;
+					
+					// Get all the checkboxes that are checked for this layer
+					const checkedInLayer = [...document.querySelectorAll ('input[type="checkbox"][class="legendfilter"][name="' + layerId + '"]')]
+						.filter ((el) => el.checked)
+						.map ((el) => el.value)
+					
+					// Filter
+					_map.setFilter (layerId, ['in', field, ...checkedInLayer]);
+				}
+			});
 		},
 		
 		

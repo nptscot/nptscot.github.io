@@ -454,10 +454,16 @@ p.help-end {
 
 .legend div span {
   display: inline-block;
-  height: 15px;
+  height: 18px;
   width: 100%;
   border: 1px solid black;
 }
+
+.legend div span input[type="checkbox"].legendfilter {
+  display: block;
+  text-align: left;
+}
+
 
 /* Basemap Control */
 #basemapcontrol {
