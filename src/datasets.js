@@ -184,7 +184,8 @@ const datasets = {
 					/* other */ '#808080'
 				],
 				'line-width': 3
-			}
+			},
+			'_filtering': 'road_function_npt'
 		}
 	},
 	
