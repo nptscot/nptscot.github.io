@@ -185,6 +185,7 @@ a.smaller {
   overflow: auto;
   background-color: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(6px);
+  transform: translate3d(0, 0, 0); /* Force GPU acceleration for Safari: see: https://stackoverflow.com/questions/70138527 */
 }
 .rightbox button.close-button {
   float: right;
