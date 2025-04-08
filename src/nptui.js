@@ -1139,8 +1139,10 @@ const nptUi = (function () {
 		createPopups: function ()
 		{
 			// Add to each layer
-			Object.entries (_datasets.popups).forEach (([layerId, options]) => {
-				nptUi.mapPopups (layerId, options);
+			Object.entries (_datasets.layers).forEach (([layerId, layer]) => {
+				if (layer.popups) {
+					nptUi.mapPopups (layerId, layer.popups);
+				}
 			});
 		},
 		

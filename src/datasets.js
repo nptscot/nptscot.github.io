@@ -41,7 +41,11 @@ const datasets = {
 			
 			// Chart definitions
 			// #!# Need to define more clearly the assumed data structure, e.g. the 'charts' key shows a part field
-			charts: {...}
+			charts: {...},
+			
+			// Popups
+			// #!# Need to add support for auto-popups if <template> is present, as these is becoming boilerplate code
+			popups: {...}
 		},
 		
 		*/
@@ -110,6 +114,13 @@ const datasets = {
 					'#C70039', 10,
 					'#581845', 100
 				]
+			},
+			popups: {
+				layerId: 'rnet',
+				templateId: 'rnet-popup',
+				preprocessingCallback: popupCallback,	// Defined below
+				smallValuesThreshold: 10,
+				literalFields: ['gradient', 'quietness']
 			}
 		},
 		
@@ -124,6 +135,12 @@ const datasets = {
 				'type': 'line',
 			},
 			layerStyling: rnetStyling,
+			popups: {
+				templateId: 'rnet-popup',
+				preprocessingCallback: popupCallback,	// Defined below
+				smallValuesThreshold: 10,
+				literalFields: ['gradient', 'quietness']
+			}
 		},
 		
 		data_zones: {
@@ -398,6 +415,10 @@ const datasets = {
 					'line-color': 'red',
 					'line-width': 2
 				}
+			},
+			popups: {
+				layerId: 'busroutes',
+				templateId: 'busroutes-popup'
 			}
 		},
 		
@@ -644,6 +665,10 @@ const datasets = {
 						}
 					}
 				},
+			},
+			popups: {
+				layerId: 'clos',
+				templateId: 'clos-popup'
 			}
 		},
 		streetspace: {
@@ -673,6 +698,10 @@ const datasets = {
 						}
 					}
 				}
+			},
+			popups: {
+				layerId: 'streetspace',
+				templateId: 'streetspace-popup'
 			}
 		},
 		
@@ -701,43 +730,6 @@ const datasets = {
 			}
 		}
 	},
-	
-	
-	
-	// Popups
-	// #!# Need to add support for auto-popups if <template> is present, as this is becoming boilerplate code
-	popups: {
-		
-		'rnet': {
-			layerId: 'rnet',
-			templateId: 'rnet-popup',
-			preprocessingCallback: popupCallback,	// Defined below
-			smallValuesThreshold: 10,
-			literalFields: ['gradient', 'quietness']
-		},
-		
-		'rnet-simplified': {
-			templateId: 'rnet-popup',
-			preprocessingCallback: popupCallback,	// Defined below
-			smallValuesThreshold: 10,
-			literalFields: ['gradient', 'quietness']
-		},
-		
-		'clos': {
-			layerId: 'clos',
-			templateId: 'clos-popup'
-		},
-		
-		'busroutes': {
-			layerId: 'busroutes',
-			templateId: 'busroutes-popup'
-		},
-		
-		'streetspace': {
-			layerId: 'streetspace',
-			templateId: 'streetspace-popup'
-		}
-	}
 };
 
 
