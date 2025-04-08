@@ -1409,8 +1409,10 @@ const nptUi = (function () {
 			}
 			
 			// Create each set of charts
-			Object.entries (_datasets.charts).forEach(([mapLayerId, chartDefinition]) => {
-				chartsModal (mapLayerId, chartDefinition);
+			Object.entries (_datasets.layers).forEach(([layerId, layer]) => {
+				if (layer.charts) {
+					chartsModal (layerId, layer.charts);
+				}
 			});
 		},
 		
