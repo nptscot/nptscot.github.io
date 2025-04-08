@@ -942,16 +942,18 @@ const nptUi = (function () {
 			});
 			
 			// Expand any sublayer definitions where they have same styling for multiple layers, separated by comma
-			Object.entries (_datasets.sublayers).forEach (([layerId, sublayers]) => {
-				Object.entries (sublayers).forEach (function ([sublayerIdString, sublayer]) {
-					if (sublayerIdString.includes (',')) {
-						const sublayerIds = sublayerIdString.split (',');
-						sublayerIds.forEach (function (sublayerId) {
-							_datasets.sublayers[layerId][sublayerId] = sublayer;		// Expand
-						});
-						delete _datasets.sublayers[layerId][sublayerIdString];	// Remove original comma-separated list
-					}
-				});
+			Object.entries (_datasets.layers).forEach (([layerId, layer]) => {
+				if (layer.sublayers) {
+					Object.entries (layer.sublayers).forEach (function ([sublayerIdString, sublayer]) {
+						if (sublayerIdString.includes (',')) {
+							const sublayerIds = sublayerIdString.split (',');
+							sublayerIds.forEach (function (sublayerId) {
+								_datasets.layers[layerId].sublayers[sublayerId] = sublayer;		// Expand
+							});
+							delete _datasets.layers[layerId].sublayers[sublayerIdString];	// Remove original comma-separated list
+						}
+					});
+				}
 			});
 			
 			// Add layers, and their sources, initially not visible when initialised
@@ -971,7 +973,7 @@ const nptUi = (function () {
 			
 			// Use static sublayer styling definitions, if present, on initial load and on sublayer change
 			// #!# This is incrementally added each time toggle is done; should be moved up a level so there is only a single registration
-			if (_datasets.sublayers[layerId]) {
+			if (_datasets.layers[layerId].sublayers) {
 				nptUi.setSublayerStyle (layerId);
 				document.querySelector ('.updatelayer[data-layer="' + layerId + '"]').addEventListener ('change', function () {
 					nptUi.setSublayerStyle (layerId);
@@ -1013,7 +1015,7 @@ const nptUi = (function () {
 			// Determine the field
 			const control = document.querySelector ('.updatelayer[data-layer="' + layerId + '"]');
 			const fieldname = document.querySelector ('.updatelayer[data-layer="' + layerId + '"]' + (control.type == 'radio' ? ':checked' : '')).value;
-			const sublayer = _datasets.sublayers[layerId][fieldname];
+			const sublayer = _datasets.layers[layerId].sublayers[fieldname];
 			
 			// Set each style (e.g. line-color)
 			Object.entries (sublayer.styles).forEach (function ([style, styleValueLookups]) {
