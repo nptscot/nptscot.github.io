@@ -28,7 +28,10 @@ const datasets = {
 					}
 				},
 				[Another sublayer]
-			}
+			},
+			
+			// Layer styling callbacks function, defined at the end
+			layerStyling: fooStyling
 		},
 		
 		*/
@@ -42,7 +45,8 @@ const datasets = {
 				},
 				'source-layer': 'rnet',
 				'type': 'line',
-			}
+			},
+			layerStyling: rnetStyling,
 		},
 		
 		'rnet-simplified': {
@@ -54,7 +58,8 @@ const datasets = {
 				},
 				'source-layer': 'rnet_simplified',
 				'type': 'line',
-			}
+			},
+			layerStyling: rnetStyling,
 		},
 		
 		data_zones: {
@@ -71,7 +76,8 @@ const datasets = {
 					'fill-opacity': 0.8,
 					'fill-outline-color': '#000000'
 				}
-			}
+			},
+			layerStyling: data_zonesStyling
 		},
 		
 		busroutes: {
@@ -342,13 +348,6 @@ const datasets = {
 		}
 	},
 	
-	
-	// Layer styling callbacks functions, each defined below
-	layerStyling: {
-		rnet:				rnetStyling,
-		"rnet-simplified":	rnetStyling,
-		data_zones:			data_zonesStyling,
-	},
 	
 	
 	// #!# These need to be merged with lineColours

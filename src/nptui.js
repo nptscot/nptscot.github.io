@@ -980,8 +980,8 @@ const nptUi = (function () {
 				});
 				
 			// Check for a dynamic styling callback and run it if present
-			} else if (_datasets.layerStyling[layerId]) {
-				_datasets.layerStyling[layerId] (layerId, _map, _settings, _datasets, nptUi.createLegend);
+			} else if (_datasets.layers[layerId].layerStyling) {
+				_datasets.layers[layerId].layerStyling (layerId, _map, _settings, _datasets, nptUi.createLegend);
 			} else {
 				nptUi.createLegend (datasets.legends[layerId], layerId + 'legend');
 			}
