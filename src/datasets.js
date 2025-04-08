@@ -1,735 +1,731 @@
 // Data definitions, i.e. layers, charts, etc.
 const datasets = {
 	
-	// Data layers
-	layers: {
+	/* Example:
+	
+	foo: {
 		
-		/* Example:
+		// Layer definition - Mapbox GL JS standard addLayer structure
+		layer: {...},
 		
-		foo: {
-			
-			// Layer definition - Mapbox GL JS standard addLayer structure
-			layer: {...},
-			
-			// Sublayers - unified definitions handling style rendering for each selectable sublayer, including legends
-			// Type is either match (fixed values) / step (steps, with the first being treated as the 'base' value) / interpolate (linear)
-			// Use of key _ is the default
-			sublayers: {
-				fieldname: {
-					label: 'Label',
-					type: 'match',
-					styles: {
-						'line-color': {
-							value1: colour1,
-							value2: colour2,
-							...
-						},
+		// Sublayers - unified definitions handling style rendering for each selectable sublayer, including legends
+		// Type is either match (fixed values) / step (steps, with the first being treated as the 'base' value) / interpolate (linear)
+		// Use of key _ is the default
+		sublayers: {
+			fieldname: {
+				label: 'Label',
+				type: 'match',
+				styles: {
+					'line-color': {
+						value1: colour1,
+						value2: colour2,
 						...
-					}
-				},
-				[Another sublayer]
+					},
+					...
+				}
 			},
-			
-			// Layer styling callbacks function, defined at the end
-			layerStyling: fooStyling,
-			
-			// Legends
-			// #!# These need to be merged with lineColours
-			legends: {...},
-			
-			lineColours: {...},
-			
-			// Chart definitions
-			// #!# Need to define more clearly the assumed data structure, e.g. the 'charts' key shows a part field
-			charts: {...},
-			
-			// Popups
-			// #!# Need to add support for auto-popups if <template> is present, as these is becoming boilerplate code
-			popups: {...}
+			[Another sublayer]
 		},
 		
-		*/
+		// Layer styling callbacks function, defined at the end
+		layerStyling: fooStyling,
 		
-		rnet: {
-			layer: {
-				'id': 'rnet',
-				'source': {
-					'type': 'vector',
-					'url': 'pmtiles://%tileserverUrl/rnet_2025-03-01.pmtiles',
-				},
-				'source-layer': 'rnet',
-				'type': 'line',
-			},
-			layerStyling: rnetStyling,
-			legends: {
-				'none': [
-					['&nbsp;',	'#304ce7']
-				],
-				'flow': [
-					['1',		'#9C9C9C'],
-					['50',		'#FFFF73'],
-					['100',		'#AFFF00'],
-					['250',		'#00FFFF'],
-					['500',		'#30B0FF'],
-					['1000',	'#2E5FFF'],
-					['2000',	'#0000FF'],
-					['3000+',	'#FF00C5'],
-				],
-				'quietness': [
-					['0-25',	'#882255'],
-					['25-50',	'#CC6677'],
-					['50-75',	'#44AA99'],
-					['75-100',	'#117733'],
-				],
-				'gradient': [
-					['0-3',		'#59ee19'],
-					['3-5',		'#37a009'],
-					['5-7',		'#FFC300'],
-					['7-10',	'#C70039'],
-					['10+',		'#581845'],
-				]
-			},
-			lineColours: {
-				none: '#304ce7',
-				flow: [
-					'rgba(0,0,0,0)', 1,
-					'#9C9C9C', 50,
-					'#FFFF73', 100,
-					'#AFFF00', 250,
-					'#00FFFF', 500,
-					'#30B0FF', 1000,
-					'#2E5FFF', 2000,
-					'#0000FF', 3000
-				],
-				quietness: [
-					'#882255', 25,
-					'#CC6677', 50,
-					'#44AA99', 75,
-					'#117733', 101
-				],
-				gradient: [
-					'#59ee19', 3,
-					'#37a009', 5,
-					'#FFC300', 7,
-					'#C70039', 10,
-					'#581845', 100
-				]
-			},
-			popups: {
-				layerId: 'rnet',
-				templateId: 'rnet-popup',
-				preprocessingCallback: popupCallback,	// Defined below
-				smallValuesThreshold: 10,
-				literalFields: ['gradient', 'quietness']
-			}
-		},
+		// Legends
+		// #!# These need to be merged with lineColours
+		legends: {...},
 		
-		'rnet-simplified': {
-			layer: {
-				'id': 'rnet-simplified',
-				'source': {
-					'type': 'vector',
-					'url': 'pmtiles://%tileserverUrl/rnet_simplified_2025-03-01.pmtiles',	 // #!# Inconsistent path - needs fixing
-				},
-				'source-layer': 'rnet_simplified',
-				'type': 'line',
-			},
-			layerStyling: rnetStyling,
-			popups: {
-				templateId: 'rnet-popup',
-				preprocessingCallback: popupCallback,	// Defined below
-				smallValuesThreshold: 10,
-				literalFields: ['gradient', 'quietness']
-			}
-		},
+		lineColours: {...},
 		
-		data_zones: {
-			layer: {
-				'id': 'data_zones',
-				'type': 'fill',
-				'source': {
+		// Chart definitions
+		// #!# Need to define more clearly the assumed data structure, e.g. the 'charts' key shows a part field
+		charts: {...},
+		
+		// Popups
+		// #!# Need to add support for auto-popups if <template> is present, as these is becoming boilerplate code
+		popups: {...}
+	},
+	
+	*/
+	
+	rnet: {
+		layer: {
+			'id': 'rnet',
+			'source': {
 				'type': 'vector',
-					'url': 'pmtiles://%tileserverUrl/data_zones_2025-03-01.pmtiles',
-					},
-				'source-layer': 'data_zones',
-				'paint': {
-					'fill-color': '#9c9898',
-					'fill-opacity': 0.8,
-					'fill-outline-color': '#000000'
-				}
+				'url': 'pmtiles://%tileserverUrl/rnet_2025-03-01.pmtiles',
 			},
-			layerStyling: data_zonesStyling,
-			legends: {
-				'SIMD2020v2_Decile': [
-					['1st', 	'#a50026'],
-					['2nd',		'#d73027'],
-					['3rd', 	'#f46d43'],
-					['4th', 	'#fdae61'],
-					['5th', 	'#fee090'],
-					['6th', 	'#e0f3f8'],
-					['7th', 	'#abd9e9'],
-					['8th', 	'#74add1'],
-					['9th', 	'#4575b4'],
-					['10th',	'#313695'],
-				],
-				'population_density': [
-					['10',		'#edf8fb'],
-					['50',		'#bfd3e6'],
-					['100', 	'#9ebcda'],
-					['150',		'#8c96c6'],
-					['200',		'#8856a7'],
-					['600',		'#810f7c'],
-				],
-				'broadband': [
-					['0%',		'#fff7ec'],
-					['2%',		'#fee8c8'],
-					['5%',		'#fdd49e'],
-					['10%',		'#fdbb84'],
-					['50%', 	'#d7301f'],
-					['100%',	'#7f0000'],
-				],
-				'pcycle': [
-					['0-1', 	'#A50026'],
-					['2-3', 	'#D73027'],
-					['4-6', 	'#F46D43'],
-					['7-9', 	'#FDAE61'],
-					['10-14',	'#FEE090'],
-					['15-19',	'#ffffbf'],
-					['20-24',	'#C6DBEF'],
-					['25-29',	'#ABD9E9'],
-					['30-39',	'#74ADD1'],
-					['40',		'#4575B4'],
-				],
-				'pcycle_go_dutch': [		// Actually same as pcycle
-					['0-1',		'#A50026'],
-					['2-3',		'#D73027'],
-					['4-6',		'#F46D43'],
-					['7-9',		'#FDAE61'],
-					['10-14',	'#FEE090'],
-					['15-19',	'#ffffbf'],
-					['20-24',	'#C6DBEF'],
-					['25-29',	'#ABD9E9'],
-					['30-39',	'#74ADD1'],
-					['40',		'#4575B4'],
-				],
-				'_': [	// Default; is time in minutes
-					['3',		'#053061'],
-					['5',		'#2166ac'],
-					['7',		'#4393c3'],
-					['10',		'#92c5de'],
-					['15',		'#f7f7f7'],
-					['30',		'#f4a582'],
-					['60',		'#b2182b'],
-					['200',		'#67001f'],
-				],
+			'source-layer': 'rnet',
+			'type': 'line',
+		},
+		layerStyling: rnetStyling,
+		legends: {
+			'none': [
+				['&nbsp;',	'#304ce7']
+			],
+			'flow': [
+				['1',		'#9C9C9C'],
+				['50',		'#FFFF73'],
+				['100',		'#AFFF00'],
+				['250',		'#00FFFF'],
+				['500',		'#30B0FF'],
+				['1000',	'#2E5FFF'],
+				['2000',	'#0000FF'],
+				['3000+',	'#FF00C5'],
+			],
+			'quietness': [
+				['0-25',	'#882255'],
+				['25-50',	'#CC6677'],
+				['50-75',	'#44AA99'],
+				['75-100',	'#117733'],
+			],
+			'gradient': [
+				['0-3',		'#59ee19'],
+				['3-5',		'#37a009'],
+				['5-7',		'#FFC300'],
+				['7-10',	'#C70039'],
+				['10+',		'#581845'],
+			]
+		},
+		lineColours: {
+			none: '#304ce7',
+			flow: [
+				'rgba(0,0,0,0)', 1,
+				'#9C9C9C', 50,
+				'#FFFF73', 100,
+				'#AFFF00', 250,
+				'#00FFFF', 500,
+				'#30B0FF', 1000,
+				'#2E5FFF', 2000,
+				'#0000FF', 3000
+			],
+			quietness: [
+				'#882255', 25,
+				'#CC6677', 50,
+				'#44AA99', 75,
+				'#117733', 101
+			],
+			gradient: [
+				'#59ee19', 3,
+				'#37a009', 5,
+				'#FFC300', 7,
+				'#C70039', 10,
+				'#581845', 100
+			]
+		},
+		popups: {
+			layerId: 'rnet',
+			templateId: 'rnet-popup',
+			preprocessingCallback: popupCallback,	// Defined below
+			smallValuesThreshold: 10,
+			literalFields: ['gradient', 'quietness']
+		}
+	},
+	
+	'rnet-simplified': {
+		layer: {
+			'id': 'rnet-simplified',
+			'source': {
+				'type': 'vector',
+				'url': 'pmtiles://%tileserverUrl/rnet_simplified_2025-03-01.pmtiles',	 // #!# Inconsistent path - needs fixing
 			},
-			// #!# These are presumably restatements of dzLegendColours
-			lineColours: {
-				'SIMD2020v2_Decile': [
-					'#a50026', 1.1,			 // #!# This block is basically enums rather than ranges, so current fudge of .1 is to avoid off-by-one errors
-					'#d73027', 2.1,
-					'#f46d43', 3.1,
-					'#fdae61', 4.1,
-					'#fee090', 5.1,
-					'#e0f3f8', 6.1,
-					'#abd9e9', 7.1,
-					'#74add1', 8.1,
-					'#4575b4', 9.1,
-					'#313695', 10.1,
-					'#000000'
-				],
-				'population_density': [
-					'#edf8fb', 10,
-					'#bfd3e6', 50,
-					'#9ebcda', 100,
-					'#8c96c6', 150,
-					'#8856a7', 200,
-					'#810f7c', 600,
-					'#000000'
-				],
-				'broadband': [
-					'#fff7ec', 0.01,		// #!# Currently zero is used for voids - data should be changed to use known constant e.g. -9999
-					'#fee8c8', 2,
-					'#fdd49e', 5,
-					'#fdbb84', 10,
-					'#d7301f', 50,
-					'#7f0000', 100,
-					'#000000'
-				],
-				'pcycle': [
-					'#A50026', 2,
-					'#D73027', 4,
-					'#F46D43', 7,
-					'#FDAE61', 10,
-					'#FEE090', 15,
-					'#ffffbf', 20,
-					'#C6DBEF', 25,
-					'#ABD9E9', 30,
-					'#74ADD1', 40,
-					'#4575B4', 100,
-					'#000000'
-				],
-				'pcycle_go_dutch': [
-					'#A50026', 2,
-					'#D73027', 4,
-					'#F46D43', 7,
-					'#FDAE61', 10,
-					'#FEE090', 15,
-					'#ffffbf', 20,
-					'#C6DBEF', 25,
-					'#ABD9E9', 30,
-					'#74ADD1', 40,
-					'#4575B4', 100,
-					'#000000'
-				],
-				'_': [		// Default
-					'#053061', 3,
-					'#2166ac', 5,
-					'#4393c3', 7,
-					'#92c5de', 10,
-					'#f7f7f7', 15,
-					'#f4a582', 30,
-					'#b2182b', 60,
-					'#67001f', 200,
-					'#000000'
-				]
-			}
-			/*
-			,
-			// #!# Disabled this popup as of September 2024 - can be deleted later if data issues resolved
-			charts: {
-				
-				// Data fields
-				// #!# Should use a main server URL setting
-				dataUrl: 'https://nptscot.blob.core.windows.net/json/DataZone/%id.json',
-				propertiesField: 'DataZone',
-				titleField: 'DataZone',
-				
-				// Title
-				titlePrefix: 'Zone Summary: ',
-
-				charts: [
-					[
-						// Commute Origin
-						'comm_orig',
-						'Commuters leaving',
-						'The bar chart shows estimated mode shares under different scenarios for commuters leaving this zone. (i.e they live here and commute to another zone).',
-						'Annual Average Daily Flow'
-					],
-					[
-						// Commute Destination
-						'comm_dest',
-						'Commuters arriving',
-						'The bar chart shows estimated mode shares under different scenarios for commuters arriving this zone. (i.e they work here and live in another zone).',
-						'Annual Average Daily Flow'
-					],
-					[
-						// School Primary Origin
-						'schl_primary_orig',
-						'Primary school children',
-						'The bar chart shows estimated mode shares under different scenarios for primary school childen that live in this zone.',
-						'Annual Average Daily Flow'
-					],
-					[
-						// School Secondary Origin
-						'schl_secondary_orig',
-						'Secondary school children',
-						'The bar chart shows estimated mode shares under different scenarios for secondary school childen that live in this zone.',
-						'Annual Average Daily Flow'
-					],
-					[
-						// shopping Origin
-						'shopping_orig',
-						'Shoppers leaving',
-						'The bar chart shows estimated mode shares of shopping trips under different scenarios for trips leaving this zone.',
-						'Annual Average Daily Flow'
-					],
-					[
-						// shopping Destination
-						'shopping_dest',
-						'Shoppers arriving',
-						'The bar chart shows estimated mode shares of shopping trips under different scenarios for trips arriving this zone.',
-						'Annual Average Daily Flow'
-					],
-					[
-						// leisure Origin
-						'leisure_orig',
-						'Leisure trips leaving',
-						'The bar chart shows estimated mode shares of leisure trips under different scenarios for trips leaving this zone.',
-						'Annual Average Daily Flow'
-					],
-					[
-						// leisure Destination
-						'leisure_dest',
-						'Leisure trips arriving',
-						'The bar chart shows estimated mode shares of leisure trips under different scenarios for trips arriving this zone.',
-						'Annual Average Daily Flow'
-					],
-					[
-						// visiting Origin
-						'visiting_orig',
-						'Visiting friends and family trips leaving',
-						'The bar chart shows estimated mode shares of trips for visiting friends and family under different scenarios for trips leaving this zone.',
-						'Annual Average Daily Flow'
-					],
-					[
-						// visiting Destination
-						'visiting_dest',
-						'Visiting friends and family trips arriving',
-						'The bar chart shows estimated mode shares of trips for visiting friends and family under different scenarios for trips arriving this zone.',
-						'Annual Average Daily Flow'
-					],
-				],
-
-				modes: [
-					// Label, field (e.g. bicycle => comm_orig_bicycle_ebike_fastest), background colour, border colour
-					['Bicycle', 'bicycle', 'rgba(51,160,44, 0.8)', 'rgba(51,160,44, 1)'],
-					['Foot', 'foot', 'rgba(178,223,138, 0.8)', 'rgba(178,223,138, 1)'],
-					['Public transport', 'public_transport', 'rgba(56,108,176, 0.8)', 'rgba(56,108,176, 1)'],
-					['Car', 'car', 'rgba(227,26,28, 0.8)', 'rgba(227,26,28, 1)'],
-					['Taxi', 'taxi', 'rgba(166,206,227, 0.8)', 'rgba(166,206,227, 1)'],
-				],
-
-				// Scenario suffixes and their labels
-				scenarios: [
-					['', 'Baseline'],
-					['_go_dutch_fastest', 'Go Dutch (Fastest)'],
-					['_ebike_fastest', 'Ebike (Fastest)'],
-					['_go_dutch_quietest', 'Go Dutch (Quietest)'],
-					['_ebike_quietest', 'Ebike (Quietest)']
-				]
-			}
-			*/
+			'source-layer': 'rnet_simplified',
+			'type': 'line',
 		},
-		
-		busroutes: {
-			layer: {
-				'id': 'busroutes',
-				'type': 'line',
-				'source': {
-					'type': 'vector',
-					'url': 'pmtiles://%tileserverUrl/osm_bus_route_pmtiles.pmtiles',
+		layerStyling: rnetStyling,
+		popups: {
+			templateId: 'rnet-popup',
+			preprocessingCallback: popupCallback,	// Defined below
+			smallValuesThreshold: 10,
+			literalFields: ['gradient', 'quietness']
+		}
+	},
+	
+	data_zones: {
+		layer: {
+			'id': 'data_zones',
+			'type': 'fill',
+			'source': {
+			'type': 'vector',
+				'url': 'pmtiles://%tileserverUrl/data_zones_2025-03-01.pmtiles',
 				},
-				'source-layer': 'osm_bus_route',
-				'paint': {
-					'line-color': 'red',
-					'line-width': 2
-				}
+			'source-layer': 'data_zones',
+			'paint': {
+				'fill-color': '#9c9898',
+				'fill-opacity': 0.8,
+				'fill-outline-color': '#000000'
+			}
+		},
+		layerStyling: data_zonesStyling,
+		legends: {
+			'SIMD2020v2_Decile': [
+				['1st', 	'#a50026'],
+				['2nd',		'#d73027'],
+				['3rd', 	'#f46d43'],
+				['4th', 	'#fdae61'],
+				['5th', 	'#fee090'],
+				['6th', 	'#e0f3f8'],
+				['7th', 	'#abd9e9'],
+				['8th', 	'#74add1'],
+				['9th', 	'#4575b4'],
+				['10th',	'#313695'],
+			],
+			'population_density': [
+				['10',		'#edf8fb'],
+				['50',		'#bfd3e6'],
+				['100', 	'#9ebcda'],
+				['150',		'#8c96c6'],
+				['200',		'#8856a7'],
+				['600',		'#810f7c'],
+			],
+			'broadband': [
+				['0%',		'#fff7ec'],
+				['2%',		'#fee8c8'],
+				['5%',		'#fdd49e'],
+				['10%',		'#fdbb84'],
+				['50%', 	'#d7301f'],
+				['100%',	'#7f0000'],
+			],
+			'pcycle': [
+				['0-1', 	'#A50026'],
+				['2-3', 	'#D73027'],
+				['4-6', 	'#F46D43'],
+				['7-9', 	'#FDAE61'],
+				['10-14',	'#FEE090'],
+				['15-19',	'#ffffbf'],
+				['20-24',	'#C6DBEF'],
+				['25-29',	'#ABD9E9'],
+				['30-39',	'#74ADD1'],
+				['40',		'#4575B4'],
+			],
+			'pcycle_go_dutch': [		// Actually same as pcycle
+				['0-1',		'#A50026'],
+				['2-3',		'#D73027'],
+				['4-6',		'#F46D43'],
+				['7-9',		'#FDAE61'],
+				['10-14',	'#FEE090'],
+				['15-19',	'#ffffbf'],
+				['20-24',	'#C6DBEF'],
+				['25-29',	'#ABD9E9'],
+				['30-39',	'#74ADD1'],
+				['40',		'#4575B4'],
+			],
+			'_': [	// Default; is time in minutes
+				['3',		'#053061'],
+				['5',		'#2166ac'],
+				['7',		'#4393c3'],
+				['10',		'#92c5de'],
+				['15',		'#f7f7f7'],
+				['30',		'#f4a582'],
+				['60',		'#b2182b'],
+				['200',		'#67001f'],
+			],
+		},
+		// #!# These are presumably restatements of dzLegendColours
+		lineColours: {
+			'SIMD2020v2_Decile': [
+				'#a50026', 1.1,			 // #!# This block is basically enums rather than ranges, so current fudge of .1 is to avoid off-by-one errors
+				'#d73027', 2.1,
+				'#f46d43', 3.1,
+				'#fdae61', 4.1,
+				'#fee090', 5.1,
+				'#e0f3f8', 6.1,
+				'#abd9e9', 7.1,
+				'#74add1', 8.1,
+				'#4575b4', 9.1,
+				'#313695', 10.1,
+				'#000000'
+			],
+			'population_density': [
+				'#edf8fb', 10,
+				'#bfd3e6', 50,
+				'#9ebcda', 100,
+				'#8c96c6', 150,
+				'#8856a7', 200,
+				'#810f7c', 600,
+				'#000000'
+			],
+			'broadband': [
+				'#fff7ec', 0.01,		// #!# Currently zero is used for voids - data should be changed to use known constant e.g. -9999
+				'#fee8c8', 2,
+				'#fdd49e', 5,
+				'#fdbb84', 10,
+				'#d7301f', 50,
+				'#7f0000', 100,
+				'#000000'
+			],
+			'pcycle': [
+				'#A50026', 2,
+				'#D73027', 4,
+				'#F46D43', 7,
+				'#FDAE61', 10,
+				'#FEE090', 15,
+				'#ffffbf', 20,
+				'#C6DBEF', 25,
+				'#ABD9E9', 30,
+				'#74ADD1', 40,
+				'#4575B4', 100,
+				'#000000'
+			],
+			'pcycle_go_dutch': [
+				'#A50026', 2,
+				'#D73027', 4,
+				'#F46D43', 7,
+				'#FDAE61', 10,
+				'#FEE090', 15,
+				'#ffffbf', 20,
+				'#C6DBEF', 25,
+				'#ABD9E9', 30,
+				'#74ADD1', 40,
+				'#4575B4', 100,
+				'#000000'
+			],
+			'_': [		// Default
+				'#053061', 3,
+				'#2166ac', 5,
+				'#4393c3', 7,
+				'#92c5de', 10,
+				'#f7f7f7', 15,
+				'#f4a582', 30,
+				'#b2182b', 60,
+				'#67001f', 200,
+				'#000000'
+			]
+		}
+		/*
+		,
+		// #!# Disabled this popup as of September 2024 - can be deleted later if data issues resolved
+		charts: {
+			
+			// Data fields
+			// #!# Should use a main server URL setting
+			dataUrl: 'https://nptscot.blob.core.windows.net/json/DataZone/%id.json',
+			propertiesField: 'DataZone',
+			titleField: 'DataZone',
+			
+			// Title
+			titlePrefix: 'Zone Summary: ',
+
+			charts: [
+				[
+					// Commute Origin
+					'comm_orig',
+					'Commuters leaving',
+					'The bar chart shows estimated mode shares under different scenarios for commuters leaving this zone. (i.e they live here and commute to another zone).',
+					'Annual Average Daily Flow'
+				],
+				[
+					// Commute Destination
+					'comm_dest',
+					'Commuters arriving',
+					'The bar chart shows estimated mode shares under different scenarios for commuters arriving this zone. (i.e they work here and live in another zone).',
+					'Annual Average Daily Flow'
+				],
+				[
+					// School Primary Origin
+					'schl_primary_orig',
+					'Primary school children',
+					'The bar chart shows estimated mode shares under different scenarios for primary school childen that live in this zone.',
+					'Annual Average Daily Flow'
+				],
+				[
+					// School Secondary Origin
+					'schl_secondary_orig',
+					'Secondary school children',
+					'The bar chart shows estimated mode shares under different scenarios for secondary school childen that live in this zone.',
+					'Annual Average Daily Flow'
+				],
+				[
+					// shopping Origin
+					'shopping_orig',
+					'Shoppers leaving',
+					'The bar chart shows estimated mode shares of shopping trips under different scenarios for trips leaving this zone.',
+					'Annual Average Daily Flow'
+				],
+				[
+					// shopping Destination
+					'shopping_dest',
+					'Shoppers arriving',
+					'The bar chart shows estimated mode shares of shopping trips under different scenarios for trips arriving this zone.',
+					'Annual Average Daily Flow'
+				],
+				[
+					// leisure Origin
+					'leisure_orig',
+					'Leisure trips leaving',
+					'The bar chart shows estimated mode shares of leisure trips under different scenarios for trips leaving this zone.',
+					'Annual Average Daily Flow'
+				],
+				[
+					// leisure Destination
+					'leisure_dest',
+					'Leisure trips arriving',
+					'The bar chart shows estimated mode shares of leisure trips under different scenarios for trips arriving this zone.',
+					'Annual Average Daily Flow'
+				],
+				[
+					// visiting Origin
+					'visiting_orig',
+					'Visiting friends and family trips leaving',
+					'The bar chart shows estimated mode shares of trips for visiting friends and family under different scenarios for trips leaving this zone.',
+					'Annual Average Daily Flow'
+				],
+				[
+					// visiting Destination
+					'visiting_dest',
+					'Visiting friends and family trips arriving',
+					'The bar chart shows estimated mode shares of trips for visiting friends and family under different scenarios for trips arriving this zone.',
+					'Annual Average Daily Flow'
+				],
+			],
+
+			modes: [
+				// Label, field (e.g. bicycle => comm_orig_bicycle_ebike_fastest), background colour, border colour
+				['Bicycle', 'bicycle', 'rgba(51,160,44, 0.8)', 'rgba(51,160,44, 1)'],
+				['Foot', 'foot', 'rgba(178,223,138, 0.8)', 'rgba(178,223,138, 1)'],
+				['Public transport', 'public_transport', 'rgba(56,108,176, 0.8)', 'rgba(56,108,176, 1)'],
+				['Car', 'car', 'rgba(227,26,28, 0.8)', 'rgba(227,26,28, 1)'],
+				['Taxi', 'taxi', 'rgba(166,206,227, 0.8)', 'rgba(166,206,227, 1)'],
+			],
+
+			// Scenario suffixes and their labels
+			scenarios: [
+				['', 'Baseline'],
+				['_go_dutch_fastest', 'Go Dutch (Fastest)'],
+				['_ebike_fastest', 'Ebike (Fastest)'],
+				['_go_dutch_quietest', 'Go Dutch (Quietest)'],
+				['_ebike_quietest', 'Ebike (Quietest)']
+			]
+		}
+		*/
+	},
+	
+	busroutes: {
+		layer: {
+			'id': 'busroutes',
+			'type': 'line',
+			'source': {
+				'type': 'vector',
+				'url': 'pmtiles://%tileserverUrl/osm_bus_route_pmtiles.pmtiles',
 			},
-			popups: {
-				layerId: 'busroutes',
-				templateId: 'busroutes-popup'
+			'source-layer': 'osm_bus_route',
+			'paint': {
+				'line-color': 'red',
+				'line-width': 2
 			}
 		},
-		
-		schools: {
-			layer: {
-				'id': 'schools',
-				'type': 'circle',
-				'source': {
-					'type': 'vector',
-					'url': 'pmtiles://%tileserverUrl/schools-2023-12-17.pmtiles',
-				},
-				'source-layer': 'schools',
-				'paint': {
-					"circle-color": [
-						'match',
-						['get', 'SchoolType'],
-						'Primary','#313695',
-						'Secondary','#a50026',
-						/* other */ '#43f22c'
-					],
-					// make circles larger as the user zooms
-					'circle-radius': {
-						'base': 5,
-						'stops': [
-							[8, 6],
-							[22, 180]
-						]
-					},
-					'circle-stroke-color': '#ccc',
-					'circle-stroke-width': 1
-				}
-			}
-			/*
-			,
-			// Travel to School Modeshare
-			charts: {
-
-				// Data fields
-				dataUrl: 'https://nptscot.blob.core.windows.net/json/School/%id.json',
-				propertiesField: 'SeedCode',
-				titleField: 'SchoolName',
-
-				// Title
-				titlePrefix: '',
-
-				charts: [
-					[
-						// School Primary Destination
-						'schl_primary_dest',
-						'Primary school modal split',
-						'The bar chart shows estimated mode shares for primary school children under different scenarios.',
-						'Annual Average Daily Flow'
-					],
-					[
-						// School Secondary Destination
-						'schl_secondary_dest',
-						'Secondary school modal split',
-						'The bar chart shows estimated mode shares for secondary school children under different scenarios.',
-						'Annual Average Daily Flow'
-					],
+		popups: {
+			layerId: 'busroutes',
+			templateId: 'busroutes-popup'
+		}
+	},
+	
+	schools: {
+		layer: {
+			'id': 'schools',
+			'type': 'circle',
+			'source': {
+				'type': 'vector',
+				'url': 'pmtiles://%tileserverUrl/schools-2023-12-17.pmtiles',
+			},
+			'source-layer': 'schools',
+			'paint': {
+				"circle-color": [
+					'match',
+					['get', 'SchoolType'],
+					'Primary','#313695',
+					'Secondary','#a50026',
+					/* other */ '#43f22c'
 				],
+				// make circles larger as the user zooms
+				'circle-radius': {
+					'base': 5,
+					'stops': [
+						[8, 6],
+						[22, 180]
+					]
+				},
+				'circle-stroke-color': '#ccc',
+				'circle-stroke-width': 1
+			}
+		}
+		/*
+		,
+		// Travel to School Modeshare
+		charts: {
 
-				modes: [
-					// Label, field (e.g. bicycle => comm_orig_bicycle_ebike_fastest), background colour, border colour
-					['Bicycle', 'bicycle', 'rgba(51,160,44, 0.8)', 'rgba(51,160,44, 1)'],
-					['Foot', 'foot', 'rgba(178,223,138, 0.8)', 'rgba(178,223,138, 1)'],
-					['Public transport', 'public_transport', 'rgba(56,108,176, 0.8)', 'rgba(56,108,176, 1)'],
-					['Car', 'car', 'rgba(227,26,28, 0.8)', 'rgba(227,26,28, 1)'],
-					['Other', 'other', 'rgba(166,206,227, 0.8)', 'rgba(166,206,227, 1)'], // #!# NB the main modal has taxi rather than other
+			// Data fields
+			dataUrl: 'https://nptscot.blob.core.windows.net/json/School/%id.json',
+			propertiesField: 'SeedCode',
+			titleField: 'SchoolName',
+
+			// Title
+			titlePrefix: '',
+
+			charts: [
+				[
+					// School Primary Destination
+					'schl_primary_dest',
+					'Primary school modal split',
+					'The bar chart shows estimated mode shares for primary school children under different scenarios.',
+					'Annual Average Daily Flow'
 				],
+				[
+					// School Secondary Destination
+					'schl_secondary_dest',
+					'Secondary school modal split',
+					'The bar chart shows estimated mode shares for secondary school children under different scenarios.',
+					'Annual Average Daily Flow'
+				],
+			],
 
-				// Scenario suffixes and their labels
-				scenarios: [
-					['', 'Baseline'],
-					['_go_dutch_fastest', 'Go Dutch (Fastest)'],
-					['_ebike_fastest', 'Ebike (Fastest)'],
-					['_go_dutch_quietest', 'Go Dutch (Quietest)'],
-					['_ebike_quietest', 'Ebike (Quietest)']
-				]
-			}
-			*/
-		},
-		
-		wards: {
-			layer: {
-				'id': 'wards',
-				'type': 'line',
-				'source': {
-					'type': 'vector',
-					'url': 'pmtiles://%tileserverUrl/wards.pmtiles',
-				},
-				'source-layer': 'wards',
-				'paint': {
-					'line-color': 'rgba(32, 107, 7, 1)',
-					'line-width': 2
-				}
-			}
-		},
-		
-		holyrood: {
-			layer: {
-				'id': 'holyrood',
-				'type': 'line',
-				'source': {
-					'type': 'vector',
-					'url': 'pmtiles://%tileserverUrl/holyrood.pmtiles',
-				},
-				'source-layer': 'holyrood',
-				'paint': {
-					'line-color': 'rgba(83, 123, 252, 1)',
-					'line-width': 2
-				}
-			}
-		},
-		
-		la: {
-			layer: {
-				'id': 'la',
-				'type': 'line',
-				'source': {
-					'type': 'vector',
-					'url': 'pmtiles://%tileserverUrl/la.pmtiles',
-				},
-				'source-layer': 'la',
-				'paint': {
-					'line-color': 'rgba(107, 7, 7, 1)',
-					'line-width': 2
-				}
-			}
-		},
-		
-		urbanrural: {
-			layer: {
-				'id': 'urbanrural',
-				'type': 'line',
-				'source': {
-					'type': 'vector',
-					'url': 'pmtiles://%tileserverUrl/SG_Urban_2020.pmtiles',
-				},
-				'source-layer': 'coherent_networks',
-				'paint': {
-					'line-color': '#8dd3c7',
-					'line-width': 2,
-				}
-			}
-		},
-		
-		clos: {
-			layer: {
-				'id': 'clos',
-				'type': 'line',
-				'source': {
-					'type': 'vector',
-					'url': 'pmtiles://%tileserverUrl/cbd_layer_2025-03-01.pmtiles',
-				},
-				'source-layer': 'cbd_layer',
-				'paint': {
-					'line-color': '#603',
-					'line-width': 2
-				}
+			modes: [
+				// Label, field (e.g. bicycle => comm_orig_bicycle_ebike_fastest), background colour, border colour
+				['Bicycle', 'bicycle', 'rgba(51,160,44, 0.8)', 'rgba(51,160,44, 1)'],
+				['Foot', 'foot', 'rgba(178,223,138, 0.8)', 'rgba(178,223,138, 1)'],
+				['Public transport', 'public_transport', 'rgba(56,108,176, 0.8)', 'rgba(56,108,176, 1)'],
+				['Car', 'car', 'rgba(227,26,28, 0.8)', 'rgba(227,26,28, 1)'],
+				['Other', 'other', 'rgba(166,206,227, 0.8)', 'rgba(166,206,227, 1)'], // #!# NB the main modal has taxi rather than other
+			],
+
+			// Scenario suffixes and their labels
+			scenarios: [
+				['', 'Baseline'],
+				['_go_dutch_fastest', 'Go Dutch (Fastest)'],
+				['_ebike_fastest', 'Ebike (Fastest)'],
+				['_go_dutch_quietest', 'Go Dutch (Quietest)'],
+				['_ebike_quietest', 'Ebike (Quietest)']
+			]
+		}
+		*/
+	},
+	
+	wards: {
+		layer: {
+			'id': 'wards',
+			'type': 'line',
+			'source': {
+				'type': 'vector',
+				'url': 'pmtiles://%tileserverUrl/wards.pmtiles',
 			},
-			sublayers: {
-				'Level of Service': {
-					label: 'Level of service',
-					type: 'match',
-					styles: {
-						'line-color': {
-							// Commented out as not used, requires new data
-							// 'Should not be used': 'darkred',
-							'Low': 'red',
-							'Medium': '#d27d2d',
-							'High': 'mediumseagreen',
-							'_': 'gray',
-						},
-						'line-width': {
-							'Low': 4,
-							'Medium': 4,
-							'High': 4,
-							'_': 4,
-						}
-					}
-				},
-				'Traffic volume category': {
-					label: 'Traffic volume category',
-					type: 'match',
-					styles: {
-						'line-color': {
-							'0 to 1999': '#27918d',
-							'2000 to 3999': '#ffaa33',
-							'4000+': '#440154',
-							'_': 'gray',
-						},
-						'line-width': {
-							'0 to 1999': 2,
-							'2000 to 3999': 3,
-							'4000+': 4,
-							'_': 2,
-						}
-					}
-				},
-				'Speed limit': {
-					label: 'Estimated speed limit',
-					type: 'match',
-					styles: {
-						'line-color': {
-							20: '#8a9a5b',
-							30: '#ffc300',
-							40: '#cc5500',
-							50: '#c70039',
-							60: '#900c3f',
-							70: '#581845',
-							'_': 'gray',
-						},
-						'line-width': {
-							20: 2,
-							30: 2,
-							40: 2,
-							50: 2,
-							60: 2,
-							70: 2,
-							'_': 2,
-						}
-					}
-				},
-				'Infrastructure type': {
-					label: 'Infrastructure type',
-					type: 'match',
-					styles: {
-						'line-color': {
-							'Segregated Track (wide)': '#054d05',
-							'Off Road Cycleway': '#3a9120',
-							'Segregated Track (narrow)': '#87d668',
-							'Shared Footway': '#ffbf00',
-							'Painted Cycle Lane': '#ff0000',
-							'_': 'rgba(0, 0, 0, 0)', // Invisible
-						},
-						'line-width': {
-							'Segregated Track (wide)': 6,
-							'Off Road Cycleway': 4,
-							'Segregated Track (narrow)': 4,
-							'Shared Footway': 3,
-							'Painted Cycle Lane': 1.8,
-							'_': 2,
-						}
-					}
-				},
-			},
-			popups: {
-				layerId: 'clos',
-				templateId: 'clos-popup'
-			}
-		},
-		streetspace: {
-			layer: {
-				'id': 'streetspace',
-				'type': 'line',
-				'source': {
-					'type': 'vector',
-					'url': 'pmtiles://%tileserverUrl/os_networks_categorized_street_space_with_widths.pmtiles',
-				},
-				'source-layer': 'street_space',
-				'paint': {
-					'line-color': 'gray',		// Overriden below in sublayers, as is a multi-field dataset
-					'line-width': 4
-				}
-			},
-			sublayers: {
-				'carriageway_1way,carriageway_2way,combined_1way,combined_2way': {		// Same match style for each sublayer; will be expanded
-					label: 'Street space',
-					type: 'match',
-					styles: {
-						'line-color': {
-							'Not enough space': '#dd7777',
-							'Absolute minimum': '#e0b97d',
-							'Desirable minimum': '#75a375',
-							'_': 'rgba(0, 0, 0, 0)', // Invisible
-						}
-					}
-				}
-			},
-			popups: {
-				layerId: 'streetspace',
-				templateId: 'streetspace-popup'
-			}
-		},
-		
-		// #!# Tiles filename, and source layer still reflect the old name, and need to be updated
-		coherentnetwork: {
-			layer: {
-				'id': 'coherentnetwork',
-				'type': 'line',
-				'source': {
-					'type': 'vector',
-					'url': 'pmtiles://%tileserverUrl/combined_CN_4_2025-03-01_OS.pmtiles',
-				},
-				'source-layer': 'coherent_networks',
-				'paint': {
-					'line-color': [
-						'match',
-						['get', 'road_function_npt'],
-						'Primary', '#e73f74',
-						'Secondary', '#f1ce63',
-						// 'Local Access', '#7faedd',
-						/* other */ '#808080'
-					],
-					'line-width': 3
-				},
-				'_filtering': 'road_function_npt'
+			'source-layer': 'wards',
+			'paint': {
+				'line-color': 'rgba(32, 107, 7, 1)',
+				'line-width': 2
 			}
 		}
 	},
+	
+	holyrood: {
+		layer: {
+			'id': 'holyrood',
+			'type': 'line',
+			'source': {
+				'type': 'vector',
+				'url': 'pmtiles://%tileserverUrl/holyrood.pmtiles',
+			},
+			'source-layer': 'holyrood',
+			'paint': {
+				'line-color': 'rgba(83, 123, 252, 1)',
+				'line-width': 2
+			}
+		}
+	},
+	
+	la: {
+		layer: {
+			'id': 'la',
+			'type': 'line',
+			'source': {
+				'type': 'vector',
+				'url': 'pmtiles://%tileserverUrl/la.pmtiles',
+			},
+			'source-layer': 'la',
+			'paint': {
+				'line-color': 'rgba(107, 7, 7, 1)',
+				'line-width': 2
+			}
+		}
+	},
+	
+	urbanrural: {
+		layer: {
+			'id': 'urbanrural',
+			'type': 'line',
+			'source': {
+				'type': 'vector',
+				'url': 'pmtiles://%tileserverUrl/SG_Urban_2020.pmtiles',
+			},
+			'source-layer': 'coherent_networks',
+			'paint': {
+				'line-color': '#8dd3c7',
+				'line-width': 2,
+			}
+		}
+	},
+	
+	clos: {
+		layer: {
+			'id': 'clos',
+			'type': 'line',
+			'source': {
+				'type': 'vector',
+				'url': 'pmtiles://%tileserverUrl/cbd_layer_2025-03-01.pmtiles',
+			},
+			'source-layer': 'cbd_layer',
+			'paint': {
+				'line-color': '#603',
+				'line-width': 2
+			}
+		},
+		sublayers: {
+			'Level of Service': {
+				label: 'Level of service',
+				type: 'match',
+				styles: {
+					'line-color': {
+						// Commented out as not used, requires new data
+						// 'Should not be used': 'darkred',
+						'Low': 'red',
+						'Medium': '#d27d2d',
+						'High': 'mediumseagreen',
+						'_': 'gray',
+					},
+					'line-width': {
+						'Low': 4,
+						'Medium': 4,
+						'High': 4,
+						'_': 4,
+					}
+				}
+			},
+			'Traffic volume category': {
+				label: 'Traffic volume category',
+				type: 'match',
+				styles: {
+					'line-color': {
+						'0 to 1999': '#27918d',
+						'2000 to 3999': '#ffaa33',
+						'4000+': '#440154',
+						'_': 'gray',
+					},
+					'line-width': {
+						'0 to 1999': 2,
+						'2000 to 3999': 3,
+						'4000+': 4,
+						'_': 2,
+					}
+				}
+			},
+			'Speed limit': {
+				label: 'Estimated speed limit',
+				type: 'match',
+				styles: {
+					'line-color': {
+						20: '#8a9a5b',
+						30: '#ffc300',
+						40: '#cc5500',
+						50: '#c70039',
+						60: '#900c3f',
+						70: '#581845',
+						'_': 'gray',
+					},
+					'line-width': {
+						20: 2,
+						30: 2,
+						40: 2,
+						50: 2,
+						60: 2,
+						70: 2,
+						'_': 2,
+					}
+				}
+			},
+			'Infrastructure type': {
+				label: 'Infrastructure type',
+				type: 'match',
+				styles: {
+					'line-color': {
+						'Segregated Track (wide)': '#054d05',
+						'Off Road Cycleway': '#3a9120',
+						'Segregated Track (narrow)': '#87d668',
+						'Shared Footway': '#ffbf00',
+						'Painted Cycle Lane': '#ff0000',
+						'_': 'rgba(0, 0, 0, 0)', // Invisible
+					},
+					'line-width': {
+						'Segregated Track (wide)': 6,
+						'Off Road Cycleway': 4,
+						'Segregated Track (narrow)': 4,
+						'Shared Footway': 3,
+						'Painted Cycle Lane': 1.8,
+						'_': 2,
+					}
+				}
+			},
+		},
+		popups: {
+			layerId: 'clos',
+			templateId: 'clos-popup'
+		}
+	},
+	streetspace: {
+		layer: {
+			'id': 'streetspace',
+			'type': 'line',
+			'source': {
+				'type': 'vector',
+				'url': 'pmtiles://%tileserverUrl/os_networks_categorized_street_space_with_widths.pmtiles',
+			},
+			'source-layer': 'street_space',
+			'paint': {
+				'line-color': 'gray',		// Overriden below in sublayers, as is a multi-field dataset
+				'line-width': 4
+			}
+		},
+		sublayers: {
+			'carriageway_1way,carriageway_2way,combined_1way,combined_2way': {		// Same match style for each sublayer; will be expanded
+				label: 'Street space',
+				type: 'match',
+				styles: {
+					'line-color': {
+						'Not enough space': '#dd7777',
+						'Absolute minimum': '#e0b97d',
+						'Desirable minimum': '#75a375',
+						'_': 'rgba(0, 0, 0, 0)', // Invisible
+					}
+				}
+			}
+		},
+		popups: {
+			layerId: 'streetspace',
+			templateId: 'streetspace-popup'
+		}
+	},
+	
+	// #!# Tiles filename, and source layer still reflect the old name, and need to be updated
+	coherentnetwork: {
+		layer: {
+			'id': 'coherentnetwork',
+			'type': 'line',
+			'source': {
+				'type': 'vector',
+				'url': 'pmtiles://%tileserverUrl/combined_CN_4_2025-03-01_OS.pmtiles',
+			},
+			'source-layer': 'coherent_networks',
+			'paint': {
+				'line-color': [
+					'match',
+					['get', 'road_function_npt'],
+					'Primary', '#e73f74',
+					'Secondary', '#f1ce63',
+					// 'Local Access', '#7faedd',
+					/* other */ '#808080'
+				],
+				'line-width': 3
+			},
+			'_filtering': 'road_function_npt'
+		}
+	}
 };
 
 
@@ -758,7 +754,7 @@ function rnetStyling (layerId, map, settings, datasets, createLegend /* callback
 {
 	// Update the Legend - Do this even if map layer is off
 	const colour = document.querySelector ('select.updatelayer[data-layer="rnet"][name="colour"]').value;
-	createLegend (datasets.layers['rnet'].legends[colour], 'linecolourlegend');
+	createLegend (datasets['rnet'].legends[colour], 'linecolourlegend');
 	
 	// No special handling needed if not visible
 	if (!document.querySelector ('input.showlayer[data-layer="' + layerId + '"]').checked) {
@@ -790,20 +786,20 @@ function rnetStyling (layerId, map, settings, datasets, createLegend /* callback
 	
 	// Define line colour
 	const line_colours = {
-		'none': datasets.layers['rnet'].lineColours.none,
+		'none': datasets['rnet'].lineColours.none,
 		'flow': [
 			'step', ['get', layerWidthField],
-			...datasets.layers['rnet'].lineColours.flow,
+			...datasets['rnet'].lineColours.flow,
 			'#FF00C5'
 		],
 		'quietness': [
 			'step', ['get', 'quietness'],
-			...datasets.layers['rnet'].lineColours.quietness,
+			...datasets['rnet'].lineColours.quietness,
 			'#000000'
 		],
 		'gradient': [
 			'step', ['get', 'gradient'],
-			...datasets.layers['rnet'].lineColours.gradient,
+			...datasets['rnet'].lineColours.gradient,
 			'#000000'
 		]
 	};
@@ -836,7 +832,7 @@ function data_zonesStyling (layerId, map, settings, datasets, createLegend /* ca
 {
 	// Update the legend (even if map layer is off)
 	const field = document.querySelector ('select.updatelayer[data-layer="data_zones"][name="field"]').value
-	const legendColours = (datasets.layers['data_zones'].legends.hasOwnProperty(field) ? datasets.layers['data_zones'].legends[field] : datasets.layers['data_zones'].legends['_']);
+	const legendColours = (datasets['data_zones'].legends.hasOwnProperty(field) ? datasets['data_zones'].legends[field] : datasets['data_zones'].legends['_']);
 	createLegend (legendColours, 'dzlegend');
 	
 	// Get UI state
@@ -876,8 +872,8 @@ function getBuildingsColour (settings)
 // Function to determine the style column
 function getStyleColumn (layerId, datasets)
 {
-	const style_col_selected = datasets.layers['data_zones'].lineColours.hasOwnProperty(layerId) ? layerId : '_';
-	return datasets.layers['data_zones'].lineColours[style_col_selected];
+	const style_col_selected = datasets['data_zones'].lineColours.hasOwnProperty(layerId) ? layerId : '_';
+	return datasets['data_zones'].lineColours[style_col_selected];
 }
 
 

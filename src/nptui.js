@@ -259,7 +259,7 @@ const nptUi = (function () {
 		{
 			// Initialise layer state structure
 			_state.layers = {};
-			Object.keys (_datasets.layers).forEach (layerId => {
+			Object.keys (_datasets).forEach (layerId => {
 				_state.layers[layerId] = {
 					enabled: false,
 					parameters: {},
@@ -273,7 +273,7 @@ const nptUi = (function () {
 			});
 			
 			// Obtain initial parameter state for each layer
-			Object.keys (_datasets.layers).forEach (layerId => {
+			Object.keys (_datasets).forEach (layerId => {
 				const parameters = nptUi.serialiseParameters ('div.layertools-' + layerId);
 				_state.layers[layerId].parametersInitial = Object.freeze (Object.assign ({}, parameters));		// Acts as a reference state; will not be amended
 				_state.layers[layerId].parameters = Object.assign ({}, parameters);
@@ -890,7 +890,7 @@ const nptUi = (function () {
 			
 			
 			// Track form parameters into the state
-			Object.keys (_datasets.layers).forEach (layerId => {
+			Object.keys (_datasets).forEach (layerId => {
 				document.querySelectorAll ('div.layertools-' + layerId + ' .updatelayer').forEach ((input) => {
 					input.addEventListener ('change', function () {
 						_state.layers[layerId].parameters = nptUi.serialiseParameters ('div.layertools-' + layerId);
@@ -906,7 +906,7 @@ const nptUi = (function () {
 				nptUi.initialiseDatasets ();
 				
 				// Implement initial visibility state for all layers
-				Object.keys (_datasets.layers).forEach (layerId => {
+				Object.keys (_datasets).forEach (layerId => {
 					nptUi.toggleLayer (layerId);
 				});
 				
@@ -935,34 +935,34 @@ const nptUi = (function () {
 			// console.log ('Initialising sources and layers');
 			
 			// Replace tileserver URL placeholder in layer definitions
-			Object.entries (_datasets.layers).forEach(([layerId, layer]) => {
+			Object.entries (_datasets).forEach(([layerId, layer]) => {
 				let tileserverUrl = (_settings.tileserverTempLocalOverrides[layerId] ? _settings.tileserverTempLocalOverrides[layerId] : _settings.tileserverUrl);
-				_datasets.layers[layerId].layer.source.url = layer.layer.source.url.replace ('%tileserverUrl', tileserverUrl)
+				_datasets[layerId].layer.source.url = layer.layer.source.url.replace ('%tileserverUrl', tileserverUrl)
 				//console.log (`Setting source.url for layer ${layerId} to ${layer.layer.source.url}`);
 			});
 			
 			// Expand any sublayer definitions where they have same styling for multiple layers, separated by comma
-			Object.entries (_datasets.layers).forEach (([layerId, layer]) => {
+			Object.entries (_datasets).forEach (([layerId, layer]) => {
 				if (layer.sublayers) {
 					Object.entries (layer.sublayers).forEach (function ([sublayerIdString, sublayer]) {
 						if (sublayerIdString.includes (',')) {
 							const sublayerIds = sublayerIdString.split (',');
 							sublayerIds.forEach (function (sublayerId) {
-								_datasets.layers[layerId].sublayers[sublayerId] = sublayer;		// Expand
+								_datasets[layerId].sublayers[sublayerId] = sublayer;		// Expand
 							});
-							delete _datasets.layers[layerId].sublayers[sublayerIdString];	// Remove original comma-separated list
+							delete _datasets[layerId].sublayers[sublayerIdString];	// Remove original comma-separated list
 						}
 					});
 				}
 			});
 			
 			// Add layers, and their sources, initially not visible when initialised
-			Object.keys(_datasets.layers).forEach(layerId => {
+			Object.keys(_datasets).forEach(layerId => {
 				const beforeId = (layerId == 'data_zones' ? 'roads 0 Guided Busway Casing' : 'placeholder_name'); // #!# Needs to be moved to definitions
-				_datasets.layers[layerId].layer.layout = {
+				_datasets[layerId].layer.layout = {
 					visibility: 'none'
 				};
-				_map.addLayer(_datasets.layers[layerId].layer, beforeId);
+				_map.addLayer(_datasets[layerId].layer, beforeId);
 			});
 		},
 		
@@ -973,17 +973,17 @@ const nptUi = (function () {
 			
 			// Use static sublayer styling definitions, if present, on initial load and on sublayer change
 			// #!# This is incrementally added each time toggle is done; should be moved up a level so there is only a single registration
-			if (_datasets.layers[layerId].sublayers) {
+			if (_datasets[layerId].sublayers) {
 				nptUi.setSublayerStyle (layerId);
 				document.querySelector ('.updatelayer[data-layer="' + layerId + '"]').addEventListener ('change', function () {
 					nptUi.setSublayerStyle (layerId);
 				});
 				
 			// Check for a dynamic styling callback and run it if present
-			} else if (_datasets.layers[layerId].layerStyling) {
-				_datasets.layers[layerId].layerStyling (layerId, _map, _settings, _datasets, nptUi.createLegend);
+			} else if (_datasets[layerId].layerStyling) {
+				_datasets[layerId].layerStyling (layerId, _map, _settings, _datasets, nptUi.createLegend);
 			} else {
-				nptUi.createLegend (datasets.layers[layerId].legends, layerId + 'legend');
+				nptUi.createLegend (datasets[layerId].legends, layerId + 'legend');
 			}
 			
 			// Set state of layer
@@ -1015,7 +1015,7 @@ const nptUi = (function () {
 			// Determine the field
 			const control = document.querySelector ('.updatelayer[data-layer="' + layerId + '"]');
 			const fieldname = document.querySelector ('.updatelayer[data-layer="' + layerId + '"]' + (control.type == 'radio' ? ':checked' : '')).value;
-			const sublayer = _datasets.layers[layerId].sublayers[fieldname];
+			const sublayer = _datasets[layerId].sublayers[fieldname];
 			
 			// Set each style (e.g. line-color)
 			Object.entries (sublayer.styles).forEach (function ([style, styleValueLookups]) {
@@ -1121,7 +1121,7 @@ const nptUi = (function () {
 					
 					// Determine the layer and its field to filter on
 					const layerId = checkbox.name.replace ('legendfilter_', '');
-					const field = _datasets.layers[layerId].layer._filtering;
+					const field = _datasets[layerId].layer._filtering;
 					
 					// Get all the checkboxes that are checked for this layer
 					const checkedInLayer = [...document.querySelectorAll ('input[type="checkbox"][class="legendfilter"][name="legendfilter_' + layerId + '"]')]
@@ -1139,7 +1139,7 @@ const nptUi = (function () {
 		createPopups: function ()
 		{
 			// Add to each layer
-			Object.entries (_datasets.layers).forEach (([layerId, layer]) => {
+			Object.entries (_datasets).forEach (([layerId, layer]) => {
 				if (layer.popups) {
 					nptUi.mapPopups (layerId, layer.popups);
 				}
@@ -1411,7 +1411,7 @@ const nptUi = (function () {
 			}
 			
 			// Create each set of charts
-			Object.entries (_datasets.layers).forEach(([layerId, layer]) => {
+			Object.entries (_datasets).forEach(([layerId, layer]) => {
 				if (layer.charts) {
 					chartsModal (layerId, layer.charts);
 				}
