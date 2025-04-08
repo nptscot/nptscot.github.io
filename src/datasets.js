@@ -140,6 +140,171 @@ const datasets = {
 		}
 	},
 	
+	// #!# Tiles filename, and source layer still reflect the old name, and need to be updated
+	coherentnetwork: {
+		layer: {
+			'id': 'coherentnetwork',
+			'type': 'line',
+			'source': {
+				'type': 'vector',
+				'url': 'pmtiles://%tileserverUrl/combined_CN_4_2025-03-01_OS.pmtiles',
+			},
+			'source-layer': 'coherent_networks',
+			'paint': {
+				'line-color': [
+					'match',
+					['get', 'road_function_npt'],
+					'Primary', '#e73f74',
+					'Secondary', '#f1ce63',
+					// 'Local Access', '#7faedd',
+					/* other */ '#808080'
+				],
+				'line-width': 3
+			},
+			'_filtering': 'road_function_npt'
+		}
+	},
+	
+	clos: {
+		layer: {
+			'id': 'clos',
+			'type': 'line',
+			'source': {
+				'type': 'vector',
+				'url': 'pmtiles://%tileserverUrl/cbd_layer_2025-03-01.pmtiles',
+			},
+			'source-layer': 'cbd_layer',
+			'paint': {
+				'line-color': '#603',
+				'line-width': 2
+			}
+		},
+		sublayers: {
+			'Level of Service': {
+				label: 'Level of service',
+				type: 'match',
+				styles: {
+					'line-color': {
+						// Commented out as not used, requires new data
+						// 'Should not be used': 'darkred',
+						'Low': 'red',
+						'Medium': '#d27d2d',
+						'High': 'mediumseagreen',
+						'_': 'gray',
+					},
+					'line-width': {
+						'Low': 4,
+						'Medium': 4,
+						'High': 4,
+						'_': 4,
+					}
+				}
+			},
+			'Traffic volume category': {
+				label: 'Traffic volume category',
+				type: 'match',
+				styles: {
+					'line-color': {
+						'0 to 1999': '#27918d',
+						'2000 to 3999': '#ffaa33',
+						'4000+': '#440154',
+						'_': 'gray',
+					},
+					'line-width': {
+						'0 to 1999': 2,
+						'2000 to 3999': 3,
+						'4000+': 4,
+						'_': 2,
+					}
+				}
+			},
+			'Speed limit': {
+				label: 'Estimated speed limit',
+				type: 'match',
+				styles: {
+					'line-color': {
+						20: '#8a9a5b',
+						30: '#ffc300',
+						40: '#cc5500',
+						50: '#c70039',
+						60: '#900c3f',
+						70: '#581845',
+						'_': 'gray',
+					},
+					'line-width': {
+						20: 2,
+						30: 2,
+						40: 2,
+						50: 2,
+						60: 2,
+						70: 2,
+						'_': 2,
+					}
+				}
+			},
+			'Infrastructure type': {
+				label: 'Infrastructure type',
+				type: 'match',
+				styles: {
+					'line-color': {
+						'Segregated Track (wide)': '#054d05',
+						'Off Road Cycleway': '#3a9120',
+						'Segregated Track (narrow)': '#87d668',
+						'Shared Footway': '#ffbf00',
+						'Painted Cycle Lane': '#ff0000',
+						'_': 'rgba(0, 0, 0, 0)', // Invisible
+					},
+					'line-width': {
+						'Segregated Track (wide)': 6,
+						'Off Road Cycleway': 4,
+						'Segregated Track (narrow)': 4,
+						'Shared Footway': 3,
+						'Painted Cycle Lane': 1.8,
+						'_': 2,
+					}
+				}
+			},
+		},
+		popups: {
+			layerId: 'clos',
+			templateId: 'clos-popup'
+		}
+	},
+	
+	streetspace: {
+		layer: {
+			'id': 'streetspace',
+			'type': 'line',
+			'source': {
+				'type': 'vector',
+				'url': 'pmtiles://%tileserverUrl/os_networks_categorized_street_space_with_widths.pmtiles',
+			},
+			'source-layer': 'street_space',
+			'paint': {
+				'line-color': 'gray',		// Overriden below in sublayers, as is a multi-field dataset
+				'line-width': 4
+			}
+		},
+		sublayers: {
+			'carriageway_1way,carriageway_2way,combined_1way,combined_2way': {		// Same match style for each sublayer; will be expanded
+				label: 'Street space',
+				type: 'match',
+				styles: {
+					'line-color': {
+						'Not enough space': '#dd7777',
+						'Absolute minimum': '#e0b97d',
+						'Desirable minimum': '#75a375',
+						'_': 'rgba(0, 0, 0, 0)', // Invisible
+					}
+				}
+			}
+		},
+		popups: {
+			layerId: 'streetspace',
+			templateId: 'streetspace-popup'
+		}
+	},
+	
 	data_zones: {
 		layer: {
 			'id': 'data_zones',
@@ -560,170 +725,6 @@ const datasets = {
 				'line-color': '#8dd3c7',
 				'line-width': 2,
 			}
-		}
-	},
-	
-	clos: {
-		layer: {
-			'id': 'clos',
-			'type': 'line',
-			'source': {
-				'type': 'vector',
-				'url': 'pmtiles://%tileserverUrl/cbd_layer_2025-03-01.pmtiles',
-			},
-			'source-layer': 'cbd_layer',
-			'paint': {
-				'line-color': '#603',
-				'line-width': 2
-			}
-		},
-		sublayers: {
-			'Level of Service': {
-				label: 'Level of service',
-				type: 'match',
-				styles: {
-					'line-color': {
-						// Commented out as not used, requires new data
-						// 'Should not be used': 'darkred',
-						'Low': 'red',
-						'Medium': '#d27d2d',
-						'High': 'mediumseagreen',
-						'_': 'gray',
-					},
-					'line-width': {
-						'Low': 4,
-						'Medium': 4,
-						'High': 4,
-						'_': 4,
-					}
-				}
-			},
-			'Traffic volume category': {
-				label: 'Traffic volume category',
-				type: 'match',
-				styles: {
-					'line-color': {
-						'0 to 1999': '#27918d',
-						'2000 to 3999': '#ffaa33',
-						'4000+': '#440154',
-						'_': 'gray',
-					},
-					'line-width': {
-						'0 to 1999': 2,
-						'2000 to 3999': 3,
-						'4000+': 4,
-						'_': 2,
-					}
-				}
-			},
-			'Speed limit': {
-				label: 'Estimated speed limit',
-				type: 'match',
-				styles: {
-					'line-color': {
-						20: '#8a9a5b',
-						30: '#ffc300',
-						40: '#cc5500',
-						50: '#c70039',
-						60: '#900c3f',
-						70: '#581845',
-						'_': 'gray',
-					},
-					'line-width': {
-						20: 2,
-						30: 2,
-						40: 2,
-						50: 2,
-						60: 2,
-						70: 2,
-						'_': 2,
-					}
-				}
-			},
-			'Infrastructure type': {
-				label: 'Infrastructure type',
-				type: 'match',
-				styles: {
-					'line-color': {
-						'Segregated Track (wide)': '#054d05',
-						'Off Road Cycleway': '#3a9120',
-						'Segregated Track (narrow)': '#87d668',
-						'Shared Footway': '#ffbf00',
-						'Painted Cycle Lane': '#ff0000',
-						'_': 'rgba(0, 0, 0, 0)', // Invisible
-					},
-					'line-width': {
-						'Segregated Track (wide)': 6,
-						'Off Road Cycleway': 4,
-						'Segregated Track (narrow)': 4,
-						'Shared Footway': 3,
-						'Painted Cycle Lane': 1.8,
-						'_': 2,
-					}
-				}
-			},
-		},
-		popups: {
-			layerId: 'clos',
-			templateId: 'clos-popup'
-		}
-	},
-	streetspace: {
-		layer: {
-			'id': 'streetspace',
-			'type': 'line',
-			'source': {
-				'type': 'vector',
-				'url': 'pmtiles://%tileserverUrl/os_networks_categorized_street_space_with_widths.pmtiles',
-			},
-			'source-layer': 'street_space',
-			'paint': {
-				'line-color': 'gray',		// Overriden below in sublayers, as is a multi-field dataset
-				'line-width': 4
-			}
-		},
-		sublayers: {
-			'carriageway_1way,carriageway_2way,combined_1way,combined_2way': {		// Same match style for each sublayer; will be expanded
-				label: 'Street space',
-				type: 'match',
-				styles: {
-					'line-color': {
-						'Not enough space': '#dd7777',
-						'Absolute minimum': '#e0b97d',
-						'Desirable minimum': '#75a375',
-						'_': 'rgba(0, 0, 0, 0)', // Invisible
-					}
-				}
-			}
-		},
-		popups: {
-			layerId: 'streetspace',
-			templateId: 'streetspace-popup'
-		}
-	},
-	
-	// #!# Tiles filename, and source layer still reflect the old name, and need to be updated
-	coherentnetwork: {
-		layer: {
-			'id': 'coherentnetwork',
-			'type': 'line',
-			'source': {
-				'type': 'vector',
-				'url': 'pmtiles://%tileserverUrl/combined_CN_4_2025-03-01_OS.pmtiles',
-			},
-			'source-layer': 'coherent_networks',
-			'paint': {
-				'line-color': [
-					'match',
-					['get', 'road_function_npt'],
-					'Primary', '#e73f74',
-					'Secondary', '#f1ce63',
-					// 'Local Access', '#7faedd',
-					/* other */ '#808080'
-				],
-				'line-width': 3
-			},
-			'_filtering': 'road_function_npt'
 		}
 	}
 };
