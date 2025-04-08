@@ -17,6 +17,7 @@
 - Legends:
 	Should be as follows, specifying the layerId followed by -legend in the id:
 	<div id="clos-legend" class="legend"></div>
+	Legend filters must be a checkbox with class=legendfilter and then name=legendfilter_ + layerId, and value=...
 	
 - Slider UI:
 	Sliders should have .slider-styled, with a name for the field, and an ID that matches a datalist name, e.g.:
@@ -1117,11 +1118,11 @@ const nptUi = (function () {
 					const checkbox = e.target;
 					
 					// Determine the layer and its field to filter on
-					const layerId = checkbox.name;
+					const layerId = checkbox.name.replace ('legendfilter_', '');
 					const field = _datasets.layers[layerId]._filtering;
 					
 					// Get all the checkboxes that are checked for this layer
-					const checkedInLayer = [...document.querySelectorAll ('input[type="checkbox"][class="legendfilter"][name="' + layerId + '"]')]
+					const checkedInLayer = [...document.querySelectorAll ('input[type="checkbox"][class="legendfilter"][name="legendfilter_' + layerId + '"]')]
 						.filter ((el) => el.checked)
 						.map ((el) => el.value)
 					
