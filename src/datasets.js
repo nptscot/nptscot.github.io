@@ -4,188 +4,220 @@ const datasets = {
 	// Data layers
 	layers: {
 		
+		/* Example:
+		
+		foo: {
+			layer: [Mapbox GL JS standard layer definition]
+		},
+		
+		*/
+		
 		rnet: {
-			'id': 'rnet',
-			'source': {
-				'type': 'vector',
-				'url': 'pmtiles://%tileserverUrl/rnet_2025-03-01.pmtiles',
-			},
-			'source-layer': 'rnet',
-			'type': 'line',
+			layer: {
+				'id': 'rnet',
+				'source': {
+					'type': 'vector',
+					'url': 'pmtiles://%tileserverUrl/rnet_2025-03-01.pmtiles',
+				},
+				'source-layer': 'rnet',
+				'type': 'line',
+			}
 		},
 		
 		'rnet-simplified': {
-			'id': 'rnet-simplified',
-			'source': {
-				'type': 'vector',
-				'url': 'pmtiles://%tileserverUrl/rnet_simplified_2025-03-01.pmtiles',	 // #!# Inconsistent path - needs fixing
-			},
-			'source-layer': 'rnet_simplified',
-			'type': 'line',
+			layer: {
+				'id': 'rnet-simplified',
+				'source': {
+					'type': 'vector',
+					'url': 'pmtiles://%tileserverUrl/rnet_simplified_2025-03-01.pmtiles',	 // #!# Inconsistent path - needs fixing
+				},
+				'source-layer': 'rnet_simplified',
+				'type': 'line',
+			}
 		},
 		
 		data_zones: {
-			'id': 'data_zones',
-			'type': 'fill',
-			'source': {
-			'type': 'vector',
-				'url': 'pmtiles://%tileserverUrl/data_zones_2025-03-01.pmtiles',
-				},
-			'source-layer': 'data_zones',
-			'paint': {
-				'fill-color': '#9c9898',
-				'fill-opacity': 0.8,
-				'fill-outline-color': '#000000'
+			layer: {
+				'id': 'data_zones',
+				'type': 'fill',
+				'source': {
+				'type': 'vector',
+					'url': 'pmtiles://%tileserverUrl/data_zones_2025-03-01.pmtiles',
+					},
+				'source-layer': 'data_zones',
+				'paint': {
+					'fill-color': '#9c9898',
+					'fill-opacity': 0.8,
+					'fill-outline-color': '#000000'
+				}
 			}
 		},
 		
 		busroutes: {
-			'id': 'busroutes',
-			'type': 'line',
-			'source': {
-				'type': 'vector',
-				'url': 'pmtiles://%tileserverUrl/osm_bus_route_pmtiles.pmtiles',
-			},
-			'source-layer': 'osm_bus_route',
-			'paint': {
-				'line-color': 'red',
-				'line-width': 2
+			layer: {
+				'id': 'busroutes',
+				'type': 'line',
+				'source': {
+					'type': 'vector',
+					'url': 'pmtiles://%tileserverUrl/osm_bus_route_pmtiles.pmtiles',
+				},
+				'source-layer': 'osm_bus_route',
+				'paint': {
+					'line-color': 'red',
+					'line-width': 2
+				}
 			}
 		},
 		
 		schools: {
-			'id': 'schools',
-			'type': 'circle',
-			'source': {
-				'type': 'vector',
-				'url': 'pmtiles://%tileserverUrl/schools-2023-12-17.pmtiles',
-			},
-			'source-layer': 'schools',
-			'paint': {
-				"circle-color": [
-					'match',
-					['get', 'SchoolType'],
-					'Primary','#313695',
-					'Secondary','#a50026',
-					/* other */ '#43f22c'
-				],
-				// make circles larger as the user zooms
-				'circle-radius': {
-					'base': 5,
-					'stops': [
-						[8, 6],
-						[22, 180]
-					]
+			layer: {
+				'id': 'schools',
+				'type': 'circle',
+				'source': {
+					'type': 'vector',
+					'url': 'pmtiles://%tileserverUrl/schools-2023-12-17.pmtiles',
 				},
-				'circle-stroke-color': '#ccc',
-				'circle-stroke-width': 1
+				'source-layer': 'schools',
+				'paint': {
+					"circle-color": [
+						'match',
+						['get', 'SchoolType'],
+						'Primary','#313695',
+						'Secondary','#a50026',
+						/* other */ '#43f22c'
+					],
+					// make circles larger as the user zooms
+					'circle-radius': {
+						'base': 5,
+						'stops': [
+							[8, 6],
+							[22, 180]
+						]
+					},
+					'circle-stroke-color': '#ccc',
+					'circle-stroke-width': 1
+				}
 			}
 		},
 		
 		wards: {
-			'id': 'wards',
-			'type': 'line',
-			'source': {
-				'type': 'vector',
-				'url': 'pmtiles://%tileserverUrl/wards.pmtiles',
-			},
-			'source-layer': 'wards',
-			'paint': {
-				'line-color': 'rgba(32, 107, 7, 1)',
-				'line-width': 2
+			layer: {
+				'id': 'wards',
+				'type': 'line',
+				'source': {
+					'type': 'vector',
+					'url': 'pmtiles://%tileserverUrl/wards.pmtiles',
+				},
+				'source-layer': 'wards',
+				'paint': {
+					'line-color': 'rgba(32, 107, 7, 1)',
+					'line-width': 2
+				}
 			}
 		},
 		
 		holyrood: {
-			'id': 'holyrood',
-			'type': 'line',
-			'source': {
-				'type': 'vector',
-				'url': 'pmtiles://%tileserverUrl/holyrood.pmtiles',
-			},
-			'source-layer': 'holyrood',
-			'paint': {
-				'line-color': 'rgba(83, 123, 252, 1)',
-				'line-width': 2
+			layer: {
+				'id': 'holyrood',
+				'type': 'line',
+				'source': {
+					'type': 'vector',
+					'url': 'pmtiles://%tileserverUrl/holyrood.pmtiles',
+				},
+				'source-layer': 'holyrood',
+				'paint': {
+					'line-color': 'rgba(83, 123, 252, 1)',
+					'line-width': 2
+				}
 			}
 		},
 		
 		la: {
-			'id': 'la',
-			'type': 'line',
-			'source': {
-				'type': 'vector',
-				'url': 'pmtiles://%tileserverUrl/la.pmtiles',
-			},
-			'source-layer': 'la',
-			'paint': {
-				'line-color': 'rgba(107, 7, 7, 1)',
-				'line-width': 2
-			} 
+			layer: {
+				'id': 'la',
+				'type': 'line',
+				'source': {
+					'type': 'vector',
+					'url': 'pmtiles://%tileserverUrl/la.pmtiles',
+				},
+				'source-layer': 'la',
+				'paint': {
+					'line-color': 'rgba(107, 7, 7, 1)',
+					'line-width': 2
+				}
+			}
 		},
 		
 		urbanrural: {
-			'id': 'urbanrural',
-			'type': 'line',
-			'source': {
-				'type': 'vector',
-				'url': 'pmtiles://%tileserverUrl/SG_Urban_2020.pmtiles',
-			},
-			'source-layer': 'coherent_networks',
-			'paint': {
-				'line-color': '#8dd3c7',
-				'line-width': 2,
+			layer: {
+				'id': 'urbanrural',
+				'type': 'line',
+				'source': {
+					'type': 'vector',
+					'url': 'pmtiles://%tileserverUrl/SG_Urban_2020.pmtiles',
+				},
+				'source-layer': 'coherent_networks',
+				'paint': {
+					'line-color': '#8dd3c7',
+					'line-width': 2,
+				}
 			}
 		},
 		
 		clos: {
-			'id': 'clos',
-			'type': 'line',
-			'source': {
-				'type': 'vector',
-				'url': 'pmtiles://%tileserverUrl/cbd_layer_2025-03-01.pmtiles',
-			},
-			'source-layer': 'cbd_layer',
-			'paint': {
-				'line-color': '#603',
-				'line-width': 2
+			layer: {
+				'id': 'clos',
+				'type': 'line',
+				'source': {
+					'type': 'vector',
+					'url': 'pmtiles://%tileserverUrl/cbd_layer_2025-03-01.pmtiles',
+				},
+				'source-layer': 'cbd_layer',
+				'paint': {
+					'line-color': '#603',
+					'line-width': 2
+				}
 			}
 		},
 		streetspace: {
-			'id': 'streetspace',
-			'type': 'line',
-			'source': {
-				'type': 'vector',
-				'url': 'pmtiles://%tileserverUrl/os_networks_categorized_street_space_with_widths.pmtiles',
-			},
-			'source-layer': 'street_space',
-			'paint': {
-				'line-color': 'gray',		// Overriden below in sublayers, as is a multi-field dataset
-				'line-width': 4
+			layer: {
+				'id': 'streetspace',
+				'type': 'line',
+				'source': {
+					'type': 'vector',
+					'url': 'pmtiles://%tileserverUrl/os_networks_categorized_street_space_with_widths.pmtiles',
+				},
+				'source-layer': 'street_space',
+				'paint': {
+					'line-color': 'gray',		// Overriden below in sublayers, as is a multi-field dataset
+					'line-width': 4
+				}
 			}
 		},
 		
 		// #!# Tiles filename, and source layer still reflect the old name, and need to be updated
 		coherentnetwork: {
-			'id': 'coherentnetwork',
-			'type': 'line',
-			'source': {
-				'type': 'vector',
-				'url': 'pmtiles://%tileserverUrl/combined_CN_4_2025-03-01_OS.pmtiles',
-			},
-			'source-layer': 'coherent_networks',
-			'paint': {
-				'line-color': [
-					'match',
-					['get', 'road_function_npt'],
-					'Primary', '#e73f74',
-					'Secondary', '#f1ce63',
-					// 'Local Access', '#7faedd',
-					/* other */ '#808080'
-				],
-				'line-width': 3
-			},
-			'_filtering': 'road_function_npt'
+			layer: {
+				'id': 'coherentnetwork',
+				'type': 'line',
+				'source': {
+					'type': 'vector',
+					'url': 'pmtiles://%tileserverUrl/combined_CN_4_2025-03-01_OS.pmtiles',
+				},
+				'source-layer': 'coherent_networks',
+				'paint': {
+					'line-color': [
+						'match',
+						['get', 'road_function_npt'],
+						'Primary', '#e73f74',
+						'Secondary', '#f1ce63',
+						// 'Local Access', '#7faedd',
+						/* other */ '#808080'
+					],
+					'line-width': 3
+				},
+				'_filtering': 'road_function_npt'
+			}
 		}
 	},
 	

@@ -259,7 +259,7 @@ const nptUi = (function () {
 		{
 			// Initialise layer state structure
 			_state.layers = {};
-			Object.keys (_datasets.layers).forEach (function (layerId) {
+			Object.keys (_datasets.layers).forEach (layerId => {
 				_state.layers[layerId] = {
 					enabled: false,
 					parameters: {},
@@ -935,10 +935,10 @@ const nptUi = (function () {
 			// console.log ('Initialising sources and layers');
 			
 			// Replace tileserver URL placeholder in layer definitions
-			Object.entries(_datasets.layers).forEach(([layerId, layer]) => {
+			Object.entries (_datasets.layers).forEach(([layerId, layer]) => {
 				let tileserverUrl = (_settings.tileserverTempLocalOverrides[layerId] ? _settings.tileserverTempLocalOverrides[layerId] : _settings.tileserverUrl);
-				_datasets.layers[layerId].source.url = layer.source.url.replace ('%tileserverUrl', tileserverUrl)
-				//console.log (`Setting source.url for layer ${layerId} to ${_datasets.layers[layerId].source.url}`);
+				_datasets.layers[layerId].layer.source.url = layer.layer.source.url.replace ('%tileserverUrl', tileserverUrl)
+				//console.log (`Setting source.url for layer ${layerId} to ${layer.layer.source.url}`);
 			});
 			
 			// Expand any sublayer definitions where they have same styling for multiple layers, separated by comma
@@ -957,10 +957,10 @@ const nptUi = (function () {
 			// Add layers, and their sources, initially not visible when initialised
 			Object.keys(_datasets.layers).forEach(layerId => {
 				const beforeId = (layerId == 'data_zones' ? 'roads 0 Guided Busway Casing' : 'placeholder_name'); // #!# Needs to be moved to definitions
-				_datasets.layers[layerId].layout = {
+				_datasets.layers[layerId].layer.layout = {
 					visibility: 'none'
 				};
-				_map.addLayer(_datasets.layers[layerId], beforeId);
+				_map.addLayer(_datasets.layers[layerId].layer, beforeId);
 			});
 		},
 		
@@ -1119,7 +1119,7 @@ const nptUi = (function () {
 					
 					// Determine the layer and its field to filter on
 					const layerId = checkbox.name.replace ('legendfilter_', '');
-					const field = _datasets.layers[layerId]._filtering;
+					const field = _datasets.layers[layerId].layer._filtering;
 					
 					// Get all the checkboxes that are checked for this layer
 					const checkedInLayer = [...document.querySelectorAll ('input[type="checkbox"][class="legendfilter"][name="legendfilter_' + layerId + '"]')]
