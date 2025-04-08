@@ -31,7 +31,11 @@ const datasets = {
 			},
 			
 			// Layer styling callbacks function, defined at the end
-			layerStyling: fooStyling
+			layerStyling: fooStyling,
+			
+			// Legends
+			// #!# These need to be merged with lineColours
+			legends: {...}
 		},
 		
 		*/
@@ -47,6 +51,34 @@ const datasets = {
 				'type': 'line',
 			},
 			layerStyling: rnetStyling,
+			legends: {
+				'none': [
+					['&nbsp;',	'#304ce7']
+				],
+				'flow': [
+					['1',		'#9C9C9C'],
+					['50',		'#FFFF73'],
+					['100',		'#AFFF00'],
+					['250',		'#00FFFF'],
+					['500',		'#30B0FF'],
+					['1000',	'#2E5FFF'],
+					['2000',	'#0000FF'],
+					['3000+',	'#FF00C5'],
+				],
+				'quietness': [
+					['0-25',	'#882255'],
+					['25-50',	'#CC6677'],
+					['50-75',	'#44AA99'],
+					['75-100',	'#117733'],
+				],
+				'gradient': [
+					['0-3',		'#59ee19'],
+					['3-5',		'#37a009'],
+					['5-7',		'#FFC300'],
+					['7-10',	'#C70039'],
+					['10+',		'#581845'],
+				]
+			}
 		},
 		
 		'rnet-simplified': {
@@ -77,7 +109,71 @@ const datasets = {
 					'fill-outline-color': '#000000'
 				}
 			},
-			layerStyling: data_zonesStyling
+			layerStyling: data_zonesStyling,
+			legends: {
+				'SIMD2020v2_Decile': [
+					['1st', 	'#a50026'],
+					['2nd',		'#d73027'],
+					['3rd', 	'#f46d43'],
+					['4th', 	'#fdae61'],
+					['5th', 	'#fee090'],
+					['6th', 	'#e0f3f8'],
+					['7th', 	'#abd9e9'],
+					['8th', 	'#74add1'],
+					['9th', 	'#4575b4'],
+					['10th',	'#313695'],
+				],
+				'population_density': [
+					['10',		'#edf8fb'],
+					['50',		'#bfd3e6'],
+					['100', 	'#9ebcda'],
+					['150',		'#8c96c6'],
+					['200',		'#8856a7'],
+					['600',		'#810f7c'],
+				],
+				'broadband': [
+					['0%',		'#fff7ec'],
+					['2%',		'#fee8c8'],
+					['5%',		'#fdd49e'],
+					['10%',		'#fdbb84'],
+					['50%', 	'#d7301f'],
+					['100%',	'#7f0000'],
+				],
+				'pcycle': [
+					['0-1', 	'#A50026'],
+					['2-3', 	'#D73027'],
+					['4-6', 	'#F46D43'],
+					['7-9', 	'#FDAE61'],
+					['10-14',	'#FEE090'],
+					['15-19',	'#ffffbf'],
+					['20-24',	'#C6DBEF'],
+					['25-29',	'#ABD9E9'],
+					['30-39',	'#74ADD1'],
+					['40',		'#4575B4'],
+				],
+				'pcycle_go_dutch': [		// Actually same as pcycle
+					['0-1',		'#A50026'],
+					['2-3',		'#D73027'],
+					['4-6',		'#F46D43'],
+					['7-9',		'#FDAE61'],
+					['10-14',	'#FEE090'],
+					['15-19',	'#ffffbf'],
+					['20-24',	'#C6DBEF'],
+					['25-29',	'#ABD9E9'],
+					['30-39',	'#74ADD1'],
+					['40',		'#4575B4'],
+				],
+				'_': [	// Default; is time in minutes
+					['3',		'#053061'],
+					['5',		'#2166ac'],
+					['7',		'#4393c3'],
+					['10',		'#92c5de'],
+					['15',		'#f7f7f7'],
+					['30',		'#f4a582'],
+					['60',		'#b2182b'],
+					['200',		'#67001f'],
+				],
+			}
 		},
 		
 		busroutes: {
@@ -348,105 +444,6 @@ const datasets = {
 		}
 	},
 	
-	
-	
-	// #!# These need to be merged with lineColours
-	legends: {
-		
-		rnet: {
-			'none': [
-				['&nbsp;',	'#304ce7']
-			],
-			'flow': [
-				['1',		'#9C9C9C'],
-				['50',		'#FFFF73'],
-				['100',		'#AFFF00'],
-				['250',		'#00FFFF'],
-				['500',		'#30B0FF'],
-				['1000',	'#2E5FFF'],
-				['2000',	'#0000FF'],
-				['3000+',	'#FF00C5'],
-			],
-			'quietness': [
-				['0-25',	'#882255'],
-				['25-50',	'#CC6677'],
-				['50-75',	'#44AA99'],
-				['75-100',	'#117733'],
-			],
-			'gradient': [
-				['0-3',		'#59ee19'],
-				['3-5',		'#37a009'],
-				['5-7',		'#FFC300'],
-				['7-10',	'#C70039'],
-				['10+',		'#581845'],
-			]
-		},
-		
-		data_zones: {
-			'SIMD2020v2_Decile': [
-				['1st', 	'#a50026'],
-				['2nd',		'#d73027'],
-				['3rd', 	'#f46d43'],
-				['4th', 	'#fdae61'],
-				['5th', 	'#fee090'],
-				['6th', 	'#e0f3f8'],
-				['7th', 	'#abd9e9'],
-				['8th', 	'#74add1'],
-				['9th', 	'#4575b4'],
-				['10th',	'#313695'],
-			],
-			'population_density': [
-				['10',		'#edf8fb'],
-				['50',		'#bfd3e6'],
-				['100', 	'#9ebcda'],
-				['150',		'#8c96c6'],
-				['200',		'#8856a7'],
-				['600',		'#810f7c'],
-			],
-			'broadband': [
-				['0%',		'#fff7ec'],
-				['2%',		'#fee8c8'],
-				['5%',		'#fdd49e'],
-				['10%',		'#fdbb84'],
-				['50%', 	'#d7301f'],
-				['100%',	'#7f0000'],
-			],
-			'pcycle': [
-				['0-1', 	'#A50026'],
-				['2-3', 	'#D73027'],
-				['4-6', 	'#F46D43'],
-				['7-9', 	'#FDAE61'],
-				['10-14',	'#FEE090'],
-				['15-19',	'#ffffbf'],
-				['20-24',	'#C6DBEF'],
-				['25-29',	'#ABD9E9'],
-				['30-39',	'#74ADD1'],
-				['40',		'#4575B4'],
-			],
-			'pcycle_go_dutch': [		// Actually same as pcycle
-				['0-1',		'#A50026'],
-				['2-3',		'#D73027'],
-				['4-6',		'#F46D43'],
-				['7-9',		'#FDAE61'],
-				['10-14',	'#FEE090'],
-				['15-19',	'#ffffbf'],
-				['20-24',	'#C6DBEF'],
-				['25-29',	'#ABD9E9'],
-				['30-39',	'#74ADD1'],
-				['40',		'#4575B4'],
-			],
-			'_': [	// Default; is time in minutes
-				['3',		'#053061'],
-				['5',		'#2166ac'],
-				['7',		'#4393c3'],
-				['10',		'#92c5de'],
-				['15',		'#f7f7f7'],
-				['30',		'#f4a582'],
-				['60',		'#b2182b'],
-				['200',		'#67001f'],
-			],
-		},
-	},
 	
 	
 	lineColours: {
@@ -775,7 +772,7 @@ function rnetStyling (layerId, map, settings, datasets, createLegend /* callback
 {
 	// Update the Legend - Do this even if map layer is off
 	const colour = document.querySelector ('select.updatelayer[data-layer="rnet"][name="colour"]').value;
-	createLegend (datasets.legends.rnet[colour], 'linecolourlegend');
+	createLegend (datasets.layers['rnet'].legends[colour], 'linecolourlegend');
 	
 	// No special handling needed if not visible
 	if (!document.querySelector ('input.showlayer[data-layer="' + layerId + '"]').checked) {
@@ -853,7 +850,7 @@ function data_zonesStyling (layerId, map, settings, datasets, createLegend /* ca
 {
 	// Update the legend (even if map layer is off)
 	const field = document.querySelector ('select.updatelayer[data-layer="data_zones"][name="field"]').value
-	const legendColours = (datasets.legends.data_zones.hasOwnProperty(field) ? datasets.legends.data_zones[field] : datasets.legends.data_zones['_']);
+	const legendColours = (datasets.layers['data_zones'].legends.hasOwnProperty(field) ? datasets.layers['data_zones'].legends[field] : datasets.layers['data_zones'].legends['_']);
 	createLegend (legendColours, 'dzlegend');
 	
 	// Get UI state
