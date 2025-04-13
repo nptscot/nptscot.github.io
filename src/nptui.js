@@ -983,13 +983,7 @@ const nptUi = (function () {
 			}
 			
 			// Create/update legend (even if map layer is off)
-			// Use the static legends, unless there is a sublayer selector for which the sublayer legends need to be looked up
-			let legends = datasets[layerId].legends[layerId];
-			const sublayerSelector = document.querySelector ('select.updatelayer.legendsublayerselector-' + layerId);
-			if (sublayerSelector) {
-				legends = datasets[layerId].legends[sublayerSelector.value] || datasets[layerId].legends['_'];
-			}
-			nptUi.createLegend (layerId, legends);
+			nptUi.createLegend (layerId);
 			
 			// Set state of layer
 			_state.layers[layerId].enabled = document.querySelector ('input.showlayer[data-layer="' + layerId + '"]').checked;
@@ -1087,16 +1081,24 @@ const nptUi = (function () {
 		},
 		
 		
-		createLegend: function (layerId, legendColours)
+		// Function to render a legend, based on the dataset definition
+		createLegend: function (layerId)
 		{
 			// Do nothing if no selector for where the legend will be added
 			const selector = 'legend-' + layerId;
-			if (!document.getElementById(selector)) {return;}
+			if (!document.getElementById (selector)) {return;}
+			
+			// Use the static legends, unless there is a sublayer selector for which the sublayer legends need to be looked up
+			let legends = _datasets[layerId].legends[layerId];
+			const sublayerSelector = document.querySelector ('select.updatelayer.legendsublayerselector-' + layerId);
+			if (sublayerSelector) {
+				legends = _datasets[layerId].legends[sublayerSelector.value] || _datasets[layerId].legends['_'];
+			}
 			
 			// Create the legend HTML
 			// #!# Should be a list, not nested divs
 			let legendHtml = '<div class="l_r">';
-			legendColours.forEach (function ([value, colour]) {
+			legends.forEach (function ([value, colour]) {
 				legendHtml += '<div class="lb">';
 				legendHtml += `<span style="background-color: ${colour}">`;
 				legendHtml += '</span>';
