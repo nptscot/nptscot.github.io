@@ -983,7 +983,7 @@ const nptUi = (function () {
 			} else if (_datasets[layerId].layerStyling) {
 				_datasets[layerId].layerStyling (layerId, _map, _settings, _datasets, nptUi.createLegend);
 			} else {
-				nptUi.createLegend (datasets[layerId].legends, layerId + 'legend');
+				nptUi.createLegend (datasets[layerId].legends, 'legend-' + layerId);
 			}
 			
 			// Set state of layer
@@ -1053,7 +1053,7 @@ const nptUi = (function () {
 			const styleValueLookupsFirst = Object.values (sublayer.styles) [0];
 			const legendColours = nptUi.associativeToPairs (styleValueLookupsFirst);
 			const isRangeType = (sublayer.type == 'step' || sublayer.type == 'interpolate');
-			nptUi.createLegend (legendColours, layerId + '-legend', isRangeType);
+			nptUi.createLegend (legendColours, 'legend-' + layerId, isRangeType);
 		},
 		
 		
