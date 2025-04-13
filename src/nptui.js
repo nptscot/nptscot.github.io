@@ -1060,8 +1060,7 @@ const nptUi = (function () {
 			// Set legend, using the first style if more than one
 			const styleValueLookupsFirst = Object.values (sublayer.styles) [0];
 			const legendColours = nptUi.associativeToPairs (styleValueLookupsFirst);
-			const isRangeType = (sublayer.type == 'step' || sublayer.type == 'interpolate');
-			nptUi.createLegend (layerId, legendColours, isRangeType);
+			nptUi.createLegend (layerId, legendColours);
 		},
 		
 		
@@ -1096,7 +1095,7 @@ const nptUi = (function () {
 		},
 		
 		
-		createLegend: function (layerId, legendColours, isRangeType)
+		createLegend: function (layerId, legendColours)
 		{
 			// Do nothing if no selector for where the legend will be added
 			const selector = 'legend-' + layerId;
@@ -1109,7 +1108,6 @@ const nptUi = (function () {
 				legendHtml += '<div class="lb">';
 				legendHtml += `<span style="background-color: ${colour}">`;
 				legendHtml += '</span>';
-				if (isRangeType) {value = '≥' + value;}
 				legendHtml += value;	// Label
 				legendHtml += '</div>';
 			});
