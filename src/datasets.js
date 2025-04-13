@@ -201,7 +201,7 @@ const datasets = {
 				}
 			},
 			'Traffic volume category': {
-				label: 'Traffic volume category',
+				label: 'Estimated traffic volume',
 				type: 'match',
 				styles: {
 					'line-color': {
@@ -219,7 +219,7 @@ const datasets = {
 				}
 			},
 			'Speed limit': {
-				label: 'Estimated speed limit',
+				label: 'Speed limit',
 				type: 'match',
 				styles: {
 					'line-color': {
@@ -243,7 +243,7 @@ const datasets = {
 				}
 			},
 			'Infrastructure type': {
-				label: 'Infrastructure type',
+				label: 'Cycle infrastructure',
 				type: 'match',
 				styles: {
 					'line-color': {
