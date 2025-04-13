@@ -967,17 +967,15 @@ const nptUi = (function () {
 		},
 		
 		
+		// Layer toggling, called when a layer is toggled or updated
 		toggleLayer: function (layerId)
 		{
 			//console.log ('Toggling layer ' + layerId);
 			
-			// Use static sublayer styling definitions, if present, on initial load and on sublayer change
+			// Use static sublayer styling definitions, if present
 			// #!# This is incrementally added each time toggle is done; should be moved up a level so there is only a single registration
 			if (_datasets[layerId].sublayers) {
 				nptUi.setSublayerStyle (layerId);
-				document.querySelector ('.updatelayer[data-layer="' + layerId + '"]').addEventListener ('change', function () {
-					nptUi.setSublayerStyle (layerId);
-				});
 				
 			// Check for a dynamic styling callback and run it if present
 			} else if (_datasets[layerId].layerStyling) {
