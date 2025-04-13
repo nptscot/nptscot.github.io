@@ -982,14 +982,18 @@ const nptUi = (function () {
 			// Check for a dynamic styling callback and run it if present
 			} else if (_datasets[layerId].layerStyling) {
 				_datasets[layerId].layerStyling (layerId, _map, _settings, _datasets);
+			}
+			
+			// Create/update legend (even if map layer is off)
+			if (!_datasets[layerId].sublayers) {
 				
-				// Update the legend (even if map layer is off)
-				const sublayer = document.querySelector ('select.updatelayer.legendsublayerselector-' + layerId).value;
-				const legendColours = datasets[layerId].legends[sublayer] || datasets[layerId].legends['_'];
-				nptUi.createLegend (layerId, legendColours);
-				
-			} else {
-				nptUi.createLegend (layerId, datasets[layerId].legends[layerId]);
+				// Use the static legends, unless there is a sublayer selector for which the sublayer legends need to be looked up
+				let legends = datasets[layerId].legends[layerId];
+				const sublayerSelector = document.querySelector ('select.updatelayer.legendsublayerselector-' + layerId);
+				if (sublayerSelector) {
+					legends = datasets[layerId].legends[sublayerSelector.value] || datasets[layerId].legends['_'];
+				}
+				nptUi.createLegend (layerId, legends);
 			}
 			
 			// Set state of layer
