@@ -15,8 +15,8 @@
 	<select name="purpose" class="updatelayer" data-layer="rnet" aria-label="Route network trip purpose">
 
 - Legends:
-	Should be as follows, specifying the layerId followed by -legend in the id:
-	<div id="clos-legend" class="legend"></div>
+	Should be as follows, specifying the layerId prefixed by legend- as the id:
+	<div class="legend" id="legend-busroutes"></div>
 	Legend filters must be a checkbox with class=legendfilter and then name=legendfilter_ + layerId, and value=...
 	
 - Slider UI:

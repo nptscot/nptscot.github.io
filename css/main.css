@@ -442,6 +442,7 @@ p.help-end {
   display: table;
   table-layout: fixed;
   font-size: 10px;
+  min-height: calc(18px + 18px + 2px);
 }
 
 .l_r{
