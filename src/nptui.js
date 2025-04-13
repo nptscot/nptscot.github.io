@@ -981,7 +981,13 @@ const nptUi = (function () {
 				
 			// Check for a dynamic styling callback and run it if present
 			} else if (_datasets[layerId].layerStyling) {
-				_datasets[layerId].layerStyling (layerId, _map, _settings, _datasets, nptUi.createLegend);
+				_datasets[layerId].layerStyling (layerId, _map, _settings, _datasets);
+				
+				// Update the legend (even if map layer is off)
+				const sublayer = document.querySelector ('select.updatelayer.legendsublayerselector-' + layerId).value;
+				const legendColours = datasets[layerId].legends[sublayer] || datasets[layerId].legends['_'];
+				nptUi.createLegend (layerId, legendColours);
+				
 			} else {
 				nptUi.createLegend (layerId, datasets[layerId].legends[layerId]);
 			}

@@ -798,17 +798,15 @@ function getLayerWidthField ()
 
 
 // Styling callback for rnet/rnet_simplified
-function rnetStyling (layerId, map, settings, datasets, createLegend /* callback */)
+function rnetStyling (layerId, map, settings, datasets)
 {
-	// Update the legend (even if map layer is off)
-	const sublayer = document.querySelector ('select.updatelayer.legendsublayerselector-' + layerId).value;
-	const legendColours = datasets[layerId].legends[sublayer] || datasets[layerId].legends['_'];
-	createLegend (layerId, legendColours);
-	
 	// No special handling needed if not visible
 	if (!document.querySelector ('input.showlayer[data-layer="' + layerId + '"]').checked) {
 		return;
 	}
+	
+	// Determine the sublayer (field) in use
+	const sublayer = document.querySelector ('select.updatelayer.legendsublayerselector-' + layerId).value;
 	
 	// Determine the layer width field
 	const layerWidthField = getLayerWidthField();
@@ -877,12 +875,10 @@ function rnetStyling (layerId, map, settings, datasets, createLegend /* callback
 
 
 // Styling callback for data zones (including buildings styling)
-function data_zonesStyling (layerId, map, settings, datasets, createLegend /* callback */)
+function data_zonesStyling (layerId, map, settings, datasets)
 {
-	// Update the legend (even if map layer is off)
+	// Determine the sublayer (field) in use
 	const sublayer = document.querySelector ('select.updatelayer.legendsublayerselector-' + layerId).value;
-	const legendColours = datasets[layerId].legends[sublayer] || datasets[layerId].legends['_'];
-	createLegend (layerId, legendColours);
 	
 	// Get UI state
 	const daysymetricMode = document.querySelector ('input.updatelayer[data-layer="data_zones"][name="daysymetricmode"]').checked;
