@@ -1023,36 +1023,9 @@ const nptUi = (function () {
 			const fieldname = document.querySelector ('.updatelayer[data-layer="' + layerId + '"]' + (control.type == 'radio' ? ':checked' : '')).value;
 			const sublayer = _datasets[layerId].sublayers[fieldname];
 			
-			// Set each style (e.g. line-color)
-			Object.entries (sublayer.styles).forEach (function ([style, styleValueLookups]) {
-				
-				// Parse the style value pairs
-				let styleValues = nptUi.associativeToFlattenedArray (styleValueLookups);
-				
-				// Determine the mode
-				let mode;
-				switch (sublayer.type) {
-					case 'match':
-						mode = ['match'];
-						break;
-					case 'step':	// See: https://stackoverflow.com/a/53506912/
-						mode = ['step'];
-						styleValues.shift ();		// First should be base value without key
-						break;
-					case 'interpolate':
-						mode = ['interpolate', ['linear']];
-						break;
-				}
-				
-				// Arrange the style definition
-				const styleDefinition = [
-					...mode,
-					['get', fieldname],
-					...styleValues,
-				];
-				
-				// Set paint properties
-				_map.setPaintProperty (layerId, style, styleDefinition);
+			// Set each paint style (e.g. line-color)
+			Object.entries (sublayer.paint).forEach (function ([name, value]) {
+				_map.setPaintProperty (layerId, name, value);
 			});
 		},
 		

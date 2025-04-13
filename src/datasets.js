@@ -8,22 +8,22 @@ const datasets = {
 		// Layer definition - Mapbox GL JS standard addLayer structure
 		layer: {...},
 		
-		// Sublayers - unified definitions handling style rendering for each selectable sublayer
-		// Type is either match (fixed values) / step (steps, with the first being treated as the 'base' value) / interpolate (linear)
-		// Use of key _ is the default
+		// Sublayers - paint rendering for each selectable sublayer
 		sublayers: {
-			fieldname: {
-				type: 'match',
-				styles: {
-					'line-color': {
-						value1: colour1,
-						value2: colour2,
-						...
-					},
+			sublayername: {
+				paint: {
+					'line-color': [
+						'match',
+						['get', 'sublayername']
+							value1: colour1,
+							value2: colour2,
+							...
+						fallbackvalue
+					],
 					...
-				}
-			},
-			[Another sublayer]
+				},
+				[Another sublayer]
+			}
 		},
 		
 		// Layer styling callbacks function, defined at the end
@@ -189,85 +189,97 @@ const datasets = {
 		},
 		sublayers: {
 			'Level of Service': {
-				type: 'match',
-				styles: {
-					'line-color': {
-						'Should not be used (non-compliant intervention)': '#4a0404',
-						'Should not be used (mixed traffic)': 'darkred',
-						'Low': 'red',
-						'Medium': '#d27d2d',
-						'High': 'mediumseagreen',
-						'_': 'gray',
-					},
-					'line-width': {
-						'Should not be used (non-compliant intervention)': 4,
-						'Should not be used (mixed traffic)': 4,
-						'Low': 4,
-						'Medium': 4,
-						'High': 4,
-						'_': 4,
-					}
+				paint: {
+					'line-color': [
+						'match',
+						['get', 'Level of service'],
+							'Should not be used (non-compliant intervention)', '#4a0404',
+							'Should not be used (mixed traffic)', 'darkred',
+							'Low', 'red',
+							'Medium', '#d27d2d',
+							'High', 'mediumseagreen',
+						'gray'
+					],
+					'line-width': [
+						'match',
+						['get', 'Level of service'],
+							'Should not be used (non-compliant intervention)', 4,
+							'Should not be used (mixed traffic)', 4,
+							'Low', 4,
+							'Medium', 4,
+							'High', 4,
+						4
+					]
 				}
 			},
 			'Traffic volume category': {
-				type: 'match',
-				styles: {
-					'line-color': {
-						'0 to 1999': '#27918d',
-						'2000 to 3999': '#ffaa33',
-						'4000+': '#440154',
-						'_': 'gray',
-					},
-					'line-width': {
-						'0 to 1999': 2,
-						'2000 to 3999': 3,
-						'4000+': 4,
-						'_': 2,
-					}
+				paint: {
+					'line-color': [
+						'match',
+						['get', 'Traffic volume category'],
+							'0 to 1999', '#27918d',
+							'2000 to 3999', '#ffaa33',
+							'4000+', '#440154',
+						'gray',
+					],
+					'line-width': [
+						'match',
+						['get', 'Traffic volume category'],
+							'0 to 1999', 2,
+							'2000 to 3999', 3,
+							'4000+', 4,
+						2,
+					]
 				}
 			},
 			'Speed limit': {
-				type: 'match',
-				styles: {
-					'line-color': {
-						20: 'seagreen',
-						30: '#cc5500',
-						40: 'orangered',
-						50: 'red',
-						60: 'firebrick',
-						70: 'darkred',
-						'_': 'gray',
-					},
-					'line-width': {
-						20: 2,
-						30: 2,
-						40: 2,
-						50: 2,
-						60: 2,
-						70: 2,
-						'_': 2,
-					}
+				paint: {
+					'line-color': [
+						'match',
+						['get', 'Speed limit'],
+							20, 'seagreen',
+							30, '#cc5500',
+							40, 'orangered',
+							50, 'red',
+							60, 'firebrick',
+							70, 'darkred',
+						'gray',
+					],
+					'line-width': [
+						'match',
+						['get', 'Speed limit'],
+							20, 2,
+							30, 2,
+							40, 2,
+							50, 2,
+							60, 2,
+							70, 2,
+						2,
+					]
 				}
 			},
 			'Infrastructure type': {
-				type: 'match',
-				styles: {
-					'line-color': {
-						'Segregated Track (wide)': '#054d05',
-						'Off Road Cycleway': '#3a9120',
-						'Segregated Track (narrow)': '#87d668',
-						'Shared Footway': '#ffbf00',
-						'Painted Cycle Lane': '#ff0000',
-						'_': 'rgba(0, 0, 0, 0)', // Invisible
-					},
-					'line-width': {
-						'Segregated Track (wide)': 6,
-						'Off Road Cycleway': 4,
-						'Segregated Track (narrow)': 4,
-						'Shared Footway': 3,
-						'Painted Cycle Lane': 1.8,
-						'_': 2,
-					}
+				paint: {
+					'line-color': [
+						'match',
+						['get', 'Infrastructure type'],
+							'Segregated Track (wide)', '#054d05',
+							'Off Road Cycleway', '#3a9120',
+							'Segregated Track (narrow)', '#87d668',
+							'Shared Footway', '#ffbf00',
+							'Painted Cycle Lane', '#ff0000',
+						'rgba(0, 0, 0, 0)', 	// Invisible
+					],
+					'line-width': [
+						'match',
+						['get', 'Infrastructure type'],
+							'Segregated Track (wide)', 6,
+							'Off Road Cycleway', 4,
+							'Segregated Track (narrow)', 4,
+							'Shared Footway', 3,
+							'Painted Cycle Lane', 1.8,
+						2,
+					]
 				}
 			},
 		},
@@ -321,17 +333,55 @@ const datasets = {
 			}
 		},
 		sublayers: {
-			'carriageway_1way,carriageway_2way,combined_1way,combined_2way': {		// Same match style for each sublayer; will be expanded
-				type: 'match',
-				styles: {
-					'line-color': {
-						'Not enough space': '#dd7777',
-						'Absolute minimum': '#e0b97d',
-						'Desirable minimum': '#75a375',
-						'_': 'rgba(0, 0, 0, 0)', // Invisible
-					}
+			// #!# This is a repetitive set of definitions, but the 'get' field needs to change each time - see if this can be simplified
+			'carriageway_1way': {
+				paint: {
+					'line-color': [
+						'match',
+						['get', 'carriageway_1way'],
+							'Not enough space', '#dd7777',
+							'Absolute minimum', '#e0b97d',
+							'Desirable minimum', '#75a375',
+						'rgba(0, 0, 0, 0)', // Invisible
+					]
 				}
-			}
+			},
+			'carriageway_2way': {
+				paint: {
+					'line-color': [
+						'match',
+						['get', 'carriageway_2way'],
+							'Not enough space', '#dd7777',
+							'Absolute minimum', '#e0b97d',
+							'Desirable minimum', '#75a375',
+						'rgba(0, 0, 0, 0)', // Invisible
+					]
+				}
+			},
+			'combined_1way': {
+				paint: {
+					'line-color': [
+						'match',
+						['get', 'combined_1way'],
+							'Not enough space', '#dd7777',
+							'Absolute minimum', '#e0b97d',
+							'Desirable minimum', '#75a375',
+						'rgba(0, 0, 0, 0)', // Invisible
+					]
+				}
+			},
+			'combined_2way': {
+				paint: {
+					'line-color': [
+						'match',
+						['get', 'combined_2way'],
+							'Not enough space', '#dd7777',
+							'Absolute minimum', '#e0b97d',
+							'Desirable minimum', '#75a375',
+						'rgba(0, 0, 0, 0)', // Invisible
+					]
+				}
+			},
 		},
 		legends: {
 			'streetspace': [
