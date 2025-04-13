@@ -30,7 +30,7 @@ const datasets = {
 		// Layer styling callbacks function, defined at the end
 		layerStyling: fooStyling,
 		
-		// Legends, if not present in sublayer definitions
+		// Legends
 		// #!# These need to be merged with lineColours
 		legends: {...},
 		
