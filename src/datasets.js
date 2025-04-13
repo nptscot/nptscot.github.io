@@ -13,7 +13,6 @@ const datasets = {
 		// Use of key _ is the default
 		sublayers: {
 			fieldname: {
-				label: 'Label',
 				type: 'match',
 				styles: {
 					'line-color': {
@@ -190,7 +189,6 @@ const datasets = {
 		},
 		sublayers: {
 			'Level of Service': {
-				label: 'Level of service',
 				type: 'match',
 				styles: {
 					'line-color': {
@@ -212,7 +210,6 @@ const datasets = {
 				}
 			},
 			'Traffic volume category': {
-				label: 'Estimated traffic volume',
 				type: 'match',
 				styles: {
 					'line-color': {
@@ -230,7 +227,6 @@ const datasets = {
 				}
 			},
 			'Speed limit': {
-				label: 'Speed limit',
 				type: 'match',
 				styles: {
 					'line-color': {
@@ -254,7 +250,6 @@ const datasets = {
 				}
 			},
 			'Infrastructure type': {
-				label: 'Cycle infrastructure',
 				type: 'match',
 				styles: {
 					'line-color': {
@@ -327,7 +322,6 @@ const datasets = {
 		},
 		sublayers: {
 			'carriageway_1way,carriageway_2way,combined_1way,combined_2way': {		// Same match style for each sublayer; will be expanded
-				label: 'Street space',
 				type: 'match',
 				styles: {
 					'line-color': {
