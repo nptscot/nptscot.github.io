@@ -131,8 +131,9 @@ const datasets = {
 			'source-layer': 'rnet_simplified',
 			'type': 'line',
 		},
-		layerStyling: rnetStyling,
-		// legends: uses rnet
+		// layerStyling: uses rnet - copied-in below at the end of this array creation
+		// legends: uses rnet - copied-in below at the end of this array creation
+		// lineColours: uses rnet - copied-in below at the end of this array creation
 		popups: {
 			templateId: 'rnet-popup',
 			preprocessingCallback: popupCallback,	// Defined below
@@ -769,6 +770,12 @@ const datasets = {
 	}
 };
 
+// Clone rnet definitions, to avoid restatement of large arrays, above
+datasets['rnet-simplified'].layerStyling = datasets['rnet'].layerStyling;
+datasets['rnet-simplified'].legends      = datasets['rnet'].legends;
+datasets['rnet-simplified'].lineColours  = datasets['rnet'].lineColours;
+
+
 
 // Callbacks
 function popupCallback (feature)
@@ -793,9 +800,10 @@ function getLayerWidthField ()
 // Styling callback for rnet/rnet_simplified
 function rnetStyling (layerId, map, settings, datasets, createLegend /* callback */)
 {
-	// Update the Legend - Do this even if map layer is off
-	const colour = document.querySelector ('select.updatelayer[data-layer="rnet"][name="colour"]').value;
-	createLegend ('rnet', datasets['rnet'].legends[colour]);
+	// Update the legend (even if map layer is off)
+	const sublayer = document.querySelector ('select.updatelayer.legendsublayerselector-' + layerId).value;
+	const legendColours = datasets[layerId].legends[sublayer] || datasets[layerId].legends['_'];
+	createLegend (layerId, legendColours);
 	
 	// No special handling needed if not visible
 	if (!document.querySelector ('input.showlayer[data-layer="' + layerId + '"]').checked) {
@@ -826,7 +834,7 @@ function rnetStyling (layerId, map, settings, datasets, createLegend /* callback
 	];
 	
 	// Define line colour
-	const line_colours = {
+	const lineColours = {
 		'none': datasets['rnet'].lineColours.none,
 		'flow': [
 			'step', ['get', layerWidthField],
@@ -863,7 +871,7 @@ function rnetStyling (layerId, map, settings, datasets, createLegend /* callback
 	map.setFilter (layerId, filter);
 	
 	// Set paint properties
-	map.setPaintProperty (layerId, 'line-color', line_colours[colour]);
+	map.setPaintProperty (layerId, 'line-color', lineColours[sublayer]);
 	map.setPaintProperty (layerId, 'line-width', line_width);
 }
 
@@ -872,15 +880,15 @@ function rnetStyling (layerId, map, settings, datasets, createLegend /* callback
 function data_zonesStyling (layerId, map, settings, datasets, createLegend /* callback */)
 {
 	// Update the legend (even if map layer is off)
-	const field = document.querySelector ('select.updatelayer[data-layer="data_zones"][name="field"]').value
-	const legendColours = (datasets['data_zones'].legends.hasOwnProperty(field) ? datasets['data_zones'].legends[field] : datasets['data_zones'].legends['_']);
-	createLegend ('data_zones', legendColours);
+	const sublayer = document.querySelector ('select.updatelayer.legendsublayerselector-' + layerId).value;
+	const legendColours = datasets[layerId].legends[sublayer] || datasets[layerId].legends['_'];
+	createLegend (layerId, legendColours);
 	
 	// Get UI state
 	const daysymetricMode = document.querySelector ('input.updatelayer[data-layer="data_zones"][name="daysymetricmode"]').checked;
 	
 	// Set paint properties
-	map.setPaintProperty (layerId, 'fill-color', ['step', ['get', field], ...getStyleColumn (field, datasets)]);
+	map.setPaintProperty (layerId, 'fill-color', ['step', ['get', sublayer], ...getStyleColumn (sublayer, datasets)]);
 	map.setPaintProperty (layerId, 'fill-opacity', (daysymetricMode ? 0.1 : 0.8)); // Very faded-out in daysymetric mode, as the buildings are coloured
 	
 	// Set buildings layer colour/visibility
