@@ -942,6 +942,22 @@ const nptUi = (function () {
 			});
 			
 			// Expand any sublayer definitions where they have same styling for multiple layers, separated by comma
+			nptUi.preprocessSublayerCommaDefinitions ();
+			
+			// Add layers, and their sources, initially not visible when initialised
+			Object.keys(_datasets).forEach(layerId => {
+				const beforeId = (layerId == 'data_zones' ? 'roads 0 Guided Busway Casing' : 'placeholder_name'); // #!# Needs to be moved to definitions
+				_datasets[layerId].layer.layout = {
+					visibility: 'none'
+				};
+				_map.addLayer(_datasets[layerId].layer, beforeId);
+			});
+		},
+		
+		
+		// Macro function to expand sublayer definitions whose key contains a list of sublayers, i.e. 'a,b,c' => {styles} will expand to three separate entries: 'a' => {styles}, 'b' => {styles}, 'c' => {styles}
+		preprocessSublayerCommaDefinitions: function ()
+		{
 			Object.entries (_datasets).forEach (([layerId, layer]) => {
 				if (layer.sublayers) {
 					Object.entries (layer.sublayers).forEach (function ([sublayerIdString, sublayer]) {
@@ -954,15 +970,6 @@ const nptUi = (function () {
 						}
 					});
 				}
-			});
-			
-			// Add layers, and their sources, initially not visible when initialised
-			Object.keys(_datasets).forEach(layerId => {
-				const beforeId = (layerId == 'data_zones' ? 'roads 0 Guided Busway Casing' : 'placeholder_name'); // #!# Needs to be moved to definitions
-				_datasets[layerId].layer.layout = {
-					visibility: 'none'
-				};
-				_map.addLayer(_datasets[layerId].layer, beforeId);
 			});
 		},
 		
