@@ -55,7 +55,8 @@ h1{
     outline: none;
     transition: 0.4s;
     font-size: 0.97em;
-}
+    transform: translate3d(0, 0, 0); /* Force GPU acceleration for Safari: see: https://stackoverflow.com/questions/70138527 */
+  }
 .accordion:after {
   content: '+'; 
   font-size: 28px;
