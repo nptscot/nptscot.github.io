@@ -983,7 +983,7 @@ const nptUi = (function () {
 			} else if (_datasets[layerId].layerStyling) {
 				_datasets[layerId].layerStyling (layerId, _map, _settings, _datasets, nptUi.createLegend);
 			} else {
-				nptUi.createLegend (layerId, datasets[layerId].legends);
+				nptUi.createLegend (layerId, datasets[layerId].legends[layerId]);
 			}
 			
 			// Set state of layer

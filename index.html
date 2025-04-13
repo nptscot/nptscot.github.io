@@ -250,12 +250,11 @@
 			<div class="panel">
 				<p><label><input type="checkbox" class="showlayer" data-layer="coherentnetwork" value="false"> Show layer</label></p>
 				<p>Automatically-generated coherent network in urban areas connecting key origins and destinations with relatively direct routes. <button aria-label="Help on coherent network" class="helpbutton" data-help="coherentnetwork"><i class="fa fa-question-circle" aria-hidden="true"></i></button></p>
-				<!-- Add legend with colours -->
-				<div class="legend">
-					<div class="l_r">
-						<div class="lb"><span style="background-color: #e73f74"><input type="checkbox" checked="checked" class="legendfilter" name="legendfilter_coherentnetwork" value="Primary" /></span>Primary</div>
-						<div class="lb"><span style="background-color: #f1ce63"><input type="checkbox" checked="checked" class="legendfilter" name="legendfilter_coherentnetwork" value="Secondary" /></span>Secondary</div>
-						<!-- <div class="lb"><span style="background-color: #7faedd"></span>Local Access</div> -->
+				<div class="layertools layertools-coherentnetwork">
+					<div class="legend" id="legend-coherentnetwork">
+						<div class="l_r">
+							<div class="lb"><span style="background-color: #ffffff"></span>&nbsp;</div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -291,11 +290,9 @@
 						<label><input type="radio" class="updatelayer" data-layer="streetspace" name="streetspace" value="carriageway_2way">Within road width</input></label><br />
 						<label><input type="radio" class="updatelayer" data-layer="streetspace" name="streetspace" value="combined_2way">Using edge-to-edge</input></label></p>
 					</p>
-					<div class="legend">
+					<div class="legend" id="legend-streetspace">
 						<div class="l_r">
-							<div class="lb"><span style="background-color: #dd7777;"></span>Not enough space</div>
-							<div class="lb"><span style="background-color: #e0b97d;"></span>Absolute minimum</div>
-							<div class="lb"><span style="background-color: #75a375;"></span>Desirable minimum</div>
+							<div class="lb"><span style="background-color: #ffffff"></span>&nbsp;</div>
 						</div>
 					</div>
 				</div>
@@ -338,43 +335,51 @@
 			<div class="panel">
 				<p><label><input type="checkbox" class="showlayer" data-layer="busroutes" value="false">Bus routes</label></p>
 				<div class="layertools layertools-busroutes">
+					<div class="legend" id="legend-busroutes">
+						<div class="l_r">
+							<div class="lb"><span style="background-color: #ffffff"></span>&nbsp;</div>
+						</div>
+					</div>
 				</div>
 				<p><label><input type="checkbox" class="showlayer" data-layer="schools" value="false">Schools</label></p>
 				<div class="layertools layertools-schools">
-					<div class="legend">
+					<div class="legend" id="legend-schools">
 						<div class="l_r">
-							<div class="lb"><span style="background-color: #313695"></span>Primary</div>
-							<div class="lb"><span style="background-color: #a50026"></span>Secondary</div>
-							<div class="lb"><span style="background-color: #43f22c"></span>Other</div>
+							<div class="lb"><span style="background-color: #ffffff"></span>&nbsp;</div>
 						</div>
 					</div>
 				</div>
 				<p><label><input type="checkbox" class="showlayer" data-layer="wards" value="false">Wards</label></p>
 				<div class="layertools layertools-wards">
-					<div class="legend">
+					<div class="legend" id="legend-wards">
 						<div class="l_r">
-							<div class="lb"><span style="background-color: #206b07"></span></div>
+							<div class="lb"><span style="background-color: #ffffff"></span>&nbsp;</div>
 						</div>
 					</div>
 				</div>
 				<p><label><input type="checkbox" class="showlayer" data-layer="holyrood" value="false">Scottish Parliament Constituencies</label></p>
 				<div class="layertools layertools-holyrood">
-					<div class="legend">
+					<div class="legend" id="legend-holyrood">
 						<div class="l_r">
-							<div class="lb"><span style="background-color: #537bfc"></span></div>
+							<div class="lb"><span style="background-color: #ffffff"></span>&nbsp;</div>
 						</div>
 					</div>
 				</div>
 				<p><label><input type="checkbox" class="showlayer" data-layer="la" value="false">Local Authorities</label></p>
 				<div class="layertools layertools-la">
-					<div class="legend">
+					<div class="legend" id="legend-la">
 						<div class="l_r">
-							<div class="lb"><span style="background-color: #6b0707"></span></div>
+							<div class="lb"><span style="background-color: #ffffff"></span>&nbsp;</div>
 						</div>
 					</div>
 				</div>
 				<p><label><input type="checkbox" class="showlayer" data-layer="urbanrural" value="false">Urban/rural boundary</label></p>
 				<div class="layertools layertools-urbanrural">
+					<div class="legend" id="legend-urbanrural">
+						<div class="l_r">
+							<div class="lb"><span style="background-color: #ffffff"></span>&nbsp;</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

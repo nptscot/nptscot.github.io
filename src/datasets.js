@@ -30,7 +30,7 @@ const datasets = {
 		// Layer styling callbacks function, defined at the end
 		layerStyling: fooStyling,
 		
-		// Legends
+		// Legends, if not present in sublayer definitions
 		// #!# These need to be merged with lineColours
 		legends: {...},
 		
@@ -132,6 +132,7 @@ const datasets = {
 			'type': 'line',
 		},
 		layerStyling: rnetStyling,
+		// legends: uses rnet
 		popups: {
 			templateId: 'rnet-popup',
 			preprocessingCallback: popupCallback,	// Defined below
@@ -162,6 +163,13 @@ const datasets = {
 				'line-width': 3
 			},
 			'_filtering': 'road_function_npt'
+		},
+		legends: {
+			'coherentnetwork': [
+				['Primary', '#e73f74'],
+				['Secondary', '#f1ce63'],
+				//['Local Access', '#7faedd',]
+			]
 		}
 	},
 	
@@ -578,6 +586,11 @@ const datasets = {
 				'line-width': 2
 			}
 		},
+		legends: {
+			'busroutes': [
+				['Bus routes', 'red'],
+			]
+		},
 		popups: {
 			layerId: 'busroutes',
 			templateId: 'busroutes-popup'
@@ -612,6 +625,13 @@ const datasets = {
 				'circle-stroke-color': '#ccc',
 				'circle-stroke-width': 1
 			}
+		},
+		legends: {
+			'schools': [
+				['Primary', 	'#313695'],
+				['Secondary',	'#a50026'],
+				['Other', 		'#43f22c'],
+			]
 		}
 		/*
 		,
@@ -677,6 +697,11 @@ const datasets = {
 				'line-color': 'rgba(32, 107, 7, 1)',
 				'line-width': 2
 			}
+		},
+		legends: {
+			'wards': [
+				['Ward boundaries', 'rgba(32, 107, 7, 1)'],
+			]
 		}
 	},
 	
@@ -693,6 +718,11 @@ const datasets = {
 				'line-color': 'rgba(83, 123, 252, 1)',
 				'line-width': 2
 			}
+		},
+		legends: {
+			'holyrood': [
+				['Scottish Parliament Constituency boundaries', 'rgba(83, 123, 252, 1)'],
+			]
 		}
 	},
 	
@@ -709,6 +739,11 @@ const datasets = {
 				'line-color': 'rgba(107, 7, 7, 1)',
 				'line-width': 2
 			}
+		},
+		legends: {
+			'la': [
+				['Local authority boundaries', 'rgba(107, 7, 7, 1)'],
+			]
 		}
 	},
 	
@@ -725,6 +760,11 @@ const datasets = {
 				'line-color': '#8dd3c7',
 				'line-width': 2,
 			}
+		},
+		legends: {
+			'urbanrural': [
+				['Urban/rural boundary', '#8dd3c7'],
+			]
 		}
 	}
 };
