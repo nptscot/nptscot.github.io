@@ -983,16 +983,13 @@ const nptUi = (function () {
 			}
 			
 			// Create/update legend (even if map layer is off)
-			if (!_datasets[layerId].sublayers) {
-				
-				// Use the static legends, unless there is a sublayer selector for which the sublayer legends need to be looked up
-				let legends = datasets[layerId].legends[layerId];
-				const sublayerSelector = document.querySelector ('select.updatelayer.legendsublayerselector-' + layerId);
-				if (sublayerSelector) {
-					legends = datasets[layerId].legends[sublayerSelector.value] || datasets[layerId].legends['_'];
-				}
-				nptUi.createLegend (layerId, legends);
+			// Use the static legends, unless there is a sublayer selector for which the sublayer legends need to be looked up
+			let legends = datasets[layerId].legends[layerId];
+			const sublayerSelector = document.querySelector ('select.updatelayer.legendsublayerselector-' + layerId);
+			if (sublayerSelector) {
+				legends = datasets[layerId].legends[sublayerSelector.value] || datasets[layerId].legends['_'];
 			}
+			nptUi.createLegend (layerId, legends);
 			
 			// Set state of layer
 			_state.layers[layerId].enabled = document.querySelector ('input.showlayer[data-layer="' + layerId + '"]').checked;
@@ -1056,11 +1053,6 @@ const nptUi = (function () {
 				// Set paint properties
 				_map.setPaintProperty (layerId, style, styleDefinition);
 			});
-			
-			// Set legend, using the first style if more than one
-			const styleValueLookupsFirst = Object.values (sublayer.styles) [0];
-			const legendColours = nptUi.associativeToPairs (styleValueLookupsFirst);
-			nptUi.createLegend (layerId, legendColours);
 		},
 		
 		

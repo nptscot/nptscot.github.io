@@ -8,7 +8,7 @@ const datasets = {
 		// Layer definition - Mapbox GL JS standard addLayer structure
 		layer: {...},
 		
-		// Sublayers - unified definitions handling style rendering for each selectable sublayer, including legends
+		// Sublayers - unified definitions handling style rendering for each selectable sublayer
 		// Type is either match (fixed values) / step (steps, with the first being treated as the 'base' value) / interpolate (linear)
 		// Use of key _ is the default
 		sublayers: {
@@ -194,14 +194,16 @@ const datasets = {
 				type: 'match',
 				styles: {
 					'line-color': {
-						// Commented out as not used, requires new data
-						// 'Should not be used': 'darkred',
+						'Should not be used (non-compliant intervention)': '#4a0404',
+						'Should not be used (mixed traffic)': 'darkred',
 						'Low': 'red',
 						'Medium': '#d27d2d',
 						'High': 'mediumseagreen',
 						'_': 'gray',
 					},
 					'line-width': {
+						'Should not be used (non-compliant intervention)': 4,
+						'Should not be used (mixed traffic)': 4,
 						'Low': 4,
 						'Medium': 4,
 						'High': 4,
@@ -274,6 +276,35 @@ const datasets = {
 				}
 			},
 		},
+		legends: {
+			'Level of Service': [
+				['Should not be used (non-compliant intervention)', '#4a0404'],
+				['Should not be used (mixed traffic)', 'darkred'],
+				['Low', 'red'],
+				['Medium', '#d27d2d'],
+				['High', 'mediumseagreen'],
+			],
+			'Traffic volume category': [
+				['0 to 1999', '#27918d'],
+				['2000 to 3999', '#ffaa33'],
+				['4000+', '#440154'],
+			],
+			'Speed limit': [
+				[20, '#8a9a5b'],
+				[30, '#ffc300'],
+				[40, '#cc5500'],
+				[50, '#c70039'],
+				[60, '#900c3f'],
+				[70, '#581845'],
+			],
+			'Infrastructure type': [
+				['Segregated Track (wide)', '#054d05'],
+				['Off Road Cycleway', '#3a9120'],
+				['Segregated Track (narrow)', '#87d668'],
+				['Shared Footway', '#ffbf00'],
+				['Painted Cycle Lane', '#ff0000'],
+			]
+		},
 		popups: {
 			layerId: 'clos',
 			templateId: 'clos-popup'
@@ -307,6 +338,13 @@ const datasets = {
 					}
 				}
 			}
+		},
+		legends: {
+			'streetspace': [
+				['Not enough space', '#dd7777'],
+				['Absolute minimum', '#e0b97d'],
+				['Desirable minimum', '#75a375'],
+			]
 		},
 		popups: {
 			layerId: 'streetspace',
