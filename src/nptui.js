@@ -983,7 +983,7 @@ const nptUi = (function () {
 			} else if (_datasets[layerId].layerStyling) {
 				_datasets[layerId].layerStyling (layerId, _map, _settings, _datasets, nptUi.createLegend);
 			} else {
-				nptUi.createLegend (datasets[layerId].legends, 'legend-' + layerId);
+				nptUi.createLegend (layerId, datasets[layerId].legends);
 			}
 			
 			// Set state of layer
@@ -1053,7 +1053,7 @@ const nptUi = (function () {
 			const styleValueLookupsFirst = Object.values (sublayer.styles) [0];
 			const legendColours = nptUi.associativeToPairs (styleValueLookupsFirst);
 			const isRangeType = (sublayer.type == 'step' || sublayer.type == 'interpolate');
-			nptUi.createLegend (legendColours, 'legend-' + layerId, isRangeType);
+			nptUi.createLegend (layerId, legendColours, isRangeType);
 		},
 		
 		
@@ -1088,9 +1088,10 @@ const nptUi = (function () {
 		},
 		
 		
-		createLegend: function (legendColours, selector, isRangeType)
+		createLegend: function (layerId, legendColours, isRangeType)
 		{
 			// Do nothing if no selector for where the legend will be added
+			const selector = 'legend-' + layerId;
 			if (!document.getElementById(selector)) {return;}
 			
 			// Create the legend HTML

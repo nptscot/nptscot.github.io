@@ -755,7 +755,7 @@ function rnetStyling (layerId, map, settings, datasets, createLegend /* callback
 {
 	// Update the Legend - Do this even if map layer is off
 	const colour = document.querySelector ('select.updatelayer[data-layer="rnet"][name="colour"]').value;
-	createLegend (datasets['rnet'].legends[colour], 'legend-rnet');
+	createLegend ('rnet', datasets['rnet'].legends[colour]);
 	
 	// No special handling needed if not visible
 	if (!document.querySelector ('input.showlayer[data-layer="' + layerId + '"]').checked) {
@@ -834,7 +834,7 @@ function data_zonesStyling (layerId, map, settings, datasets, createLegend /* ca
 	// Update the legend (even if map layer is off)
 	const field = document.querySelector ('select.updatelayer[data-layer="data_zones"][name="field"]').value
 	const legendColours = (datasets['data_zones'].legends.hasOwnProperty(field) ? datasets['data_zones'].legends[field] : datasets['data_zones'].legends['_']);
-	createLegend (legendColours, 'legend-data_zones');
+	createLegend ('data_zones', legendColours);
 	
 	// Get UI state
 	const daysymetricMode = document.querySelector ('input.updatelayer[data-layer="data_zones"][name="daysymetricmode"]').checked;
