@@ -982,36 +982,48 @@ const nptUi = (function () {
 		{
 			// Generate legends from any dataset with a sublayer definition but no legends definition
 			Object.entries (_datasets).forEach (([layerId, layer]) => {
-				if (layer.sublayers && !layer.legends) {
+				if (!layer.legends) {
 					
-					// Loop through each sublayer to create the legend array for it
-					const legendsBySublayer = {};
-					Object.entries (layer.sublayers).forEach (([sublayerId, sublayer]) => {
-						
-						// Use the first defined style (only) as the basis for the legend
-						const styleTokens = Object.create (Object.values (sublayer.paint)[0]);	// Object.create used to clone, as shift/pop below would otherwise amend the original style definition
-						
-						// Remove unwanted tokens, leaving only value pairs
-						if (styleTokens[0] == 'match') {
-							styleTokens.shift ();	// Remove 'match'
-							styleTokens.shift ();	// Remove ['get', ...]
-							styleTokens.pop ();		// Remove fallback value at end of array
-						}
-						
-						// Convert pairs to ordered groups list, e.g. [a, 0, b, 1, c, 2] becomes [[a, 0], [b, 1], [c, 2]]
-						const sublayerLegends = [];
-						for (let i = 0; i < styleTokens.length - 1; i += 2) {
-							sublayerLegends.push ([styleTokens[i], styleTokens[i + 1]]);
-						}
-						
-						// Register the legends for this sublayer
-						legendsBySublayer[sublayerId] = sublayerLegends;
-					});
+					// For sublayered layers, loop through each sublayer to create the legend array for it
+					if (layer.sublayers) {
+						const legendsBySublayer = {};
+						Object.entries (layer.sublayers).forEach (([sublayerId, sublayer]) => {
+							legendsBySublayer[sublayerId] = nptUi.styleSpecToLegends (sublayer.paint);
+						});
+						_datasets[layerId].legends = legendsBySublayer;
+					}
 					
-					// Register the list to the main datasets definition
-					_datasets[layerId].legends = legendsBySublayer;
+					// For single-layered layers, use the main definition
+					else {
+						_datasets[layerId].legends = {};
+						_datasets[layerId].legends[layerId] = nptUi.styleSpecToLegends (layer.layer.paint);
+					}
 				}
 			});
+		},
+		
+		
+		// Helper function to parse a Mapbox GL JS style definition to a legends list
+		styleSpecToLegends: function (style)
+		{
+			// Use the first defined style (only) as the basis for the legend
+			const styleTokens = Object.create (Object.values (style)[0]);	// Object.create used to clone, as shift/pop below would otherwise amend the original style definition
+			
+			// Remove unwanted tokens, leaving only value pairs
+			if (styleTokens[0] == 'match') {
+				styleTokens.shift ();	// Remove 'match'
+				styleTokens.shift ();	// Remove ['get', ...]
+				styleTokens.pop ();		// Remove fallback value at end of array
+			}
+			
+			// Convert pairs to ordered groups list, e.g. [a, 0, b, 1, c, 2] becomes [[a, 0], [b, 1], [c, 2]]
+			const legend = [];
+			for (let i = 0; i < styleTokens.length - 1; i += 2) {
+				legend.push ([styleTokens[i], styleTokens[i + 1]]);
+			}
+			
+			// Return the legend array
+			return legend;
 		},
 		
 		
