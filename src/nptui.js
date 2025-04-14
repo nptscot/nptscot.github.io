@@ -944,6 +944,9 @@ const nptUi = (function () {
 			// Expand any sublayer definitions where they have same styling for multiple layers, separated by comma
 			nptUi.preprocessSublayerCommaDefinitions ();
 			
+			// Pre-process legend definitions from sublayer paint definitions
+			nptUi.preprocessLegendsFromSublayers ();
+			
 			// Add layers, and their sources, initially not visible when initialised
 			Object.keys(_datasets).forEach(layerId => {
 				const beforeId = (layerId == 'data_zones' ? 'roads 0 Guided Busway Casing' : 'placeholder_name'); // #!# Needs to be moved to definitions
@@ -969,6 +972,44 @@ const nptUi = (function () {
 							delete _datasets[layerId].sublayers[sublayerIdString];	// Remove original comma-separated list
 						}
 					});
+				}
+			});
+		},
+		
+		
+		// If legends not defined, define them from sublayers
+		preprocessLegendsFromSublayers: function ()
+		{
+			// Generate legends from any dataset with a sublayer definition but no legends definition
+			Object.entries (_datasets).forEach (([layerId, layer]) => {
+				if (layer.sublayers && !layer.legends) {
+					
+					// Loop through each sublayer to create the legend array for it
+					const legendsBySublayer = {};
+					Object.entries (layer.sublayers).forEach (([sublayerId, sublayer]) => {
+						
+						// Use the first defined style (only) as the basis for the legend
+						const styleTokens = Object.create (Object.values (sublayer.paint)[0]);	// Object.create used to clone, as shift/pop below would otherwise amend the original style definition
+						
+						// Remove unwanted tokens, leaving only value pairs
+						if (styleTokens[0] == 'match') {
+							styleTokens.shift ();	// Remove 'match'
+							styleTokens.shift ();	// Remove ['get', ...]
+							styleTokens.pop ();		// Remove fallback value at end of array
+						}
+						
+						// Convert pairs to ordered groups list, e.g. [a, 0, b, 1, c, 2] becomes [[a, 0], [b, 1], [c, 2]]
+						const sublayerLegends = [];
+						for (let i = 0; i < styleTokens.length - 1; i += 2) {
+							sublayerLegends.push ([styleTokens[i], styleTokens[i + 1]]);
+						}
+						
+						// Register the legends for this sublayer
+						legendsBySublayer[sublayerId] = sublayerLegends;
+					});
+					
+					// Register the list to the main datasets definition
+					_datasets[layerId].legends = legendsBySublayer;
 				}
 			});
 		},

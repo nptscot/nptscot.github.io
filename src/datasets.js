@@ -30,6 +30,7 @@ const datasets = {
 		layerStyling: fooStyling,
 		
 		// Legends
+		// If not present, and there is a sublayers list, these will be auto-generated from the sublayers paint first values
 		// #!# These need to be merged with lineColours
 		legends: {...},
 		
