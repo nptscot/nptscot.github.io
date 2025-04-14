@@ -284,35 +284,7 @@ const datasets = {
 				}
 			},
 		},
-		legends: {
-			'Level of Service': [
-				['Should not be used (non-compliant intervention)', '#4a0404'],
-				['Should not be used (mixed traffic)', 'darkred'],
-				['Low', 'red'],
-				['Medium', '#d27d2d'],
-				['High', 'mediumseagreen'],
-			],
-			'Traffic volume category': [
-				['0 to 1999', '#27918d'],
-				['2000 to 3999', '#ffaa33'],
-				['4000+', '#440154'],
-			],
-			'Speed limit': [
-				[20, 'seagreen'],
-				[30, '#cc5500'],
-				[40, 'orangered'],
-				[50, 'red'],
-				[60, 'firebrick'],
-				[70, 'darkred'],
-			],
-			'Infrastructure type': [
-				['Segregated Track (wide)', '#054d05'],
-				['Off Road Cycleway', '#3a9120'],
-				['Segregated Track (narrow)', '#87d668'],
-				['Shared Footway', '#ffbf00'],
-				['Painted Cycle Lane', '#ff0000'],
-			]
-		},
+		// legends will be auto-generated from the sublayer match definitions
 		popups: {
 			layerId: 'clos',
 			templateId: 'clos-popup'
@@ -384,6 +356,7 @@ const datasets = {
 				}
 			},
 		},
+		// #!# Can't currently use auto-legends, as the legendsublayerselector mechanism doesn't yet support radiobuttons rather than select
 		legends: {
 			'streetspace': [
 				['Not enough space', '#dd7777'],
