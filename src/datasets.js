@@ -156,22 +156,15 @@ const datasets = {
 				'line-color': [
 					'match',
 					['get', 'road_function_npt'],
-					'Primary', '#e73f74',
-					'Secondary', '#f1ce63',
-					// 'Local Access', '#7faedd',
+						'Primary', '#e73f74',
+						'Secondary', '#f1ce63',
+						// 'Local Access', '#7faedd',
 					/* other */ '#808080'
 				],
 				'line-width': 3
 			},
-			'_filtering': 'road_function_npt'
 		},
-		legends: {
-			'coherentnetwork': [
-				['Primary', '#e73f74'],
-				['Secondary', '#f1ce63'],
-				//['Local Access', '#7faedd',]
-			]
-		}
+		// legends will be auto-generated from the paint match definition
 	},
 	
 	clos: {
@@ -667,8 +660,8 @@ const datasets = {
 				"circle-color": [
 					'match',
 					['get', 'SchoolType'],
-					'Primary','#313695',
-					'Secondary','#a50026',
+						'Primary','#313695',
+						'Secondary','#a50026',
 					/* other */ '#43f22c'
 				],
 				// make circles larger as the user zooms
@@ -683,13 +676,7 @@ const datasets = {
 				'circle-stroke-width': 1
 			}
 		},
-		legends: {
-			'schools': [
-				['Primary', 	'#313695'],
-				['Secondary',	'#a50026'],
-				['Other', 		'#43f22c'],
-			]
-		}
+		// legends will be auto-generated from the paint match definition
 		/*
 		,
 		// Travel to School Modeshare
