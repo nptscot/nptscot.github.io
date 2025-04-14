@@ -1,10 +1,54 @@
 // Data definitions, i.e. layers, charts, etc.
 const datasets = {
 	
-	// Data layers
-	layers: {
+	/* Example:
+	
+	foo: {
 		
-		rnet: {
+		// Layer definition - Mapbox GL JS standard addLayer structure
+		layer: {...},
+		
+		// Sublayers - paint rendering for each selectable sublayer
+		sublayers: {
+			sublayername: {
+				paint: {
+					'line-color': [
+						'match',
+						['get', 'sublayername']
+							value1: colour1,
+							value2: colour2,
+							...
+						fallbackvalue
+					],
+					...
+				},
+				[Another sublayer]
+			}
+		},
+		
+		// Layer styling callbacks function, defined at the end
+		layerStyling: fooStyling,
+		
+		// Legends
+		// If not present, and there is a sublayers list, these will be auto-generated from the sublayers paint first values
+		// #!# These need to be merged with lineColours
+		legends: {...},
+		
+		lineColours: {...},
+		
+		// Chart definitions
+		// #!# Need to define more clearly the assumed data structure, e.g. the 'charts' key shows a part field
+		charts: {...},
+		
+		// Popups
+		// #!# Need to add support for auto-popups if <template> is present, as these is becoming boilerplate code
+		popups: {...}
+	},
+	
+	*/
+	
+	rnet: {
+		layer: {
 			'id': 'rnet',
 			'source': {
 				'type': 'vector',
@@ -13,320 +57,8 @@ const datasets = {
 			'source-layer': 'rnet',
 			'type': 'line',
 		},
-		
-		'rnet-simplified': {
-			'id': 'rnet-simplified',
-			'source': {
-				'type': 'vector',
-				'url': 'pmtiles://%tileserverUrl/rnet_simplified_2025-03-01.pmtiles',	 // #!# Inconsistent path - needs fixing
-			},
-			'source-layer': 'rnet_simplified',
-			'type': 'line',
-		},
-		
-		data_zones: {
-			'id': 'data_zones',
-			'type': 'fill',
-			'source': {
-			'type': 'vector',
-				'url': 'pmtiles://%tileserverUrl/data_zones_2025-03-01.pmtiles',
-				},
-			'source-layer': 'data_zones',
-			'paint': {
-				'fill-color': '#9c9898',
-				'fill-opacity': 0.8,
-				'fill-outline-color': '#000000'
-			}
-		},
-		
-		busroutes: {
-			'id': 'busroutes',
-			'type': 'line',
-			'source': {
-				'type': 'vector',
-				'url': 'pmtiles://%tileserverUrl/osm_bus_route_pmtiles.pmtiles',
-			},
-			'source-layer': 'osm_bus_route',
-			'paint': {
-				'line-color': 'red',
-				'line-width': 2
-			}
-		},
-		
-		schools: {
-			'id': 'schools',
-			'type': 'circle',
-			'source': {
-				'type': 'vector',
-				'url': 'pmtiles://%tileserverUrl/schools-2023-12-17.pmtiles',
-			},
-			'source-layer': 'schools',
-			'paint': {
-				"circle-color": [
-					'match',
-					['get', 'SchoolType'],
-					'Primary','#313695',
-					'Secondary','#a50026',
-					/* other */ '#43f22c'
-				],
-				// make circles larger as the user zooms
-				'circle-radius': {
-					'base': 5,
-					'stops': [
-						[8, 6],
-						[22, 180]
-					]
-				},
-				'circle-stroke-color': '#ccc',
-				'circle-stroke-width': 1
-			}
-		},
-		
-		wards: {
-			'id': 'wards',
-			'type': 'line',
-			'source': {
-				'type': 'vector',
-				'url': 'pmtiles://%tileserverUrl/wards.pmtiles',
-			},
-			'source-layer': 'wards',
-			'paint': {
-				'line-color': 'rgba(32, 107, 7, 1)',
-				'line-width': 2
-			}
-		},
-		
-		holyrood: {
-			'id': 'holyrood',
-			'type': 'line',
-			'source': {
-				'type': 'vector',
-				'url': 'pmtiles://%tileserverUrl/holyrood.pmtiles',
-			},
-			'source-layer': 'holyrood',
-			'paint': {
-				'line-color': 'rgba(83, 123, 252, 1)',
-				'line-width': 2
-			}
-		},
-		
-		la: {
-			'id': 'la',
-			'type': 'line',
-			'source': {
-				'type': 'vector',
-				'url': 'pmtiles://%tileserverUrl/la.pmtiles',
-			},
-			'source-layer': 'la',
-			'paint': {
-				'line-color': 'rgba(107, 7, 7, 1)',
-				'line-width': 2
-			} 
-		},
-		
-		urbanrural: {
-			'id': 'urbanrural',
-			'type': 'line',
-			'source': {
-				'type': 'vector',
-				'url': 'pmtiles://%tileserverUrl/SG_Urban_2020.pmtiles',
-			},
-			'source-layer': 'coherent_networks',
-			'paint': {
-				'line-color': '#8dd3c7',
-				'line-width': 2,
-			}
-		},
-		
-		clos: {
-			'id': 'clos',
-			'type': 'line',
-			'source': {
-				'type': 'vector',
-				'url': 'pmtiles://%tileserverUrl/cbd_layer_2025-03-01.pmtiles',
-			},
-			'source-layer': 'cbd_layer',
-			'paint': {
-				'line-color': '#603',
-				'line-width': 2
-			}
-		},
-		streetspace: {
-			'id': 'streetspace',
-			'type': 'line',
-			'source': {
-				'type': 'vector',
-				'url': 'pmtiles://%tileserverUrl/os_networks_categorized_street_space_with_widths.pmtiles',
-			},
-			'source-layer': 'street_space',
-			'paint': {
-				'line-color': 'gray',		// Overriden below in sublayers, as is a multi-field dataset
-				'line-width': 4
-			}
-		},
-		
-		// #!# Tiles filename, and source layer still reflect the old name, and need to be updated
-		coherentnetwork: {
-			'id': 'coherentnetwork',
-			'type': 'line',
-			'source': {
-				'type': 'vector',
-				'url': 'pmtiles://%tileserverUrl/combined_CN_4_2025-03-01_OS.pmtiles',
-			},
-			'source-layer': 'coherent_networks',
-			'paint': {
-				'line-color': [
-					'match',
-					['get', 'road_function_npt'],
-					'Primary', '#e73f74',
-					'Secondary', '#f1ce63',
-					// 'Local Access', '#7faedd',
-					/* other */ '#808080'
-				],
-				'line-width': 3
-			}
-		}
-	},
-	
-	
-	// Sublayers - unified definitions handling style rendering for each selectable sublayer, including legends
-	// Type is either match (fixed values) / step (steps, with the first being treated as the 'base' value) / interpolate (linear)
-	// Use of key _ is the default
-	// #!# Migrate existing layers to this unified format
-	sublayers: {
-		/*
-		layer: {
-			fieldname: {
-				label: 'Label',
-				type: 'match',
-				styles: {
-					'line-color': {
-						value1: colour1,
-						value2: colour2,
-						...
-					},
-					...
-				}
-			}
-		},
-		*/
-		clos: {
-			'Level of Service': {
-				label: 'Level of service',
-				type: 'match',
-				styles: {
-					'line-color': {
-						'Should not be used (non-compliant intervention)': '#4a0404',
-						'Should not be used (mixed traffic)': 'darkred',
-						'Low': 'red',
-						'Medium': '#d27d2d',
-						'High': 'mediumseagreen',
-						'_': 'gray',
-					},
-					'line-width': {
-						'Should not be used (non-compliant intervention)': 4,
-						'Should not be used (mixed traffic)': 4,
-						'Low': 4,
-						'Medium': 4,
-						'High': 4,
-						'_': 4,
-					}
-				}
-			},
-			'Traffic volume category': {
-				label: 'Traffic volume category',
-				type: 'match',
-				styles: {
-					'line-color': {
-						'0 to 1999': '#27918d',
-						'2000 to 3999': '#ffaa33',
-						'4000+': '#440154',
-						'_': 'gray',
-					},
-					'line-width': {
-						'0 to 1999': 2,
-						'2000 to 3999': 3,
-						'4000+': 4,
-						'_': 2,
-					}
-				}
-			},
-			'Speed limit': {
-				label: 'Estimated speed limit',
-				type: 'match',
-				styles: {
-					'line-color': {
-						20: 'seagreen',
-						30: '#cc5500',
-						40: 'orangered',
-						50: 'red',
-						60: 'firebrick',
-						70: 'darkred',
-						'_': 'gray',
-					},
-					'line-width': {
-						20: 2,
-						30: 2,
-						40: 2,
-						50: 2,
-						60: 2,
-						70: 2,
-						'_': 2,
-					}
-				}
-			},
-			'Infrastructure type': {
-				label: 'Infrastructure type',
-				type: 'match',
-				styles: {
-					'line-color': {
-						'Segregated Track (wide)': '#054d05',
-						'Off Road Cycleway': '#3a9120',
-						'Segregated Track (narrow)': '#87d668',
-						'Shared Footway': '#ffbf00',
-						'Painted Cycle Lane': '#ff0000',
-						'_': 'rgba(0, 0, 0, 0)', // Invisible
-					},
-				    'line-width': {
-						'Segregated Track (wide)': 6,
-						'Off Road Cycleway': 4,
-						'Segregated Track (narrow)': 4,
-						'Shared Footway': 3,
-						'Painted Cycle Lane': 1.8,
-						'_': 2,
-					}
-				}
-			},
-		},
-		streetspace: {
-			'carriageway_1way,carriageway_2way,combined_1way,combined_2way': {		// Same match style for each sublayer; will be expanded
-				label: 'Street space',
-				type: 'match',
-				styles: {
-					'line-color': {
-						'Not enough space': '#dd7777',
-						'Absolute minimum': '#e0b97d',
-						'Desirable minimum': '#75a375',
-						'_': 'rgba(0, 0, 0, 0)', // Invisible
-					}
-				}
-			}
-		}
-	},
-	
-	
-	// Layer styling callbacks functions, each defined below
-	layerStyling: {
-		rnet:				rnetStyling,
-		"rnet-simplified":	rnetStyling,
-		data_zones:			data_zonesStyling,
-	},
-	
-	
-	// #!# These need to be merged with lineColours
-	legends: {
-		
-		rnet: {
+		layerStyling: rnetStyling,
+		legends: {
 			'none': [
 				['&nbsp;',	'#304ce7']
 			],
@@ -354,8 +86,300 @@ const datasets = {
 				['10+',		'#581845'],
 			]
 		},
-		
-		data_zones: {
+		lineColours: {
+			none: '#304ce7',
+			flow: [
+				'rgba(0,0,0,0)', 1,
+				'#9C9C9C', 50,
+				'#FFFF73', 100,
+				'#AFFF00', 250,
+				'#00FFFF', 500,
+				'#30B0FF', 1000,
+				'#2E5FFF', 2000,
+				'#0000FF', 3000
+			],
+			quietness: [
+				'#882255', 25,
+				'#CC6677', 50,
+				'#44AA99', 75,
+				'#117733', 101
+			],
+			gradient: [
+				'#59ee19', 3,
+				'#37a009', 5,
+				'#FFC300', 7,
+				'#C70039', 10,
+				'#581845', 100
+			]
+		},
+		popups: {
+			layerId: 'rnet',
+			templateId: 'rnet-popup',
+			preprocessingCallback: popupCallback,	// Defined below
+			smallValuesThreshold: 10,
+			literalFields: ['gradient', 'quietness']
+		}
+	},
+	
+	'rnet-simplified': {
+		layer: {
+			'id': 'rnet-simplified',
+			'source': {
+				'type': 'vector',
+				'url': 'pmtiles://%tileserverUrl/rnet_simplified_2025-03-01.pmtiles',	 // #!# Inconsistent path - needs fixing
+			},
+			'source-layer': 'rnet_simplified',
+			'type': 'line',
+		},
+		// layerStyling: uses rnet - copied-in below at the end of this array creation
+		// legends: uses rnet - copied-in below at the end of this array creation
+		// lineColours: uses rnet - copied-in below at the end of this array creation
+		popups: {
+			templateId: 'rnet-popup',
+			preprocessingCallback: popupCallback,	// Defined below
+			smallValuesThreshold: 10,
+			literalFields: ['gradient', 'quietness']
+		}
+	},
+	
+	// #!# Tiles filename, and source layer still reflect the old name, and need to be updated
+	coherentnetwork: {
+		layer: {
+			'id': 'coherentnetwork',
+			'type': 'line',
+			'source': {
+				'type': 'vector',
+				'url': 'pmtiles://%tileserverUrl/combined_CN_4_2025-03-01_OS.pmtiles',
+			},
+			'source-layer': 'coherent_networks',
+			'paint': {
+				'line-color': [
+					'match',
+					['get', 'road_function_npt'],
+						'Primary', '#e73f74',
+						'Secondary', '#f1ce63',
+						// 'Local Access', '#7faedd',
+					/* other */ '#808080'
+				],
+				'line-width': 3
+			},
+		},
+		// legends will be auto-generated from the paint match definition
+	},
+	
+	clos: {
+		layer: {
+			'id': 'clos',
+			'type': 'line',
+			'source': {
+				'type': 'vector',
+				'url': 'pmtiles://%tileserverUrl/cbd_layer_2025-03-01.pmtiles',
+			},
+			'source-layer': 'cbd_layer',
+			'paint': {
+				'line-color': '#603',
+				'line-width': 2
+			}
+		},
+		sublayers: {
+			'Level of Service': {
+				paint: {
+					'line-color': [
+						'match',
+						['get', 'Level of service'],
+							'Should not be used (non-compliant intervention)', '#4a0404',
+							'Should not be used (mixed traffic)', 'darkred',
+							'Low', 'red',
+							'Medium', '#d27d2d',
+							'High', 'mediumseagreen',
+						'gray'
+					],
+					'line-width': [
+						'match',
+						['get', 'Level of service'],
+							'Should not be used (non-compliant intervention)', 4,
+							'Should not be used (mixed traffic)', 4,
+							'Low', 4,
+							'Medium', 4,
+							'High', 4,
+						4
+					]
+				}
+			},
+			'Traffic volume category': {
+				paint: {
+					'line-color': [
+						'match',
+						['get', 'Traffic volume category'],
+							'0 to 1999', '#27918d',
+							'2000 to 3999', '#ffaa33',
+							'4000+', '#440154',
+						'gray',
+					],
+					'line-width': [
+						'match',
+						['get', 'Traffic volume category'],
+							'0 to 1999', 2,
+							'2000 to 3999', 3,
+							'4000+', 4,
+						2,
+					]
+				}
+			},
+			'Speed limit': {
+				paint: {
+					'line-color': [
+						'match',
+						['get', 'Speed limit'],
+							20, 'seagreen',
+							30, '#cc5500',
+							40, 'orangered',
+							50, 'red',
+							60, 'firebrick',
+							70, 'darkred',
+						'gray',
+					],
+					'line-width': [
+						'match',
+						['get', 'Speed limit'],
+							20, 2,
+							30, 2,
+							40, 2,
+							50, 2,
+							60, 2,
+							70, 2,
+						2,
+					]
+				}
+			},
+			'Infrastructure type': {
+				paint: {
+					'line-color': [
+						'match',
+						['get', 'Infrastructure type'],
+							'Segregated Track (wide)', '#054d05',
+							'Off Road Cycleway', '#3a9120',
+							'Segregated Track (narrow)', '#87d668',
+							'Shared Footway', '#ffbf00',
+							'Painted Cycle Lane', '#ff0000',
+						'rgba(0, 0, 0, 0)', 	// Invisible
+					],
+					'line-width': [
+						'match',
+						['get', 'Infrastructure type'],
+							'Segregated Track (wide)', 6,
+							'Off Road Cycleway', 4,
+							'Segregated Track (narrow)', 4,
+							'Shared Footway', 3,
+							'Painted Cycle Lane', 1.8,
+						2,
+					]
+				}
+			},
+		},
+		// legends will be auto-generated from the sublayer match definitions
+		popups: {
+			layerId: 'clos',
+			templateId: 'clos-popup'
+		}
+	},
+	
+	streetspace: {
+		layer: {
+			'id': 'streetspace',
+			'type': 'line',
+			'source': {
+				'type': 'vector',
+				'url': 'pmtiles://%tileserverUrl/os_networks_categorized_street_space_with_widths.pmtiles',
+			},
+			'source-layer': 'street_space',
+			'paint': {
+				'line-color': 'gray',		// Overriden below in sublayers, as is a multi-field dataset
+				'line-width': 4
+			}
+		},
+		sublayers: {
+			// #!# This is a repetitive set of definitions, but the 'get' field needs to change each time - see if this can be simplified
+			'carriageway_1way': {
+				paint: {
+					'line-color': [
+						'match',
+						['get', 'carriageway_1way'],
+							'Not enough space', '#dd7777',
+							'Absolute minimum', '#e0b97d',
+							'Desirable minimum', '#75a375',
+						'rgba(0, 0, 0, 0)', // Invisible
+					]
+				}
+			},
+			'carriageway_2way': {
+				paint: {
+					'line-color': [
+						'match',
+						['get', 'carriageway_2way'],
+							'Not enough space', '#dd7777',
+							'Absolute minimum', '#e0b97d',
+							'Desirable minimum', '#75a375',
+						'rgba(0, 0, 0, 0)', // Invisible
+					]
+				}
+			},
+			'combined_1way': {
+				paint: {
+					'line-color': [
+						'match',
+						['get', 'combined_1way'],
+							'Not enough space', '#dd7777',
+							'Absolute minimum', '#e0b97d',
+							'Desirable minimum', '#75a375',
+						'rgba(0, 0, 0, 0)', // Invisible
+					]
+				}
+			},
+			'combined_2way': {
+				paint: {
+					'line-color': [
+						'match',
+						['get', 'combined_2way'],
+							'Not enough space', '#dd7777',
+							'Absolute minimum', '#e0b97d',
+							'Desirable minimum', '#75a375',
+						'rgba(0, 0, 0, 0)', // Invisible
+					]
+				}
+			},
+		},
+		// #!# Can't currently use auto-legends, as the legendsublayerselector mechanism doesn't yet support radiobuttons rather than select
+		legends: {
+			'streetspace': [
+				['Not enough space', '#dd7777'],
+				['Absolute minimum', '#e0b97d'],
+				['Desirable minimum', '#75a375'],
+			]
+		},
+		popups: {
+			layerId: 'streetspace',
+			templateId: 'streetspace-popup'
+		}
+	},
+	
+	data_zones: {
+		layer: {
+			'id': 'data_zones',
+			'type': 'fill',
+			'source': {
+			'type': 'vector',
+				'url': 'pmtiles://%tileserverUrl/data_zones_2025-03-01.pmtiles',
+				},
+			'source-layer': 'data_zones',
+			'paint': {
+				'fill-color': '#9c9898',
+				'fill-opacity': 0.8,
+				'fill-outline-color': '#000000'
+			}
+		},
+		layerStyling: data_zonesStyling,
+		legends: {
 			'SIMD2020v2_Decile': [
 				['1st', 	'#a50026'],
 				['2nd',		'#d73027'],
@@ -419,40 +443,8 @@ const datasets = {
 				['200',		'#67001f'],
 			],
 		},
-	},
-	
-	
-	lineColours: {
-		
-		rnet: {
-			none: '#304ce7',
-			flow: [
-				'rgba(0,0,0,0)', 1,
-				'#9C9C9C', 50,
-				'#FFFF73', 100,
-				'#AFFF00', 250,
-				'#00FFFF', 500,
-				'#30B0FF', 1000,
-				'#2E5FFF', 2000,
-				'#0000FF', 3000
-			],
-			quietness: [
-				'#882255', 25,
-				'#CC6677', 50,
-				'#44AA99', 75,
-				'#117733', 101
-			],
-			gradient: [
-				'#59ee19', 3,
-				'#37a009', 5,
-				'#FFC300', 7,
-				'#C70039', 10,
-				'#581845', 100
-			]
-		},
-		
 		// #!# These are presumably restatements of dzLegendColours
-		data_zones: {
+		lineColours: {
 			'SIMD2020v2_Decile': [
 				'#a50026', 1.1,			 // #!# This block is basically enums rather than ranges, so current fudge of .1 is to avoid off-by-one errors
 				'#d73027', 2.1,
@@ -522,17 +514,10 @@ const datasets = {
 				'#000000'
 			]
 		}
-	},
-	
-	
-	// Chart definitions, indexed by map layer ID
-	// #!# Need to define more clearly the assumed data structure, e.g. the 'charts' key shows a part field
-	charts: {
-
+		/*
+		,
 		// #!# Disabled this popup as of September 2024 - can be deleted later if data issues resolved
-	/*
-		// Data zones
-		data_zones: {
+		charts: {
 			
 			// Data fields
 			// #!# Should use a main server URL setting
@@ -633,11 +618,69 @@ const datasets = {
 				['_go_dutch_quietest', 'Go Dutch (Quietest)'],
 				['_ebike_quietest', 'Ebike (Quietest)']
 			]
+		}
+		*/
+	},
+	
+	busroutes: {
+		layer: {
+			'id': 'busroutes',
+			'type': 'line',
+			'source': {
+				'type': 'vector',
+				'url': 'pmtiles://%tileserverUrl/osm_bus_route_pmtiles.pmtiles',
+			},
+			'source-layer': 'osm_bus_route',
+			'paint': {
+				'line-color': 'red',
+				'line-width': 2
+			}
 		},
-		
-		
+		legends: {
+			'busroutes': [
+				['Bus routes', 'red'],
+			]
+		},
+		popups: {
+			layerId: 'busroutes',
+			templateId: 'busroutes-popup'
+		}
+	},
+	
+	schools: {
+		layer: {
+			'id': 'schools',
+			'type': 'circle',
+			'source': {
+				'type': 'vector',
+				'url': 'pmtiles://%tileserverUrl/schools-2023-12-17.pmtiles',
+			},
+			'source-layer': 'schools',
+			'paint': {
+				"circle-color": [
+					'match',
+					['get', 'SchoolType'],
+						'Primary','#313695',
+						'Secondary','#a50026',
+					/* other */ '#43f22c'
+				],
+				// make circles larger as the user zooms
+				'circle-radius': {
+					'base': 5,
+					'stops': [
+						[8, 6],
+						[22, 180]
+					]
+				},
+				'circle-stroke-color': '#ccc',
+				'circle-stroke-width': 1
+			}
+		},
+		// legends will be auto-generated from the paint match definition
+		/*
+		,
 		// Travel to School Modeshare
-		schools: {
+		charts: {
 
 			// Data fields
 			dataUrl: 'https://nptscot.blob.core.windows.net/json/School/%id.json',
@@ -682,45 +725,99 @@ const datasets = {
 				['_ebike_quietest', 'Ebike (Quietest)']
 			]
 		}
-	*/
+		*/
 	},
 	
+	wards: {
+		layer: {
+			'id': 'wards',
+			'type': 'line',
+			'source': {
+				'type': 'vector',
+				'url': 'pmtiles://%tileserverUrl/wards.pmtiles',
+			},
+			'source-layer': 'wards',
+			'paint': {
+				'line-color': 'rgba(32, 107, 7, 1)',
+				'line-width': 2
+			}
+		},
+		legends: {
+			'wards': [
+				['Ward boundaries', 'rgba(32, 107, 7, 1)'],
+			]
+		}
+	},
 	
-	// Popups
-	// #!# Need to add support for auto-popups if <template> is present, as this is becoming boilerplate code
-	popups: {
-		
-		'rnet': {
-			layerId: 'rnet',
-			templateId: 'rnet-popup',
-			preprocessingCallback: popupCallback,	// Defined below
-			smallValuesThreshold: 10,
-			literalFields: ['gradient', 'quietness']
+	holyrood: {
+		layer: {
+			'id': 'holyrood',
+			'type': 'line',
+			'source': {
+				'type': 'vector',
+				'url': 'pmtiles://%tileserverUrl/holyrood.pmtiles',
+			},
+			'source-layer': 'holyrood',
+			'paint': {
+				'line-color': 'rgba(83, 123, 252, 1)',
+				'line-width': 2
+			}
 		},
-		
-		'rnet-simplified': {
-			templateId: 'rnet-popup',
-			preprocessingCallback: popupCallback,	// Defined below
-			smallValuesThreshold: 10,
-			literalFields: ['gradient', 'quietness']
+		legends: {
+			'holyrood': [
+				['Scottish Parliament Constituency boundaries', 'rgba(83, 123, 252, 1)'],
+			]
+		}
+	},
+	
+	la: {
+		layer: {
+			'id': 'la',
+			'type': 'line',
+			'source': {
+				'type': 'vector',
+				'url': 'pmtiles://%tileserverUrl/la.pmtiles',
+			},
+			'source-layer': 'la',
+			'paint': {
+				'line-color': 'rgba(107, 7, 7, 1)',
+				'line-width': 2
+			}
 		},
-		
-		'clos': {
-			layerId: 'clos',
-			templateId: 'clos-popup'
+		legends: {
+			'la': [
+				['Local authority boundaries', 'rgba(107, 7, 7, 1)'],
+			]
+		}
+	},
+	
+	urbanrural: {
+		layer: {
+			'id': 'urbanrural',
+			'type': 'line',
+			'source': {
+				'type': 'vector',
+				'url': 'pmtiles://%tileserverUrl/SG_Urban_2020.pmtiles',
+			},
+			'source-layer': 'coherent_networks',
+			'paint': {
+				'line-color': '#8dd3c7',
+				'line-width': 2,
+			}
 		},
-		
-		'busroutes': {
-			layerId: 'busroutes',
-			templateId: 'busroutes-popup'
-		},
-		
-		'streetspace': {
-			layerId: 'streetspace',
-			templateId: 'streetspace-popup'
+		legends: {
+			'urbanrural': [
+				['Urban/rural boundary', '#8dd3c7'],
+			]
 		}
 	}
 };
+
+// Clone rnet definitions, to avoid restatement of large arrays, above
+datasets['rnet-simplified'].layerStyling = datasets['rnet'].layerStyling;
+datasets['rnet-simplified'].legends      = datasets['rnet'].legends;
+datasets['rnet-simplified'].lineColours  = datasets['rnet'].lineColours;
+
 
 
 // Callbacks
@@ -744,16 +841,15 @@ function getLayerWidthField ()
 
 
 // Styling callback for rnet/rnet_simplified
-function rnetStyling (layerId, map, settings, datasets, createLegend /* callback */)
+function rnetStyling (layerId, map, settings, datasets)
 {
-	// Update the Legend - Do this even if map layer is off
-	const colour = document.querySelector ('select.updatelayer[data-layer="rnet"][name="colour"]').value;
-	createLegend (datasets.legends.rnet[colour], 'linecolourlegend');
-	
 	// No special handling needed if not visible
 	if (!document.querySelector ('input.showlayer[data-layer="' + layerId + '"]').checked) {
 		return;
 	}
+	
+	// Determine the sublayer (field) in use
+	const sublayer = document.querySelector ('select.updatelayer.legendsublayerselector-' + layerId).value;
 	
 	// Determine the layer width field
 	const layerWidthField = getLayerWidthField();
@@ -779,21 +875,21 @@ function rnetStyling (layerId, map, settings, datasets, createLegend /* callback
 	];
 	
 	// Define line colour
-	const line_colours = {
-		'none': datasets.lineColours.rnet.none,
+	const lineColours = {
+		'none': datasets['rnet'].lineColours.none,
 		'flow': [
 			'step', ['get', layerWidthField],
-			...datasets.lineColours.rnet.flow,
+			...datasets['rnet'].lineColours.flow,
 			'#FF00C5'
 		],
 		'quietness': [
 			'step', ['get', 'quietness'],
-			...datasets.lineColours.rnet.quietness,
+			...datasets['rnet'].lineColours.quietness,
 			'#000000'
 		],
 		'gradient': [
 			'step', ['get', 'gradient'],
-			...datasets.lineColours.rnet.gradient,
+			...datasets['rnet'].lineColours.gradient,
 			'#000000'
 		]
 	};
@@ -816,24 +912,22 @@ function rnetStyling (layerId, map, settings, datasets, createLegend /* callback
 	map.setFilter (layerId, filter);
 	
 	// Set paint properties
-	map.setPaintProperty (layerId, 'line-color', line_colours[colour]);
+	map.setPaintProperty (layerId, 'line-color', lineColours[sublayer]);
 	map.setPaintProperty (layerId, 'line-width', line_width);
 }
 
 
 // Styling callback for data zones (including buildings styling)
-function data_zonesStyling (layerId, map, settings, datasets, createLegend /* callback */)
+function data_zonesStyling (layerId, map, settings, datasets)
 {
-	// Update the legend (even if map layer is off)
-	const field = document.querySelector ('select.updatelayer[data-layer="data_zones"][name="field"]').value
-	const legendColours = (datasets.legends.data_zones.hasOwnProperty(field) ? datasets.legends.data_zones[field] : datasets.legends.data_zones['_']);
-	createLegend (legendColours, 'dzlegend');
+	// Determine the sublayer (field) in use
+	const sublayer = document.querySelector ('select.updatelayer.legendsublayerselector-' + layerId).value;
 	
 	// Get UI state
 	const daysymetricMode = document.querySelector ('input.updatelayer[data-layer="data_zones"][name="daysymetricmode"]').checked;
 	
 	// Set paint properties
-	map.setPaintProperty (layerId, 'fill-color', ['step', ['get', field], ...getStyleColumn (field, datasets)]);
+	map.setPaintProperty (layerId, 'fill-color', ['step', ['get', sublayer], ...getStyleColumn (sublayer, datasets)]);
 	map.setPaintProperty (layerId, 'fill-opacity', (daysymetricMode ? 0.1 : 0.8)); // Very faded-out in daysymetric mode, as the buildings are coloured
 	
 	// Set buildings layer colour/visibility
@@ -866,8 +960,8 @@ function getBuildingsColour (settings)
 // Function to determine the style column
 function getStyleColumn (layerId, datasets)
 {
-	const style_col_selected = datasets.lineColours.data_zones.hasOwnProperty(layerId) ? layerId : '_';
-	return datasets.lineColours.data_zones[style_col_selected];
+	const style_col_selected = datasets['data_zones'].lineColours.hasOwnProperty(layerId) ? layerId : '_';
+	return datasets['data_zones'].lineColours[style_col_selected];
 }
 
 

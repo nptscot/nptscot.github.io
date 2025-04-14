@@ -15,8 +15,9 @@
 	<select name="purpose" class="updatelayer" data-layer="rnet" aria-label="Route network trip purpose">
 
 - Legends:
-	Should be as follows, specifying the layerId followed by -legend in the id:
-	<div id="clos-legend" class="legend"></div>
+	Should be as follows, specifying the layerId prefixed by legend- as the id:
+	<div class="legend" id="legend-busroutes"></div>
+	Legend filters must be a checkbox with class=legendfilter and then name=legendfilter_ + layerId, and value=...
 	
 - Slider UI:
 	Sliders should have .slider-styled, with a name for the field, and an ID that matches a datalist name, e.g.:
@@ -258,7 +259,7 @@ const nptUi = (function () {
 		{
 			// Initialise layer state structure
 			_state.layers = {};
-			Object.keys (_datasets.layers).forEach (function (layerId) {
+			Object.keys (_datasets).forEach (layerId => {
 				_state.layers[layerId] = {
 					enabled: false,
 					parameters: {},
@@ -272,7 +273,7 @@ const nptUi = (function () {
 			});
 			
 			// Obtain initial parameter state for each layer
-			Object.keys (_datasets.layers).forEach (layerId => {
+			Object.keys (_datasets).forEach (layerId => {
 				const parameters = nptUi.serialiseParameters ('div.layertools-' + layerId);
 				_state.layers[layerId].parametersInitial = Object.freeze (Object.assign ({}, parameters));		// Acts as a reference state; will not be amended
 				_state.layers[layerId].parameters = Object.assign ({}, parameters);
@@ -889,7 +890,7 @@ const nptUi = (function () {
 			
 			
 			// Track form parameters into the state
-			Object.keys (_datasets.layers).forEach (layerId => {
+			Object.keys (_datasets).forEach (layerId => {
 				document.querySelectorAll ('div.layertools-' + layerId + ' .updatelayer').forEach ((input) => {
 					input.addEventListener ('change', function () {
 						_state.layers[layerId].parameters = nptUi.serialiseParameters ('div.layertools-' + layerId);
@@ -905,7 +906,7 @@ const nptUi = (function () {
 				nptUi.initialiseDatasets ();
 				
 				// Implement initial visibility state for all layers
-				Object.keys (_datasets.layers).forEach (layerId => {
+				Object.keys (_datasets).forEach (layerId => {
 					nptUi.toggleLayer (layerId);
 				});
 				
@@ -921,6 +922,9 @@ const nptUi = (function () {
 						}
 					});
 				});
+				
+				// Handle in-layer filtering
+				nptUi.inLayerFiltering ();
 			});
 		},
 		
@@ -931,54 +935,115 @@ const nptUi = (function () {
 			// console.log ('Initialising sources and layers');
 			
 			// Replace tileserver URL placeholder in layer definitions
-			Object.entries(_datasets.layers).forEach(([layerId, layer]) => {
+			Object.entries (_datasets).forEach(([layerId, layer]) => {
 				let tileserverUrl = (_settings.tileserverTempLocalOverrides[layerId] ? _settings.tileserverTempLocalOverrides[layerId] : _settings.tileserverUrl);
-				_datasets.layers[layerId].source.url = layer.source.url.replace ('%tileserverUrl', tileserverUrl)
-				//console.log (`Setting source.url for layer ${layerId} to ${_datasets.layers[layerId].source.url}`);
+				_datasets[layerId].layer.source.url = layer.layer.source.url.replace ('%tileserverUrl', tileserverUrl)
+				//console.log (`Setting source.url for layer ${layerId} to ${layer.layer.source.url}`);
 			});
 			
 			// Expand any sublayer definitions where they have same styling for multiple layers, separated by comma
-			Object.entries (_datasets.sublayers).forEach (([layerId, sublayers]) => {
-				Object.entries (sublayers).forEach (function ([sublayerIdString, sublayer]) {
-					if (sublayerIdString.includes (',')) {
-						const sublayerIds = sublayerIdString.split (',');
-						sublayerIds.forEach (function (sublayerId) {
-							_datasets.sublayers[layerId][sublayerId] = sublayer;		// Expand
-						});
-						delete _datasets.sublayers[layerId][sublayerIdString];	// Remove original comma-separated list
-					}
-				});
-			});
+			nptUi.preprocessSublayerCommaDefinitions ();
+			
+			// Pre-process legend definitions from sublayer paint definitions
+			nptUi.preprocessLegendsFromSublayers ();
 			
 			// Add layers, and their sources, initially not visible when initialised
-			Object.keys(_datasets.layers).forEach(layerId => {
+			Object.keys(_datasets).forEach(layerId => {
 				const beforeId = (layerId == 'data_zones' ? 'roads 0 Guided Busway Casing' : 'placeholder_name'); // #!# Needs to be moved to definitions
-				_datasets.layers[layerId].layout = {
+				_datasets[layerId].layer.layout = {
 					visibility: 'none'
 				};
-				_map.addLayer(_datasets.layers[layerId], beforeId);
+				_map.addLayer(_datasets[layerId].layer, beforeId);
 			});
 		},
 		
 		
+		// Macro function to expand sublayer definitions whose key contains a list of sublayers, i.e. 'a,b,c' => {styles} will expand to three separate entries: 'a' => {styles}, 'b' => {styles}, 'c' => {styles}
+		preprocessSublayerCommaDefinitions: function ()
+		{
+			Object.entries (_datasets).forEach (([layerId, layer]) => {
+				if (layer.sublayers) {
+					Object.entries (layer.sublayers).forEach (function ([sublayerIdString, sublayer]) {
+						if (sublayerIdString.includes (',')) {
+							const sublayerIds = sublayerIdString.split (',');
+							sublayerIds.forEach (function (sublayerId) {
+								_datasets[layerId].sublayers[sublayerId] = sublayer;		// Expand
+							});
+							delete _datasets[layerId].sublayers[sublayerIdString];	// Remove original comma-separated list
+						}
+					});
+				}
+			});
+		},
+		
+		
+		// If legends not defined, define them from sublayers
+		preprocessLegendsFromSublayers: function ()
+		{
+			// Generate legends from any dataset with a sublayer definition but no legends definition
+			Object.entries (_datasets).forEach (([layerId, layer]) => {
+				if (!layer.legends) {
+					
+					// For sublayered layers, loop through each sublayer to create the legend array for it
+					if (layer.sublayers) {
+						const legendsBySublayer = {};
+						Object.entries (layer.sublayers).forEach (([sublayerId, sublayer]) => {
+							legendsBySublayer[sublayerId] = nptUi.styleSpecToLegends (sublayer.paint);
+						});
+						_datasets[layerId].legends = legendsBySublayer;
+					}
+					
+					// For single-layered layers, use the main definition
+					else {
+						_datasets[layerId].legends = {};
+						_datasets[layerId].legends[layerId] = nptUi.styleSpecToLegends (layer.layer.paint);
+					}
+				}
+			});
+		},
+		
+		
+		// Helper function to parse a Mapbox GL JS style definition to a legends list
+		styleSpecToLegends: function (style)
+		{
+			// Use the first defined style (only) as the basis for the legend
+			const styleTokens = Object.create (Object.values (style)[0]);	// Object.create used to clone, as shift/pop below would otherwise amend the original style definition
+			
+			// Remove unwanted tokens, leaving only value pairs
+			if (styleTokens[0] == 'match') {
+				styleTokens.shift ();	// Remove 'match'
+				styleTokens.shift ();	// Remove ['get', ...]
+				styleTokens.pop ();		// Remove fallback value at end of array
+			}
+			
+			// Convert pairs to ordered groups list, e.g. [a, 0, b, 1, c, 2] becomes [[a, 0], [b, 1], [c, 2]]
+			const legend = [];
+			for (let i = 0; i < styleTokens.length - 1; i += 2) {
+				legend.push ([styleTokens[i], styleTokens[i + 1]]);
+			}
+			
+			// Return the legend array
+			return legend;
+		},
+		
+		
+		// Layer toggling, called when a layer is toggled or updated
 		toggleLayer: function (layerId)
 		{
 			//console.log ('Toggling layer ' + layerId);
 			
-			// Use static sublayer styling definitions, if present, on initial load and on sublayer change
+			// Use static sublayer styling definitions, if present
 			// #!# This is incrementally added each time toggle is done; should be moved up a level so there is only a single registration
-			if (_datasets.sublayers[layerId]) {
+			if (_datasets[layerId].sublayers) {
 				nptUi.setSublayerStyle (layerId);
-				document.querySelector ('.updatelayer[data-layer="' + layerId + '"]').addEventListener ('change', function () {
-					nptUi.setSublayerStyle (layerId);
-				});
 				
 			// Check for a dynamic styling callback and run it if present
-			} else if (_datasets.layerStyling[layerId]) {
-				_datasets.layerStyling[layerId] (layerId, _map, _settings, _datasets, nptUi.createLegend);
-			} else {
-				nptUi.createLegend (datasets.legends[layerId], layerId + 'legend');
+			} else if (_datasets[layerId].layerStyling) {
+				_datasets[layerId].layerStyling (layerId, _map, _settings, _datasets);
 			}
+			
+			// Create/update legend (even if map layer is off)
+			nptUi.createLegend (layerId);
 			
 			// Set state of layer
 			_state.layers[layerId].enabled = document.querySelector ('input.showlayer[data-layer="' + layerId + '"]').checked;
@@ -1009,45 +1074,12 @@ const nptUi = (function () {
 			// Determine the field
 			const control = document.querySelector ('.updatelayer[data-layer="' + layerId + '"]');
 			const fieldname = document.querySelector ('.updatelayer[data-layer="' + layerId + '"]' + (control.type == 'radio' ? ':checked' : '')).value;
-			const sublayer = _datasets.sublayers[layerId][fieldname];
+			const sublayer = _datasets[layerId].sublayers[fieldname];
 			
-			// Set each style (e.g. line-color)
-			Object.entries (sublayer.styles).forEach (function ([style, styleValueLookups]) {
-				
-				// Parse the style value pairs
-				let styleValues = nptUi.associativeToFlattenedArray (styleValueLookups);
-				
-				// Determine the mode
-				let mode;
-				switch (sublayer.type) {
-					case 'match':
-						mode = ['match'];
-						break;
-					case 'step':	// See: https://stackoverflow.com/a/53506912/
-						mode = ['step'];
-						styleValues.shift ();		// First should be base value without key
-						break;
-					case 'interpolate':
-						mode = ['interpolate', ['linear']];
-						break;
-				}
-				
-				// Arrange the style definition
-				const styleDefinition = [
-					...mode,
-					['get', fieldname],
-					...styleValues,
-				];
-				
-				// Set paint properties
-				_map.setPaintProperty (layerId, style, styleDefinition);
+			// Set each paint style (e.g. line-color)
+			Object.entries (sublayer.paint).forEach (function ([name, value]) {
+				_map.setPaintProperty (layerId, name, value);
 			});
-			
-			// Set legend, using the first style if more than one
-			const styleValueLookupsFirst = Object.values (sublayer.styles) [0];
-			const legendColours = nptUi.associativeToPairs (styleValueLookupsFirst);
-			const isRangeType = (sublayer.type == 'step' || sublayer.type == 'interpolate');
-			nptUi.createLegend (legendColours, layerId + '-legend', isRangeType);
 		},
 		
 		
@@ -1082,19 +1114,27 @@ const nptUi = (function () {
 		},
 		
 		
-		createLegend: function (legendColours, selector, isRangeType)
+		// Function to render a legend, based on the dataset definition
+		createLegend: function (layerId)
 		{
 			// Do nothing if no selector for where the legend will be added
-			if (!document.getElementById(selector)) {return;}
+			const selector = 'legend-' + layerId;
+			if (!document.getElementById (selector)) {return;}
+			
+			// Use the static legends, unless there is a sublayer selector for which the sublayer legends need to be looked up
+			let legends = _datasets[layerId].legends[layerId];
+			const sublayerSelector = document.querySelector ('select.updatelayer.legendsublayerselector-' + layerId);
+			if (sublayerSelector) {
+				legends = _datasets[layerId].legends[sublayerSelector.value] || _datasets[layerId].legends['_'];
+			}
 			
 			// Create the legend HTML
 			// #!# Should be a list, not nested divs
 			let legendHtml = '<div class="l_r">';
-			legendColours.forEach (function ([value, colour]) {
+			legends.forEach (function ([value, colour]) {
 				legendHtml += '<div class="lb">';
 				legendHtml += `<span style="background-color: ${colour}">`;
 				legendHtml += '</span>';
-				if (isRangeType) {value = '≥' + value;}
 				legendHtml += value;	// Label
 				legendHtml += '</div>';
 			});
@@ -1105,12 +1145,38 @@ const nptUi = (function () {
 		},
 		
 		
+		// Function to handle in-layer filtering; see: https://docs.mapbox.com/mapbox-gl-js/example/filter-symbols-expression/
+		inLayerFiltering: function ()
+		{
+			// Late-bind checkboxes
+			document.addEventListener ('change', function (e) {
+				if (e.target.className == 'legendfilter') {
+					const checkbox = e.target;
+					
+					// Determine the layer and its field to filter on
+					const layerId = checkbox.name.replace ('legendfilter_', '');
+					const field = _datasets[layerId].layer._filtering;
+					
+					// Get all the checkboxes that are checked for this layer
+					const checkedInLayer = [...document.querySelectorAll ('input[type="checkbox"][class="legendfilter"][name="legendfilter_' + layerId + '"]')]
+						.filter ((el) => el.checked)
+						.map ((el) => el.value)
+					
+					// Filter
+					_map.setFilter (layerId, ['in', field, ...checkedInLayer]);
+				}
+			});
+		},
+		
+		
 		// Function to create popups
 		createPopups: function ()
 		{
 			// Add to each layer
-			Object.entries (_datasets.popups).forEach (([layerId, options]) => {
-				nptUi.mapPopups (layerId, options);
+			Object.entries (_datasets).forEach (([layerId, layer]) => {
+				if (layer.popups) {
+					nptUi.mapPopups (layerId, layer.popups);
+				}
 			});
 		},
 		
@@ -1379,8 +1445,10 @@ const nptUi = (function () {
 			}
 			
 			// Create each set of charts
-			Object.entries (_datasets.charts).forEach(([mapLayerId, chartDefinition]) => {
-				chartsModal (mapLayerId, chartDefinition);
+			Object.entries (_datasets).forEach(([layerId, layer]) => {
+				if (layer.charts) {
+					chartsModal (layerId, layer.charts);
+				}
 			});
 		},
 		
