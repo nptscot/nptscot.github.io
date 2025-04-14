@@ -186,7 +186,7 @@ const datasets = {
 				paint: {
 					'line-color': [
 						'match',
-						['get', 'Level of service'],
+						['get', 'Level of Service'],
 							'Should not be used (non-compliant intervention)', '#4a0404',
 							'Should not be used (mixed traffic)', 'darkred',
 							'Low', 'red',
@@ -196,7 +196,7 @@ const datasets = {
 					],
 					'line-width': [
 						'match',
-						['get', 'Level of service'],
+						['get', 'Level of Service'],
 							'Should not be used (non-compliant intervention)', 4,
 							'Should not be used (mixed traffic)', 4,
 							'Low', 4,
