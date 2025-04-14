@@ -1,4 +1,37 @@
 // Data definitions, i.e. layers, charts, etc.
+
+// Define main highway widths
+const staticHighwayWidths = [
+	'motorway', 5,
+	'motorway_link', 5,
+	'trunk', 5,
+	'trunk_link', 5,
+	'primary', 4,
+	'primary_link', 4,
+	'secondary', 4,
+	'secondary_link', 4,
+	'tertiary', 3,
+	'tertiary_link', 3,
+];
+
+// Define an expression to use those widths but have smaller streets switch from 1px zoomed out to 2px closer
+const highwayTypeLineWidths = [
+	'step',
+	['zoom'],
+	[
+		'match',
+		['get', 'highway'],
+			...staticHighwayWidths,
+		1
+	],
+	13, [
+		'match',
+		['get', 'highway'],
+			...staticHighwayWidths,
+		2
+	]
+];
+
 const datasets = {
 	
 	/* Example:
@@ -194,16 +227,7 @@ const datasets = {
 							'High', 'mediumseagreen',
 						'gray'
 					],
-					'line-width': [
-						'match',
-						['get', 'Level of Service'],
-							'Should not be used (non-compliant intervention)', 4,
-							'Should not be used (mixed traffic)', 4,
-							'Low', 4,
-							'Medium', 4,
-							'High', 4,
-						4
-					]
+					'line-width': highwayTypeLineWidths
 				}
 			},
 			'Traffic volume category': {
@@ -216,14 +240,7 @@ const datasets = {
 							'4000+', '#440154',
 						'gray',
 					],
-					'line-width': [
-						'match',
-						['get', 'Traffic volume category'],
-							'0 to 1999', 2,
-							'2000 to 3999', 3,
-							'4000+', 4,
-						2,
-					]
+					'line-width': highwayTypeLineWidths
 				}
 			},
 			'Speed limit': {
@@ -239,17 +256,7 @@ const datasets = {
 							70, 'darkred',
 						'gray',
 					],
-					'line-width': [
-						'match',
-						['get', 'Speed limit'],
-							20, 2,
-							30, 2,
-							40, 2,
-							50, 2,
-							60, 2,
-							70, 2,
-						2,
-					]
+					'line-width': highwayTypeLineWidths
 				}
 			},
 			'Infrastructure type': {
