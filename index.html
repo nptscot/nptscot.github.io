@@ -181,7 +181,7 @@
 						Network type <button aria-label="Help type" class="helpbutton" data-help="type" title="Full details of type of network choice by people cycling"><i class="fa fa-question-circle" aria-hidden="true"></i></button>
 					</p>
 					<p>
-						<select name="colour" class="updatelayer" data-layer="rnet" aria-label="Route network colour">
+						<select name="colour" class="updatelayer legendsublayerselector-rnet legendsublayerselector-rnet-simplified" data-layer="rnet" aria-label="Route network colour">
 							<option value="none">None</option>
 							<option value="flow" selected>Cycle trips per day</option>
 							<option value="quietness">Cycle friendliness</option>
@@ -189,11 +189,7 @@
 						</select>
 						Line colour <button aria-label="Help colour" class="helpbutton" data-help="colour" title="Full details of colouring of route lines"><i class="fa fa-question-circle" aria-hidden="true"></i></button>
 					</p>
-					<div id="linecolourlegend" class="legend">
-						<div class="l_r">
-							<div class="lb"><span style="background-color: #ffffff"></span>&nbsp;</div>
-						</div>
-					</div>
+					<div class="legend" id="legend-rnet"></div>
 					
 					<p><b>Filter to:</b><button aria-label="Help scenario" class="helpbutton" data-help="filters" title="Full details of filtering parts of the route network"><i class="fa fa-question-circle" aria-hidden="true"></i></button></p>
 					<table class="filters">
@@ -250,13 +246,8 @@
 			<div class="panel">
 				<p><label><input type="checkbox" class="showlayer" data-layer="coherentnetwork" value="false"> Show layer</label></p>
 				<p>Automatically-generated coherent network in urban areas connecting key origins and destinations with relatively direct routes. <button aria-label="Help on coherent network" class="helpbutton" data-help="coherentnetwork"><i class="fa fa-question-circle" aria-hidden="true"></i></button></p>
-				<!-- Add legend with colours -->
-				<div class="legend">
-					<div class="l_r">
-						<div class="lb"><span style="background-color: #e73f74"></span>Primary</div>
-						<div class="lb"><span style="background-color: #f1ce63"></span>Secondary</div>
-						<!-- <div class="lb"><span style="background-color: #7faedd"></span>Local Access</div> -->
-					</div>
+				<div class="layertools layertools-coherentnetwork">
+					<div class="legend" id="legend-coherentnetwork"></div>
 				</div>
 			</div>
 			
@@ -266,14 +257,14 @@
 				<p>Data on existing infrastructure, speed limits, volumes and estimated Cycling Level of Service (LoS), as per the <a href="https://www.transport.gov.scot/media/50323/cycling-by-design-update-2019-final-document-15-september-2021-1.pdf" target="_blank" title="[Link opens in a new window]">Cycling by Design guidance</a>. <button aria-label="Help on LoS" class="helpbutton" data-help="clos"><i class="fa fa-question-circle" aria-hidden="true"></i></button></p>
 				<div class="layertools layertools-clos">
 					<p>
-						<select name="clos-layer" class="updatelayer" data-layer="clos" aria-label="LoS detail">
+						<select name="clos-layer" class="updatelayer legendsublayerselector-clos" data-layer="clos" aria-label="LoS detail">
 							<option value="Level of Service" selected="selected">Level of service</option>
 							<option value="Traffic volume category">Estimated traffic volume</option>
 							<option value="Speed limit">Speed limit</option>
 							<option value="Infrastructure type">Cycle infrastructure</option>
 						</select>
 					</p>
-					<div id="clos-legend" class="legend"></div>
+					<div class="legend" id="legend-clos"></div>
 					<p>Cycle infrastructure types info <button aria-label="Help on cycle infrastructure types info" class="helpbutton" data-help="infrastructuretypes"><i class="fa fa-question-circle" aria-hidden="true"></i></button></p>
 				</div>
 			</div>
@@ -291,13 +282,7 @@
 						<label><input type="radio" class="updatelayer" data-layer="streetspace" name="streetspace" value="carriageway_2way">Within road width</input></label><br />
 						<label><input type="radio" class="updatelayer" data-layer="streetspace" name="streetspace" value="combined_2way">Using edge-to-edge</input></label></p>
 					</p>
-					<div class="legend">
-						<div class="l_r">
-							<div class="lb"><span style="background-color: #dd7777;"></span>Not enough space</div>
-							<div class="lb"><span style="background-color: #e0b97d;"></span>Absolute minimum</div>
-							<div class="lb"><span style="background-color: #75a375;"></span>Desirable minimum</div>
-						</div>
-					</div>
+					<div class="legend" id="legend-streetspace"></div>
 				</div>
 				<p class="license">Contains OS data © Crown copyright and database rights 2025 OS licence number 100046668.</p>
 			</div>
@@ -307,7 +292,7 @@
 				<p><label><input type="checkbox" class="showlayer" data-layer="data_zones" value="false"> Show layer</label></p>
 				<div class="layertools layertools-data_zones">
 					<p>
-						<select name="field" class="updatelayer" data-layer="data_zones" aria-label="Data zone layer">
+						<select name="field" class="updatelayer legendsublayerselector-data_zones" data-layer="data_zones" aria-label="Data zone layer">
 							<option value="pcycle">% commuter cycling (baseline)</option>
 							<option value="pcycle_go_dutch" selected>% commuter cycling (Go Dutch)</option>
 							<option value="population_density">Population density (per hectare)</option>
@@ -325,11 +310,7 @@
 						</select>
 						<button aria-label="Help purpose" class="helpbutton" data-help="data_zones"><i class="fa fa-question-circle" aria-hidden="true"></i></button>
 					</p>
-					<div id="dzlegend" class="legend">
-						<div class="l_r">
-							<div class="lb"><span style="background-color: #ffffff"></span>&nbsp;</div>
-						</div>
-					</div>
+					<div class="legend" id="legend-data_zones"></div>
 					<p><label class="switch"><input type="checkbox" name="daysymetricmode" class="updatelayer" data-layer="data_zones" checked="checked" /><span class="slider round"></span></label> Dasymetric</p>
 				</div>
 			</div>
@@ -338,43 +319,27 @@
 			<div class="panel">
 				<p><label><input type="checkbox" class="showlayer" data-layer="busroutes" value="false">Bus routes</label></p>
 				<div class="layertools layertools-busroutes">
+					<div class="legend" id="legend-busroutes"></div>
 				</div>
 				<p><label><input type="checkbox" class="showlayer" data-layer="schools" value="false">Schools</label></p>
 				<div class="layertools layertools-schools">
-					<div class="legend">
-						<div class="l_r">
-							<div class="lb"><span style="background-color: #313695"></span>Primary</div>
-							<div class="lb"><span style="background-color: #a50026"></span>Secondary</div>
-							<div class="lb"><span style="background-color: #43f22c"></span>Other</div>
-						</div>
-					</div>
+					<div class="legend" id="legend-schools"></div>
 				</div>
 				<p><label><input type="checkbox" class="showlayer" data-layer="wards" value="false">Wards</label></p>
 				<div class="layertools layertools-wards">
-					<div class="legend">
-						<div class="l_r">
-							<div class="lb"><span style="background-color: #206b07"></span></div>
-						</div>
-					</div>
+					<div class="legend" id="legend-wards"></div>
 				</div>
 				<p><label><input type="checkbox" class="showlayer" data-layer="holyrood" value="false">Scottish Parliament Constituencies</label></p>
 				<div class="layertools layertools-holyrood">
-					<div class="legend">
-						<div class="l_r">
-							<div class="lb"><span style="background-color: #537bfc"></span></div>
-						</div>
-					</div>
+					<div class="legend" id="legend-holyrood"></div>
 				</div>
 				<p><label><input type="checkbox" class="showlayer" data-layer="la" value="false">Local Authorities</label></p>
 				<div class="layertools layertools-la">
-					<div class="legend">
-						<div class="l_r">
-							<div class="lb"><span style="background-color: #6b0707"></span></div>
-						</div>
-					</div>
+					<div class="legend" id="legend-la"></div>
 				</div>
 				<p><label><input type="checkbox" class="showlayer" data-layer="urbanrural" value="false">Urban/rural boundary</label></p>
 				<div class="layertools layertools-urbanrural">
+					<div class="legend" id="legend-urbanrural"></div>
 				</div>
 			</div>
 		</div>

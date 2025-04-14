@@ -443,6 +443,7 @@ p.help-end {
   display: table;
   table-layout: fixed;
   font-size: 10px;
+  min-height: calc(18px + 18px + 2px);
 }
 
 .l_r{
@@ -455,10 +456,16 @@ p.help-end {
 
 .legend div span {
   display: inline-block;
-  height: 15px;
+  height: 18px;
   width: 100%;
   border: 1px solid black;
 }
+
+.legend div span input[type="checkbox"].legendfilter {
+  display: block;
+  text-align: left;
+}
+
 
 /* Basemap Control */
 #basemapcontrol {
