@@ -231,6 +231,7 @@ const datasets = {
 					'line-color': [
 						'match',
 						['get', 'Speed limit'],
+							10, '#87a96b',
 							20, 'seagreen',
 							30, '#cc5500',
 							40, 'orangered',
