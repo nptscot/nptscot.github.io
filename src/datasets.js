@@ -48,6 +48,27 @@ function streetspaceSublayer (sublayer)
 	};
 }
 
+function data_zonesSublayer (sublayer)
+{
+	return {
+		paint: {
+			'fill-color': [
+				'step',
+				['get', sublayer],
+				'#053061', 3,
+				'#2166ac', 5,
+				'#4393c3', 7,
+				'#92c5de', 10,
+				'#f7f7f7', 15,
+				'#f4a582', 30,
+				'#b2182b', 60,
+				'#67001f', 200,
+				'#000000'
+			]
+		}
+	};
+}
+
 const datasets = {
 	
 	/* Example:
@@ -383,7 +404,106 @@ const datasets = {
 				'fill-outline-color': '#000000'
 			}
 		},
+		sublayers: {
+			pcycle: {
+				paint: {
+					'fill-color': [
+						'step',
+						['get', 'pcycle'],
+							'#A50026', 2,
+							'#D73027', 4,
+							'#F46D43', 7,
+							'#FDAE61', 10,
+							'#FEE090', 15,
+							'#ffffbf', 20,
+							'#C6DBEF', 25,
+							'#ABD9E9', 30,
+							'#74ADD1', 40,
+							'#4575B4', 100,
+						'#000000'
+					]
+				}
+			},
+			pcycle_go_dutch: {
+				paint: {
+					'fill-color': [
+						'step',
+						['get', 'pcycle_go_dutch'],
+							'#A50026', 2,
+							'#D73027', 4,
+							'#F46D43', 7,
+							'#FDAE61', 10,
+							'#FEE090', 15,
+							'#ffffbf', 20,
+							'#C6DBEF', 25,
+							'#ABD9E9', 30,
+							'#74ADD1', 40,
+							'#4575B4', 100,
+						'#000000'
+					]
+				}
+			},
+			population_density: {
+				paint: {
+					'fill-color': [
+						'step',
+						['get', 'population_density'],
+							'#edf8fb', 10,
+							'#bfd3e6', 50,
+							'#9ebcda', 100,
+							'#8c96c6', 150,
+							'#8856a7', 200,
+							'#810f7c', 600,
+						'#000000'
+					]
+				}
+			},
+			SIMD2020v2_Decile: {
+				paint: {
+					'fill-color': [
+						'step',
+						['get', 'SIMD2020v2_Decile'],
+							'#a50026', 1.1,			 // #!# This block is basically enums rather than ranges, so current fudge of .1 is to avoid off-by-one errors
+							'#d73027', 2.1,
+							'#f46d43', 3.1,
+							'#fdae61', 4.1,
+							'#fee090', 5.1,
+							'#e0f3f8', 6.1,
+							'#abd9e9', 7.1,
+							'#74add1', 8.1,
+							'#4575b4', 9.1,
+							'#313695', 10.1,
+						'#000000'
+					]
+				}
+			},
+			drive_petrol:    data_zonesSublayer ('drive_petrol'),
+			drive_GP:        data_zonesSublayer ('drive_GP'),
+			drive_post:      data_zonesSublayer ('drive_post'),
+			drive_retail:    data_zonesSublayer ('drive_retail'),
+			drive_primary:   data_zonesSublayer ('drive_primary'),
+			drive_secondary: data_zonesSublayer ('drive_secondary'),
+			PT_GP:           data_zonesSublayer ('PT_GP'),
+			PT_post:         data_zonesSublayer ('PT_post'),
+			PT_retail:       data_zonesSublayer ('PT_retail'),
+			broadband: {
+				paint: {
+					'fill-color': [
+						'step',
+						['get', 'broadband'],
+							'#fff7ec', 0.01,		// #!# Currently zero is used for voids - data should be changed to use known constant e.g. -9999
+							'#fee8c8', 2,
+							'#fdd49e', 5,
+							'#fdbb84', 10,
+							'#d7301f', 50,
+							'#7f0000', 100,
+						'#000000'
+					]
+				}
+			},
+		},
 		layerStyling: data_zonesStyling,
+		// #!# These are presumably restatements of lineColours
 		legends: {
 			'SIMD2020v2_Decile': [
 				['1st', 	'#a50026'],
@@ -448,77 +568,6 @@ const datasets = {
 				['200',		'#67001f'],
 			],
 		},
-		// #!# These are presumably restatements of dzLegendColours
-		lineColours: {
-			'SIMD2020v2_Decile': [
-				'#a50026', 1.1,			 // #!# This block is basically enums rather than ranges, so current fudge of .1 is to avoid off-by-one errors
-				'#d73027', 2.1,
-				'#f46d43', 3.1,
-				'#fdae61', 4.1,
-				'#fee090', 5.1,
-				'#e0f3f8', 6.1,
-				'#abd9e9', 7.1,
-				'#74add1', 8.1,
-				'#4575b4', 9.1,
-				'#313695', 10.1,
-				'#000000'
-			],
-			'population_density': [
-				'#edf8fb', 10,
-				'#bfd3e6', 50,
-				'#9ebcda', 100,
-				'#8c96c6', 150,
-				'#8856a7', 200,
-				'#810f7c', 600,
-				'#000000'
-			],
-			'broadband': [
-				'#fff7ec', 0.01,		// #!# Currently zero is used for voids - data should be changed to use known constant e.g. -9999
-				'#fee8c8', 2,
-				'#fdd49e', 5,
-				'#fdbb84', 10,
-				'#d7301f', 50,
-				'#7f0000', 100,
-				'#000000'
-			],
-			'pcycle': [
-				'#A50026', 2,
-				'#D73027', 4,
-				'#F46D43', 7,
-				'#FDAE61', 10,
-				'#FEE090', 15,
-				'#ffffbf', 20,
-				'#C6DBEF', 25,
-				'#ABD9E9', 30,
-				'#74ADD1', 40,
-				'#4575B4', 100,
-				'#000000'
-			],
-			'pcycle_go_dutch': [
-				'#A50026', 2,
-				'#D73027', 4,
-				'#F46D43', 7,
-				'#FDAE61', 10,
-				'#FEE090', 15,
-				'#ffffbf', 20,
-				'#C6DBEF', 25,
-				'#ABD9E9', 30,
-				'#74ADD1', 40,
-				'#4575B4', 100,
-				'#000000'
-			],
-			'_': [		// Default
-				'#053061', 3,
-				'#2166ac', 5,
-				'#4393c3', 7,
-				'#92c5de', 10,
-				'#f7f7f7', 15,
-				'#f4a582', 30,
-				'#b2182b', 60,
-				'#67001f', 200,
-				'#000000'
-			]
-		}
 		/*
 		,
 		// #!# Disabled this popup as of September 2024 - can be deleted later if data issues resolved
@@ -920,11 +969,11 @@ function data_zonesStyling (layerId, map, settings, datasets)
 	const daysymetricMode = document.querySelector ('input.updatelayer[data-layer="data_zones"][name="daysymetricmode"]').checked;
 	
 	// Set paint properties
-	map.setPaintProperty (layerId, 'fill-color', ['step', ['get', sublayer], ...getStyleColumn (sublayer, datasets)]);
+	map.setPaintProperty (layerId, 'fill-color', datasets[layerId].sublayers[sublayer].paint['fill-color']);
 	map.setPaintProperty (layerId, 'fill-opacity', (daysymetricMode ? 0.1 : 0.8)); // Very faded-out in daysymetric mode, as the buildings are coloured
 	
 	// Set buildings layer colour/visibility
-	const buildingColour = getBuildingsColour(settings);
+	const buildingColour = getBuildingsColour (settings);
 	map.setPaintProperty ('dasymetric', 'fill-extrusion-color', (buildingColour || '#9c9898'));
 	map.setLayoutProperty ('dasymetric', 'visibility', (buildingColour ? 'visible' : 'none'));
 }
@@ -940,21 +989,15 @@ function getBuildingsColour (settings)
 	}
 	
 	// If dasymetric mode, use a colour set based on the layer
-	if (document.querySelector ('input.updatelayer[data-layer="data_zones"][name="daysymetricmode"]').checked) {
-		const field = document.querySelector ('select.updatelayer[data-layer="data_zones"][name="field"]').value;
-		return ['step', ['get', field], ...getStyleColumn (field, datasets)];
+	const daysymetricMode = document.querySelector ('input.updatelayer[data-layer="data_zones"][name="daysymetricmode"]').checked;
+	if (daysymetricMode) {
+		const layerId = 'data_zones';
+		const sublayer = document.querySelector ('select.updatelayer.sublayerselector-' + layerId).value;
+		return datasets['data_zones'].sublayers[sublayer].paint['fill-color'];
 	}
 	
 	// Default to gray
 	return '#9c9898';
-}
-
-
-// Function to determine the style column
-function getStyleColumn (layerId, datasets)
-{
-	const style_col_selected = datasets['data_zones'].lineColours.hasOwnProperty(layerId) ? layerId : '_';
-	return datasets['data_zones'].lineColours[style_col_selected];
 }
 
 
