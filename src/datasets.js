@@ -106,7 +106,59 @@ const datasets = {
 			'source-layer': 'rnet',
 			'type': 'line',
 		},
+		sublayers: {
+			none: {
+				paint: {
+					'line-color': '#304ce7'
+				}
+			},
+			flow: {
+				paint: {
+					'line-color': [
+						'step',
+						['get', 'all_fastest_bicycle_go_dutch'],	/* layerWidthField will change this field later; see below */
+							'rgba(0,0,0,0)', 1,
+							'#9C9C9C', 50,
+							'#FFFF73', 100,
+							'#AFFF00', 250,
+							'#00FFFF', 500,
+							'#30B0FF', 1000,
+							'#2E5FFF', 2000,
+							'#0000FF', 3000,
+						'#FF00C5'
+					]
+				}
+			},
+			quietness: {
+				paint: {
+					'line-color': [
+						'step',
+						['get', 'quietness'],
+							'#882255', 25,
+							'#CC6677', 50,
+							'#44AA99', 75,
+							'#117733', 101,
+						'#000000'
+					]
+				}
+			},
+			gradient: {
+				paint: {
+					'line-color': [
+						'step',
+						['get', 'gradient'],
+							'#59ee19', 3,
+							'#37a009', 5,
+							'#FFC300', 7,
+							'#C70039', 10,
+							'#581845', 100,
+						'#000000'
+					]
+				}
+			}
+		},
 		layerStyling: rnetStyling,
+		// #!# Need to generate this from the sublayers styles
 		legends: {
 			'none': [
 				['&nbsp;',	'#304ce7']
@@ -135,32 +187,6 @@ const datasets = {
 				['10+',		'#581845'],
 			]
 		},
-		lineColours: {
-			none: '#304ce7',
-			flow: [
-				'rgba(0,0,0,0)', 1,
-				'#9C9C9C', 50,
-				'#FFFF73', 100,
-				'#AFFF00', 250,
-				'#00FFFF', 500,
-				'#30B0FF', 1000,
-				'#2E5FFF', 2000,
-				'#0000FF', 3000
-			],
-			quietness: [
-				'#882255', 25,
-				'#CC6677', 50,
-				'#44AA99', 75,
-				'#117733', 101
-			],
-			gradient: [
-				'#59ee19', 3,
-				'#37a009', 5,
-				'#FFC300', 7,
-				'#C70039', 10,
-				'#581845', 100
-			]
-		},
 		popups: {
 			layerId: 'rnet',
 			templateId: 'rnet-popup',
@@ -180,9 +206,9 @@ const datasets = {
 			'source-layer': 'rnet_simplified',
 			'type': 'line',
 		},
+		// sublayers: uses rnet - copied-in below at the end of this array creation
 		// layerStyling: uses rnet - copied-in below at the end of this array creation
 		// legends: uses rnet - copied-in below at the end of this array creation
-		// lineColours: uses rnet - copied-in below at the end of this array creation
 		popups: {
 			templateId: 'rnet-popup',
 			preprocessingCallback: popupCallback,	// Defined below
@@ -793,9 +819,9 @@ const datasets = {
 };
 
 // Clone rnet definitions, to avoid restatement of large arrays, above
+datasets['rnet-simplified'].sublayers    = datasets['rnet'].sublayers;
 datasets['rnet-simplified'].layerStyling = datasets['rnet'].layerStyling;
 datasets['rnet-simplified'].legends      = datasets['rnet'].legends;
-datasets['rnet-simplified'].lineColours  = datasets['rnet'].lineColours;
 
 
 
@@ -853,26 +879,13 @@ function rnetStyling (layerId, map, settings, datasets)
 		['<=', 'gradient', sliders.gradient.max]
 	];
 	
-	// Define line colour
-	const lineColours = {
-		'none': datasets['rnet'].lineColours.none,
-		'flow': [
-			'step', ['get', layerWidthField],
-			...datasets['rnet'].lineColours.flow,
-			'#FF00C5'
-		],
-		'quietness': [
-			'step', ['get', 'quietness'],
-			...datasets['rnet'].lineColours.quietness,
-			'#000000'
-		],
-		'gradient': [
-			'step', ['get', 'gradient'],
-			...datasets['rnet'].lineColours.gradient,
-			'#000000'
-		]
-	};
-	const lineColour = lineColours[sublayer];
+	// In flow (Cycle trips per day) mode, the line colour is based on the layer width field, i.e. derived from the parameters
+	if (sublayer == 'flow') {
+		datasets[layerId].sublayers[sublayer].paint['line-color'][1] = ['get', layerWidthField];
+	}
+	
+	// Set the line colour
+	const lineColour = datasets[layerId].sublayers[sublayer].paint['line-color'];
 	
 	// Define line width
 	// Implements the formula y = (3 / (1 + exp(-3*(x/1000 - 1.6))) + 0.3)
