@@ -1036,9 +1036,10 @@ const nptUi = (function () {
 			// #!# This is incrementally added each time toggle is done; should be moved up a level so there is only a single registration
 			if (_datasets[layerId].sublayers) {
 				nptUi.setSublayerStyle (layerId);
-				
-			// Check for a dynamic styling callback and run it if present
-			} else if (_datasets[layerId].layerStyling) {
+			}
+			
+			// Check for a dynamic styling callback and run it, if present
+			if (_datasets[layerId].layerStyling) {
 				_datasets[layerId].layerStyling (layerId, _map, _settings, _datasets);
 			}
 			
