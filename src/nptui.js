@@ -1072,8 +1072,8 @@ const nptUi = (function () {
 		setSublayerStyle: function (layerId)
 		{
 			// Determine the field
-			const control = document.querySelector ('.updatelayer[data-layer="' + layerId + '"]');
-			const sublayer = document.querySelector ('.updatelayer[data-layer="' + layerId + '"]' + (control.type == 'radio' ? ':checked' : '')).value;
+			const control = document.querySelector ('.updatelayer.sublayerselector-' + layerId);
+			const sublayer = document.querySelector ('.updatelayer.sublayerselector-' + layerId + (control.type == 'radio' ? ':checked' : '')).value;
 			const sublayerStyle = _datasets[layerId].sublayers[sublayer];
 			
 			// Set each paint style (e.g. line-color)
