@@ -1073,11 +1073,11 @@ const nptUi = (function () {
 		{
 			// Determine the field
 			const control = document.querySelector ('.updatelayer[data-layer="' + layerId + '"]');
-			const fieldname = document.querySelector ('.updatelayer[data-layer="' + layerId + '"]' + (control.type == 'radio' ? ':checked' : '')).value;
-			const sublayer = _datasets[layerId].sublayers[fieldname];
+			const sublayer = document.querySelector ('.updatelayer[data-layer="' + layerId + '"]' + (control.type == 'radio' ? ':checked' : '')).value;
+			const sublayerStyle = _datasets[layerId].sublayers[sublayer];
 			
 			// Set each paint style (e.g. line-color)
-			Object.entries (sublayer.paint).forEach (function ([name, value]) {
+			Object.entries (sublayerStyle.paint).forEach (function ([name, value]) {
 				_map.setPaintProperty (layerId, name, value);
 			});
 		},
