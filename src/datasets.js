@@ -101,10 +101,8 @@ const datasets = {
 		
 		// Legends
 		// If not present, and there is a sublayers list, these will be auto-generated from the sublayers paint first values
-		// #!# These need to be merged with lineColours
+		// #!# These need to be merged with sublayers
 		legends: {...},
-		
-		lineColours: {...},
 		
 		// Chart definitions
 		// #!# Need to define more clearly the assumed data structure, e.g. the 'charts' key shows a part field
@@ -503,7 +501,7 @@ const datasets = {
 			},
 		},
 		layerStyling: data_zonesStyling,
-		// #!# These are presumably restatements of lineColours
+		// #!# These are presumably restatements of sublayers
 		legends: {
 			'SIMD2020v2_Decile': [
 				['1st', 	'#a50026'],
