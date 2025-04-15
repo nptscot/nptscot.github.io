@@ -973,26 +973,23 @@ function data_zonesStyling (layerId, map, settings, datasets)
 	map.setPaintProperty (layerId, 'fill-opacity', (daysymetricMode ? 0.1 : 0.8)); // Very faded-out in daysymetric mode, as the buildings are coloured
 	
 	// Set buildings layer colour/visibility
-	const buildingColour = getBuildingsColour (settings);
+	const buildingColour = getBuildingsColour (settings, sublayer, daysymetricMode);
 	map.setPaintProperty ('dasymetric', 'fill-extrusion-color', (buildingColour || '#9c9898'));
 	map.setLayoutProperty ('dasymetric', 'visibility', (buildingColour ? 'visible' : 'none'));
 }
 
 
 // Function to determine the buildings colour
-function getBuildingsColour (settings)
+function getBuildingsColour (settings, sublayer, daysymetricMode)
 {
 	// If datazones is off, buildings shown, if vector style, as static colour appropriate to the basemap
 	if (!document.querySelector ('input.showlayer[data-layer="data_zones"]').checked) {
-		const styleName = document.querySelector('#basemapform input:checked').value;	// Same as nptUi.getBasemapStyle()
+		const styleName = document.querySelector ('#basemapform input:checked').value;	// Same as nptUi.getBasemapStyle()
 		return settings.basemapStyles[styleName].buildingColour;
 	}
 	
 	// If dasymetric mode, use a colour set based on the layer
-	const daysymetricMode = document.querySelector ('input.updatelayer[data-layer="data_zones"][name="daysymetricmode"]').checked;
 	if (daysymetricMode) {
-		const layerId = 'data_zones';
-		const sublayer = document.querySelector ('select.updatelayer.sublayerselector-' + layerId).value;
 		return datasets['data_zones'].sublayers[sublayer].paint['fill-color'];
 	}
 	
