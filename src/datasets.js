@@ -32,6 +32,22 @@ const highwayTypeLineWidths = [
 	]
 ];
 
+function streetspaceSublayer (sublayer)
+{
+	return {
+		paint: {
+			'line-color': [
+				'match',
+				['get', sublayer],
+					'Not enough space', '#dd7777',
+					'Absolute minimum', '#e0b97d',
+					'Desirable minimum', '#75a375',
+				'rgba(0, 0, 0, 0)', // Invisible
+			]
+		}
+	};
+}
+
 const datasets = {
 	
 	/* Example:
@@ -307,55 +323,10 @@ const datasets = {
 			}
 		},
 		sublayers: {
-			// #!# This is a repetitive set of definitions, but the 'get' field needs to change each time - see if this can be simplified
-			'carriageway_1way': {
-				paint: {
-					'line-color': [
-						'match',
-						['get', 'carriageway_1way'],
-							'Not enough space', '#dd7777',
-							'Absolute minimum', '#e0b97d',
-							'Desirable minimum', '#75a375',
-						'rgba(0, 0, 0, 0)', // Invisible
-					]
-				}
-			},
-			'carriageway_2way': {
-				paint: {
-					'line-color': [
-						'match',
-						['get', 'carriageway_2way'],
-							'Not enough space', '#dd7777',
-							'Absolute minimum', '#e0b97d',
-							'Desirable minimum', '#75a375',
-						'rgba(0, 0, 0, 0)', // Invisible
-					]
-				}
-			},
-			'combined_1way': {
-				paint: {
-					'line-color': [
-						'match',
-						['get', 'combined_1way'],
-							'Not enough space', '#dd7777',
-							'Absolute minimum', '#e0b97d',
-							'Desirable minimum', '#75a375',
-						'rgba(0, 0, 0, 0)', // Invisible
-					]
-				}
-			},
-			'combined_2way': {
-				paint: {
-					'line-color': [
-						'match',
-						['get', 'combined_2way'],
-							'Not enough space', '#dd7777',
-							'Absolute minimum', '#e0b97d',
-							'Desirable minimum', '#75a375',
-						'rgba(0, 0, 0, 0)', // Invisible
-					]
-				}
-			},
+			'carriageway_1way': streetspaceSublayer ('carriageway_1way'),
+			'carriageway_2way': streetspaceSublayer ('carriageway_2way'),
+			'combined_1way'   : streetspaceSublayer ('combined_1way'),
+			'combined_2way'   : streetspaceSublayer ('combined_2way'),
 		},
 		// #!# Can't currently use auto-legends, as the sublayerselector mechanism doesn't yet support radiobuttons rather than select
 		legends: {
