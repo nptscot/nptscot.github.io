@@ -860,7 +860,7 @@ function rnetStyling (layerId, map, settings, datasets)
 	const sublayer = document.querySelector ('select.updatelayer.sublayerselector-' + layerId).value;
 	
 	// Determine the layer width field
-	const layerWidthField = getLayerWidthField();
+	const layerWidthField = getLayerWidthField ();
 	
 	// Parse route network slider input fields to be used as filters
 	const sliders = {};
@@ -901,18 +901,19 @@ function rnetStyling (layerId, map, settings, datasets)
 			'#000000'
 		]
 	};
+	const lineColour = lineColours[sublayer];
 	
 	// Define line width
 	// Implements the formula y = (3 / (1 + exp(-3*(x/1000 - 1.6))) + 0.3)
 	// This code was hard to work out!
-	const line_width = [
+	const lineWidth = [
 		'interpolate',
 		['linear'],
 		['zoom'],
-		12, ['*', 2.1, ['+', 0.3, ['/', 3, ['+', 1, ['^', 2.718, ['-', 2.94, ['*', ['get', layerWidthField], 0.0021]]]]]]],
+		12, ['*', 2.1,  ['+', 0.3, ['/', 3, ['+', 1, ['^', 2.718, ['-', 2.94, ['*', ['get', layerWidthField], 0.0021]]]]]]],
 		14, ['*', 5.25, ['+', 0.3, ['/', 3, ['+', 1, ['^', 2.718, ['-', 2.94, ['*', ['get', layerWidthField], 0.0021]]]]]]],
-		15, ['*', 7.5, ['+', 0.3, ['/', 3, ['+', 1, ['^', 2.718, ['-', 2.94, ['*', ['get', layerWidthField], 0.0021]]]]]]],
-		16, ['*', 18, ['+', 0.3, ['/', 3, ['+', 1, ['^', 2.718, ['-', 2.94, ['*', ['get', layerWidthField], 0.0021]]]]]]],
+		15, ['*', 7.5,  ['+', 0.3, ['/', 3, ['+', 1, ['^', 2.718, ['-', 2.94, ['*', ['get', layerWidthField], 0.0021]]]]]]],
+		16, ['*', 18,   ['+', 0.3, ['/', 3, ['+', 1, ['^', 2.718, ['-', 2.94, ['*', ['get', layerWidthField], 0.0021]]]]]]],
 		18, ['*', 52.5, ['+', 0.3, ['/', 3, ['+', 1, ['^', 2.718, ['-', 2.94, ['*', ['get', layerWidthField], 0.0021]]]]]]],
 	];
 	
@@ -920,8 +921,8 @@ function rnetStyling (layerId, map, settings, datasets)
 	map.setFilter (layerId, filter);
 	
 	// Set paint properties
-	map.setPaintProperty (layerId, 'line-color', lineColours[sublayer]);
-	map.setPaintProperty (layerId, 'line-width', line_width);
+	map.setPaintProperty (layerId, 'line-color', lineColour);
+	map.setPaintProperty (layerId, 'line-width', lineWidth);
 }
 
 
