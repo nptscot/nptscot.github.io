@@ -357,7 +357,7 @@ const datasets = {
 				}
 			},
 		},
-		// #!# Can't currently use auto-legends, as the legendsublayerselector mechanism doesn't yet support radiobuttons rather than select
+		// #!# Can't currently use auto-legends, as the sublayerselector mechanism doesn't yet support radiobuttons rather than select
 		legends: {
 			'streetspace': [
 				['Not enough space', '#dd7777'],
@@ -857,7 +857,7 @@ function rnetStyling (layerId, map, settings, datasets)
 	}
 	
 	// Determine the sublayer (field) in use
-	const sublayer = document.querySelector ('select.updatelayer.legendsublayerselector-' + layerId).value;
+	const sublayer = document.querySelector ('select.updatelayer.sublayerselector-' + layerId).value;
 	
 	// Determine the layer width field
 	const layerWidthField = getLayerWidthField();
@@ -929,7 +929,7 @@ function rnetStyling (layerId, map, settings, datasets)
 function data_zonesStyling (layerId, map, settings, datasets)
 {
 	// Determine the sublayer (field) in use
-	const sublayer = document.querySelector ('select.updatelayer.legendsublayerselector-' + layerId).value;
+	const sublayer = document.querySelector ('select.updatelayer.sublayerselector-' + layerId).value;
 	
 	// Get UI state
 	const daysymetricMode = document.querySelector ('input.updatelayer[data-layer="data_zones"][name="daysymetricmode"]').checked;

@@ -1123,7 +1123,7 @@ const nptUi = (function () {
 			
 			// Use the static legends, unless there is a sublayer selector for which the sublayer legends need to be looked up
 			let legends = _datasets[layerId].legends[layerId];
-			const sublayerSelector = document.querySelector ('select.updatelayer.legendsublayerselector-' + layerId);
+			const sublayerSelector = document.querySelector ('select.updatelayer.sublayerselector-' + layerId);
 			if (sublayerSelector) {
 				legends = _datasets[layerId].legends[sublayerSelector.value] || _datasets[layerId].legends['_'];
 			}
