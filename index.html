@@ -158,10 +158,10 @@
 					<p>
 						<select name="purpose" class="updatelayer" data-layer="rnet" aria-label="Route network trip purpose">
 							<option value="all" selected>All</option>
-							<option value="commute" >Commute</option>
-							<option value="primary" >Primary School</option>
-							<option value="secondary" >Secondary School</option>
-							<option value="utility" >Other Everyday</option>
+							<option value="commute">Commute</option>
+							<option value="primary">Primary School</option>
+							<option value="secondary">Secondary School</option>
+							<option value="utility">Other Everyday</option>
 						</select>
 						Trip purpose <button aria-label="Help purpose" class="helpbutton" title="Full details of trip purpose" data-help="purpose"><i class="fa fa-question-circle" aria-hidden="true"></i></button>
 					</p>
@@ -181,7 +181,7 @@
 						Network type <button aria-label="Help type" class="helpbutton" data-help="type" title="Full details of type of network choice by people cycling"><i class="fa fa-question-circle" aria-hidden="true"></i></button>
 					</p>
 					<p>
-						<select name="colour" class="updatelayer legendsublayerselector-rnet legendsublayerselector-rnet-simplified" data-layer="rnet" aria-label="Route network colour">
+						<select name="colour" class="updatelayer sublayerselector-rnet sublayerselector-rnet-simplified" data-layer="rnet" aria-label="Route network colour">
 							<option value="none">None</option>
 							<option value="flow" selected>Cycle trips per day</option>
 							<option value="quietness">Cycle friendliness</option>
@@ -257,7 +257,7 @@
 				<p>Data on existing infrastructure, speed limits, volumes and estimated Cycling Level of Service (LoS), as per the <a href="https://www.transport.gov.scot/media/50323/cycling-by-design-update-2019-final-document-15-september-2021-1.pdf" target="_blank" title="[Link opens in a new window]">Cycling by Design guidance</a>. <button aria-label="Help on LoS" class="helpbutton" data-help="clos"><i class="fa fa-question-circle" aria-hidden="true"></i></button></p>
 				<div class="layertools layertools-clos">
 					<p>
-						<select name="clos-layer" class="updatelayer legendsublayerselector-clos" data-layer="clos" aria-label="LoS detail">
+						<select name="clos-layer" class="updatelayer sublayerselector-clos" data-layer="clos" aria-label="LoS detail">
 							<option value="Level of Service" selected="selected">Level of service</option>
 							<option value="Traffic volume category">Estimated traffic volume</option>
 							<option value="Speed limit">Speed limit</option>
@@ -276,11 +276,11 @@
 				<div class="layertools layertools-streetspace">
 					<p>Infrastructure scenario:</p>
 						<p>2x 1-way tracks:<br />
-						<label><input type="radio" class="updatelayer" data-layer="streetspace" name="streetspace" value="carriageway_1way" checked="checked">Within road width</input></label><br />
-						<label><input type="radio" class="updatelayer" data-layer="streetspace" name="streetspace" value="combined_1way">Using edge-to-edge</input></label></p>
+						<label><input type="radio" class="updatelayer sublayerselector-streetspace" data-layer="streetspace" name="streetspace" value="carriageway_1way" checked="checked">Within road width</input></label><br />
+						<label><input type="radio" class="updatelayer sublayerselector-streetspace" data-layer="streetspace" name="streetspace" value="combined_1way">Using edge-to-edge</input></label></p>
 						<p>2-way track:<br />
-						<label><input type="radio" class="updatelayer" data-layer="streetspace" name="streetspace" value="carriageway_2way">Within road width</input></label><br />
-						<label><input type="radio" class="updatelayer" data-layer="streetspace" name="streetspace" value="combined_2way">Using edge-to-edge</input></label></p>
+						<label><input type="radio" class="updatelayer sublayerselector-streetspace" data-layer="streetspace" name="streetspace" value="carriageway_2way">Within road width</input></label><br />
+						<label><input type="radio" class="updatelayer sublayerselector-streetspace" data-layer="streetspace" name="streetspace" value="combined_2way">Using edge-to-edge</input></label></p>
 					</p>
 					<div class="legend" id="legend-streetspace"></div>
 				</div>
@@ -292,7 +292,7 @@
 				<p><label><input type="checkbox" class="showlayer" data-layer="data_zones" value="false"> Show layer</label></p>
 				<div class="layertools layertools-data_zones">
 					<p>
-						<select name="field" class="updatelayer legendsublayerselector-data_zones" data-layer="data_zones" aria-label="Data zone layer">
+						<select name="field" class="updatelayer sublayerselector-data_zones" data-layer="data_zones" aria-label="Data zone layer">
 							<option value="pcycle">% commuter cycling (baseline)</option>
 							<option value="pcycle_go_dutch" selected>% commuter cycling (Go Dutch)</option>
 							<option value="population_density">Population density (per hectare)</option>
@@ -366,7 +366,7 @@
 								<h4 class="chart-title"></h4>
 								<p class="chart-description"></p>
 							</div>
-							<div class="chart-container" >
+							<div class="chart-container">
 								<canvas></canvas>
 							</div>
 						</div>

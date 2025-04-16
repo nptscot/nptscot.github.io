@@ -32,6 +32,43 @@ const highwayTypeLineWidths = [
 	]
 ];
 
+function streetspaceSublayer (sublayer)
+{
+	return {
+		paint: {
+			'line-color': [
+				'match',
+				['get', sublayer],
+					'Not enough space', '#dd7777',
+					'Absolute minimum', '#e0b97d',
+					'Desirable minimum', '#75a375',
+				'rgba(0, 0, 0, 0)', // Invisible
+			]
+		}
+	};
+}
+
+function data_zonesSublayer (sublayer)
+{
+	return {
+		paint: {
+			'fill-color': [
+				'step',
+				['get', sublayer],
+					'#053061', 3,
+					'#2166ac', 5,
+					'#4393c3', 7,
+					'#92c5de', 10,
+					'#f7f7f7', 15,
+					'#f4a582', 30,
+					'#b2182b', 60,
+					'#67001f', 200,
+				'#000000'
+			]
+		}
+	};
+}
+
 const datasets = {
 	
 	/* Example:
@@ -64,10 +101,8 @@ const datasets = {
 		
 		// Legends
 		// If not present, and there is a sublayers list, these will be auto-generated from the sublayers paint first values
-		// #!# These need to be merged with lineColours
+		// #!# These need to be merged with sublayers
 		legends: {...},
-		
-		lineColours: {...},
 		
 		// Chart definitions
 		// #!# Need to define more clearly the assumed data structure, e.g. the 'charts' key shows a part field
@@ -90,7 +125,59 @@ const datasets = {
 			'source-layer': 'rnet',
 			'type': 'line',
 		},
+		sublayers: {
+			none: {
+				paint: {
+					'line-color': '#304ce7'
+				}
+			},
+			flow: {
+				paint: {
+					'line-color': [
+						'step',
+						['get', 'all_fastest_bicycle_go_dutch'],	/* layerWidthField will change this field later; see below */
+							'rgba(0,0,0,0)', 1,	/* fully transparent */
+							'#9C9C9C', 50,
+							'#FFFF73', 100,
+							'#AFFF00', 250,
+							'#00FFFF', 500,
+							'#30B0FF', 1000,
+							'#2E5FFF', 2000,
+							'#0000FF', 3000,
+						'#FF00C5'	/* 3000+ */
+					]
+				}
+			},
+			quietness: {
+				paint: {
+					'line-color': [
+						'step',
+						['get', 'quietness'],
+							'#882255', 25,
+							'#CC6677', 50,
+							'#44AA99', 75,
+							'#117733', 100.001,		/* i.e. including 100 */
+						'#000000'	/* will never get used */
+					]
+				}
+			},
+			gradient: {
+				paint: {
+					'line-color': [
+						'step',
+						['get', 'gradient'],
+							'#59ee19', 3,
+							'#37a009', 5,
+							'#FFC300', 7,
+							'#C70039', 10,
+							'#581845', 100,
+						'#000000'
+					]
+				}
+			}
+		},
 		layerStyling: rnetStyling,
+		// #!# Need to generate this from the sublayers styles
 		legends: {
 			'none': [
 				['&nbsp;',	'#304ce7']
@@ -119,32 +206,6 @@ const datasets = {
 				['10+',		'#581845'],
 			]
 		},
-		lineColours: {
-			none: '#304ce7',
-			flow: [
-				'rgba(0,0,0,0)', 1,
-				'#9C9C9C', 50,
-				'#FFFF73', 100,
-				'#AFFF00', 250,
-				'#00FFFF', 500,
-				'#30B0FF', 1000,
-				'#2E5FFF', 2000,
-				'#0000FF', 3000
-			],
-			quietness: [
-				'#882255', 25,
-				'#CC6677', 50,
-				'#44AA99', 75,
-				'#117733', 101
-			],
-			gradient: [
-				'#59ee19', 3,
-				'#37a009', 5,
-				'#FFC300', 7,
-				'#C70039', 10,
-				'#581845', 100
-			]
-		},
 		popups: {
 			layerId: 'rnet',
 			templateId: 'rnet-popup',
@@ -164,9 +225,9 @@ const datasets = {
 			'source-layer': 'rnet_simplified',
 			'type': 'line',
 		},
+		// sublayers: uses rnet - copied-in below at the end of this array creation
 		// layerStyling: uses rnet - copied-in below at the end of this array creation
 		// legends: uses rnet - copied-in below at the end of this array creation
-		// lineColours: uses rnet - copied-in below at the end of this array creation
 		popups: {
 			templateId: 'rnet-popup',
 			preprocessingCallback: popupCallback,	// Defined below
@@ -307,57 +368,12 @@ const datasets = {
 			}
 		},
 		sublayers: {
-			// #!# This is a repetitive set of definitions, but the 'get' field needs to change each time - see if this can be simplified
-			'carriageway_1way': {
-				paint: {
-					'line-color': [
-						'match',
-						['get', 'carriageway_1way'],
-							'Not enough space', '#dd7777',
-							'Absolute minimum', '#e0b97d',
-							'Desirable minimum', '#75a375',
-						'rgba(0, 0, 0, 0)', // Invisible
-					]
-				}
-			},
-			'carriageway_2way': {
-				paint: {
-					'line-color': [
-						'match',
-						['get', 'carriageway_2way'],
-							'Not enough space', '#dd7777',
-							'Absolute minimum', '#e0b97d',
-							'Desirable minimum', '#75a375',
-						'rgba(0, 0, 0, 0)', // Invisible
-					]
-				}
-			},
-			'combined_1way': {
-				paint: {
-					'line-color': [
-						'match',
-						['get', 'combined_1way'],
-							'Not enough space', '#dd7777',
-							'Absolute minimum', '#e0b97d',
-							'Desirable minimum', '#75a375',
-						'rgba(0, 0, 0, 0)', // Invisible
-					]
-				}
-			},
-			'combined_2way': {
-				paint: {
-					'line-color': [
-						'match',
-						['get', 'combined_2way'],
-							'Not enough space', '#dd7777',
-							'Absolute minimum', '#e0b97d',
-							'Desirable minimum', '#75a375',
-						'rgba(0, 0, 0, 0)', // Invisible
-					]
-				}
-			},
+			'carriageway_1way': streetspaceSublayer ('carriageway_1way'),
+			'carriageway_2way': streetspaceSublayer ('carriageway_2way'),
+			'combined_1way'   : streetspaceSublayer ('combined_1way'),
+			'combined_2way'   : streetspaceSublayer ('combined_2way'),
 		},
-		// #!# Can't currently use auto-legends, as the legendsublayerselector mechanism doesn't yet support radiobuttons rather than select
+		// #!# Can't currently use auto-legends, as the sublayerselector mechanism doesn't yet support radiobuttons rather than select
 		legends: {
 			'streetspace': [
 				['Not enough space', '#dd7777'],
@@ -386,7 +402,106 @@ const datasets = {
 				'fill-outline-color': '#000000'
 			}
 		},
+		sublayers: {
+			pcycle: {
+				paint: {
+					'fill-color': [
+						'step',
+						['get', 'pcycle'],
+							'#A50026', 2,
+							'#D73027', 4,
+							'#F46D43', 7,
+							'#FDAE61', 10,
+							'#FEE090', 15,
+							'#ffffbf', 20,
+							'#C6DBEF', 25,
+							'#ABD9E9', 30,
+							'#74ADD1', 40,
+							'#4575B4', 100,
+						'#000000'
+					]
+				}
+			},
+			pcycle_go_dutch: {
+				paint: {
+					'fill-color': [
+						'step',
+						['get', 'pcycle_go_dutch'],
+							'#A50026', 2,
+							'#D73027', 4,
+							'#F46D43', 7,
+							'#FDAE61', 10,
+							'#FEE090', 15,
+							'#ffffbf', 20,
+							'#C6DBEF', 25,
+							'#ABD9E9', 30,
+							'#74ADD1', 40,
+							'#4575B4', 100,
+						'#000000'
+					]
+				}
+			},
+			population_density: {
+				paint: {
+					'fill-color': [
+						'step',
+						['get', 'population_density'],
+							'#edf8fb', 10,
+							'#bfd3e6', 50,
+							'#9ebcda', 100,
+							'#8c96c6', 150,
+							'#8856a7', 200,
+							'#810f7c', 600,
+						'#000000'
+					]
+				}
+			},
+			SIMD2020v2_Decile: {
+				paint: {
+					'fill-color': [
+						'step',
+						['get', 'SIMD2020v2_Decile'],
+							'#a50026', 1.1,			 // #!# This block is basically enums rather than ranges, so current fudge of .1 is to avoid off-by-one errors
+							'#d73027', 2.1,
+							'#f46d43', 3.1,
+							'#fdae61', 4.1,
+							'#fee090', 5.1,
+							'#e0f3f8', 6.1,
+							'#abd9e9', 7.1,
+							'#74add1', 8.1,
+							'#4575b4', 9.1,
+							'#313695', 10.1,
+						'#000000'
+					]
+				}
+			},
+			drive_petrol:    data_zonesSublayer ('drive_petrol'),
+			drive_GP:        data_zonesSublayer ('drive_GP'),
+			drive_post:      data_zonesSublayer ('drive_post'),
+			drive_retail:    data_zonesSublayer ('drive_retail'),
+			drive_primary:   data_zonesSublayer ('drive_primary'),
+			drive_secondary: data_zonesSublayer ('drive_secondary'),
+			PT_GP:           data_zonesSublayer ('PT_GP'),
+			PT_post:         data_zonesSublayer ('PT_post'),
+			PT_retail:       data_zonesSublayer ('PT_retail'),
+			broadband: {
+				paint: {
+					'fill-color': [
+						'step',
+						['get', 'broadband'],
+							'#fff7ec', 0.01,		// #!# Currently zero is used for voids - data should be changed to use known constant e.g. -9999
+							'#fee8c8', 2,
+							'#fdd49e', 5,
+							'#fdbb84', 10,
+							'#d7301f', 50,
+							'#7f0000', 100,
+						'#000000'
+					]
+				}
+			},
+		},
 		layerStyling: data_zonesStyling,
+		// #!# These are presumably restatements of sublayers
 		legends: {
 			'SIMD2020v2_Decile': [
 				['1st', 	'#a50026'],
@@ -451,77 +566,6 @@ const datasets = {
 				['200',		'#67001f'],
 			],
 		},
-		// #!# These are presumably restatements of dzLegendColours
-		lineColours: {
-			'SIMD2020v2_Decile': [
-				'#a50026', 1.1,			 // #!# This block is basically enums rather than ranges, so current fudge of .1 is to avoid off-by-one errors
-				'#d73027', 2.1,
-				'#f46d43', 3.1,
-				'#fdae61', 4.1,
-				'#fee090', 5.1,
-				'#e0f3f8', 6.1,
-				'#abd9e9', 7.1,
-				'#74add1', 8.1,
-				'#4575b4', 9.1,
-				'#313695', 10.1,
-				'#000000'
-			],
-			'population_density': [
-				'#edf8fb', 10,
-				'#bfd3e6', 50,
-				'#9ebcda', 100,
-				'#8c96c6', 150,
-				'#8856a7', 200,
-				'#810f7c', 600,
-				'#000000'
-			],
-			'broadband': [
-				'#fff7ec', 0.01,		// #!# Currently zero is used for voids - data should be changed to use known constant e.g. -9999
-				'#fee8c8', 2,
-				'#fdd49e', 5,
-				'#fdbb84', 10,
-				'#d7301f', 50,
-				'#7f0000', 100,
-				'#000000'
-			],
-			'pcycle': [
-				'#A50026', 2,
-				'#D73027', 4,
-				'#F46D43', 7,
-				'#FDAE61', 10,
-				'#FEE090', 15,
-				'#ffffbf', 20,
-				'#C6DBEF', 25,
-				'#ABD9E9', 30,
-				'#74ADD1', 40,
-				'#4575B4', 100,
-				'#000000'
-			],
-			'pcycle_go_dutch': [
-				'#A50026', 2,
-				'#D73027', 4,
-				'#F46D43', 7,
-				'#FDAE61', 10,
-				'#FEE090', 15,
-				'#ffffbf', 20,
-				'#C6DBEF', 25,
-				'#ABD9E9', 30,
-				'#74ADD1', 40,
-				'#4575B4', 100,
-				'#000000'
-			],
-			'_': [		// Default
-				'#053061', 3,
-				'#2166ac', 5,
-				'#4393c3', 7,
-				'#92c5de', 10,
-				'#f7f7f7', 15,
-				'#f4a582', 30,
-				'#b2182b', 60,
-				'#67001f', 200,
-				'#000000'
-			]
-		}
 		/*
 		,
 		// #!# Disabled this popup as of September 2024 - can be deleted later if data issues resolved
@@ -822,9 +866,9 @@ const datasets = {
 };
 
 // Clone rnet definitions, to avoid restatement of large arrays, above
+datasets['rnet-simplified'].sublayers    = datasets['rnet'].sublayers;
 datasets['rnet-simplified'].layerStyling = datasets['rnet'].layerStyling;
 datasets['rnet-simplified'].legends      = datasets['rnet'].legends;
-datasets['rnet-simplified'].lineColours  = datasets['rnet'].lineColours;
 
 
 
@@ -857,10 +901,10 @@ function rnetStyling (layerId, map, settings, datasets)
 	}
 	
 	// Determine the sublayer (field) in use
-	const sublayer = document.querySelector ('select.updatelayer.legendsublayerselector-' + layerId).value;
+	const sublayer = document.querySelector ('select.updatelayer.sublayerselector-' + layerId).value;
 	
 	// Determine the layer width field
-	const layerWidthField = getLayerWidthField();
+	const layerWidthField = getLayerWidthField ();
 	
 	// Parse route network slider input fields to be used as filters
 	const sliders = {};
@@ -882,37 +926,25 @@ function rnetStyling (layerId, map, settings, datasets)
 		['<=', 'gradient', sliders.gradient.max]
 	];
 	
-	// Define line colour
-	const lineColours = {
-		'none': datasets['rnet'].lineColours.none,
-		'flow': [
-			'step', ['get', layerWidthField],
-			...datasets['rnet'].lineColours.flow,
-			'#FF00C5'
-		],
-		'quietness': [
-			'step', ['get', 'quietness'],
-			...datasets['rnet'].lineColours.quietness,
-			'#000000'
-		],
-		'gradient': [
-			'step', ['get', 'gradient'],
-			...datasets['rnet'].lineColours.gradient,
-			'#000000'
-		]
-	};
+	// In flow (Cycle trips per day) mode, the line colour is based on the layer width field, i.e. derived from the parameters
+	if (sublayer == 'flow') {
+		datasets[layerId].sublayers[sublayer].paint['line-color'][1] = ['get', layerWidthField];
+	}
+	
+	// Set the line colour
+	const lineColour = datasets[layerId].sublayers[sublayer].paint['line-color'];
 	
 	// Define line width
 	// Implements the formula y = (3 / (1 + exp(-3*(x/1000 - 1.6))) + 0.3)
 	// This code was hard to work out!
-	const line_width = [
+	const lineWidth = [
 		'interpolate',
 		['linear'],
 		['zoom'],
-		12, ['*', 2.1, ['+', 0.3, ['/', 3, ['+', 1, ['^', 2.718, ['-', 2.94, ['*', ['get', layerWidthField], 0.0021]]]]]]],
+		12, ['*', 2.1,  ['+', 0.3, ['/', 3, ['+', 1, ['^', 2.718, ['-', 2.94, ['*', ['get', layerWidthField], 0.0021]]]]]]],
 		14, ['*', 5.25, ['+', 0.3, ['/', 3, ['+', 1, ['^', 2.718, ['-', 2.94, ['*', ['get', layerWidthField], 0.0021]]]]]]],
-		15, ['*', 7.5, ['+', 0.3, ['/', 3, ['+', 1, ['^', 2.718, ['-', 2.94, ['*', ['get', layerWidthField], 0.0021]]]]]]],
-		16, ['*', 18, ['+', 0.3, ['/', 3, ['+', 1, ['^', 2.718, ['-', 2.94, ['*', ['get', layerWidthField], 0.0021]]]]]]],
+		15, ['*', 7.5,  ['+', 0.3, ['/', 3, ['+', 1, ['^', 2.718, ['-', 2.94, ['*', ['get', layerWidthField], 0.0021]]]]]]],
+		16, ['*', 18,   ['+', 0.3, ['/', 3, ['+', 1, ['^', 2.718, ['-', 2.94, ['*', ['get', layerWidthField], 0.0021]]]]]]],
 		18, ['*', 52.5, ['+', 0.3, ['/', 3, ['+', 1, ['^', 2.718, ['-', 2.94, ['*', ['get', layerWidthField], 0.0021]]]]]]],
 	];
 	
@@ -920,8 +952,8 @@ function rnetStyling (layerId, map, settings, datasets)
 	map.setFilter (layerId, filter);
 	
 	// Set paint properties
-	map.setPaintProperty (layerId, 'line-color', lineColours[sublayer]);
-	map.setPaintProperty (layerId, 'line-width', line_width);
+	map.setPaintProperty (layerId, 'line-color', lineColour);
+	map.setPaintProperty (layerId, 'line-width', lineWidth);
 }
 
 
@@ -929,47 +961,38 @@ function rnetStyling (layerId, map, settings, datasets)
 function data_zonesStyling (layerId, map, settings, datasets)
 {
 	// Determine the sublayer (field) in use
-	const sublayer = document.querySelector ('select.updatelayer.legendsublayerselector-' + layerId).value;
+	const sublayer = document.querySelector ('select.updatelayer.sublayerselector-' + layerId).value;
 	
 	// Get UI state
 	const daysymetricMode = document.querySelector ('input.updatelayer[data-layer="data_zones"][name="daysymetricmode"]').checked;
 	
 	// Set paint properties
-	map.setPaintProperty (layerId, 'fill-color', ['step', ['get', sublayer], ...getStyleColumn (sublayer, datasets)]);
+	map.setPaintProperty (layerId, 'fill-color', datasets[layerId].sublayers[sublayer].paint['fill-color']);
 	map.setPaintProperty (layerId, 'fill-opacity', (daysymetricMode ? 0.1 : 0.8)); // Very faded-out in daysymetric mode, as the buildings are coloured
 	
 	// Set buildings layer colour/visibility
-	const buildingColour = getBuildingsColour(settings);
+	const buildingColour = getBuildingsColour (settings, sublayer, daysymetricMode);
 	map.setPaintProperty ('dasymetric', 'fill-extrusion-color', (buildingColour || '#9c9898'));
 	map.setLayoutProperty ('dasymetric', 'visibility', (buildingColour ? 'visible' : 'none'));
 }
 
 
 // Function to determine the buildings colour
-function getBuildingsColour (settings)
+function getBuildingsColour (settings, sublayer, daysymetricMode)
 {
 	// If datazones is off, buildings shown, if vector style, as static colour appropriate to the basemap
 	if (!document.querySelector ('input.showlayer[data-layer="data_zones"]').checked) {
-		const styleName = document.querySelector('#basemapform input:checked').value;	// Same as nptUi.getBasemapStyle()
+		const styleName = document.querySelector ('#basemapform input:checked').value;	// Same as nptUi.getBasemapStyle()
 		return settings.basemapStyles[styleName].buildingColour;
 	}
 	
 	// If dasymetric mode, use a colour set based on the layer
-	if (document.querySelector ('input.updatelayer[data-layer="data_zones"][name="daysymetricmode"]').checked) {
-		const field = document.querySelector ('select.updatelayer[data-layer="data_zones"][name="field"]').value;
-		return ['step', ['get', field], ...getStyleColumn (field, datasets)];
+	if (daysymetricMode) {
+		return datasets['data_zones'].sublayers[sublayer].paint['fill-color'];
 	}
 	
 	// Default to gray
 	return '#9c9898';
-}
-
-
-// Function to determine the style column
-function getStyleColumn (layerId, datasets)
-{
-	const style_col_selected = datasets['data_zones'].lineColours.hasOwnProperty(layerId) ? layerId : '_';
-	return datasets['data_zones'].lineColours[style_col_selected];
 }
 
 
