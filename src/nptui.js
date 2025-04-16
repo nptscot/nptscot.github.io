@@ -1036,9 +1036,10 @@ const nptUi = (function () {
 			// #!# This is incrementally added each time toggle is done; should be moved up a level so there is only a single registration
 			if (_datasets[layerId].sublayers) {
 				nptUi.setSublayerStyle (layerId);
-				
-			// Check for a dynamic styling callback and run it if present
-			} else if (_datasets[layerId].layerStyling) {
+			}
+			
+			// Check for a dynamic styling callback and run it, if present
+			if (_datasets[layerId].layerStyling) {
 				_datasets[layerId].layerStyling (layerId, _map, _settings, _datasets);
 			}
 			
@@ -1072,12 +1073,12 @@ const nptUi = (function () {
 		setSublayerStyle: function (layerId)
 		{
 			// Determine the field
-			const control = document.querySelector ('.updatelayer[data-layer="' + layerId + '"]');
-			const fieldname = document.querySelector ('.updatelayer[data-layer="' + layerId + '"]' + (control.type == 'radio' ? ':checked' : '')).value;
-			const sublayer = _datasets[layerId].sublayers[fieldname];
+			const control = document.querySelector ('.updatelayer.sublayerselector-' + layerId);
+			const sublayer = document.querySelector ('.updatelayer.sublayerselector-' + layerId + (control.type == 'radio' ? ':checked' : '')).value;
+			const sublayerStyle = _datasets[layerId].sublayers[sublayer];
 			
 			// Set each paint style (e.g. line-color)
-			Object.entries (sublayer.paint).forEach (function ([name, value]) {
+			Object.entries (sublayerStyle.paint).forEach (function ([name, value]) {
 				_map.setPaintProperty (layerId, name, value);
 			});
 		},
@@ -1123,7 +1124,7 @@ const nptUi = (function () {
 			
 			// Use the static legends, unless there is a sublayer selector for which the sublayer legends need to be looked up
 			let legends = _datasets[layerId].legends[layerId];
-			const sublayerSelector = document.querySelector ('select.updatelayer.legendsublayerselector-' + layerId);
+			const sublayerSelector = document.querySelector ('select.updatelayer.sublayerselector-' + layerId);
 			if (sublayerSelector) {
 				legends = _datasets[layerId].legends[sublayerSelector.value] || _datasets[layerId].legends['_'];
 			}
