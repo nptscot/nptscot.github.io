@@ -55,14 +55,14 @@ function data_zonesSublayer (sublayer)
 			'fill-color': [
 				'step',
 				['get', sublayer],
-				'#053061', 3,
-				'#2166ac', 5,
-				'#4393c3', 7,
-				'#92c5de', 10,
-				'#f7f7f7', 15,
-				'#f4a582', 30,
-				'#b2182b', 60,
-				'#67001f', 200,
+					'#053061', 3,
+					'#2166ac', 5,
+					'#4393c3', 7,
+					'#92c5de', 10,
+					'#f7f7f7', 15,
+					'#f4a582', 30,
+					'#b2182b', 60,
+					'#67001f', 200,
 				'#000000'
 			]
 		}
@@ -136,7 +136,7 @@ const datasets = {
 					'line-color': [
 						'step',
 						['get', 'all_fastest_bicycle_go_dutch'],	/* layerWidthField will change this field later; see below */
-							'rgba(0,0,0,0)', 1,
+							'rgba(0,0,0,0)', 1,	/* fully transparent */
 							'#9C9C9C', 50,
 							'#FFFF73', 100,
 							'#AFFF00', 250,
@@ -144,7 +144,7 @@ const datasets = {
 							'#30B0FF', 1000,
 							'#2E5FFF', 2000,
 							'#0000FF', 3000,
-						'#FF00C5'
+						'#FF00C5'	/* 3000+ */
 					]
 				}
 			},
@@ -156,8 +156,8 @@ const datasets = {
 							'#882255', 25,
 							'#CC6677', 50,
 							'#44AA99', 75,
-							'#117733', 101,
-						'#000000'
+							'#117733', 100.001,		/* i.e. including 100 */
+						'#000000'	/* will never get used */
 					]
 				}
 			},
