@@ -987,7 +987,7 @@ const nptUi = (function () {
 				if (layer.sublayers) {
 					const legendsBySublayer = {};
 					Object.entries (layer.sublayers).forEach (([sublayerId, sublayer]) => {
-						const sublayerLegendLabels = (layer.legendLabels ? layer.legendLabels[sublayerId] : null);
+						const sublayerLegendLabels = (layer.legendLabels ? (layer.legendLabels[sublayerId] || layer.legendLabels['_']) : null);
 						legendsBySublayer[sublayerId] = nptUi.styleSpecToLegends (sublayer.paint, sublayerLegendLabels, layerId, sublayerId);
 					});
 					_datasets[layerId].legends = legendsBySublayer;
