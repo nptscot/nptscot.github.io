@@ -104,6 +104,12 @@ const datasets = {
 		// #!# These need to be merged with sublayers
 		legends: {...},
 		
+		// Legend labels
+		// - If not present, legends will be auto-generated from the sublayers paint or (if not sublayers) the main definition paint
+		// - If the paint is an expression, the main values in the expression will be used, otherwise the first value (single value) will be used
+		// - The number of labels should always match the paint value(s)
+		legendLabels: [...],
+		
 		// Chart definitions
 		// #!# Need to define more clearly the assumed data structure, e.g. the 'charts' key shows a part field
 		charts: {...},

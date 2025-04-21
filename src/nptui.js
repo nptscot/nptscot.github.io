@@ -988,7 +988,8 @@ const nptUi = (function () {
 					if (layer.sublayers) {
 						const legendsBySublayer = {};
 						Object.entries (layer.sublayers).forEach (([sublayerId, sublayer]) => {
-							legendsBySublayer[sublayerId] = nptUi.styleSpecToLegends (sublayer.paint);
+							const sublayerLegendLabels = (layer.legendLabels ? layer.legendLabels[sublayerId] : null);
+							legendsBySublayer[sublayerId] = nptUi.styleSpecToLegends (sublayer.paint, sublayerLegendLabels);
 						});
 						_datasets[layerId].legends = legendsBySublayer;
 					}
@@ -996,7 +997,7 @@ const nptUi = (function () {
 					// For single-layered layers, use the main definition
 					else {
 						_datasets[layerId].legends = {};
-						_datasets[layerId].legends[layerId] = nptUi.styleSpecToLegends (layer.layer.paint);
+						_datasets[layerId].legends[layerId] = nptUi.styleSpecToLegends (layer.layer['paint'], layer.legendLabels);
 					}
 				}
 			});
@@ -1004,7 +1005,7 @@ const nptUi = (function () {
 		
 		
 		// Helper function to parse a Mapbox GL JS style definition to a legends list; legends are [[value, colour], ...]
-		styleSpecToLegends: function (styleSpec)
+		styleSpecToLegends: function (styleSpec, legendLabels)
 		{
 			// Use the first defined style (only) as the basis for the legend
 			let style = Object.values (styleSpec)[0];
@@ -1035,6 +1036,14 @@ const nptUi = (function () {
 			const legends = [];
 			for (let i = 0; i < styleTokens.length - 1; i += 2) {
 				legends.push ([styleTokens[i], styleTokens[i + 1]]);
+			}
+			
+			// If legend values have been supplied, replace the auto-labels with the supplied labels
+			if (legendLabels) {
+				legends.forEach (function (legend, index) {
+					legend[0] = legendLabels[index];
+					legends[index] = legend;
+				});
 			}
 			
 			// Return the legend array
