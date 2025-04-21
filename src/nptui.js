@@ -989,7 +989,7 @@ const nptUi = (function () {
 						const legendsBySublayer = {};
 						Object.entries (layer.sublayers).forEach (([sublayerId, sublayer]) => {
 							const sublayerLegendLabels = (layer.legendLabels ? layer.legendLabels[sublayerId] : null);
-							legendsBySublayer[sublayerId] = nptUi.styleSpecToLegends (sublayer.paint, sublayerLegendLabels);
+							legendsBySublayer[sublayerId] = nptUi.styleSpecToLegends (sublayer.paint, sublayerLegendLabels, layerId, sublayerId);
 						});
 						_datasets[layerId].legends = legendsBySublayer;
 					}
@@ -997,7 +997,7 @@ const nptUi = (function () {
 					// For single-layered layers, use the main definition
 					else {
 						_datasets[layerId].legends = {};
-						_datasets[layerId].legends[layerId] = nptUi.styleSpecToLegends (layer.layer['paint'], layer.legendLabels);
+						_datasets[layerId].legends[layerId] = nptUi.styleSpecToLegends (layer.layer['paint'], layer.legendLabels, layerId, null);
 					}
 				}
 			});
@@ -1005,7 +1005,7 @@ const nptUi = (function () {
 		
 		
 		// Helper function to parse a Mapbox GL JS style definition to a legends list; legends are [[value, colour], ...]
-		styleSpecToLegends: function (styleSpec, legendLabels)
+		styleSpecToLegends: function (styleSpec, legendLabels, layerId, sublayerId)
 		{
 			// Use the first defined style (only) as the basis for the legend
 			let style = Object.values (styleSpec)[0];
@@ -1040,6 +1040,14 @@ const nptUi = (function () {
 			
 			// If legend values have been supplied, replace the auto-labels with the supplied labels
 			if (legendLabels) {
+				
+				// Ensure the counts match
+				if (legendLabels.length != legends.length) {
+					console.log (`Error: In layer ${layerId}` + (sublayerId ? ` (sublayer ${sublayerId})` : '') + ', the legend labels count does not match the number of legends');
+					return legends;
+				}
+				
+				// Substitute the auto-labels for the supplied labels
 				legends.forEach (function (legend, index) {
 					legend[0] = legendLabels[index];
 					legends[index] = legend;
