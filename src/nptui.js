@@ -1027,7 +1027,7 @@ const nptUi = (function () {
 			if (styleTokens[0] == 'step') {
 				styleTokens.shift ();	// Remove 'step'
 				styleTokens.shift ();	// Remove ['get', ...]
-				styleTokens.shift ();	// Remove fallback value, which is at the start of the array
+				styleTokens.shift ();	// Remove the infinite-lower-bound value (e.g. 0) colour at the start
 			}
 			
 			// Convert adjacent values to pairs, e.g. [a, 0, b, 1, c, 2] becomes [[a, 0], [b, 1], [c, 2]]
