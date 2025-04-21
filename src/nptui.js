@@ -1004,16 +1004,31 @@ const nptUi = (function () {
 		
 		
 		// Helper function to parse a Mapbox GL JS style definition to a legends list; legends are [[value, colour], ...]
-		styleSpecToLegends: function (style)
+		styleSpecToLegends: function (styleSpec)
 		{
 			// Use the first defined style (only) as the basis for the legend
-			const styleTokens = Object.create (Object.values (style)[0]);	// Object.create used to clone, as shift/pop below would otherwise amend the original style definition
+			let style = Object.values (styleSpec)[0];
 			
-			// Remove unwanted tokens, leaving only value pairs
+			// If the style is a string (rather than an expression), convert to array structure
+			if (!Array.isArray (style)) {
+				style = ['', style];	// Label unknown at this point
+			}
+			
+			// Clone the list, as shift/pop below would otherwise amend the original style definition
+			const styleTokens = [...style];
+			
+			// For match, remove unwanted tokens, leaving only [value, colour, value, colour, ...] adjacent values; see: https://docs.mapbox.com/style-spec/reference/expressions/#match
 			if (styleTokens[0] == 'match') {
 				styleTokens.shift ();	// Remove 'match'
 				styleTokens.shift ();	// Remove ['get', ...]
-				styleTokens.pop ();		// Remove fallback value at end of array
+				styleTokens.pop ();		// Remove fallback value, which is at the end of the array
+			}
+			
+			// For step, remove unwanted tokens, leaving only [value, colour, value, colour, ...] values; see: https://docs.mapbox.com/style-spec/reference/expressions/#step
+			if (styleTokens[0] == 'step') {
+				styleTokens.shift ();	// Remove 'step'
+				styleTokens.shift ();	// Remove ['get', ...]
+				styleTokens.shift ();	// Remove fallback value, which is at the start of the array
 			}
 			
 			// Convert adjacent values to pairs, e.g. [a, 0, b, 1, c, 2] becomes [[a, 0], [b, 1], [c, 2]]
