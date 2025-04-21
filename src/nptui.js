@@ -1003,7 +1003,7 @@ const nptUi = (function () {
 		},
 		
 		
-		// Helper function to parse a Mapbox GL JS style definition to a legends list
+		// Helper function to parse a Mapbox GL JS style definition to a legends list; legends are [[value, colour], ...]
 		styleSpecToLegends: function (style)
 		{
 			// Use the first defined style (only) as the basis for the legend
@@ -1016,14 +1016,14 @@ const nptUi = (function () {
 				styleTokens.pop ();		// Remove fallback value at end of array
 			}
 			
-			// Convert pairs to ordered groups list, e.g. [a, 0, b, 1, c, 2] becomes [[a, 0], [b, 1], [c, 2]]
-			const legend = [];
+			// Convert adjacent values to pairs, e.g. [a, 0, b, 1, c, 2] becomes [[a, 0], [b, 1], [c, 2]]
+			const legends = [];
 			for (let i = 0; i < styleTokens.length - 1; i += 2) {
-				legend.push ([styleTokens[i], styleTokens[i + 1]]);
+				legends.push ([styleTokens[i], styleTokens[i + 1]]);
 			}
 			
 			// Return the legend array
-			return legend;
+			return legends;
 		},
 		
 		
