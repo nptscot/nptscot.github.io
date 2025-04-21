@@ -99,10 +99,6 @@ const datasets = {
 		// Layer styling callbacks function, defined at the end
 		layerStyling: fooStyling,
 		
-		// Legends
-		// If not present, and there is a sublayers list, these will be auto-generated from the sublayers paint first values
-		// #!# These need to be merged with sublayers
-		legends: {...},
 		
 		// Legend labels
 		// - If not present, legends will be auto-generated from the sublayers paint or (if not sublayers) the main definition paint

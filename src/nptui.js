@@ -982,23 +982,21 @@ const nptUi = (function () {
 		{
 			// Generate legends from any dataset with a sublayer definition but no legends definition
 			Object.entries (_datasets).forEach (([layerId, layer]) => {
-				if (!layer.legends) {
-					
-					// For sublayered layers, loop through each sublayer to create the legend array for it
-					if (layer.sublayers) {
-						const legendsBySublayer = {};
-						Object.entries (layer.sublayers).forEach (([sublayerId, sublayer]) => {
-							const sublayerLegendLabels = (layer.legendLabels ? layer.legendLabels[sublayerId] : null);
-							legendsBySublayer[sublayerId] = nptUi.styleSpecToLegends (sublayer.paint, sublayerLegendLabels, layerId, sublayerId);
-						});
-						_datasets[layerId].legends = legendsBySublayer;
-					}
-					
-					// For single-layered layers, use the main definition
-					else {
-						_datasets[layerId].legends = {};
-						_datasets[layerId].legends[layerId] = nptUi.styleSpecToLegends (layer.layer['paint'], layer.legendLabels, layerId, null);
-					}
+				
+				// For sublayered layers, loop through each sublayer to create the legend array for it
+				if (layer.sublayers) {
+					const legendsBySublayer = {};
+					Object.entries (layer.sublayers).forEach (([sublayerId, sublayer]) => {
+						const sublayerLegendLabels = (layer.legendLabels ? layer.legendLabels[sublayerId] : null);
+						legendsBySublayer[sublayerId] = nptUi.styleSpecToLegends (sublayer.paint, sublayerLegendLabels, layerId, sublayerId);
+					});
+					_datasets[layerId].legends = legendsBySublayer;
+				}
+				
+				// For single-layered layers, use the main definition
+				else {
+					_datasets[layerId].legends = {};
+					_datasets[layerId].legends[layerId] = nptUi.styleSpecToLegends (layer.layer['paint'], layer.legendLabels, layerId, null);
 				}
 			});
 		},
