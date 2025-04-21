@@ -1073,8 +1073,8 @@ const nptUi = (function () {
 		setSublayerStyle: function (layerId)
 		{
 			// Determine the field
-			const control = document.querySelector ('.updatelayer.sublayerselector-' + layerId);
-			const sublayer = document.querySelector ('.updatelayer.sublayerselector-' + layerId + (control.type == 'radio' ? ':checked' : '')).value;
+			const sublayerSelector = document.querySelector ('.updatelayer.sublayerselector-' + layerId);
+			const sublayer = document.querySelector ('.updatelayer.sublayerselector-' + layerId + (sublayerSelector.type == 'radio' ? ':checked' : '')).value;
 			const sublayerStyle = _datasets[layerId].sublayers[sublayer];
 			
 			// Set each paint style (e.g. line-color)
@@ -1124,9 +1124,10 @@ const nptUi = (function () {
 			
 			// Use the static legends, unless there is a sublayer selector for which the sublayer legends need to be looked up
 			let legends = _datasets[layerId].legends[layerId];
-			const sublayerSelector = document.querySelector ('select.updatelayer.sublayerselector-' + layerId);
+			const sublayerSelector = document.querySelector ('.updatelayer.sublayerselector-' + layerId);
 			if (sublayerSelector) {
-				legends = _datasets[layerId].legends[sublayerSelector.value] || _datasets[layerId].legends['_'];
+				const sublayer = document.querySelector ('.updatelayer.sublayerselector-' + layerId + (sublayerSelector.type == 'radio' ? ':checked' : '')).value;
+				legends = _datasets[layerId].legends[sublayer] || _datasets[layerId].legends['_'];
 			}
 			
 			// Create the legend HTML
