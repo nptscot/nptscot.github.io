@@ -428,19 +428,19 @@ const datasets = {
 			SIMD2020v2_Decile: {
 				paint: {
 					'fill-color': [
-						'step',
+						'match',
 						['get', 'SIMD2020v2_Decile'],
-						/* <0,never */ '#000000',
-							0, '#a50026',
-							1.001, '#d73027',			 // #!# This block is basically enums rather than ranges, so current fudge of .001 is to avoid off-by-one errors
-							2.001, '#f46d43',
-							3.001, '#fdae61',
-							4.001, '#fee090',
-							5.001, '#e0f3f8',
-							6.001, '#abd9e9',
-							7.001, '#74add1',
-							8.001, '#4575b4',
-							9.001, '#313695',
+							1, '#a50026',
+							2, '#d73027',
+							3, '#f46d43',
+							4, '#fdae61',
+							5, '#fee090',
+							6, '#e0f3f8',
+							7, '#abd9e9',
+							8, '#74add1',
+							9, '#4575b4',
+							10, '#313695',
+						'#000000'
 					]
 				}
 			},
