@@ -55,15 +55,15 @@ function data_zonesSublayer (sublayer)
 			'fill-color': [
 				'step',
 				['get', sublayer],
-				'#053061',
+				/* <0,never */ '#000000',
+					0, '#053061',
 					3, '#2166ac',
 					5, '#4393c3',
 					7, '#92c5de',
 					10, '#f7f7f7',
 					15, '#f4a582',
 					30, '#b2182b',
-					60, '#67001f',
-					200, '#000000'
+					60, '#67001f'
 			]
 		}
 	};
@@ -138,7 +138,7 @@ const datasets = {
 					'line-color': [
 						'step',
 						['get', 'all_fastest_bicycle_go_dutch'],	/* layerWidthField will change this field later; see below */
-						'rgba(0,0,0,0)',	/* fully transparent */
+						/* 0-0.9 */ 'rgba(0,0,0,0)',	/* fully transparent */
 							1, '#9C9C9C',
 							50, '#FFFF73',
 							100, '#AFFF00',
@@ -155,11 +155,11 @@ const datasets = {
 					'line-color': [
 						'step',
 						['get', 'quietness'],
-						'#882255',
+						/* <0,never> */ '#000000',
+							0, '#882255',
 							25, '#CC6677',
 							50, '#44AA99',
-							75, '#117733',
-							100.001, '#000000'	/* i.e. including 100 */
+							75, '#117733'
 					]
 				}
 			},
@@ -168,12 +168,12 @@ const datasets = {
 					'line-color': [
 						'step',
 						['get', 'gradient'],
-						'#59ee19',
+						/* <0,never> */ '#000000',
+							0, '#59ee19',
 							3, '#37a009',
 							5, '#FFC300',
 							7, '#C70039',
-							10, '#581845',
-							100.001, '#000000'	/* i.e. including 100 */
+							10, '#581845'
 					]
 				}
 			}
@@ -181,7 +181,7 @@ const datasets = {
 		layerStyling: rnetStyling,
 		legendLabels: {
 			none:      ['&nbsp;'],
-			flow:      ['1', '50', '100', '250', '500', '1000', '2000', '3000+'],
+			flow:      ['1-', '50-', '100-', '250-', '500-', '1000-', '2000-', '3000-'],
 			quietness: ['0-25', '25-50', '50-75', '75-100'],
 			gradient:  ['0-3', '3-5', '5-7', '7-10', '10+'],
 		},
@@ -377,7 +377,8 @@ const datasets = {
 					'fill-color': [
 						'step',
 						['get', 'pcycle'],
-						'#A50026',
+						/* <0,never */ '#000000',
+							0, '#A50026',
 							2, '#D73027',
 							4, '#F46D43',
 							7, '#FDAE61',
@@ -386,8 +387,7 @@ const datasets = {
 							20, '#C6DBEF',
 							25, '#ABD9E9',
 							30, '#74ADD1',
-							40, '#4575B4',
-							100, '#000000'
+							40, '#4575B4'
 					]
 				}
 			},
@@ -396,7 +396,8 @@ const datasets = {
 					'fill-color': [
 						'step',
 						['get', 'pcycle_go_dutch'],
-						'#A50026',
+						/* <0,never */ '#000000',
+							0, '#A50026',
 							2, '#D73027',
 							4, '#F46D43',
 							7, '#FDAE61',
@@ -405,8 +406,7 @@ const datasets = {
 							20, '#C6DBEF',
 							25, '#ABD9E9',
 							30, '#74ADD1',
-							40, '#4575B4',
-							100, '#000000'
+							40, '#4575B4'
 					]
 				}
 			},
@@ -415,13 +415,13 @@ const datasets = {
 					'fill-color': [
 						'step',
 						['get', 'population_density'],
-						'#edf8fb',
+						/* <0,never */ '#000000',
+							0, '#edf8fb',
 							10, '#bfd3e6',
 							50, '#9ebcda',
 							100, '#8c96c6',
 							150, '#8856a7',
-							200, '#810f7c',
-							600, '#000000'
+							200, '#810f7c'
 					]
 				}
 			},
@@ -430,17 +430,17 @@ const datasets = {
 					'fill-color': [
 						'step',
 						['get', 'SIMD2020v2_Decile'],
-						'#a50026',
-							1.1, '#d73027',			 // #!# This block is basically enums rather than ranges, so current fudge of .1 is to avoid off-by-one errors
-							2.1, '#f46d43',
-							3.1, '#fdae61',
-							4.1, '#fee090',
-							5.1, '#e0f3f8',
-							6.1, '#abd9e9',
-							7.1, '#74add1',
-							8.1, '#4575b4',
-							9.1, '#313695',
-							10.1, '#000000'
+						/* <0,never */ '#000000',
+							0, '#a50026',
+							1.001, '#d73027',			 // #!# This block is basically enums rather than ranges, so current fudge of .001 is to avoid off-by-one errors
+							2.001, '#f46d43',
+							3.001, '#fdae61',
+							4.001, '#fee090',
+							5.001, '#e0f3f8',
+							6.001, '#abd9e9',
+							7.001, '#74add1',
+							8.001, '#4575b4',
+							9.001, '#313695',
 					]
 				}
 			},
@@ -458,13 +458,13 @@ const datasets = {
 					'fill-color': [
 						'step',
 						['get', 'broadband'],
-						'#fff7ec',
+						/* <0,never */ '#000000',
+							0, '#fff7ec',
 							0.01, '#fee8c8',	// #!# Currently zero is used for voids - data should be changed to use known constant e.g. -9999
 							2, '#fdd49e',
 							5, '#fdbb84',
 							10, '#d7301f',
-							50, '#7f0000',
-							100, '#000000'
+							50, '#7f0000'
 					]
 				}
 			},
@@ -472,11 +472,11 @@ const datasets = {
 		layerStyling: data_zonesStyling,
 		legendLabels: {
 			SIMD2020v2_Decile:  ['1st', '2nd', '3rd', '4th', '5th', '6th', '7th', '8th', '9th', '10th'],
-			population_density: ['10', '50', '100', '150', '200', '600'],
-			broadband:          ['0%', '2%', '5%', '10%', '50%', '100%'],
+			population_density: ['0-9', '10-49', '50-99', '100-149', '150-199', '200-600'],
+			broadband:          ['?', '0%+', '2%+', '5%+', '10%+', '50-100%'],
 			pcycle:             ['0-1', '2-3', '4-6', '7-9', '10-14', '15-19', '20-24', '25-29', '30-39', '40'],
 			pcycle_go_dutch:    ['0-1', '2-3', '4-6', '7-9', '10-14', '15-19', '20-24', '25-29', '30-39', '40'],
-			'_':                ['3', '5', '7', '10', '15', '30', '60', '200'],
+			'_':                ['0-2', '3-4', '5-6', '7-9', '10-14', '15-29', '30-59', '60-200'],
 		},
 		/*
 		,
