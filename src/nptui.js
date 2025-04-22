@@ -1008,8 +1008,12 @@ const nptUi = (function () {
 			// Use the first defined style (only) as the basis for the legend
 			let style = Object.values (styleSpec)[0];
 			
+			// Determine the type
+			let type;
+			
 			// If the style is a string (rather than an expression), convert to array structure
 			if (!Array.isArray (style)) {
+				type = 'scalar';
 				style = ['', style];	// Label unknown at this point
 			}
 			
@@ -1018,6 +1022,7 @@ const nptUi = (function () {
 			
 			// For match, remove unwanted tokens, leaving only [value, colour, value, colour, ...] adjacent values; see: https://docs.mapbox.com/style-spec/reference/expressions/#match
 			if (styleTokens[0] == 'match') {
+				type = 'match';
 				styleTokens.shift ();	// Remove 'match'
 				styleTokens.shift ();	// Remove ['get', ...]
 				styleTokens.pop ();		// Remove fallback value, which is at the end of the array
@@ -1025,17 +1030,20 @@ const nptUi = (function () {
 			
 			// For step, remove unwanted tokens, leaving only [value, colour, value, colour, ...] values; see: https://docs.mapbox.com/style-spec/reference/expressions/#step
 			if (styleTokens[0] == 'step') {
+				type = 'step';
 				styleTokens.shift ();	// Remove 'step'
 				styleTokens.shift ();	// Remove ['get', ...]
 				styleTokens.shift ();	// Remove the infinite-lower-bound value (e.g. 0) colour at the start
 			}
 			
-			// Convert adjacent values to pairs, e.g. [a, 0, b, 1, c, 2] becomes [[a, 0], [b, 1], [c, 2]]
+			// Convert adjacent values to pairs, e.g. [a, 0, b, 1, c, 2] becomes [[a, 0], [b, 1], [c, 2]], but also store the original value and type for use in filtering
 			const legends = [];
 			for (let i = 0; i < styleTokens.length - 1; i += 2) {
 				legends.push ([
 					styleTokens[i],		// Label (original value)
-					styleTokens[i + 1]	// Colour
+					styleTokens[i + 1],	// Colour
+					styleTokens[i],		// Original value; will be empty if only one value
+					type				// Type: scalar/match/step
 				]);
 			}
 			
@@ -1082,6 +1090,9 @@ const nptUi = (function () {
 			// Set state of layer
 			_state.layers[layerId].enabled = document.querySelector ('input.showlayer[data-layer="' + layerId + '"]').checked;
 			document.dispatchEvent (new Event ('@state/change', {'bubbles': true}));
+			
+			// Reset any existing filtering, e.g. checkbox filters
+			_map.setFilter (layerId, null);
 			
 			// Set the visibility of the layer, based on the checkbox value
 			_map.setLayoutProperty (layerId, 'visibility', (_state.layers[layerId].enabled ? 'visible' : 'none'));
@@ -1165,12 +1176,21 @@ const nptUi = (function () {
 			// Use the static legends, unless there is a sublayer selector for which the sublayer legends need to be looked up
 			const legends = (sublayerId ? (_datasets[layerId].legends[sublayerId] || _datasets[layerId].legends['_']) : _datasets[layerId].legends[layerId]);
 			
+			// Determine the field for filtering, either the layer's main internal layer or a sublayer
+			const field = (sublayerId ? sublayerId : _datasets[layerId].filtering);
+			
+			// Determine whether to show checkboxes; do not show if only 1 value
+			const showCheckboxes = (field && (Object.values (legends).length > 1));
+			
 			// Create the legend HTML
 			// #!# Should be a list, not nested divs
 			let legendHtml = '<div class="l_r">';
-			legends.forEach (function ([label, colour]) {
+			legends.forEach (function ([label, colour, value, type]) {
 				legendHtml += '<div class="lb">';
 				legendHtml += `<span style="background-color: ${colour}">`;
+				if (showCheckboxes) {
+					legendHtml += `<input type="checkbox" checked="checked" class="legendfilter" name="legendfilter_${layerId}" data-field="${field}" value="${value}" data-type="${type}" />`;
+				}
 				legendHtml += '</span>';
 				legendHtml += label;
 				legendHtml += '</div>';
@@ -1192,15 +1212,29 @@ const nptUi = (function () {
 					
 					// Determine the layer and its field to filter on
 					const layerId = checkbox.name.replace ('legendfilter_', '');
-					const field = _datasets[layerId].layer._filtering;
+					const field = checkbox.dataset.field;
+					const type = checkbox.dataset.type;
+					
+					// Get the all the checkboxes
+					const allCheckboxes = [...document.querySelectorAll ('input[type="checkbox"][class="legendfilter"][name="legendfilter_' + layerId + '"]')];
 					
 					// Get all the checkboxes that are checked for this layer
-					const checkedInLayer = [...document.querySelectorAll ('input[type="checkbox"][class="legendfilter"][name="legendfilter_' + layerId + '"]')]
+					const checkedInLayer = allCheckboxes
 						.filter ((el) => el.checked)
-						.map ((el) => el.value)
+						.map ((el) => (el.value.match (/^[0-9]+$/) ? Number (el.value) : el.value));
 					
-					// Filter
-					_map.setFilter (layerId, ['in', field, ...checkedInLayer]);
+					// Set the filter; see: https://docs.mapbox.com/mapbox-gl-js/api/map/#map#setfilter
+					let filter;
+					switch (type) {
+						
+						// Match: Filter to those checkboxes in the layer
+						case 'match':
+							filter = ['in', field, ...checkedInLayer];
+							break;
+					}
+					
+					// Set the filter
+					_map.setFilter (layerId, filter);
 				}
 			});
 		},

@@ -99,6 +99,8 @@ const datasets = {
 		// Layer styling callbacks function, defined at the end
 		layerStyling: fooStyling,
 		
+		// For checkbox filtering, which field in the internal layer is in use; this is not necessary if using sublayers
+		filtering: 'internal_field_name',
 		
 		// Legend labels
 		// - If not present, legends will be auto-generated from the sublayers paint or (if not sublayers) the main definition paint
