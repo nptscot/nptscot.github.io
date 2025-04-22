@@ -982,48 +982,81 @@ const nptUi = (function () {
 		{
 			// Generate legends from any dataset with a sublayer definition but no legends definition
 			Object.entries (_datasets).forEach (([layerId, layer]) => {
-				if (!layer.legends) {
-					
-					// For sublayered layers, loop through each sublayer to create the legend array for it
-					if (layer.sublayers) {
-						const legendsBySublayer = {};
-						Object.entries (layer.sublayers).forEach (([sublayerId, sublayer]) => {
-							legendsBySublayer[sublayerId] = nptUi.styleSpecToLegends (sublayer.paint);
-						});
-						_datasets[layerId].legends = legendsBySublayer;
-					}
-					
-					// For single-layered layers, use the main definition
-					else {
-						_datasets[layerId].legends = {};
-						_datasets[layerId].legends[layerId] = nptUi.styleSpecToLegends (layer.layer.paint);
-					}
+				
+				// For sublayered layers, loop through each sublayer to create the legend array for it
+				if (layer.sublayers) {
+					const legendsBySublayer = {};
+					Object.entries (layer.sublayers).forEach (([sublayerId, sublayer]) => {
+						const sublayerLegendLabels = (layer.legendLabels ? (layer.legendLabels[sublayerId] || layer.legendLabels['_']) : null);
+						legendsBySublayer[sublayerId] = nptUi.styleSpecToLegends (sublayer.paint, sublayerLegendLabels, layerId, sublayerId);
+					});
+					_datasets[layerId].legends = legendsBySublayer;
+				}
+				
+				// For single-layered layers, use the main definition
+				else {
+					_datasets[layerId].legends = {};
+					_datasets[layerId].legends[layerId] = nptUi.styleSpecToLegends (layer.layer['paint'], layer.legendLabels, layerId, null);
 				}
 			});
 		},
 		
 		
-		// Helper function to parse a Mapbox GL JS style definition to a legends list
-		styleSpecToLegends: function (style)
+		// Helper function to parse a Mapbox GL JS style definition to a legends list; legends are [[value, colour], ...]
+		styleSpecToLegends: function (styleSpec, legendLabels, layerId, sublayerId)
 		{
 			// Use the first defined style (only) as the basis for the legend
-			const styleTokens = Object.create (Object.values (style)[0]);	// Object.create used to clone, as shift/pop below would otherwise amend the original style definition
+			let style = Object.values (styleSpec)[0];
 			
-			// Remove unwanted tokens, leaving only value pairs
+			// If the style is a string (rather than an expression), convert to array structure
+			if (!Array.isArray (style)) {
+				style = ['', style];	// Label unknown at this point
+			}
+			
+			// Clone the list, as shift/pop below would otherwise amend the original style definition
+			const styleTokens = [...style];
+			
+			// For match, remove unwanted tokens, leaving only [value, colour, value, colour, ...] adjacent values; see: https://docs.mapbox.com/style-spec/reference/expressions/#match
 			if (styleTokens[0] == 'match') {
 				styleTokens.shift ();	// Remove 'match'
 				styleTokens.shift ();	// Remove ['get', ...]
-				styleTokens.pop ();		// Remove fallback value at end of array
+				styleTokens.pop ();		// Remove fallback value, which is at the end of the array
 			}
 			
-			// Convert pairs to ordered groups list, e.g. [a, 0, b, 1, c, 2] becomes [[a, 0], [b, 1], [c, 2]]
-			const legend = [];
+			// For step, remove unwanted tokens, leaving only [value, colour, value, colour, ...] values; see: https://docs.mapbox.com/style-spec/reference/expressions/#step
+			if (styleTokens[0] == 'step') {
+				styleTokens.shift ();	// Remove 'step'
+				styleTokens.shift ();	// Remove ['get', ...]
+				styleTokens.shift ();	// Remove the infinite-lower-bound value (e.g. 0) colour at the start
+			}
+			
+			// Convert adjacent values to pairs, e.g. [a, 0, b, 1, c, 2] becomes [[a, 0], [b, 1], [c, 2]]
+			const legends = [];
 			for (let i = 0; i < styleTokens.length - 1; i += 2) {
-				legend.push ([styleTokens[i], styleTokens[i + 1]]);
+				legends.push ([
+					styleTokens[i],		// Label (original value)
+					styleTokens[i + 1]	// Colour
+				]);
+			}
+			
+			// If legend values have been supplied, replace the auto-labels with the supplied labels
+			if (legendLabels) {
+				
+				// Ensure the counts match
+				if (legendLabels.length != legends.length) {
+					console.log (`Error: In layer ${layerId}` + (sublayerId ? ` (sublayer ${sublayerId})` : '') + ', the legend labels count does not match the number of legends');
+					return legends;
+				}
+				
+				// Substitute the auto-labels for the supplied labels
+				legends.forEach (function (legend, index) {
+					legend[0] = legendLabels[index];
+					legends[index] = legend;
+				});
 			}
 			
 			// Return the legend array
-			return legend;
+			return legends;
 		},
 		
 		
@@ -1073,8 +1106,8 @@ const nptUi = (function () {
 		setSublayerStyle: function (layerId)
 		{
 			// Determine the field
-			const control = document.querySelector ('.updatelayer.sublayerselector-' + layerId);
-			const sublayer = document.querySelector ('.updatelayer.sublayerselector-' + layerId + (control.type == 'radio' ? ':checked' : '')).value;
+			const sublayerSelector = document.querySelector ('.updatelayer.sublayerselector-' + layerId);
+			const sublayer = document.querySelector ('.updatelayer.sublayerselector-' + layerId + (sublayerSelector.type == 'radio' ? ':checked' : '')).value;
 			const sublayerStyle = _datasets[layerId].sublayers[sublayer];
 			
 			// Set each paint style (e.g. line-color)
@@ -1122,21 +1155,24 @@ const nptUi = (function () {
 			const selector = 'legend-' + layerId;
 			if (!document.getElementById (selector)) {return;}
 			
-			// Use the static legends, unless there is a sublayer selector for which the sublayer legends need to be looked up
-			let legends = _datasets[layerId].legends[layerId];
-			const sublayerSelector = document.querySelector ('select.updatelayer.sublayerselector-' + layerId);
+			// Determine sublayer
+			let sublayerId = null;
+			const sublayerSelector = document.querySelector ('.updatelayer.sublayerselector-' + layerId);
 			if (sublayerSelector) {
-				legends = _datasets[layerId].legends[sublayerSelector.value] || _datasets[layerId].legends['_'];
+				sublayerId = document.querySelector ('.updatelayer.sublayerselector-' + layerId + (sublayerSelector.type == 'radio' ? ':checked' : '')).value;
 			}
+			
+			// Use the static legends, unless there is a sublayer selector for which the sublayer legends need to be looked up
+			const legends = (sublayerId ? (_datasets[layerId].legends[sublayerId] || _datasets[layerId].legends['_']) : _datasets[layerId].legends[layerId]);
 			
 			// Create the legend HTML
 			// #!# Should be a list, not nested divs
 			let legendHtml = '<div class="l_r">';
-			legends.forEach (function ([value, colour]) {
+			legends.forEach (function ([label, colour]) {
 				legendHtml += '<div class="lb">';
 				legendHtml += `<span style="background-color: ${colour}">`;
 				legendHtml += '</span>';
-				legendHtml += value;	// Label
+				legendHtml += label;
 				legendHtml += '</div>';
 			});
 			legendHtml += '</div>';
