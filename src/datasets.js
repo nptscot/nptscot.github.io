@@ -239,6 +239,7 @@ const datasets = {
 				'line-width': 3
 			},
 		},
+		filtering: 'road_function_npt',
 	},
 	
 	clos: {
@@ -639,6 +640,7 @@ const datasets = {
 				'circle-stroke-width': 1
 			}
 		},
+		filtering: 'SchoolType',
 		/*
 		,
 		// Travel to School Modeshare
