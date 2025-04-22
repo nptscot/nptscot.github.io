@@ -1033,7 +1033,10 @@ const nptUi = (function () {
 			// Convert adjacent values to pairs, e.g. [a, 0, b, 1, c, 2] becomes [[a, 0], [b, 1], [c, 2]]
 			const legends = [];
 			for (let i = 0; i < styleTokens.length - 1; i += 2) {
-				legends.push ([styleTokens[i], styleTokens[i + 1]]);
+				legends.push ([
+					styleTokens[i],		// Label (original value)
+					styleTokens[i + 1]	// Colour
+				]);
 			}
 			
 			// If legend values have been supplied, replace the auto-labels with the supplied labels
@@ -1152,22 +1155,24 @@ const nptUi = (function () {
 			const selector = 'legend-' + layerId;
 			if (!document.getElementById (selector)) {return;}
 			
-			// Use the static legends, unless there is a sublayer selector for which the sublayer legends need to be looked up
-			let legends = _datasets[layerId].legends[layerId];
+			// Determine sublayer
+			let sublayerId = null;
 			const sublayerSelector = document.querySelector ('.updatelayer.sublayerselector-' + layerId);
 			if (sublayerSelector) {
-				const sublayer = document.querySelector ('.updatelayer.sublayerselector-' + layerId + (sublayerSelector.type == 'radio' ? ':checked' : '')).value;
-				legends = _datasets[layerId].legends[sublayer] || _datasets[layerId].legends['_'];
+				sublayerId = document.querySelector ('.updatelayer.sublayerselector-' + layerId + (sublayerSelector.type == 'radio' ? ':checked' : '')).value;
 			}
+			
+			// Use the static legends, unless there is a sublayer selector for which the sublayer legends need to be looked up
+			const legends = (sublayerId ? (_datasets[layerId].legends[sublayerId] || _datasets[layerId].legends['_']) : _datasets[layerId].legends[layerId]);
 			
 			// Create the legend HTML
 			// #!# Should be a list, not nested divs
 			let legendHtml = '<div class="l_r">';
-			legends.forEach (function ([value, colour]) {
+			legends.forEach (function ([label, colour]) {
 				legendHtml += '<div class="lb">';
 				legendHtml += `<span style="background-color: ${colour}">`;
 				legendHtml += '</span>';
-				legendHtml += value;	// Label
+				legendHtml += label;
 				legendHtml += '</div>';
 			});
 			legendHtml += '</div>';
