@@ -55,15 +55,15 @@ function data_zonesSublayer (sublayer)
 			'fill-color': [
 				'step',
 				['get', sublayer],
-					'#053061', 3,
-					'#2166ac', 5,
-					'#4393c3', 7,
-					'#92c5de', 10,
-					'#f7f7f7', 15,
-					'#f4a582', 30,
-					'#b2182b', 60,
-					'#67001f', 200,
-				'#000000'
+				/* <0,never */ '#000000',
+					0, '#053061',
+					3, '#2166ac',
+					5, '#4393c3',
+					7, '#92c5de',
+					10, '#f7f7f7',
+					15, '#f4a582',
+					30, '#b2182b',
+					60, '#67001f'
 			]
 		}
 	};
@@ -99,10 +99,12 @@ const datasets = {
 		// Layer styling callbacks function, defined at the end
 		layerStyling: fooStyling,
 		
-		// Legends
-		// If not present, and there is a sublayers list, these will be auto-generated from the sublayers paint first values
-		// #!# These need to be merged with sublayers
-		legends: {...},
+		
+		// Legend labels
+		// - If not present, legends will be auto-generated from the sublayers paint or (if not sublayers) the main definition paint
+		// - If the paint is an expression, the main values in the expression will be used, otherwise the first value (single value) will be used
+		// - The number of labels should always match the paint value(s)
+		legendLabels: [...],
 		
 		// Chart definitions
 		// #!# Need to define more clearly the assumed data structure, e.g. the 'charts' key shows a part field
@@ -136,15 +138,15 @@ const datasets = {
 					'line-color': [
 						'step',
 						['get', 'all_fastest_bicycle_go_dutch'],	/* layerWidthField will change this field later; see below */
-							'rgba(0,0,0,0)', 1,	/* fully transparent */
-							'#9C9C9C', 50,
-							'#FFFF73', 100,
-							'#AFFF00', 250,
-							'#00FFFF', 500,
-							'#30B0FF', 1000,
-							'#2E5FFF', 2000,
-							'#0000FF', 3000,
-						'#FF00C5'	/* 3000+ */
+						/* 0-0.9 */ 'rgba(0,0,0,0)',	/* fully transparent */
+							1, '#9C9C9C',
+							50, '#FFFF73',
+							100, '#AFFF00',
+							250, '#00FFFF',
+							500, '#30B0FF',
+							1000, '#2E5FFF',
+							2000, '#0000FF',
+							3000, '#FF00C5'	/* 3000+ */
 					]
 				}
 			},
@@ -153,11 +155,11 @@ const datasets = {
 					'line-color': [
 						'step',
 						['get', 'quietness'],
-							'#882255', 25,
-							'#CC6677', 50,
-							'#44AA99', 75,
-							'#117733', 100.001,		/* i.e. including 100 */
-						'#000000'	/* will never get used */
+						/* <0,never> */ '#000000',
+							0, '#882255',
+							25, '#CC6677',
+							50, '#44AA99',
+							75, '#117733'
 					]
 				}
 			},
@@ -166,45 +168,22 @@ const datasets = {
 					'line-color': [
 						'step',
 						['get', 'gradient'],
-							'#59ee19', 3,
-							'#37a009', 5,
-							'#FFC300', 7,
-							'#C70039', 10,
-							'#581845', 100,
-						'#000000'
+						/* <0,never> */ '#000000',
+							0, '#59ee19',
+							3, '#37a009',
+							5, '#FFC300',
+							7, '#C70039',
+							10, '#581845'
 					]
 				}
 			}
 		},
 		layerStyling: rnetStyling,
-		// #!# Need to generate this from the sublayers styles
-		legends: {
-			'none': [
-				['&nbsp;',	'#304ce7']
-			],
-			'flow': [
-				['1',		'#9C9C9C'],
-				['50',		'#FFFF73'],
-				['100',		'#AFFF00'],
-				['250',		'#00FFFF'],
-				['500',		'#30B0FF'],
-				['1000',	'#2E5FFF'],
-				['2000',	'#0000FF'],
-				['3000+',	'#FF00C5'],
-			],
-			'quietness': [
-				['0-25',	'#882255'],
-				['25-50',	'#CC6677'],
-				['50-75',	'#44AA99'],
-				['75-100',	'#117733'],
-			],
-			'gradient': [
-				['0-3',		'#59ee19'],
-				['3-5',		'#37a009'],
-				['5-7',		'#FFC300'],
-				['7-10',	'#C70039'],
-				['10+',		'#581845'],
-			]
+		legendLabels: {
+			none:      ['&nbsp;'],
+			flow:      ['1-', '50-', '100-', '250-', '500-', '1000-', '2000-', '3000-'],
+			quietness: ['0-25', '25-50', '50-75', '75-100'],
+			gradient:  ['0-3', '3-5', '5-7', '7-10', '10+'],
 		},
 		popups: {
 			layerId: 'rnet',
@@ -227,7 +206,7 @@ const datasets = {
 		},
 		// sublayers: uses rnet - copied-in below at the end of this array creation
 		// layerStyling: uses rnet - copied-in below at the end of this array creation
-		// legends: uses rnet - copied-in below at the end of this array creation
+		// legendLabels: uses rnet - copied-in below at the end of this array creation
 		popups: {
 			templateId: 'rnet-popup',
 			preprocessingCallback: popupCallback,	// Defined below
@@ -258,7 +237,6 @@ const datasets = {
 				'line-width': 3
 			},
 		},
-		// legends will be auto-generated from the paint match definition
 	},
 	
 	clos: {
@@ -347,7 +325,6 @@ const datasets = {
 				}
 			},
 		},
-		// legends will be auto-generated from the sublayer match definitions
 		popups: {
 			layerId: 'clos',
 			templateId: 'clos-popup'
@@ -373,14 +350,6 @@ const datasets = {
 			'carriageway_2way': streetspaceSublayer ('carriageway_2way'),
 			'combined_1way'   : streetspaceSublayer ('combined_1way'),
 			'combined_2way'   : streetspaceSublayer ('combined_2way'),
-		},
-		// #!# Can't currently use auto-legends, as the sublayerselector mechanism doesn't yet support radiobuttons rather than select
-		legends: {
-			'streetspace': [
-				['Not enough space', '#dd7777'],
-				['Absolute minimum', '#e0b97d'],
-				['Desirable minimum', '#75a375'],
-			]
 		},
 		popups: {
 			layerId: 'streetspace',
@@ -409,17 +378,17 @@ const datasets = {
 					'fill-color': [
 						'step',
 						['get', 'pcycle'],
-							'#A50026', 2,
-							'#D73027', 4,
-							'#F46D43', 7,
-							'#FDAE61', 10,
-							'#FEE090', 15,
-							'#ffffbf', 20,
-							'#C6DBEF', 25,
-							'#ABD9E9', 30,
-							'#74ADD1', 40,
-							'#4575B4', 100,
-						'#000000'
+						/* <0,never */ '#000000',
+							0, '#A50026',
+							2, '#D73027',
+							4, '#F46D43',
+							7, '#FDAE61',
+							10, '#FEE090',
+							15, '#ffffbf',
+							20, '#C6DBEF',
+							25, '#ABD9E9',
+							30, '#74ADD1',
+							40, '#4575B4'
 					]
 				}
 			},
@@ -428,17 +397,17 @@ const datasets = {
 					'fill-color': [
 						'step',
 						['get', 'pcycle_go_dutch'],
-							'#A50026', 2,
-							'#D73027', 4,
-							'#F46D43', 7,
-							'#FDAE61', 10,
-							'#FEE090', 15,
-							'#ffffbf', 20,
-							'#C6DBEF', 25,
-							'#ABD9E9', 30,
-							'#74ADD1', 40,
-							'#4575B4', 100,
-						'#000000'
+						/* <0,never */ '#000000',
+							0, '#A50026',
+							2, '#D73027',
+							4, '#F46D43',
+							7, '#FDAE61',
+							10, '#FEE090',
+							15, '#ffffbf',
+							20, '#C6DBEF',
+							25, '#ABD9E9',
+							30, '#74ADD1',
+							40, '#4575B4'
 					]
 				}
 			},
@@ -447,31 +416,31 @@ const datasets = {
 					'fill-color': [
 						'step',
 						['get', 'population_density'],
-							'#edf8fb', 10,
-							'#bfd3e6', 50,
-							'#9ebcda', 100,
-							'#8c96c6', 150,
-							'#8856a7', 200,
-							'#810f7c', 600,
-						'#000000'
+						/* <0,never */ '#000000',
+							0, '#edf8fb',
+							10, '#bfd3e6',
+							50, '#9ebcda',
+							100, '#8c96c6',
+							150, '#8856a7',
+							200, '#810f7c'
 					]
 				}
 			},
 			SIMD2020v2_Decile: {
 				paint: {
 					'fill-color': [
-						'step',
+						'match',
 						['get', 'SIMD2020v2_Decile'],
-							'#a50026', 1.1,			 // #!# This block is basically enums rather than ranges, so current fudge of .1 is to avoid off-by-one errors
-							'#d73027', 2.1,
-							'#f46d43', 3.1,
-							'#fdae61', 4.1,
-							'#fee090', 5.1,
-							'#e0f3f8', 6.1,
-							'#abd9e9', 7.1,
-							'#74add1', 8.1,
-							'#4575b4', 9.1,
-							'#313695', 10.1,
+							1, '#a50026',
+							2, '#d73027',
+							3, '#f46d43',
+							4, '#fdae61',
+							5, '#fee090',
+							6, '#e0f3f8',
+							7, '#abd9e9',
+							8, '#74add1',
+							9, '#4575b4',
+							10, '#313695',
 						'#000000'
 					]
 				}
@@ -490,82 +459,25 @@ const datasets = {
 					'fill-color': [
 						'step',
 						['get', 'broadband'],
-							'#fff7ec', 0.01,		// #!# Currently zero is used for voids - data should be changed to use known constant e.g. -9999
-							'#fee8c8', 2,
-							'#fdd49e', 5,
-							'#fdbb84', 10,
-							'#d7301f', 50,
-							'#7f0000', 100,
-						'#000000'
+						/* <0,never */ '#000000',
+							0, '#fff7ec',
+							0.01, '#fee8c8',	// #!# Currently zero is used for voids - data should be changed to use known constant e.g. -9999
+							2, '#fdd49e',
+							5, '#fdbb84',
+							10, '#d7301f',
+							50, '#7f0000'
 					]
 				}
 			},
 		},
 		layerStyling: data_zonesStyling,
-		// #!# These are presumably restatements of sublayers
-		legends: {
-			'SIMD2020v2_Decile': [
-				['1st', 	'#a50026'],
-				['2nd',		'#d73027'],
-				['3rd', 	'#f46d43'],
-				['4th', 	'#fdae61'],
-				['5th', 	'#fee090'],
-				['6th', 	'#e0f3f8'],
-				['7th', 	'#abd9e9'],
-				['8th', 	'#74add1'],
-				['9th', 	'#4575b4'],
-				['10th',	'#313695'],
-			],
-			'population_density': [
-				['10',		'#edf8fb'],
-				['50',		'#bfd3e6'],
-				['100', 	'#9ebcda'],
-				['150',		'#8c96c6'],
-				['200',		'#8856a7'],
-				['600',		'#810f7c'],
-			],
-			'broadband': [
-				['0%',		'#fff7ec'],
-				['2%',		'#fee8c8'],
-				['5%',		'#fdd49e'],
-				['10%',		'#fdbb84'],
-				['50%', 	'#d7301f'],
-				['100%',	'#7f0000'],
-			],
-			'pcycle': [
-				['0-1', 	'#A50026'],
-				['2-3', 	'#D73027'],
-				['4-6', 	'#F46D43'],
-				['7-9', 	'#FDAE61'],
-				['10-14',	'#FEE090'],
-				['15-19',	'#ffffbf'],
-				['20-24',	'#C6DBEF'],
-				['25-29',	'#ABD9E9'],
-				['30-39',	'#74ADD1'],
-				['40',		'#4575B4'],
-			],
-			'pcycle_go_dutch': [		// Actually same as pcycle
-				['0-1',		'#A50026'],
-				['2-3',		'#D73027'],
-				['4-6',		'#F46D43'],
-				['7-9',		'#FDAE61'],
-				['10-14',	'#FEE090'],
-				['15-19',	'#ffffbf'],
-				['20-24',	'#C6DBEF'],
-				['25-29',	'#ABD9E9'],
-				['30-39',	'#74ADD1'],
-				['40',		'#4575B4'],
-			],
-			'_': [	// Default; is time in minutes
-				['3',		'#053061'],
-				['5',		'#2166ac'],
-				['7',		'#4393c3'],
-				['10',		'#92c5de'],
-				['15',		'#f7f7f7'],
-				['30',		'#f4a582'],
-				['60',		'#b2182b'],
-				['200',		'#67001f'],
-			],
+		legendLabels: {
+			SIMD2020v2_Decile:  ['1st', '2nd', '3rd', '4th', '5th', '6th', '7th', '8th', '9th', '10th'],
+			population_density: ['0-9', '10-49', '50-99', '100-149', '150-199', '200-600'],
+			broadband:          ['?', '0%+', '2%+', '5%+', '10%+', '50-100%'],
+			pcycle:             ['0-1', '2-3', '4-6', '7-9', '10-14', '15-19', '20-24', '25-29', '30-39', '40'],
+			pcycle_go_dutch:    ['0-1', '2-3', '4-6', '7-9', '10-14', '15-19', '20-24', '25-29', '30-39', '40'],
+			'_':                ['0-2', '3-4', '5-6', '7-9', '10-14', '15-29', '30-59', '60-200'],
 		},
 		/*
 		,
@@ -689,11 +601,7 @@ const datasets = {
 				'line-width': 2
 			}
 		},
-		legends: {
-			'busroutes': [
-				['Bus routes', 'red'],
-			]
-		},
+		legendLabels: ['Bus routes'],
 		popups: {
 			layerId: 'busroutes',
 			templateId: 'busroutes-popup'
@@ -729,7 +637,6 @@ const datasets = {
 				'circle-stroke-width': 1
 			}
 		},
-		// legends will be auto-generated from the paint match definition
 		/*
 		,
 		// Travel to School Modeshare
@@ -795,11 +702,7 @@ const datasets = {
 				'line-width': 2
 			}
 		},
-		legends: {
-			'wards': [
-				['Ward boundaries', 'rgba(32, 107, 7, 1)'],
-			]
-		}
+		legendLabels: ['Ward boundaries'],
 	},
 	
 	holyrood: {
@@ -816,11 +719,7 @@ const datasets = {
 				'line-width': 2
 			}
 		},
-		legends: {
-			'holyrood': [
-				['Scottish Parliament Constituency boundaries', 'rgba(83, 123, 252, 1)'],
-			]
-		}
+		legendLabels: ['Scottish Parliament Constituency boundaries'],
 	},
 	
 	la: {
@@ -837,11 +736,7 @@ const datasets = {
 				'line-width': 2
 			}
 		},
-		legends: {
-			'la': [
-				['Local authority boundaries', 'rgba(107, 7, 7, 1)'],
-			]
-		}
+		legendLabels: ['Local authority boundaries'],
 	},
 	
 	urbanrural: {
@@ -858,18 +753,14 @@ const datasets = {
 				'line-width': 2,
 			}
 		},
-		legends: {
-			'urbanrural': [
-				['Urban/rural boundary', '#8dd3c7'],
-			]
-		}
+		legendLabels: ['Urban/rural boundary'],
 	}
 };
 
 // Clone rnet definitions, to avoid restatement of large arrays, above
 datasets['rnet-simplified'].sublayers    = datasets['rnet'].sublayers;
 datasets['rnet-simplified'].layerStyling = datasets['rnet'].layerStyling;
-datasets['rnet-simplified'].legends      = datasets['rnet'].legends;
+datasets['rnet-simplified'].legendLabels = datasets['rnet'].legendLabels;
 
 
 
