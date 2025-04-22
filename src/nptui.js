@@ -1231,6 +1231,41 @@ const nptUi = (function () {
 						case 'match':
 							filter = ['in', field, ...checkedInLayer];
 							break;
+							
+						// Step: Filter to values which are within the ranges of the selected checkboxes, from the current to next value
+						case 'step':
+							
+							// Get all the values of the checkboxes, indexed by checkbox index, to use as a lookup to get the following checkbox
+							const allCheckboxValues = allCheckboxes.map ((el) => el.value);
+							
+							// Set a filter for each checked value, creating a range from the previous checkbox to the current
+							// E.g. if a ticked percentiles list is 1st, 3rd, 7th, 10th, then value must be within 0-1 / 2-3 / 6-7 / 9-10
+							const filters = [];
+							allCheckboxes.forEach (function (checkbox, index) {
+								if (checkbox.checked) {
+									
+									// Start a list of filters for this checkbox
+									const thisCheckboxFilters = [];
+									
+									// Set the upper range
+									const thisValue = checkbox.value;
+									thisCheckboxFilters.push (['>=', ['get', field], Number (thisValue)]);
+									
+									// If a next value, set the lower range
+									const nextValue = allCheckboxValues[index + 1];
+									if (nextValue) {
+										thisCheckboxFilters.push (['<', ['get', field], Number (nextValue)]);
+									}
+									
+									// Combine the filter(s) for this checkbox
+									const thisCheckboxFilter = ['all', ...thisCheckboxFilters];
+									filters.push (thisCheckboxFilter);
+								}
+							});
+							
+							// Set the filter set
+							filter = ['any', ...filters];
+							break;
 					}
 					
 					// Set the filter
