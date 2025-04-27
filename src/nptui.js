@@ -1247,11 +1247,11 @@ const nptUi = (function () {
 									// Start a list of filters for this checkbox
 									const thisCheckboxFilters = [];
 									
-									// Set the upper range
+									// Set the lower range
 									const thisValue = checkbox.value;
 									thisCheckboxFilters.push (['>=', ['get', field], Number (thisValue)]);
 									
-									// If a next value, set the lower range
+									// If a next value, set the upper range
 									const nextValue = allCheckboxValues[index + 1];
 									if (nextValue) {
 										thisCheckboxFilters.push (['<', ['get', field], Number (nextValue)]);
@@ -1259,6 +1259,8 @@ const nptUi = (function () {
 									
 									// Combine the filter(s) for this checkbox
 									const thisCheckboxFilter = ['all', ...thisCheckboxFilters];
+									
+									// Register the combined filter for this checkbox
 									filters.push (thisCheckboxFilter);
 								}
 							});
