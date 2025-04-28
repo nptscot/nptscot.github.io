@@ -57,6 +57,7 @@ const nptUi = (function () {
 	// Properties
 	let _map;
 	let _hashComponents = {layers: '/', map: ''};
+	let _filters = {};
 	
 	// State
 	const _state = {};
@@ -1084,15 +1085,15 @@ const nptUi = (function () {
 				_datasets[layerId].layerStyling (layerId, _map, _settings, _datasets);
 			}
 			
+			// Reset any existing filtering, e.g. checkbox filters
+			_map.setFilter (layerId, null);
+			
 			// Create/update legend (even if map layer is off)
 			nptUi.createLegend (layerId);
 			
 			// Set state of layer
 			_state.layers[layerId].enabled = document.querySelector ('input.showlayer[data-layer="' + layerId + '"]').checked;
 			document.dispatchEvent (new Event ('@state/change', {'bubbles': true}));
-			
-			// Reset any existing filtering, e.g. checkbox filters
-			_map.setFilter (layerId, null);
 			
 			// Set the visibility of the layer, based on the checkbox value
 			_map.setLayoutProperty (layerId, 'visibility', (_state.layers[layerId].enabled ? 'visible' : 'none'));
@@ -1189,7 +1190,11 @@ const nptUi = (function () {
 				legendHtml += '<div class="lb">';
 				legendHtml += `<span style="background-color: ${colour}">`;
 				if (showCheckboxes) {
-					legendHtml += `<input type="checkbox" checked="checked" class="legendfilter" name="legendfilter_${layerId}" data-field="${field}" value="${value}" data-type="${type}" />`;
+					let isChecked = true;	// All on by default, unless state available from a previous interaction
+					if (_filters.hasOwnProperty (layerId) && _filters[layerId].hasOwnProperty (field)) {
+						isChecked = _filters[layerId][field].includes (value);
+					}
+					legendHtml += '<input type="checkbox"' + (isChecked ? ' checked="checked"' : '') + ` class="legendfilter" name="legendfilter_${layerId}" data-field="${field}" value="${value}" data-type="${type}" />`;
 				}
 				legendHtml += '</span>';
 				legendHtml += label;
@@ -1199,6 +1204,11 @@ const nptUi = (function () {
 			
 			// Set the legend
 			document.getElementById (selector).innerHTML = legendHtml;
+			
+			// Trigger change to ensure filtering
+			if (showCheckboxes) {
+				document.querySelector ('.legendfilter[name="legendfilter_' + layerId + '"]').dispatchEvent (new Event ('change', {bubbles: true}));		// Arbitrary checkbox in the set
+			}
 		},
 		
 		
@@ -1223,7 +1233,12 @@ const nptUi = (function () {
 						.filter ((el) => el.checked)
 						.map ((el) => (el.value.match (/^[0-9]+$/) ? Number (el.value) : el.value));
 					
-					// Set the filter; see: https://docs.mapbox.com/mapbox-gl-js/api/map/#map#setfilter
+					// Save the checkbox state; initialisation of the structure is done only on change, so that an empty set represents explicitly chosen to be empty
+					if (!_filters.hasOwnProperty (layerId)) {_filters[layerId] = {};}
+					if (!_filters[layerId].hasOwnProperty (field)) {_filters[layerId][field] = {};}
+					_filters[layerId][field] = checkedInLayer;
+					
+					// Set the filter based on the checkbox state; see: https://docs.mapbox.com/mapbox-gl-js/api/map/#map#setfilter
 					let filter;
 					switch (type) {
 						
