@@ -1165,7 +1165,8 @@ const nptUi = (function () {
 		{
 			// Do nothing if no selector for where the legend will be added
 			const selector = 'legend-' + layerId;
-			if (!document.getElementById (selector)) {return;}
+			const legendEl = document.getElementById (selector);
+			if (!legendEl) {return;}
 			
 			// Determine sublayer
 			let sublayerId = null;
@@ -1181,7 +1182,7 @@ const nptUi = (function () {
 			const field = (sublayerId ? sublayerId : _datasets[layerId].filtering);
 			
 			// Determine whether to show checkboxes; do not show if only 1 value
-			const showCheckboxes = (field && (Object.values (legends).length > 1));
+			const showCheckboxes = (!legendEl.classList.contains ('nonfilterable') && field && (Object.values (legends).length > 1));
 			
 			// Create the legend HTML
 			// #!# Should be a list, not nested divs
@@ -1203,7 +1204,7 @@ const nptUi = (function () {
 			legendHtml += '</div>';
 			
 			// Set the legend
-			document.getElementById (selector).innerHTML = legendHtml;
+			legendEl.innerHTML = legendHtml;
 			
 			// Trigger change to ensure filtering
 			if (showCheckboxes) {
