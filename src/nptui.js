@@ -1085,9 +1085,6 @@ const nptUi = (function () {
 				_datasets[layerId].layerStyling (layerId, _map, _settings, _datasets);
 			}
 			
-			// Reset any existing filtering, e.g. checkbox filters
-			_map.setFilter (layerId, null);
-			
 			// Create/update legend (even if map layer is off)
 			nptUi.createLegend (layerId);
 			
@@ -1208,6 +1205,7 @@ const nptUi = (function () {
 			
 			// Trigger change to ensure filtering
 			if (showCheckboxes) {
+				_map.setFilter (layerId, null);	// Reset any existing filtering, e.g. checkbox filters
 				document.querySelector ('.legendfilter[name="legendfilter_' + layerId + '"]').dispatchEvent (new Event ('change', {bubbles: true}));		// Arbitrary checkbox in the set
 			}
 		},
