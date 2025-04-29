@@ -464,6 +464,7 @@ p.help-end {
 .legend div span input[type="checkbox"].legendfilter {
   display: block;
   text-align: left;
+  opacity: 0.65;
 }
 
 

@@ -57,6 +57,7 @@ const nptUi = (function () {
 	// Properties
 	let _map;
 	let _hashComponents = {layers: '/', map: ''};
+	let _filters = {};
 	
 	// State
 	const _state = {};
@@ -1008,8 +1009,12 @@ const nptUi = (function () {
 			// Use the first defined style (only) as the basis for the legend
 			let style = Object.values (styleSpec)[0];
 			
+			// Determine the type
+			let type;
+			
 			// If the style is a string (rather than an expression), convert to array structure
 			if (!Array.isArray (style)) {
+				type = 'scalar';
 				style = ['', style];	// Label unknown at this point
 			}
 			
@@ -1018,6 +1023,7 @@ const nptUi = (function () {
 			
 			// For match, remove unwanted tokens, leaving only [value, colour, value, colour, ...] adjacent values; see: https://docs.mapbox.com/style-spec/reference/expressions/#match
 			if (styleTokens[0] == 'match') {
+				type = 'match';
 				styleTokens.shift ();	// Remove 'match'
 				styleTokens.shift ();	// Remove ['get', ...]
 				styleTokens.pop ();		// Remove fallback value, which is at the end of the array
@@ -1025,17 +1031,20 @@ const nptUi = (function () {
 			
 			// For step, remove unwanted tokens, leaving only [value, colour, value, colour, ...] values; see: https://docs.mapbox.com/style-spec/reference/expressions/#step
 			if (styleTokens[0] == 'step') {
+				type = 'step';
 				styleTokens.shift ();	// Remove 'step'
 				styleTokens.shift ();	// Remove ['get', ...]
 				styleTokens.shift ();	// Remove the infinite-lower-bound value (e.g. 0) colour at the start
 			}
 			
-			// Convert adjacent values to pairs, e.g. [a, 0, b, 1, c, 2] becomes [[a, 0], [b, 1], [c, 2]]
+			// Convert adjacent values to pairs, e.g. [a, 0, b, 1, c, 2] becomes [[a, 0], [b, 1], [c, 2]], but also store the original value and type for use in filtering
 			const legends = [];
 			for (let i = 0; i < styleTokens.length - 1; i += 2) {
 				legends.push ([
 					styleTokens[i],		// Label (original value)
-					styleTokens[i + 1]	// Colour
+					styleTokens[i + 1],	// Colour
+					styleTokens[i],		// Original value; will be empty if only one value
+					type				// Type: scalar/match/step
 				]);
 			}
 			
@@ -1153,7 +1162,8 @@ const nptUi = (function () {
 		{
 			// Do nothing if no selector for where the legend will be added
 			const selector = 'legend-' + layerId;
-			if (!document.getElementById (selector)) {return;}
+			const legendEl = document.getElementById (selector);
+			if (!legendEl) {return;}
 			
 			// Determine sublayer
 			let sublayerId = null;
@@ -1165,12 +1175,25 @@ const nptUi = (function () {
 			// Use the static legends, unless there is a sublayer selector for which the sublayer legends need to be looked up
 			const legends = (sublayerId ? (_datasets[layerId].legends[sublayerId] || _datasets[layerId].legends['_']) : _datasets[layerId].legends[layerId]);
 			
+			// Determine the field for filtering, either the layer's main internal layer or a sublayer
+			const field = (sublayerId ? sublayerId : _datasets[layerId].filtering);
+			
+			// Determine whether to show checkboxes; do not show if only 1 value
+			const showCheckboxes = (!legendEl.classList.contains ('nonfilterable') && field && (Object.values (legends).length > 1));
+			
 			// Create the legend HTML
 			// #!# Should be a list, not nested divs
 			let legendHtml = '<div class="l_r">';
-			legends.forEach (function ([label, colour]) {
+			legends.forEach (function ([label, colour, value, type]) {
 				legendHtml += '<div class="lb">';
 				legendHtml += `<span style="background-color: ${colour}">`;
+				if (showCheckboxes) {
+					let isChecked = true;	// All on by default, unless state available from a previous interaction
+					if (_filters.hasOwnProperty (layerId) && _filters[layerId].hasOwnProperty (field)) {
+						isChecked = _filters[layerId][field].includes (value);
+					}
+					legendHtml += '<input type="checkbox"' + (isChecked ? ' checked="checked"' : '') + ` class="legendfilter" name="legendfilter_${layerId}" data-field="${field}" value="${value}" data-type="${type}" />`;
+				}
 				legendHtml += '</span>';
 				legendHtml += label;
 				legendHtml += '</div>';
@@ -1178,7 +1201,13 @@ const nptUi = (function () {
 			legendHtml += '</div>';
 			
 			// Set the legend
-			document.getElementById (selector).innerHTML = legendHtml;
+			legendEl.innerHTML = legendHtml;
+			
+			// Trigger change to ensure filtering
+			if (showCheckboxes) {
+				_map.setFilter (layerId, null);	// Reset any existing filtering, e.g. checkbox filters
+				document.querySelector ('.legendfilter[name="legendfilter_' + layerId + '"]').dispatchEvent (new Event ('change', {bubbles: true}));		// Arbitrary checkbox in the set
+			}
 		},
 		
 		
@@ -1192,15 +1221,71 @@ const nptUi = (function () {
 					
 					// Determine the layer and its field to filter on
 					const layerId = checkbox.name.replace ('legendfilter_', '');
-					const field = _datasets[layerId].layer._filtering;
+					const field = checkbox.dataset.field;
+					const type = checkbox.dataset.type;
+					
+					// Get the all the checkboxes
+					const allCheckboxes = [...document.querySelectorAll ('input[type="checkbox"][class="legendfilter"][name="legendfilter_' + layerId + '"]')];
 					
 					// Get all the checkboxes that are checked for this layer
-					const checkedInLayer = [...document.querySelectorAll ('input[type="checkbox"][class="legendfilter"][name="legendfilter_' + layerId + '"]')]
+					const checkedInLayer = allCheckboxes
 						.filter ((el) => el.checked)
-						.map ((el) => el.value)
+						.map ((el) => (el.value.match (/^[0-9]+$/) ? Number (el.value) : el.value));
 					
-					// Filter
-					_map.setFilter (layerId, ['in', field, ...checkedInLayer]);
+					// Save the checkbox state; initialisation of the structure is done only on change, so that an empty set represents explicitly chosen to be empty
+					if (!_filters.hasOwnProperty (layerId)) {_filters[layerId] = {};}
+					if (!_filters[layerId].hasOwnProperty (field)) {_filters[layerId][field] = {};}
+					_filters[layerId][field] = checkedInLayer;
+					
+					// Set the filter based on the checkbox state; see: https://docs.mapbox.com/mapbox-gl-js/api/map/#map#setfilter
+					let filter;
+					switch (type) {
+						
+						// Match: Filter to those checkboxes in the layer
+						case 'match':
+							filter = ['in', field, ...checkedInLayer];
+							break;
+							
+						// Step: Filter to values which are within the ranges of the selected checkboxes, from the current to next value
+						case 'step':
+							
+							// Get all the values of the checkboxes, indexed by checkbox index, to use as a lookup to get the following checkbox
+							const allCheckboxValues = allCheckboxes.map ((el) => el.value);
+							
+							// Set a filter for each checked value, creating a range from the previous checkbox to the current
+							// E.g. if a ticked percentiles list is 1st, 3rd, 7th, 10th, then value must be within 0-1 / 2-3 / 6-7 / 9-10
+							const filters = [];
+							allCheckboxes.forEach (function (checkbox, index) {
+								if (checkbox.checked) {
+									
+									// Start a list of filters for this checkbox
+									const thisCheckboxFilters = [];
+									
+									// Set the lower range
+									const thisValue = checkbox.value;
+									thisCheckboxFilters.push (['>=', ['get', field], Number (thisValue)]);
+									
+									// If a next value, set the upper range
+									const nextValue = allCheckboxValues[index + 1];
+									if (nextValue) {
+										thisCheckboxFilters.push (['<', ['get', field], Number (nextValue)]);
+									}
+									
+									// Combine the filter(s) for this checkbox
+									const thisCheckboxFilter = ['all', ...thisCheckboxFilters];
+									
+									// Register the combined filter for this checkbox
+									filters.push (thisCheckboxFilter);
+								}
+							});
+							
+							// Set the filter set
+							filter = ['any', ...filters];
+							break;
+					}
+					
+					// Set the filter
+					_map.setFilter (layerId, filter);
 				}
 			});
 		},
