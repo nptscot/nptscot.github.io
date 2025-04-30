@@ -124,7 +124,7 @@ const datasets = {
 			'id': 'rnet',
 			'source': {
 				'type': 'vector',
-				'url': 'pmtiles://%tileserverUrl/rnet_2025-04-01.pmtiles',
+				'url': 'pmtiles://%tileserverUrl/rnet_2025-04-01_v2.pmtiles',
 			},
 			'source-layer': 'rnet',
 			'type': 'line',
@@ -201,7 +201,7 @@ const datasets = {
 			'id': 'rnet-simplified',
 			'source': {
 				'type': 'vector',
-				'url': 'pmtiles://%tileserverUrl/rnet_simplified_2025-04-01.pmtiles',	 // #!# Inconsistent path - needs fixing
+				'url': 'pmtiles://%tileserverUrl/rnet_simplified_2025-04-01_v2.pmtiles',	 
 			},
 			'source-layer': 'rnet_simplified',
 			'type': 'line',
