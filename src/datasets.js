@@ -108,42 +108,6 @@ const datasets = {
 				'line-color': 'rgba(107, 7, 7, 1)',
 				'line-width': 2
 			} 
-		},
-		
-		clos: {
-			'id': 'clos',
-			'type': 'line',
-			'source': {
-				'type': 'vector',
-				'url': 'pmtiles://%tileserverUrl/cbd_layer_2024-12-01.pmtiles',
-			},
-			'source-layer': 'cbd_layer',
-			'paint': {
-				'line-color': '#603',
-				'line-width': 2
-			}
-		},
-		
-		// #!# Tiles filename, and source layer still reflect the old name, and need to be updated
-		coherentnetwork: {
-			'id': 'coherentnetwork',
-			'type': 'line',
-			'source': {
-				'type': 'vector',
-				'url': 'pmtiles://%tileserverUrl/combined_CN_4_2024-12-01_OS.pmtiles',
-			},
-			'source-layer': 'coherent_networks',
-			'paint': {
-				'line-color': [
-					'match',
-					['get', 'road_function'],
-					'Primary', '#e73f74',
-					'Secondary', '#f1ce63',
-					'Local Access', '#7faedd',
-					/* other */ '#808080'
-				],
-				'line-width': 3
-			}
 		}
 	},
 	
@@ -169,77 +133,6 @@ const datasets = {
 			}
 		},
 		*/
-		clos: {
-			'Level of Service': {
-				label: 'Estimated LoS',
-				type: 'match',
-				styles: {
-					'line-color': {
-						// Commented out as not used, requires upstream work in osmactive
-						// 'Should not be used': 'darkred',
-						'Low': 'red',
-						'Medium': 'orange',
-						'High': 'mediumseagreen',
-						'_': 'gray',
-					}
-				}
-			},
-			'Traffic volume category': {
-				label: 'Traffic volume category',
-				type: 'match',
-				styles: {
-					'line-color': {
-						'0 to 1999': '#27918d',
-						'2000 to 3999': '#ffaa33',
-						'4000+': '#440154',
-						'_': 'gray',
-					},
-					'line-width': {
-						'0 to 1999': 1,
-						'2000 to 3999': 2,
-						'4000+': 3,
-						'_': 1,
-					}
-				}
-			},
-			'Speed limit': {
-				label: 'Estimated speed limit',
-				type: 'match',
-				styles: {
-					'line-color': {
-						20: '#8a9a5b',
-						30: '#ffc300',
-						40: '#cc5500',
-						50: '#c70039',
-						60: '#900c3f',
-						70: '#581845',
-						'_': 'gray',
-					}
-				}
-			},
-			'Infrastructure type': {
-				label: 'Infrastructure type',
-				type: 'match',
-				styles: {
-					'line-color': {
-						'Segregated Track (wide)': '#054d05',
-						'Off Road Cycleway': '#3a9120',
-						'Segregated Track (narrow)': '#87d668',
-						'Shared Footway': '#ffbf00',
-						'Painted Cycle Lane': '#ff0000',
-						'_': 'rgba(0, 0, 0, 0)', // Invisible
-					},
-				    'line-width': {
-						'Segregated Track (wide)': 6,
-						'Off Road Cycleway': 4,
-						'Segregated Track (narrow)': 4,
-						'Shared Footway': 3,
-						'Painted Cycle Lane': 3,
-						'_': 2,
-					}
-				}
-			},
-		}
 	},
 	
 	
@@ -630,11 +523,6 @@ const datasets = {
 			preprocessingCallback: popupCallback,	// Defined below
 			smallValuesThreshold: 10,
 			literalFields: ['gradient', 'quietness']
-		},
-		
-		'clos': {
-			layerId: 'clos',
-			templateId: 'clos-popup'
 		}
 	}
 };
