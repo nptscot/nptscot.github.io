@@ -19,12 +19,19 @@ As long as you:
 
 This licence does not apply to the website, vector tiles, or other hosted data which is only to be used via the official NPT website. You must not link, embed, scrape or otherwise use the constituent parts of the website.
 
+### Route network data with cycling potential and quietness attributes
+
+The route network dataset can be downloaded as a GeoPackage from [github/nptscot/npt/releases](https://github.com/nptscot/npt/releases/download/v2025-05-01/rnet_2025-05-01.gpkg). This dataset contains the route network data with cycling potential and quietness attributes.
+
+### Cycling level of service data
+
+The cycling level of service dataset can be downloaded as a GeoPackage from [github/nptscot/npt/releases](https://github.com/nptscot/npt/releases/download/v2025-05-01/clos_2025-05-01.gpkg). This dataset contains the cycling level of service data, including estimated motor traffic levels, current cycling infrastructure, speed limits and inferred level of service.
 
 ## Source Code
 
 The source code used in the analysis and to build the website is published under the GNU Affero General Public License v3.0.
 
-Your are free:
+You are free:
 
 * To Share: copy and redistribute the material in any medium or format
 * To Adapt: remix, transform, and build upon the material for any purpose, even commercially.
