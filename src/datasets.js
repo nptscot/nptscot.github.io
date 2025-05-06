@@ -224,7 +224,7 @@ const datasets = {
 			'type': 'line',
 			'source': {
 				'type': 'vector',
-				'url': 'pmtiles://%tileserverUrl/combined_CN_4_2025-04-01_OS.pmtiles',
+				'url': 'pmtiles://%tileserverUrl/coherentnetwork_2025-04-01.pmtiles',
 			},
 			'source-layer': 'coherent_networks',
 			'paint': {
@@ -248,7 +248,7 @@ const datasets = {
 			'type': 'line',
 			'source': {
 				'type': 'vector',
-				'url': 'pmtiles://%tileserverUrl/cbd_layer_2025-04-01.pmtiles',
+				'url': 'pmtiles://%tileserverUrl/clos_2025-04-01.pmtiles',
 			},
 			'source-layer': 'cbd_layer',
 			'paint': {
