@@ -1,3 +1,6 @@
 {
-	"liveServer.settings.port": 4321
+	"liveServer.settings.port": 4321,
+	"githubPullRequests.ignoredPullRequestBranches": [
+		"dev"
+	]
 }
