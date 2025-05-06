@@ -124,7 +124,7 @@ const datasets = {
 			'id': 'rnet',
 			'source': {
 				'type': 'vector',
-				'url': 'pmtiles://%tileserverUrl/rnet_2025-04-01.pmtiles',
+				'url': 'pmtiles://%tileserverUrl/rnet_2025-05-01.pmtiles',
 			},
 			'source-layer': 'rnet',
 			'type': 'line',
@@ -201,7 +201,7 @@ const datasets = {
 			'id': 'rnet-simplified',
 			'source': {
 				'type': 'vector',
-				'url': 'pmtiles://%tileserverUrl/rnet_simplified_2025-04-01.pmtiles',	 // #!# Inconsistent path - needs fixing
+				'url': 'pmtiles://%tileserverUrl/rnet_simplified_2025-05-01.pmtiles',	
 			},
 			'source-layer': 'rnet_simplified',
 			'type': 'line',
@@ -224,7 +224,7 @@ const datasets = {
 			'type': 'line',
 			'source': {
 				'type': 'vector',
-				'url': 'pmtiles://%tileserverUrl/combined_CN_4_2025-04-01_OS.pmtiles',
+				'url': 'pmtiles://%tileserverUrl/combined_CN_4_2025-05-01_OS.pmtiles',
 			},
 			'source-layer': 'coherent_networks',
 			'paint': {
@@ -248,7 +248,7 @@ const datasets = {
 			'type': 'line',
 			'source': {
 				'type': 'vector',
-				'url': 'pmtiles://%tileserverUrl/cbd_layer_2025-04-01.pmtiles',
+				'url': 'pmtiles://%tileserverUrl/cbd_layer_2025-05-01.pmtiles',
 			},
 			'source-layer': 'cbd_layer',
 			'paint': {
@@ -366,7 +366,7 @@ const datasets = {
 			'type': 'fill',
 			'source': {
 			'type': 'vector',
-				'url': 'pmtiles://%tileserverUrl/data_zones_2025-04-01.pmtiles',
+				'url': 'pmtiles://%tileserverUrl/data_zones_2025-05-01.pmtiles',
 				},
 			'source-layer': 'data_zones',
 			'paint': {
