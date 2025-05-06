@@ -16,7 +16,7 @@ The NPT includes:
 
 1.  The [map user interface](https://www.npt.scot/) 
 2.  A series of open access [data downloads](../data/) that can be analysed in GIS software or statistical software
-3.  The [code base](https://github.com/nptscot/) that can be modified to fix bugs, add new features, and develop new scenarios
+3.  The [codebase](https://github.com/nptscot/) that can be modified to fix bugs, add new features, and develop new scenarios
 
 The NPT is an open-source tool, meaning the source code is transparent and in the public domain for others to learn from and build on. The code underlying the project is available to be copied and improved by the community.
 
