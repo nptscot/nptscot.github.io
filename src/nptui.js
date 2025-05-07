@@ -579,6 +579,7 @@ const nptUi = (function () {
 			
 			// On hash change, set the map location; initial is set in map initialisation for efficiency
 			addEventListener ('hashchange', function () {
+				nptUi.parseUrl ();	// Re-parse URL hash state
 				setLocationFromHash (map);
 			});
 		},
