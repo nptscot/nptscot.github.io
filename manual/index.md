@@ -135,7 +135,7 @@ The need to prioritise creation of a network of safe & direct cycle routes, is c
 
 However, until such a safe & direct network is created, people cycling may make detours away from roads that are (or are perceived to be) dangerous. There is strong evidence that safety concerns are the main barrier to more people cycling.
 
-CycleStreets calculate the routes likely to be taken by people cycling, and each network type is based on one of their routing [algorithms](https://www.cyclestreets.net/help/journey/howitworks/). The route choices are based on the current road infrastructure and don't account for planned improvements or missing links.
+CycleStreets calculate the routes likely to be taken by people cycling, and each network type is based on one of their routeing [algorithms](https://www.cyclestreets.net/help/journey/howitworks/). The route choices are based on the current road infrastructure and don't account for planned improvements or missing links.
 
 ![Route network types](/images/rnet_types.png)
 
