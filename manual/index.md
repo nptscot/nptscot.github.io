@@ -329,9 +329,9 @@ Cycle infrastructure is classified as follows:
         <td><span style="background-color: #054d05; color: white;">Dark green</span></td>
     </tr>
     <tr>
-        <td>Off Road Cycleway</td>
+        <td>Off Road Path</td>
         <td>Off road or 'detached' cycle track/path that is far (at least 10 m in its centre) from roads. Likely compliant with Cycling by Design guidance.</td>
-        <td><a href="https://www.cyclestreets.net/location/86744/" target="_blank"><img src="/manual/offroad.jpg" alt="Off road cycleway" /></a></td>
+        <td><a href="https://www.cyclestreets.net/location/86744/" target="_blank"><img src="/manual/offroad.jpg" alt="Off Road Path" /></a></td>
         <td><span style="background-color: #3a9120; color: white;">Mid green</span></td>
     </tr>
     <tr>
