@@ -87,7 +87,7 @@ Other Everyday trips include trips for three individual purposes; shopping, to a
 
 Shopping trips account for cycling behaviours of individuals travelling to shops, including for food shopping, providing insights into the most popular routes for these types of trips.
 
-#| TODO: include a complete list of the broad types of destinations included, rather than just for examples. Please can this list be produced and worked into the text
+<!--include a complete list of the broad types of destinations included, rather than just for examples. Please can this list be produced and worked into the text-->
 
 Trips to access leisure facilities captures the cycling patterns of individuals travelling to social hubs, parks, and recreational destinations (e.g. leisure centres, cinemas).
 
