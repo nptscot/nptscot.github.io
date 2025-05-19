@@ -5,13 +5,13 @@ This page provides links to download data from the NPT as well as extra informat
 
 ## Data Access and Licence
 
-All the bulk data within the NPT is open source and available to download from [https://github.com/nptscot/npt/releases](https://github.com/nptscot/npt/releases) on a monthly basis (e.g., [v2025-05-01](https://github.com/nptscot/npt/releases/tag/v2025-05-01)). The data is provided under the [Open Data Commons Attribution License](https://opendatacommons.org/licenses/by/).
+The main aggregated outputs of the NPT are available to download from [https://github.com/nptscot/npt/releases](https://github.com/nptscot/npt/releases) on a monthly basis (e.g., [v2025-05-01](https://github.com/nptscot/npt/releases/tag/v2025-05-01)). The data is provided under the [Open Data Commons Attribution License](https://opendatacommons.org/licenses/by/).
 
-You are free:
+With the exception of the Street Space dataset (described below), you are free to:
 
-* To share: To copy, distribute and use the data.
-* To create: To produce works from the data.
-* To adapt: To modify, transform and build upon the data.
+* Share: To copy, distribute and use the data.
+* Create: To produce works from the data.
+* Adapt: To modify, transform and build upon the data.
 
 As long as you:
 
@@ -36,6 +36,12 @@ Contains [OS data](https://www.ordnancesurvey.co.uk/customers/public-sector/publ
 - Third party rights to enforce the terms of this licence shall be reserved to OS.
 
 The streetspace dataset contains estimates of the widths of non-residential streets and pavements in Scotland, and calculates which types of cycle tracks could be fitted to the streetspace, with results provided at the level of [Ordance Survey OpenRoads](https://www.ordnancesurvey.co.uk/products/os-open-roads) dataset. It can be downloaded as a GeoPackage from [https://github.com/nptscot/npt/releases](https://github.com/nptscot/npt/releases). New versions are released monthly (e.g., [streetspace_2025-05-01.gpkg](https://github.com/nptscot/npt/releases/download/v2025-05-01/streetspace_2025-05-01.gpkg) for the May 2025 release).
+
+## Data sources
+
+The NPT is based on the following data sources:
+
+- Aggregated data on the number of pupils travelling to school in each Data Zone in Scotland from the 2021 Scottish Census (source: Scottish Government Education Department)
 
 ## Source Code
 
