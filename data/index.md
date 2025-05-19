@@ -41,7 +41,15 @@ The streetspace dataset contains estimates of the widths of non-residential stre
 
 The NPT is based on the following data sources:
 
+- Aggregated origin-destination data from the 2011 Census at the Data Zone level (source: National Records of Scotland)
 - Aggregated data on the number of pupils travelling to school in each Data Zone in Scotland from the 2021 Scottish Census (source: Scottish Government Education Department)
+- OpenStreetMap data downloaded with the [`osmactive`](https://nptscot.github.io/osmactive/) R package (source: OpenStreetMap)
+- Ordnance Survey [Open Roads](https://www.ordnancesurvey.co.uk/products/os-open-roads) data (source: Ordnance Survey)
+- Ordnance Survey [MasterMap Highways](https://www.ordnancesurvey.co.uk/products/os-mastermap-highways-network-roads) data, which provided information on carriageway widths, presented as width categories in the StreetSpace layer which is partly derived from this data (source: Ordnance Survey)
+- Ordnance Survey [MasterMap Topography](https://www.ordnancesurvey.co.uk/products/os-mastermap-topography-layer) data, which provided information on pavement geometries, presented as width categories in the StreetSpace layer which is partly derived from this data (source: Ordnance Survey)
+- Ordnance Survey [Code-Point](https://www.ordnancesurvey.co.uk/business-government/products/code-point) data to inform the destinations of simulated utility trips (source: Ordnance Survey)
+
+
 
 ## Source Code
 
