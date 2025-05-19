@@ -248,7 +248,7 @@ const datasets = {
 			'type': 'line',
 			'source': {
 				'type': 'vector',
-				'url': 'pmtiles://%tileserverUrl/cbd_layer_2025-05-01.pmtiles',
+				'url': 'pmtiles://%tileserverUrl/cbd_layer_2025-05-01_v2.pmtiles',
 			},
 			'source-layer': 'cbd_layer',
 			'paint': {
@@ -309,7 +309,7 @@ const datasets = {
 						'match',
 						['get', 'Infrastructure type'],
 							'Segregated Track (wide)', '#054d05',
-							'Off Road Cycleway', '#3a9120',
+							'Off Road Path', '#3a9120',
 							'Segregated Track (narrow)', '#87d668',
 							'Shared Footway', '#ffbf00',
 							'Painted Cycle Lane', '#ff0000',
@@ -319,7 +319,7 @@ const datasets = {
 						'match',
 						['get', 'Infrastructure type'],
 							'Segregated Track (wide)', 6,
-							'Off Road Cycleway', 4,
+							'Off Road Path', 4,
 							'Segregated Track (narrow)', 4,
 							'Shared Footway', 3,
 							'Painted Cycle Lane', 1.8,
