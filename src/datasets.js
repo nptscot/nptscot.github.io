@@ -272,7 +272,7 @@ const datasets = {
 					'line-width': highwayTypeLineWidths
 				}
 			},
-			'Traffic volume category (pcu/day)': {
+			'Traffic volume category (AADT)': {
 				paint: {
 					'line-color': [
 						'match',
