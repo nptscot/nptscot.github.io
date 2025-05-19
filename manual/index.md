@@ -4,7 +4,7 @@
 ## Introduction
 
 
-Welcome to the Network Planning Tool (NPT) for Scotland, a cutting-edge web application designed for strategic cycle network planning. Funded by Transport Scotland and developed by the University of Leeds, A/B Street and CycleStreets in collaboration with Sustrans Scotland. It builds on the functionality of the [Propensity to Cycle Tool](https://www.pct.bike/) for England and Wales, offering a detailed nationwide cycling potential analysis for Scotland, down to the street level ([Lovelace et al. 2017](https://www.jtlu.org/index.php/jtlu/article/view/862)). We invite users to explore its comprehensive features and contribute feedback for continuous improvement.
+Welcome to the Network Planning Tool (NPT) for Scotland, a cutting-edge web application designed for strategic cycle network planning. Funded by Transport Scotland and developed by the University of Leeds and CycleStreets in collaboration with Sustrans Scotland. It builds on the functionality of the [Propensity to Cycle Tool](https://www.pct.bike/) for England and Wales, offering a detailed nationwide cycling potential analysis for Scotland, down to the street level ([Lovelace et al. 2017](https://www.jtlu.org/index.php/jtlu/article/view/862)). We invite users to explore its comprehensive features and contribute feedback for continuous improvement.
 
 ### NPT overview
 
@@ -73,15 +73,15 @@ The commute network, as the second option in the travel purpose dropdown list, s
 
 ##### Primary school
 
-#| TODO: Confirm the name and year of the SG data source
-
-The primary school network, as the third option in the travel purpose dropdown list, shows cycling potential for children cycling to primary schools, whether by e-cargo, accompanied by adults, or including as part of 'cycle buses' or travelling independently. It is based on the Scottish Government's Pupil Census 2022 origin/destination data adjusted using data from the Hands Up Scotland Survey. It provides insights into the routes that could be taken by children and carers. Recognising these patterns is important for urban planners, enabling them to emphasize and develop infrastructure that prioritises the safety of young people. Schools tend to be located in residential areas, so the resulting primary and secondary school networks tend to favour denser orbital routes that could be supported by modal filters and traffic management.
+The primary school network, as the third option in the travel purpose dropdown list, shows cycling potential for children cycling to primary schools, whether by e-cargo, accompanied by adults, or including as part of 'cycle buses' or travelling independently. It is based on the Scottish Government's Pupil Census 2021 origin/destination data adjusted using data from the Hands Up Scotland Survey. It provides insights into the routes that could be taken by children and carers. Recognising these patterns is important for urban planners, enabling them to emphasize and develop infrastructure that prioritises the safety of young people. Schools tend to be located in residential areas, so the resulting primary and secondary school networks tend to favour denser orbital routes that could be supported by modal filters and traffic management.
 
 ##### Secondary school
 
 The secondary school network is the fourth option in the travel purpose dropdown menu. It is based on the same data sources as the primary school network and offers insights into the networks that could provide young people with safe cycling options to get to and from secondary school.
 
 ##### Other everyday
+
+<!-- Perhaps linking the methodology paper here? We are maybe a bit light on methodology content compared to PCT? -->
 
 Other Everyday trips include trips for three individual purposes; shopping, to access leisure facilities and personal trips. Each trip purpose is described below, with this network being the combination of these three journey purposes. It is produced using a modelled approach which takes account of the distribution of households, relevant destinations, the average number of  journeys made for these trip purposes (based on Scottish Household Survey) and the distances people cycle.
 
@@ -207,7 +207,7 @@ See [CycleStreets](https://www.cyclestreets.net/help/journey/howitworks/#quietne
 
 ![Gradient](/images/gradient.png)
 
-The average gradient of the road is shown as a percentage. Steeper roads are a barrier to cycling and affect route choice and the uptake of cycling in the scenarios. Please note in some locations where the network does follow the land contours, e.g. some bridges, the gradient will incorrectly show flat sections of network as steep. This is something we are working to resolve.
+The average gradient of the road is shown as a percentage. Steeper roads are a barrier to cycling and affect route choice and the uptake of cycling in the scenarios. Please note that in some locations where the network does not follow the land contours, such as elevated structures like North Bridge in Edinburgh, the gradient will incorrectly show flat sections of network as steep. This issue does not affect all bridges, for example, bridges over the River Clyde in Glasgow show correct gradients. We are aware of this inconsistency and are working to address it.
 
 <!-- /#colour -->
 
