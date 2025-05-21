@@ -228,7 +228,7 @@ This can lead to a loss of detail. For a comprehensive analysis, it's advisable 
 
 #### Popup
 
-#| TODO: ames in the pop up box be the same as the trip purpose names from the route network drop down. 'Primary' & 'Secondary' confuses with NPW Primary & Secondary network, 'Utility' not used anywhere else in the tool
+<!-- TODO: names in the pop up box be the same as the trip purpose names from the route network drop down. 'Primary' & 'Secondary' confuses with NPW Primary & Secondary network, 'Utility' not used anywhere else in the tool -->
 
 Clicking on any segment within the route network on the map will display a pop-up window.
 
@@ -333,7 +333,7 @@ While the model provides estimates, it is important to acknowledge the inherent 
 
 Cycle infrastructure is classified as follows:
 
-#| TODO: replace pic of Off road cycleway: https://www.google.com/maps/@55.9387415,-3.160149,3a,75y,109.03h,77.48t/data=!3m7!1e1!3m5!1sCIABIhADycKzlSoW3Gf9ZZwABd9W!2e10!6shttps:%2F%2Flh3.googleusercontent.com%2Fgpms-cs-s%2FAB8u6HZjuX9Y8J44NDJpBOWF5GlT-Zb02yQnNL092UGlVVsTE9S6e2GMKg90BGutrA-nT8BADy0HVotbFHZEAue773lHwFN10CDkeSu75qtd1TdQ4Ll-qO_e-uQYa6lH1jCkhymp8P3Q8deeZPor%3Dw900-h600-k-no-pi12.517559037190722-ya33.06879461415933-ro0-fo100!7i5760!8i2880?entry=ttu&g_ep=EgoyMDI1MDUxMS4wIKXMDSoASAFQAw%3D%3D
+<!-- TODO: replace pic of Off road cycleway: https://www.google.com/maps/@55.9387415,-3.160149,3a,75y,109.03h,77.48t/data=!3m7!1e1!3m5!1sCIABIhADycKzlSoW3Gf9ZZwABd9W!2e10!6shttps:%2F%2Flh3.googleusercontent.com%2Fgpms-cs-s%2FAB8u6HZjuX9Y8J44NDJpBOWF5GlT-Zb02yQnNL092UGlVVsTE9S6e2GMKg90BGutrA-nT8BADy0HVotbFHZEAue773lHwFN10CDkeSu75qtd1TdQ4Ll-qO_e-uQYa6lH1jCkhymp8P3Q8deeZPor%3Dw900-h600-k-no-pi12.517559037190722-ya33.06879461415933-ro0-fo100!7i5760!8i2880?entry=ttu&g_ep=EgoyMDI1MDUxMS4wIKXMDSoASAFQAw%3D%3D -->
 
 <table>
     <tr>
