@@ -81,13 +81,13 @@ The secondary school network is the fourth option in the travel purpose dropdown
 
 ##### Other everyday
 
-<!-- Perhaps linking the methodology paper here? We are maybe a bit light on methodology content compared to PCT? -->
+<!-- Comments: Perhaps linking the methodology paper here? We are maybe a bit light on methodology content compared to PCT? -->
 
-Other Everyday trips include trips for three individual purposes; shopping, to access leisure facilities and personal trips. Each trip purpose is described below, with this network being the combination of these three journey purposes. It is produced using a modelled approach which takes account of the distribution of households, relevant destinations, the average number of  journeys made for these trip purposes (based on Scottish Household Survey) and the distances people cycle.
+Other Everyday trips include trips for three individual purposes; shopping, to access leisure facilities and personal trips. Each trip purpose is described below, with this network being the combination of these three journey purposes. It is produced using a modelled approach which takes account of the distribution of households, relevant destinations, the average number of journeys made for these trip purposes (based on Scottish Household Survey) and the distances people cycle.
 
 Shopping trips account for cycling behaviours of individuals travelling to shops, including for food shopping, providing insights into the most popular routes for these types of trips.
 
-<!--include a complete list of the broad types of destinations included, rather than just for examples. Please can this list be produced and worked into the text-->
+<!-- Comments:include a complete list of the broad types of destinations included, rather than just for examples. Please can this list be produced and worked into the text-->
 
 Trips to access leisure facilities captures the cycling patterns of individuals travelling to social hubs, parks, and recreational destinations (e.g. leisure centres, cinemas).
 
@@ -228,7 +228,7 @@ This can lead to a loss of detail. For a comprehensive analysis, it's advisable 
 
 #### Popup
 
-#| TODO: ames in the pop up box be the same as the trip purpose names from the route network drop down. 'Primary' & 'Secondary' confuses with NPW Primary & Secondary network, 'Utility' not used anywhere else in the tool
+<!-- Comments: names in the pop up box be the same as the trip purpose names from the route network drop down. 'Primary' & 'Secondary' confuses with NPW Primary & Secondary network, 'Utility' not used anywhere else in the tool -->
 
 Clicking on any segment within the route network on the map will display a pop-up window.
 
@@ -320,11 +320,13 @@ Note: Table 3.2 displays Motor Traffic Speed in KPH ranges. For applying this gu
 
 #### Estimated traffic volume
 
-The traffic volume layer visualises modelled traffic levels for roads on which cycling is permitted. The primary source of input data for major roads is the Department for Transport (DfT) road traffic statistics (please specify year if known, e.g., DfT Road Traffic Statistics 2022). However, DfT data predominantly covers the major road network.
+<!-- Comments: need to confirm the DfT Road Traffic Statistics 2022 -->
+
+The traffic volume layer visualises modelled traffic levels for roads on which cycling is permitted. The primary source of input data for major roads is the Department for Transport (DfT) road traffic statistics (e.g., DfT Road Traffic Statistics 2022). However, DfT data predominantly covers the major road network.
 
 To provide a comprehensive assessment across all roads where cycling is legal, a modelled approach is employed to 'fill in the gaps'. This model uses metrics such as [centrality](https://en.wikipedia.org/wiki/Centrality) (a measure of how central segments are to the road network), population density, and employment density to estimate traffic volumes in passenger car units (PCU) per day. For specific low-speed environments, such as service roads and car parks, a 10 mph speed assumption is applied in the model.
 
-The model was trained and validated using real-world traffic count data from a selection of 20 mph residential roads in Edinburgh to ensure its accuracy. The outputs categorise traffic levels into ranges that correspond to the guidance in the [Cycling by Design document](https://www.transport.gov.scot/media/50323/cycling-by-design-update-2019-final-document-15-september-2021-1.pdf#page=68), which are essential for Level of Service (LoS) assessments. The specific ranges are: [TODO: Insert specific PCU ranges here, e.g., 0-999 PCU/day, 1000-1,999 PCU/day, 2000-2,999 PCU/day, 4,000+, etc.].
+The model was trained and validated using real-world traffic count data from a selection of 20 mph residential roads in Edinburgh to ensure its accuracy. The outputs categorise traffic levels into ranges that correspond to the guidance in the [Cycling by Design document](https://www.transport.gov.scot/media/50323/cycling-by-design-update-2019-final-document-15-september-2021-1.pdf#page=68), which are essential for Level of Service (LoS) assessments. The specific ranges are: 0-999 PCU/day, 1000-1,999 PCU/day, 2000-2,999 PCU/day, 3000-3,999, 4,000+ PCU/day.
 
 While the model provides estimates, it is important to acknowledge the inherent uncertainties. The confidence limits for the produced traffic flows may vary based on multiple factors including data quality, modeling assumptions, and local conditions. Users should consider these potential variations when interpreting the data and recognize that actual traffic flows may deviate from the modelled estimates within a reasonable margin.
 
@@ -333,7 +335,7 @@ While the model provides estimates, it is important to acknowledge the inherent 
 
 Cycle infrastructure is classified as follows:
 
-#| TODO: replace pic of Off road cycleway: https://www.google.com/maps/@55.9387415,-3.160149,3a,75y,109.03h,77.48t/data=!3m7!1e1!3m5!1sCIABIhADycKzlSoW3Gf9ZZwABd9W!2e10!6shttps:%2F%2Flh3.googleusercontent.com%2Fgpms-cs-s%2FAB8u6HZjuX9Y8J44NDJpBOWF5GlT-Zb02yQnNL092UGlVVsTE9S6e2GMKg90BGutrA-nT8BADy0HVotbFHZEAue773lHwFN10CDkeSu75qtd1TdQ4Ll-qO_e-uQYa6lH1jCkhymp8P3Q8deeZPor%3Dw900-h600-k-no-pi12.517559037190722-ya33.06879461415933-ro0-fo100!7i5760!8i2880?entry=ttu&g_ep=EgoyMDI1MDUxMS4wIKXMDSoASAFQAw%3D%3D
+<!-- Comments: replace pic of Off road cycleway: https://www.google.com/maps/@55.9387415,-3.160149,3a,75y,109.03h,77.48t/data=!3m7!1e1!3m5!1sCIABIhADycKzlSoW3Gf9ZZwABd9W!2e10!6shttps:%2F%2Flh3.googleusercontent.com%2Fgpms-cs-s%2FAB8u6HZjuX9Y8J44NDJpBOWF5GlT-Zb02yQnNL092UGlVVsTE9S6e2GMKg90BGutrA-nT8BADy0HVotbFHZEAue773lHwFN10CDkeSu75qtd1TdQ4Ll-qO_e-uQYa6lH1jCkhymp8P3Q8deeZPor%3Dw900-h600-k-no-pi12.517559037190722-ya33.06879461415933-ro0-fo100!7i5760!8i2880?entry=ttu&g_ep=EgoyMDI1MDUxMS4wIKXMDSoASAFQAw%3D%3D -->
 
 <table>
     <tr>
@@ -487,6 +489,8 @@ Data Zones are small statistical neighbourhoods created for the Census. In the N
 
 ![Data zones](/images/data_zones.png)
 
+<!-- Comments: Data source for these needs to be included, where not self evident , such as for SIMD -->
+
 The data zone options are:
 
 * % commuter cycling (baseline)
@@ -516,7 +520,7 @@ Dasymetric map (left) and choropleth map (right) for the Index of Multiple Depri
 
 #### Data zone popup
 
-#| TODO: popup not working yet
+<!-- popup not working yet -->
 
 Clicking on any Data Zone shows the popup report for that zone. Ten graphs are presented
 
