@@ -267,22 +267,22 @@ This section outlines the development of a coherent strategic cycling network, c
 The coherent network can be used as a 'starter for 10'  for planning a strategic cycle network in urban areas prioritising investment by highlighting routes that maximize coverage and connectivity, while aligning with demand. The methodology used focuses on several key aspects:
 
 
-### Data integration
+#### Data integration
 
 Ordnance Survey Open Roads (OS) provides the foundational structure, complemented by OpenStreetMap (OSM) data to include off-road paths and cycle lanes. This integration ensures that both official road classifications and additional cycling-specific infrastructure are represented.
 
-### Network filtering and clustering
+#### Network filtering and clustering
 
 Route selection for the coherent network is based on two key attributes: road classification and cycling connectivity potential, both of which influence the "arterialness" score. This score prioritises routes that balance road hierarchy with accessibility for cyclists. Using a spatial clustering algorithm (DBSCAN), high-flow areas are identified, forming a focused coherent network by filtering out redundant or isolated segments. This method ensures that selected routes maximize connectivity and suitability, aligning the network's structure with both directness and density requirements.
 
 Routes are classified into primary and secondary categories based on road type. A roads are classified as primary routes, forming the backbone of the cycling network. All other roads, including B roads, minor roads, and off-road paths, are classified as secondary routes, providing supplementary connections and ensuring comprehensive coverage.
 
 
-### Directness and density optimisation
+#### Directness and density optimisation
 
 The network is adjusted to ensure direct routes with optimal density (e.g. 250m in urban centres, 400m in suburban areas). This allows the network to meet a wide range of origin-destination trip needs, improving access and usability.
 
-### Iterative refinement
+#### Iterative refinement
 
 Stakeholder feedback and ongoing urban data updates support iterative refinements, aligning the network with evolving user needs and policy objectives.
 
@@ -294,7 +294,7 @@ By focusing on coherence, directness, and optimal route density, this coherent n
 
 <!-- #clos -->
 
-### Existing cycle network quality
+#### Existing cycle network quality
 
 The default view for this layer shows an assessment of the quality of the existing cycle network, using a high-level assessment of the Cycling Level of Service (LoS). In network planning a high LoS network should designed this will be suitable for most users, including new and less confident users. In general the LoS will be high where either the traffic speeds and volumes are sufficiently low or where cycle infrastructure is provided to sufficiently physically separate people cycling from traffic. The "existing cycle network" is defined as all roads and paths on which it is legal to cycle. As a result this layer is useful to help define where new infrastructure is needed as part of the network planning process. It provides a graphical representation of the distribution of high LoS roads across Scotland that are for most users. 
 
