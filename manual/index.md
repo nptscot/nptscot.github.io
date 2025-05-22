@@ -1,38 +1,27 @@
 # NPT manual
 
 
-## Introduction
+Welcome to the Network Planning Tool ([NPT](https://www.npt.scot)), a web application for strategic cycle network planning in Scotland.
+The NPT is designed to help local authorities, transport planners, and other stakeholders identify the best locations for cycling infrastructure and routes based on cycling potential and demand.
 
+The NPT, and the related Network Planning Workspace ([NPW](https://npw.scot)) web application for sketching, evaluating and sharing route network designs, are Funded by Transport Scotland and developed by the University of Leeds, [CycleStreets](https://www.cyclestreets.net/) and [A/B Street](https://a-b-street.github.io/docs/) in collaboration with [Sustrans Scotland](https://www.sustrans.org.uk/about-us/our-work-in-scotland/).
+These tools build on the functionality of the [Propensity to Cycle Tool](https://www.jtlu.org/index.php/jtlu/article/view/862) (available at [pct.bike](https://www.pct.bike/)) but go beyond the PCT in several ways.
+Compared with the PCT, the NPT has an improved map interface, includes additional trip purposes in the estimates of cycling potential, uses higher-resolution data resulting in denser networks, and includes new layers: the Cohesive Network, Cycling Level of Service (LoS), and Street Space layers. 
 
-Welcome to the Network Planning Tool (NPT) for Scotland, a web application for strategic cycle network planning.
-The NPT and the related Network Planning Workspace (NPW) are Funded by Transport Scotland and developed by the University of Leeds, [CycleStreets](https://www.cyclestreets.net/) and [A/B Street](https://a-b-street.github.io/docs/) in collaboration with [Sustrans Scotland](https://www.sustrans.org.uk/about-us/our-work-in-scotland/). It builds on the functionality of the [Propensity to Cycle Tool](https://www.pct.bike/) for England and Wales, offering a detailed nationwide cycling potential analysis for Scotland, down to the street level ([Lovelace et al. 2017](https://www.jtlu.org/index.php/jtlu/article/view/862)).
-The NPT goes beyond the PCT in several ways, including inclusion of more trip purposes in the cycling potential model, higher resolution data resulting in denser networks, and new Cohesive Network, Cycling Level of Service (LoS), and Street Space layers. 
+Each of these elements is described in this manual, which is divided into the following sections:
 
-<!-- The NPT offers comprehensive features and contribute feedback for continuous improvement. -->
-
-### NPT overview
-
-The NPT is Scotland's nationwide web-based strategic network planning tool that estimates cycling potential down to the street level.
-
-The easiest way to access the NPT website is hosted at [www.npt.scot](http://www.npt.scot).
-
-The NPT includes:
-
-1.  The [map user interface](https://www.npt.scot/) 
-2.  A series of open access [data downloads](https://github.com/nptscot/npt/releases/tag/v2025-05-01) that can be analysed in GIS software or statistical software
+1.  The map interface and controls
+  - [The route network layer](#routenetwork) shows the estimated number of cycle trips on the transport network under different scenarios
+  - [The existing cycle network layer](#clos) shows the quality of the existing cycle network, existing cycle infrastructure, and traffic volumes
+  - [The street space layer](#streetspace) shows the deliverability of segregated cycle infrastructure
+  - [The coherent network layer](#coherentnetwork) shows a strategic cycle network based on the route network
+2.  A series of open access [data downloads](https://github.com/nptscot/npt/releases/tag/v2025-05-01) that can be analysed in-house with GIS such as QGIS or data science tools such as R and Python
 3.  The [codebase](https://github.com/nptscot/) that can be modified to fix bugs, add new features, and develop new scenarios
 
-The NPT is an open-source tool, meaning the source code is transparent and in the public domain for others to learn from and build on. The code underlying the project is available to be copied and improved by the community.
+The NPT is an open-source and open access project, meaning the source code and results are transparent and in the public domain for all stakeholders to benefit from and build on. 
+If you see an opportunity to improve the tool or its outputs, we encourage you to let us know by [raising an issue](https://github.com/nptscot/npt/issues) (requiring a GitHub account).
 
-The online interface can serve many needs, including gaining insight into the network of routes where cycling potential is highest and quantifying the benefits of cycling uptake. However, we recommend that intermediate and advanced users download data on zones, routes and route networks for in-house analysis.
-
-The NPT allows users to visualise results baseline data and how cycling would change under different scenarios. The journey purposes and scenarios are described in detail below.
-
-## NPT user interface guide
-
-The NPT's user interface is intuitive, featuring map controls for easy navigation and layer controls to customize data visibility. Whether you're interested in the baseline cycling data or exploring various "what-if" scenarios like "Go Dutch" or ebike adoption, the tool provides a flexible platform for in-depth analysis.
-
-### Map controls
+## 1 Map interface and controls
 
 ![Map controls](/images/map_controls.png)
 
