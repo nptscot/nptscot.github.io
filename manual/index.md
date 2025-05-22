@@ -476,8 +476,6 @@ In the NPT, they are used to provide contextual area-based information.
 
 ![Data zones](/images/data_zones.png)
 
-<!-- Comments: Data source for these needs to be included, where not self evident , such as for SIMD -->
-
 Data zones can be visualised based on the following attributes:
 
 * % commuter cycling (Baseline)
