@@ -74,10 +74,6 @@ The secondary school network is the fourth option in the travel purpose dropdown
 
 ##### Other Everyday
 
-<!-- Comment (MD): include a complete list of the broad types of destinations included, rather than just for examples. Please can this list be produced and worked into the text
-Response (RL): we have updated the text to include a complete list and references to the sources of the data.
--->
-
 Other Everyday trips include trips for three purposes:
 
 1. Shopping: travel to shops, supermarkets, and other retail destinations
