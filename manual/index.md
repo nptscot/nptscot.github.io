@@ -72,19 +72,21 @@ The primary school network, as the third option in the travel purpose dropdown l
 
 The secondary school network is the fourth option in the travel purpose dropdown menu. It is based on the same data sources as the primary school network and offers insights into the networks that could provide young people with safe cycling options to get to and from secondary school.
 
-##### Other everyday
+##### Other Everyday
 
-<!-- Comments: Perhaps linking the methodology paper here? We are maybe a bit light on methodology content compared to PCT? -->
+<!-- Comment (MD): include a complete list of the broad types of destinations included, rather than just for examples. Please can this list be produced and worked into the text
+Response (RL): we have updated the text to include a complete list and references to the sources of the data.
+-->
 
-Other Everyday trips include trips for three individual purposes; shopping, to access leisure facilities and personal trips. Each trip purpose is described below, with this network being the combination of these three journey purposes. It is produced using a modelled approach which takes account of the distribution of households, relevant destinations, the average number of journeys made for these trip purposes (based on Scottish Household Survey) and the distances people cycle.
+Other Everyday trips include trips for three purposes:
 
-Shopping trips account for cycling behaviours of individuals travelling to shops, including for food shopping, providing insights into the most popular routes for these types of trips.
+1. Shopping: travel to shops, supermarkets, and other retail destinations
+2. Access leisure facilities: as leisure centres, parks, cinemas, pubs and other 'points of interest' related to leisure activities from the Ordnance Survey
+3. Social trips: visiting friends and family, meaning residential destinations
 
-<!-- Comments:include a complete list of the broad types of destinations included, rather than just for examples. Please can this list be produced and worked into the text-->
-
-Trips to access leisure facilities captures the cycling patterns of individuals travelling to social hubs, parks, and recreational destinations (e.g. leisure centres, cinemas).
-
-Personal trips captures the cycling patterns of individuals visiting friends and family.
+The total number of trips for each purpose between Data Zones was estimated using a spatial interaction model (SIM), described in an academic paper (Lovelace et al., [2024](https://doi.org/10.1186/s12544-024-00668-8)).
+The SIM estimates the total number of trips as a function of the following inputs: the population of each zone (from the 2021 Census), location and size of trip attractors (from Ordnance Survey Points of Interest and other sources), and national data on the total number of trips for each purpose (based on Scottish Household Survey).
+The number of trips *cycled* for each purpose was estimated using the same uptake function as used to estimate cycling potential for commuting trips, with the exception of shopping trips, in which cycling potential was reduced by half to account for the fact that people are less likely to use active modes when carrying shopping (Iacono et al., [2010](https://doi.org/10.1016/j.jtrangeo.2009.02.002)).
 
 ##### Trip purposes not considered
 
