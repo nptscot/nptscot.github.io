@@ -21,6 +21,7 @@ Each of these elements is described in this manual, which is divided into the fo
 6.  [Data access and licence](#dataaccessandlicence) provides information on how to access the data and the terms of use
 7.  [Data sources](#datasources) provides information on the data sources used in the NPT
 8.  [Source code](#sourcecode) provides information on the source code used in the NPT
+9.  [The Network Planning Workspace](#networkplanningworkspace) provides information on the NPW, which is a separate web application for sketching, evaluating and sharing route network designs
 
 
 A series of open access [data downloads](https://github.com/nptscot/npt/releases/tag/v2025-05-01) that can be analysed in-house with GIS such as QGIS or data science tools such as R and Python.
