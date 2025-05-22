@@ -4,7 +4,11 @@
 ## Introduction
 
 
-Welcome to the Network Planning Tool (NPT) for Scotland, a cutting-edge web application designed for strategic cycle network planning. Funded by Transport Scotland and developed by the University of Leeds and CycleStreets in collaboration with Sustrans Scotland. It builds on the functionality of the [Propensity to Cycle Tool](https://www.pct.bike/) for England and Wales, offering a detailed nationwide cycling potential analysis for Scotland, down to the street level ([Lovelace et al. 2017](https://www.jtlu.org/index.php/jtlu/article/view/862)). We invite users to explore its comprehensive features and contribute feedback for continuous improvement.
+Welcome to the Network Planning Tool (NPT) for Scotland, a web application for strategic cycle network planning.
+The NPT and the related Network Planning Workspace (NPW) are Funded by Transport Scotland and developed by the University of Leeds, [CycleStreets](https://www.cyclestreets.net/) and [A/B Street](https://a-b-street.github.io/docs/) in collaboration with [Sustrans Scotland](https://www.sustrans.org.uk/about-us/our-work-in-scotland/). It builds on the functionality of the [Propensity to Cycle Tool](https://www.pct.bike/) for England and Wales, offering a detailed nationwide cycling potential analysis for Scotland, down to the street level ([Lovelace et al. 2017](https://www.jtlu.org/index.php/jtlu/article/view/862)).
+The NPT goes beyond the PCT in several ways, including inclusion of more trip purposes in the cycling potential model, higher resolution data resulting in denser networks, and new Cohesive Network, Cycling Level of Service (LoS), and Street Space layers. 
+
+<!-- The NPT offers comprehensive features and contribute feedback for continuous improvement. -->
 
 ### NPT overview
 
@@ -335,7 +339,7 @@ While the model provides estimates, it is important to acknowledge the inherent 
 
 Cycle infrastructure is classified as follows:
 
-<!-- Comments: replace pic of Off road cycleway: https://www.google.com/maps/@55.9387415,-3.160149,3a,75y,109.03h,77.48t/data=!3m7!1e1!3m5!1sCIABIhADycKzlSoW3Gf9ZZwABd9W!2e10!6shttps:%2F%2Flh3.googleusercontent.com%2Fgpms-cs-s%2FAB8u6HZjuX9Y8J44NDJpBOWF5GlT-Zb02yQnNL092UGlVVsTE9S6e2GMKg90BGutrA-nT8BADy0HVotbFHZEAue773lHwFN10CDkeSu75qtd1TdQ4Ll-qO_e-uQYa6lH1jCkhymp8P3Q8deeZPor%3Dw900-h600-k-no-pi12.517559037190722-ya33.06879461415933-ro0-fo100!7i5760!8i2880?entry=ttu&g_ep=EgoyMDI1MDUxMS4wIKXMDSoASAFQAw%3D%3D -->
+<!-- TODO: replace pic of Off road cycleway: https://www.google.com/maps/@55.9387415,-3.160149,3a,75y,109.03h,77.48t/data=!3m7!1e1!3m5!1sCIABIhADycKzlSoW3Gf9ZZwABd9W!2e10!6shttps:%2F%2Flh3.googleusercontent.com%2Fgpms-cs-s%2FAB8u6HZjuX9Y8J44NDJpBOWF5GlT-Zb02yQnNL092UGlVVsTE9S6e2GMKg90BGutrA-nT8BADy0HVotbFHZEAue773lHwFN10CDkeSu75qtd1TdQ4Ll-qO_e-uQYa6lH1jCkhymp8P3Q8deeZPor%3Dw900-h600-k-no-pi12.517559037190722-ya33.06879461415933-ro0-fo100!7i5760!8i2880?entry=ttu&g_ep=EgoyMDI1MDUxMS4wIKXMDSoASAFQAw%3D%3D -->
 
 <table>
     <tr>

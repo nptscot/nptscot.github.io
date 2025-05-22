@@ -21,7 +21,7 @@ This licence does not apply to the website, vector tiles, or other hosted data w
 
 ### Route network data with cycling potential and quietness attributes
 
-The route network dataset can be downloaded as a GeoPackage from [https://github.com/nptscot/npt/releases](https://github.com/nptscot/npt/releases). New versions are released monthly (e.g., [rnet_2025-05-01.gpkg](https://github.com/nptscot/npt/releases/download/v2025-05-01/rnet_2025-05-01.gpkg) for the May 2025 release). This dataset contains the route network data with cycling potential and quietness attributes.
+The route network dataset can be downloaded as a GeoPackage from [github.com/nptscot/npt/releases](https://github.com/nptscot/npt/releases). New versions are released monthly for the duration of the project (e.g., [rnet_2025-05-01.gpkg](https://github.com/nptscot/npt/releases/download/v2025-05-01/rnet_2025-05-01.gpkg) for the May 2025 release of the route network data with cycling potential and quietness attributes).
 
 ### Cycling level of service data
 
