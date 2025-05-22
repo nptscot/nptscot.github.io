@@ -223,7 +223,9 @@ This can lead to a loss of detail. For a comprehensive analysis, it's advisable 
 
 #### Popup
 
-<!-- Comments: names in the pop up box be the same as the trip purpose names from the route network drop down. 'Primary' & 'Secondary' confuses with NPW Primary & Secondary network, 'Utility' not used anywhere else in the tool -->
+<!-- Comments: names in the pop up box be the same as the trip purpose names from the route network drop down. 'Primary' & 'Secondary' confuses with NPW Primary & Secondary network, 'Utility' not used anywhere else in the tool 
+TODO: update image.
+-->
 
 Clicking on any segment within the route network on the map will display a pop-up window.
 
