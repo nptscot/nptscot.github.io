@@ -223,10 +223,6 @@ This can lead to a loss of detail. For a comprehensive analysis, it's advisable 
 
 #### Popup
 
-<!-- Comments: names in the pop up box be the same as the trip purpose names from the route network drop down. 'Primary' & 'Secondary' confuses with NPW Primary & Secondary network, 'Utility' not used anywhere else in the tool 
-TODO: update image.
--->
-
 Clicking on any segment within the route network on the map will display a pop-up window.
 
 ![Popup](/images/rnet_popup.png)
@@ -319,14 +315,15 @@ Note: Table 3.2 displays Motor Traffic Speed in KPH ranges. For applying this gu
 
 <!-- Comments: need to confirm the DfT Road Traffic Statistics 2022 -->
 
-The traffic volume layer visualises modelled traffic levels for roads on which cycling is permitted. The primary source of input data for major roads is the Department for Transport (DfT) road traffic statistics (e.g., DfT Road Traffic Statistics 2022). However, DfT data predominantly covers the major road network.
+The traffic volume layer visualises modelled traffic levels for roads on which cycling is permitted. The primary source of input data for major roads is the Department for Transport (DfT) road traffic statistics, which primarily cover major roads and which are publicly available at [roadtraffic.dft.gov.uk](https://roadtraffic.dft.gov.uk).
 
-To provide a comprehensive assessment across all roads where cycling is legal, a modelled approach is employed to 'fill in the gaps'. This model uses metrics such as [centrality](https://en.wikipedia.org/wiki/Centrality) (a measure of how central segments are to the road network), population density, and employment density to estimate traffic volumes in passenger car units (PCU) per day. For specific low-speed environments, such as service roads and car parks, a 10 mph speed assumption is applied in the model.
+To estimate motor traffic on roads for which data is lacking, we developed a model that uses [centrality](https://en.wikipedia.org/wiki/Centrality) (a measure of how central segments are to the road network), population density, and employment density to estimate average annual daily traffic (AADT). For specific low-speed environments, such as service roads and car parks, a 10 mph speed assumption is applied in the model.
 
-The model was trained and validated using real-world traffic count data from a selection of 20 mph residential roads in Edinburgh to ensure its accuracy. The outputs categorise traffic levels into ranges that correspond to the guidance in the [Cycling by Design document](https://www.transport.gov.scot/media/50323/cycling-by-design-update-2019-final-document-15-september-2021-1.pdf#page=68), which are essential for Level of Service (LoS) assessments. The specific ranges, with units of annual average daily traffic (AADT), are: 0-999, 1000-1,999, 2000-2,999, 3000-3,999, and 4,000+ AADT.
+The model was trained and validated using real-world traffic count data from a selection of 20 mph residential roads in Edinburgh to ensure its accuracy. The outputs are categorised into bands that correspond to the guidance in the [Cycling by Design document](https://www.transport.gov.scot/media/50323/cycling-by-design-update-2019-final-document-15-september-2021-1.pdf#page=68), with the following ranges: 0-999, 1000-1,999, 2000-2,999, 3000-3,999, and 4,000+ AADT.
 
-While the model provides estimates, it is important to acknowledge the inherent uncertainties. The confidence limits for the produced traffic flows may vary based on multiple factors including data quality, modeling assumptions, and local conditions. Users should consider these potential variations when interpreting the data and recognize that actual traffic flows may deviate from the modelled estimates within a reasonable margin.
-
+Due to limitations in the size of the training dataset and the quality of the input datasets representing the road network, the model may not accurately predict traffic volumes for all roads and should be interpreted accordingly.
+Traffic volumes vary over yearly, monthly, weekly, and daily timescales based on a range of factors, so users should defer to recent traffic counts or local knowledge where available.
+Where traffic levels are a key determinant in decision-making, we recommend that users conduct their own traffic counts to validate the model outputs.
 
 #### Cycle infrastructure
 
