@@ -313,8 +313,6 @@ Note: Table 3.2 displays Motor Traffic Speed in KPH ranges. For applying this gu
 
 #### Estimated traffic volume
 
-<!-- Comments: need to confirm the DfT Road Traffic Statistics 2022 -->
-
 The traffic volume layer visualises modelled traffic levels for roads on which cycling is permitted. The primary source of input data for major roads is the Department for Transport (DfT) road traffic statistics, which primarily cover major roads and which are publicly available at [roadtraffic.dft.gov.uk](https://roadtraffic.dft.gov.uk).
 
 To estimate motor traffic on roads for which data is lacking, we developed a model that uses [centrality](https://en.wikipedia.org/wiki/Centrality) (a measure of how central segments are to the road network), population density, and employment density to estimate average annual daily traffic (AADT). For specific low-speed environments, such as service roads and car parks, a 10 mph speed assumption is applied in the model.
@@ -328,8 +326,6 @@ Where traffic levels are a key determinant in decision-making, we recommend that
 #### Cycle infrastructure
 
 Cycle infrastructure is classified as follows:
-
-<!-- TODO: replace pic of Off road cycleway: https://www.google.com/maps/@55.9387415,-3.160149,3a,75y,109.03h,77.48t/data=!3m7!1e1!3m5!1sCIABIhADycKzlSoW3Gf9ZZwABd9W!2e10!6shttps:%2F%2Flh3.googleusercontent.com%2Fgpms-cs-s%2FAB8u6HZjuX9Y8J44NDJpBOWF5GlT-Zb02yQnNL092UGlVVsTE9S6e2GMKg90BGutrA-nT8BADy0HVotbFHZEAue773lHwFN10CDkeSu75qtd1TdQ4Ll-qO_e-uQYa6lH1jCkhymp8P3Q8deeZPor%3Dw900-h600-k-no-pi12.517559037190722-ya33.06879461415933-ro0-fo100!7i5760!8i2880?entry=ttu&g_ep=EgoyMDI1MDUxMS4wIKXMDSoASAFQAw%3D%3D -->
 
 <table>
     <tr>
@@ -345,9 +341,9 @@ Cycle infrastructure is classified as follows:
         <td><span style="background-color: #054d05; color: white;">Dark green</span></td>
     </tr>
     <tr>
-        <td>Off Road Cycleway</td>
-        <td>These are paths which are usually, but not always, shared with pedestrians and are not adjacent to a road. (which we define as at least 10m in its centre from roads. In Cycling by Design they are called 'detached or remote cycle tracks').</td>
-        <td><a href="https://www.cyclestreets.net/location/86744/" target="_blank"><img src="/manual/offroad.jpg" alt="Off road cycleway" /></a></td>
+        <td>Off Road Path</td>
+        <td>These are paths which are more than a threshold distance (10 m) to a road on which cycling is permitted. They are often shared use, without separation between cycling and walking. In Cycling by Design they are called 'detached or remote cycle tracks'.</td>
+        <td><a href="https://www.openstreetmap.org/way/41386401#map=18/56.368094/-2.891781" target="_blank"><img src="/manual/offroad.png" alt="Off Road Path" /></a></td>
         <td><span style="background-color: #3a9120; color: white;">Mid green</span></td>
     </tr>
     <tr>
