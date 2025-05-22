@@ -471,18 +471,20 @@ The Street Space layer divides roads into three groups, depending on whether the
 
 ### Data zones
 
-Data Zones are small statistical neighbourhoods created for the Census. In the NPT, they are used to provide contextual area-based information.
+Data Zones are small geographic zones created for summarising Census datasets.
+In the NPT, they are used to provide contextual area-based information.
 
 ![Data zones](/images/data_zones.png)
 
 <!-- Comments: Data source for these needs to be included, where not self evident , such as for SIMD -->
 
-The data zone options are:
+Data zones can be visualised based on the following attributes:
 
-* % commuter cycling (baseline)
+* % commuter cycling (Baseline)
 * % commuter cycling (Go Dutch)
-* Population density (per hectare)
-* Index of Multiple Deprivation (2020)
+* Population density (per hectare) (from 2021 Census)
+* Index of Multiple Deprivation (2020) (from the Scottish Indices of Multiple Deprivation)
+<!-- TODO: update these when we find out -->
 * Drive time to a petrol station
 * Drive time to GP
 * Drive time to post office
