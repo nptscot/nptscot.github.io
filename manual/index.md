@@ -556,3 +556,8 @@ If the "Add NPT to Home screen" option does not appear, you can also select the 
 2.  In the address bar, click the App install button
 3.  Click install
 
+## 9 The Network Planning Workspace (NPW)
+
+The Network Planning Workspace (NPW) is a tool that builds on the NPT for more advanced users and people who want to design cycle networks.
+It allows users to sketch proposed interventions on the map and to assess the impact of these changes.
+See the NPW web application at [www.npw.scot](https://nptscot.github.io/npw/) for more information.
