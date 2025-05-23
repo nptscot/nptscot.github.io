@@ -9,26 +9,22 @@ Compared with the PCT, the NPT has an improved map interface, includes additiona
 
 Each of these elements is described in this manual, which is divided into the following sections:
 
-1.  [The map interface and controls](#1mapinterfaceandcontrols)
-    - [The route network layer](#routenetwork) shows the estimated number of cycle trips on the transport network under different scenarios
-    - [The existing cycle network layer](#clos) shows the quality of the existing cycle network, existing cycle infrastructure, and traffic volumes
-    - [The street space layer](#streetspace) shows the deliverability of segregated cycle infrastructure
-    - [The coherent network layer](#coherentnetwork) shows a strategic cycle network based on the route network
-2.  [The route network layer](#routenetwork) shows the estimated number of cycle trips on the transport network under different scenarios
-3.  [The existing cycle network layer](#clos) shows the quality of the existing cycle network, existing cycle infrastructure, and traffic volumes
-4.  [The street space layer](#streetspace) shows the deliverability of segregated cycle infrastructure
-5.  [The coherent network layer](#coherentnetwork) shows a strategic cycle network based on the route network
-6.  [Data access and licence](#dataaccessandlicence) provides information on how to access the data and the terms of use
-7.  [Data sources](#datasources) provides information on the data sources used in the NPT
-8.  [Source code](#sourcecode) provides information on the source code used in the NPT
-9.  [The Network Planning Workspace](#networkplanningworkspace) provides information on the NPW, which is a separate web application for sketching, evaluating and sharing route network designs
+1. [The map interface and controls](#interface)
+2. [The route network layer](#routenetwork) shows the estimated number of cycle trips on the transport network under different scenarios
+3. [The coherent network layer](#coherentnetwork) shows a strategic cycle network based on the route network
+4. [The existing cycle network layer](#clos) shows the quality of the existing cycle network, existing cycle infrastructure, and traffic volumes
+5. [The street space layer](#streetspace) shows the deliverability of segregated cycle infrastructure
+6. [Data zones](#datazones) provide contextual area-based information based on small geographic zones created for summarising Census datasets
+7. [Other layers](#otherlayers) provide official boundaries, plus school locations and bus routes
+8. [Accessing the NPT](#access) provides information on how to pin the app to your device's home screen
+9. [The Network Planning Workspace](#npw) provides information on the NPW, which is a separate web application for sketching, evaluating and sharing route network designs
 
 
 A series of open access [data downloads](https://github.com/nptscot/npt/releases/tag/v2025-05-01) that can be analysed in-house with GIS such as QGIS or data science tools such as R and Python.
 Click on the "Data" tab in the top menu to access the data downloads.
 
 The NPT is an open-source and open access project, meaning the source code and results are transparent and in the public domain for all stakeholders to benefit from and build on.
-See the [open-source codebase at github.com/nptscto](https://github.com/nptscot/).
+See the [open-source codebase at github.com/nptscot](https://github.com/nptscot/).
 If you see an opportunity to improve the tool or its outputs, we encourage you to let us know by [raising an issue](https://github.com/nptscot/npt/issues) (requiring a GitHub account).
 
 The user interface consists of the map interface and controls on the left side of the screen, as described in the next section.
@@ -42,7 +38,7 @@ The layer controls are available in a panel on the right side of the screen, whi
 These layer controls determine the information is shown on the map as described in the sections below. 
 
 
-## 1 Map interface and controls
+## 1. Map interface and controls {interface}
 
 
 The map can be navigated using map controls on the top left of the screen.
@@ -53,7 +49,7 @@ The NPT provides different basemaps. The example below shows the basemap selecti
 
 The Anti-alias option enables advanced rendering options that make the map look smoother and clearer. However, performance on low-end devices may be impaired when using anti-aliasing.
 
-## 2 Route network
+## 2. Route network {routenetwork}
 
 The Route network layer displays estimates of cycling potential (i.e. number of cycle trips) on the road and path network, down to the level of individual segments.  It is the first and for many use cases the most important layer in the NPT.. The layer is useful for -identifying  where cycling infrastructure and new routes should ideally be located in order to meet latent demand, in order to maximise usage and ultimately modal shift to cycling. This data is used to inform the creation of the primary cycle network in the Network Planning Workspace. 
 
@@ -259,7 +255,7 @@ Set the maximum and minimum quietness of roads that are visible. Quietness measu
 
 <!-- #coherentnetwork -->
 
-## 3 Coherent network
+## 3. Coherent network {coherentnetwork}
 
 This section outlines the development of a coherent strategic cycling network, composed of high-potential, direct routes within urban areas. Created through automated analysis, this network emphasises coherence in design to ensure cycling infrastructure is functional, accessible, and efficient.
 
@@ -293,7 +289,7 @@ By focusing on coherence, directness, and optimal route density, this coherent n
 
 <!-- #clos -->
 
-## 4 Existing cycle network quality
+## 4. Existing cycle network quality {clos}
 
 The default view for this layer shows an assessment of the quality of the existing cycle network, using a high-level assessment of the Cycling Level of Service (LoS). In network planning a high LoS network should designed this will be suitable for most users, including new and less confident users. In general the LoS will be high where either the traffic speeds and volumes are sufficiently low or where cycle infrastructure is provided to sufficiently physically separate people cycling from traffic. The "existing cycle network" is defined as all roads and paths on which it is legal to cycle. As a result this layer is useful to help define where new infrastructure is needed as part of the network planning process. It provides a graphical representation of the distribution of high LoS roads across Scotland that are for most users. 
 
@@ -383,7 +379,7 @@ The speed limit data displayed in the NPT is primarily sourced from OpenStreetMa
 
 <!-- #streetspace -->
 
-## 5 Street space evaluation
+## 5. Street space evaluation {streetspace}
 
 <!-- From index.html, see the table beginning:
  				<div class="layertools layertools-streetspace">
@@ -479,7 +475,7 @@ The Street Space layer divides roads into three groups, depending on whether the
 
 <!-- #data_zones -->
 
-## 6 Data zones
+## 6. Data zones {datazones}
 
 Data Zones are small geographic zones created for summarising Census datasets.
 In the NPT, they are used to provide contextual area-based information.
@@ -514,7 +510,7 @@ Dasymetric map (left) and choropleth map (right) for the Index of Multiple Depri
 
 <!-- /#data_zones -->
 
-## 7 Other layers
+## 7. Other layers {otherlayers}
 
 The NPT provides several supplementary map layers that enhance the contextual understanding of the cycling network
 
@@ -523,11 +519,11 @@ The NPT provides several supplementary map layers that enhance the contextual un
 * Scottish Parliamentary Constituencies: Users can display the geographic divisions for Scottish parliamentary representation
 * Local Authority: Highlight the administrative areas within Scotland, aiding in planning and analysis at a local government level.
 
-## 8 Accessing the NPT 
+## 8. Accessing the NPT {access}
 
 #### Progressive Web App
 
-The NPT is a Progressive Web App (PWA), which can be installed on many devices, including your smartphone. The App provides the same features as the website. Still, it includes additional benefits such as pining the App to your device's home screen and full-screen support.
+The NPT is a Progressive Web App (PWA), which can be installed on many devices, including your smartphone. The App provides the same features as the website. Still, it includes additional benefits such as pinning the App to your device's home screen and full-screen support.
 
 How to install the NPT as an app
 
@@ -557,8 +553,8 @@ If the "Add NPT to Home screen" option does not appear, you can also select the 
 2.  In the address bar, click the App install button
 3.  Click install
 
-## 9 The Network Planning Workspace (NPW)
+## 9. The Network Planning Workspace (NPW) {npw}
 
 The Network Planning Workspace (NPW) is a tool that builds on the NPT for more advanced users and people who want to design cycle networks.
 It allows users to sketch proposed interventions on the map and to assess the impact of these changes.
-See the NPW web application at [www.npw.scot](https://nptscot.github.io/npw/) for more information.
+See the NPW web application at [npw.scot](https://nptscot.github.io/npw/) for more information.
