@@ -9,19 +9,15 @@ Compared with the PCT, the NPT has an improved map interface, includes additiona
 
 Each of these elements is described in this manual, which is divided into the following sections:
 
-1.  [The map interface and controls](#interface)
-    - [The route network layer](#routenetwork) shows the estimated number of cycle trips on the transport network under different scenarios
-    - [The existing cycle network layer](#clos) shows the quality of the existing cycle network, existing cycle infrastructure, and traffic volumes
-    - [The street space layer](#streetspace) shows the deliverability of segregated cycle infrastructure
-    - [The coherent network layer](#coherentnetwork) shows a strategic cycle network based on the route network
-2.  [The route network layer](#routenetwork) shows the estimated number of cycle trips on the transport network under different scenarios
-3.  [The existing cycle network layer](#clos) shows the quality of the existing cycle network, existing cycle infrastructure, and traffic volumes
-4.  [The street space layer](#streetspace) shows the deliverability of segregated cycle infrastructure
-5.  [The coherent network layer](#coherentnetwork) shows a strategic cycle network based on the route network
-6.  [Data access and licence](#dataaccessandlicence) provides information on how to access the data and the terms of use
-7.  [Data sources](#datasources) provides information on the data sources used in the NPT
-8.  [Source code](#sourcecode) provides information on the source code used in the NPT
-9.  [The Network Planning Workspace](#networkplanningworkspace) provides information on the NPW, which is a separate web application for sketching, evaluating and sharing route network designs
+1. [The map interface and controls](#interface)
+2. [The route network layer](#routenetwork) shows the estimated number of cycle trips on the transport network under different scenarios
+3. [The coherent network layer](#coherentnetwork) shows a strategic cycle network based on the route network
+4. [The existing cycle network layer](#clos) shows the quality of the existing cycle network, existing cycle infrastructure, and traffic volumes
+5. [The street space layer](#streetspace) shows the deliverability of segregated cycle infrastructure
+6. [Data zones](#datazones) provide contextual area-based information based on small geographic zones created for summarising Census datasets
+7. [Other layers](#otherlayers) provide official boundaries, plus school locations and bus routes
+8. [Accessing the NPT](#access) provides information on how to pin the app to your device's home screen
+9. [The Network Planning Workspace](#npw) provides information on the NPW, which is a separate web application for sketching, evaluating and sharing route network designs
 
 
 A series of open access [data downloads](https://github.com/nptscot/npt/releases/tag/v2025-05-01) that can be analysed in-house with GIS such as QGIS or data science tools such as R and Python.
@@ -527,7 +523,7 @@ The NPT provides several supplementary map layers that enhance the contextual un
 
 #### Progressive Web App
 
-The NPT is a Progressive Web App (PWA), which can be installed on many devices, including your smartphone. The App provides the same features as the website. Still, it includes additional benefits such as pining the App to your device's home screen and full-screen support.
+The NPT is a Progressive Web App (PWA), which can be installed on many devices, including your smartphone. The App provides the same features as the website. Still, it includes additional benefits such as pinning the App to your device's home screen and full-screen support.
 
 How to install the NPT as an app
 
@@ -561,4 +557,4 @@ If the "Add NPT to Home screen" option does not appear, you can also select the 
 
 The Network Planning Workspace (NPW) is a tool that builds on the NPT for more advanced users and people who want to design cycle networks.
 It allows users to sketch proposed interventions on the map and to assess the impact of these changes.
-See the NPW web application at [www.npw.scot](https://nptscot.github.io/npw/) for more information.
+See the NPW web application at [npw.scot](https://nptscot.github.io/npw/) for more information.
