@@ -28,7 +28,7 @@ A series of open access [data downloads](https://github.com/nptscot/npt/releases
 Click on the "Data" tab in the top menu to access the data downloads.
 
 The NPT is an open-source and open access project, meaning the source code and results are transparent and in the public domain for all stakeholders to benefit from and build on.
-See the [open-source codebase at github.com/nptscto](https://github.com/nptscot/).
+See the [open-source codebase at github.com/nptscot](https://github.com/nptscot/).
 If you see an opportunity to improve the tool or its outputs, we encourage you to let us know by [raising an issue](https://github.com/nptscot/npt/issues) (requiring a GitHub account).
 
 The user interface consists of the map interface and controls on the left side of the screen, as described in the next section.
