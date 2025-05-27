@@ -15,8 +15,10 @@ function loadLocalAuthorities (settings)
 		})
 		.then (function (boundaries) {
 			
-			// Filter for LADs only
-			const ladFeatures = boundaries.features.filter(feature => feature.properties.kind === 'LAD');
+			// Filter for LADs only and sort them alphabetically by name initially
+			const ladFeatures = boundaries.features
+				.filter(feature => feature.properties.kind === 'LAD')
+				.sort((a, b) => a.properties.name.localeCompare(b.properties.name));
 
 			// Add the list
 			const div = document.createElement ('div');
@@ -28,10 +30,12 @@ function loadLocalAuthorities (settings)
 			const searchInput = document.getElementById('searchInput');
 			searchInput.addEventListener('keyup', function() {
 				const filter = searchInput.value.toLowerCase();
-				// Filter from the ladFeatures list
-				const filteredLads = ladFeatures.filter(feature => {
-					return feature.properties.name.toLowerCase().includes(filter);
-				});
+				// Filter from the initially sorted ladFeatures list and re-sort
+				const filteredLads = ladFeatures
+					.filter(feature => {
+						return feature.properties.name.toLowerCase().includes(filter);
+					})
+					.sort((a, b) => a.properties.name.localeCompare(b.properties.name)); // Ensure filtered results are also sorted
 				div.innerHTML = boundariesList(filteredLads); // Update with list rendering
 			});
 		});
