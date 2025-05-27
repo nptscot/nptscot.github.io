@@ -31,14 +31,14 @@ function boundariesTable (boundaries)
 	html += '<tr>';
 	html += '<th>Type</th>';
 	html += '<th>Area</th>';
-	html += '<th>Scheme sketcher</th>';
+	html += '<th>Network Planning Tool (NPW)</th>';
 	html += '</tr>';
 	Object.entries (boundaries.features).forEach (function ([index, feature]) {
 		const linkUrl = 'https://npw.scot/npw?boundary=LAD_' + encodeURIComponent (feature.properties.name);
 		html += '<tr>';
 		html += '<td>' + feature.properties.kind + '</td>';
 		html += '<td>' + feature.properties.name + '</td>';
-		html += '<td>' + '<a href="' + linkUrl + '">Scheme sketcher</a></td>';
+		html += '<td>' + '<a href="' + linkUrl + '">NPW</a></td>';
 		html += '</tr>';
 	});
 	html += '</table>';
