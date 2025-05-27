@@ -34,7 +34,7 @@ function boundariesTable (boundaries)
 	html += '<th>Scheme sketcher</th>';
 	html += '</tr>';
 	Object.entries (boundaries.features).forEach (function ([index, feature]) {
-		const linkUrl = '/scheme-sketcher/sketch.html?boundary=' + encodeURIComponent (feature.properties.kind + '_' + feature.properties.name);
+		const linkUrl = 'https://npw.scot/npw?boundary=LAD_' + encodeURIComponent (feature.properties.name);
 		html += '<tr>';
 		html += '<td>' + feature.properties.kind + '</td>';
 		html += '<td>' + feature.properties.name + '</td>';
