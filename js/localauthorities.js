@@ -15,45 +15,39 @@ function loadLocalAuthorities (settings)
 		})
 		.then (function (boundaries) {
 			
-			// Add the table
+			// Filter for LADs only
+			const ladFeatures = boundaries.features.filter(feature => feature.properties.kind === 'LAD');
+
+			// Add the list
 			const div = document.createElement ('div');
-			div.id = 'localAuthoritiesTableContainer'; // Add an ID for easier selection
-			div.innerHTML = boundariesTable (boundaries.features);
+			div.id = 'localAuthoritiesListContainer'; // Changed ID for clarity
+			div.innerHTML = boundariesList (ladFeatures); // Use new list rendering function
 			document.querySelector ('#content').appendChild (div);
 
 			// Add search functionality
 			const searchInput = document.getElementById('searchInput');
 			searchInput.addEventListener('keyup', function() {
 				const filter = searchInput.value.toLowerCase();
-				const filteredBoundaries = boundaries.features.filter(feature => {
+				// Filter from the ladFeatures list
+				const filteredLads = ladFeatures.filter(feature => {
 					return feature.properties.name.toLowerCase().includes(filter);
 				});
-				div.innerHTML = boundariesTable(filteredBoundaries);
+				div.innerHTML = boundariesList(filteredLads); // Update with list rendering
 			});
 		});
 }
 
 
-// Function to render the table
-function boundariesTable (features) // Changed parameter to expect an array of features
+// Function to render the list (renamed from boundariesTable)
+function boundariesList (features) 
 {
-	// Build the table from each feature
-	let html = '<table class="lines" id="localAuthoritiesTable">'; // Added an ID to the table
-	html += '<tr>';
-	html += '<th>Type</th>';
-	html += '<th>Area</th>';
-	html += '<th>NPW link</th>'; // Changed column title
-	html += '</tr>';
-	features.forEach (function (feature) { // Changed from Object.entries to iterate directly over features array
+	// Build the list from each feature
+	let html = '<ul class="lad-list">'; // Use a class for potential styling
+	features.forEach (function (feature) { 
 		const linkUrl = 'https://npw.scot/npw?boundary=LAD_' + encodeURIComponent (feature.properties.name);
-		const linkText = '?boundary=LAD_' + encodeURIComponent (feature.properties.name); // Create custom link text
-		html += '<tr>';
-		html += '<td>' + feature.properties.kind + '</td>';
-		html += '<td>' + feature.properties.name + '</td>';
-		html += '<td>' + '<a href="' + linkUrl + '">' + linkText + '</a></td>'; // Used custom link text
-		html += '</tr>';
+		html += '<li><a href="' + linkUrl + '">' + feature.properties.name + '</a></li>'; 
 	});
-	html += '</table>';
+	html += '</ul>';
 	
 	// Return the HTML
 	return html;
