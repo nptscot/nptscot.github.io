@@ -15,33 +15,39 @@ function loadLocalAuthorities (settings)
 		})
 		.then (function (boundaries) {
 			
-			// Add the table
+			// Filter for LADs only
+			const ladFeatures = boundaries.features.filter(feature => feature.properties.kind === 'LAD');
+
+			// Add the list
 			const div = document.createElement ('div');
-			div.innerHTML = boundariesTable (boundaries);
+			div.id = 'localAuthoritiesListContainer'; // Changed ID for clarity
+			div.innerHTML = boundariesList (ladFeatures); // Use new list rendering function
 			document.querySelector ('#content').appendChild (div);
+
+			// Add search functionality
+			const searchInput = document.getElementById('searchInput');
+			searchInput.addEventListener('keyup', function() {
+				const filter = searchInput.value.toLowerCase();
+				// Filter from the ladFeatures list
+				const filteredLads = ladFeatures.filter(feature => {
+					return feature.properties.name.toLowerCase().includes(filter);
+				});
+				div.innerHTML = boundariesList(filteredLads); // Update with list rendering
+			});
 		});
 }
 
 
-// Function to render the table
-function boundariesTable (boundaries)
+// Function to render the list (renamed from boundariesTable)
+function boundariesList (features) 
 {
-	// Build the table from each feature
-	let html = '<table class="lines">';
-	html += '<tr>';
-	html += '<th>Type</th>';
-	html += '<th>Area</th>';
-	html += '<th>Scheme sketcher</th>';
-	html += '</tr>';
-	Object.entries (boundaries.features).forEach (function ([index, feature]) {
-		const linkUrl = '/scheme-sketcher/sketch.html?boundary=' + encodeURIComponent (feature.properties.kind + '_' + feature.properties.name);
-		html += '<tr>';
-		html += '<td>' + feature.properties.kind + '</td>';
-		html += '<td>' + feature.properties.name + '</td>';
-		html += '<td>' + '<a href="' + linkUrl + '">Scheme sketcher</a></td>';
-		html += '</tr>';
+	// Build the list from each feature
+	let html = '<ul class="lad-list">'; // Use a class for potential styling
+	features.forEach (function (feature) { 
+		const linkUrl = 'https://npw.scot/npw?boundary=LAD_' + encodeURIComponent (feature.properties.name);
+		html += '<li><a href="' + linkUrl + '">' + feature.properties.name + '</a></li>'; 
 	});
-	html += '</table>';
+	html += '</ul>';
 	
 	// Return the HTML
 	return html;
