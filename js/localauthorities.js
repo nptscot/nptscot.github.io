@@ -42,14 +42,15 @@ function boundariesTable (features) // Changed parameter to expect an array of f
 	html += '<tr>';
 	html += '<th>Type</th>';
 	html += '<th>Area</th>';
-	html += '<th>Network Planning Tool (NPW)</th>';
+	html += '<th>NPW link</th>'; // Changed column title
 	html += '</tr>';
 	features.forEach (function (feature) { // Changed from Object.entries to iterate directly over features array
 		const linkUrl = 'https://npw.scot/npw?boundary=LAD_' + encodeURIComponent (feature.properties.name);
+		const linkText = '?boundary=LAD_' + encodeURIComponent (feature.properties.name); // Create custom link text
 		html += '<tr>';
 		html += '<td>' + feature.properties.kind + '</td>';
 		html += '<td>' + feature.properties.name + '</td>';
-		html += '<td>' + '<a href="' + linkUrl + '">NPW</a></td>';
+		html += '<td>' + '<a href="' + linkUrl + '">' + linkText + '</a></td>'; // Used custom link text
 		html += '</tr>';
 	});
 	html += '</table>';
