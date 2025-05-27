@@ -17,23 +17,34 @@ function loadLocalAuthorities (settings)
 			
 			// Add the table
 			const div = document.createElement ('div');
-			div.innerHTML = boundariesTable (boundaries);
+			div.id = 'localAuthoritiesTableContainer'; // Add an ID for easier selection
+			div.innerHTML = boundariesTable (boundaries.features);
 			document.querySelector ('#content').appendChild (div);
+
+			// Add search functionality
+			const searchInput = document.getElementById('searchInput');
+			searchInput.addEventListener('keyup', function() {
+				const filter = searchInput.value.toLowerCase();
+				const filteredBoundaries = boundaries.features.filter(feature => {
+					return feature.properties.name.toLowerCase().includes(filter);
+				});
+				div.innerHTML = boundariesTable(filteredBoundaries);
+			});
 		});
 }
 
 
 // Function to render the table
-function boundariesTable (boundaries)
+function boundariesTable (features) // Changed parameter to expect an array of features
 {
 	// Build the table from each feature
-	let html = '<table class="lines">';
+	let html = '<table class="lines" id="localAuthoritiesTable">'; // Added an ID to the table
 	html += '<tr>';
 	html += '<th>Type</th>';
 	html += '<th>Area</th>';
 	html += '<th>Network Planning Tool (NPW)</th>';
 	html += '</tr>';
-	Object.entries (boundaries.features).forEach (function ([index, feature]) {
+	features.forEach (function (feature) { // Changed from Object.entries to iterate directly over features array
 		const linkUrl = 'https://npw.scot/npw?boundary=LAD_' + encodeURIComponent (feature.properties.name);
 		html += '<tr>';
 		html += '<td>' + feature.properties.kind + '</td>';
