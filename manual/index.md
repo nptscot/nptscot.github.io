@@ -1,5 +1,7 @@
 # NPT manual
 
+## Overview
+
 Welcome to the Network Planning Tool ([NPT](https://www.npt.scot)), a web application for strategic cycle network planning in Scotland.
 The NPT is designed to help local authorities, transport planners, and other stakeholders identify the best locations for cycling infrastructure and routes based on cycling potential and demand.
 
