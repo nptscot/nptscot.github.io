@@ -5,21 +5,21 @@
 Welcome to the Network Planning Tool ([NPT](https://www.npt.scot)), a web application for strategic cycle network planning in Scotland.
 The NPT is designed to help local authorities, transport planners, and other stakeholders identify the best locations for cycling infrastructure and routes based on cycling potential and demand.
 
-The NPT, and the related Network Planning Workspace ([NPW](https://npw.scot)) web application for sketching, evaluating and sharing route network designs, are Funded by Transport Scotland and developed by the University of Leeds, [CycleStreets](https://www.cyclestreets.net/) and [A/B Street](https://a-b-street.github.io/docs/) in collaboration with [Sustrans Scotland](https://www.sustrans.org.uk/about-us/our-work-in-scotland/).
+The NPT, and the related Network Planning Workspace ([NPW](https://npw.scot)) web application for sketching, evaluating and sharing cycle networks, are Funded by Transport Scotland and developed by the University of Leeds, [CycleStreets](https://www.cyclestreets.net/) and [A/B Street](https://a-b-street.github.io/docs/) in collaboration with and directed by [Sustrans Scotland](https://www.sustrans.org.uk/about-us/our-work-in-scotland/).
 These tools build on the functionality of the [Propensity to Cycle Tool](https://www.jtlu.org/index.php/jtlu/article/view/862) (available at [pct.bike](https://www.pct.bike/)) but go beyond the PCT in several ways.
-Compared with the PCT, the NPT has an improved map interface, includes additional trip purposes in the estimates of cycling potential, uses higher-resolution data resulting in denser networks, and includes new layers: the Cohesive Network, Cycling Level of Service (LoS), and Street Space layers. 
+Compared with the PCT, the NPT has an improved map interface, includes additional trip purposes in the estimates of cycling potential, uses higher-resolution data resulting in denser networks, and includes new layers: the Coherent Network, the Existing Cycle Network layer which contains Cycling Level of Service (LoS) values, and the Street Space layer. 
 
 Each of these elements is described in this manual, which is divided into the following sections:
 
 1. [The map interface and controls](#interface)
 2. [The route network layer](#routenetwork) shows the estimated number of cycle trips on the transport network under different scenarios
 3. [The coherent network layer](#coherentnetwork) shows a strategic cycle network based on the route network
-4. [The existing cycle network layer](#clos) shows the quality of the existing cycle network, existing cycle infrastructure, and traffic volumes
+4. [The existing cycle network layer](#clos) shows the quality of the existing cycle network using Cycling Level of Service (LoS), existing cycle infrastructure, traffic volumes and speed limits
 5. [The street space layer](#streetspace) shows the deliverability of segregated cycle infrastructure
 6. [Data zones](#datazones) provide contextual area-based information based on small geographic zones created for summarising Census datasets
 7. [Other layers](#otherlayers) provide official boundaries, plus school locations and bus routes
 8. [Accessing the NPT](#access) provides information on how to pin the app to your device's home screen
-9. [The Network Planning Workspace](#npw) provides information on the NPW, which is a separate web application for sketching, evaluating and sharing route network designs
+9. [The Network Planning Workspace](#npw) provides information on this separate web application for planning & assessing the quality of cycle networks. 
 
 
 A series of open access [data downloads](https://github.com/nptscot/npt/releases/tag/v2025-05-01) that can be analysed in-house with GIS such as QGIS or data science tools such as R and Python.
