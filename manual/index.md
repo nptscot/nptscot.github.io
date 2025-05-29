@@ -55,8 +55,7 @@ The layer controls are available in a panel on the right side of the screen, whi
 
 ![Layer Controls](/images/layer_controls.png)
 
-These layer controls determine the information is shown on the map as described in the sections below. 
-
+These layer controls determine the information shown on the map as described in the sections below. 
 
 The NPT provides different basemaps. The example below shows the basemap selection options with the satellite basemap with 3D terrain enabled. You can hide the basemap selection option by clicking the change basemap button again.
 
@@ -70,7 +69,7 @@ This section describes layers that provide information on cycling potential, exi
 
 ### 2.1. The route network layer {routenetwork}
 
-The Route network layer displays estimates of cycling potential (i.e. number of cycle trips) on the road and path network, down to the level of individual segments.  It is the first and for many use cases the most important layer in the NPT. The layer is useful for -identifying  where cycling infrastructure and new routes should ideally be located in order to meet latent demand, in order to maximise usage and ultimately modal shift to cycling. This data is used to inform the creation of the primary cycle network in the Network Planning Workspace. 
+The Route network layer displays estimates of cycling demand (i.e. number of cycle trips) on the road and path network, down to the level of individual segments. It is the first and for many use cases the most important layer in the NPT. The layer is useful for identifying where cycling infrastructure and new routes should ideally be located in order to meet latent demand, maximise usage and ultimately maximise modal shift to cycling. This data is used to inform the creation of the primary cycle network in the Network Planning Workspace.
 
 The route network provides a range of options and filters to allow you to view cycling potential for different journey purposes and under different scenarios of cycling uptake. For example if you are planning safe cycling routes to school, the primary and secondary school networks are particularly useful. The trip purpose and scenario options are described in detail below.
 
