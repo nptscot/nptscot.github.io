@@ -85,7 +85,7 @@ This is the default view that displays all journey purposes that are part of the
 
 ##### Commute
 
-The commute network, as the second option in the travel purpose dropdown list, shows journeys to work and is based on the 2011 Census travel to work origin/destination data. Commuters tend to favour radial routes from suburban residential areas into town and city centres where most jobs are concentrated. This layer can help identify the core arterial cycle network.
+The commute network, as the second option in the travel purpose dropdown list, shows journeys to work and is based on aggregated journey to work origin-destination data from the 2011 Census at the Data Zone level (source: National Records of Scotland). Commuters tend to favour radial routes from suburban residential areas into town and city centres where most jobs are concentrated. This layer can help identify the core arterial cycle network.
 
 ##### Primary school
 
