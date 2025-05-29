@@ -232,9 +232,10 @@ The average gradient of the road is shown as a percentage. Steeper roads are a b
 
 The NPT includes a 'Simplified' toggle that simplifies the route network display. Major road corridors can be complex with multiple adjacent carriageways, cycle paths and footways, which are often shown as individual line features on OSM. This makes it hard to assess overall demand across corridors that contain multiple parallel segments. The simplified network attempts to address this problem by combining parallel routes into a single 'centerline' for each corridor.
 
-**Disclaimer:** The simplified network uses OS Open Roads, which aggregates values from the OSM layer. This joining stage may yield some errors. Please report any noticed errors to (trazwa@leeds.ac.uk).
+**Disclaimer:** The simplified network uses OS Open Roads, which aggregates values from the OSM layer. This joining stage may yield some errors. Please report any noticed errors.
 
-This can lead to a loss of detail. For a comprehensive analysis, it's advisable to consider both the simplified and the full route networks in tandem when evaluating cycling demand. This dual approach helps balance the big-picture overview with the nuanced details of specific routes. 
+Application of the Simplified network can lead to a loss of detail. For a comprehensive analysis, it's advisable to consider both the simplified and the full route networks in tandem when evaluating cycling demand. This dual approach helps balance the big-picture overview with the nuanced details of specific routes. 
+
 
 
 ![Simplified Network](/images/simplified.png)
@@ -275,12 +276,12 @@ Set the maximum and minimum quietness of roads that are visible. Quietness measu
 
 ### 2.2. The coherent network layer {coherentnetwork}
 
-This section outlines the development of a coherent strategic cycling network, composed of high-potential, direct routes within urban areas. Created through automated analysis, this network emphasises coherence in design to ensure cycling infrastructure is functional, accessible, and efficient.
+This section outlines the development of a coherent strategic cycling network, composed of high-potential, direct routes within urban areas. Created through automated analysis, this network emphasises coherence in network planning to ensure cycling infrastructure is functional, accessible and efficient.
 
-The coherent network can be used as a 'starter for 10'  for planning a strategic cycle network in urban areas prioritising investment by highlighting routes that maximize coverage and connectivity, while aligning with demand. The methodology used focuses on several key aspects:
+The coherent network can be used as a 'starter for 10' in the Network Planning Workspace to quickly plan a strategic cycle network in urban areas prioritising investment by highlighting routes that maximize coverage and connectivity, while aligning with demand. The methodology used focuses on several key aspects.
+See [github.com/nptscot/corenet](https://github.com/nptscot/corenet) for details, links to the code and data, and a more detailed description of the methodology.
 
-
-#### Data integration
+<!-- #### Data integration
 
 Ordnance Survey Open Roads (OS) provides the foundational structure, complemented by OpenStreetMap (OSM) data to include off-road paths and cycle lanes. This integration ensures that both official road classifications and additional cycling-specific infrastructure are represented.
 
@@ -299,8 +300,7 @@ The network is adjusted to ensure direct routes with optimal density (e.g. 250m 
 
 Stakeholder feedback and ongoing urban data updates support iterative refinements, aligning the network with evolving user needs and policy objectives.
 
-By focusing on coherence, directness, and optimal route density, this coherent network offers a structured foundation for cycle network planning.
-
+By focusing on coherence, directness, and optimal route density, this coherent network offers a structured foundation for cycle network planning. -->
 
 
 <!-- /#coherentnetwork -->
@@ -309,13 +309,14 @@ By focusing on coherence, directness, and optimal route density, this coherent n
 
 ### 2.3. The existing cycle network layer {clos}
 
-The default view for this layer shows an assessment of the quality of the existing cycle network, using a high-level assessment of the Cycling Level of Service (LoS). In network planning a high LoS network should designed this will be suitable for most users, including new and less confident users. In general the LoS will be high where either the traffic speeds and volumes are sufficiently low or where cycle infrastructure is provided to sufficiently physically separate people cycling from traffic. The "existing cycle network" is defined as all roads and paths on which it is legal to cycle. As a result this layer is useful to help define where new infrastructure is needed as part of the network planning process. It provides a graphical representation of the distribution of high LoS roads across Scotland that are for most users. 
+The "existing cycle network" is defined as all roads and paths on which it is legal to cycle. The default view for this layer shows an assessment of the quality of the existing cycle network, using a high-level assessment of the Cycling Level of Service (LoS). In network planning a high LoS network should be designed so that it will be suitable for most users, including new and less confident users. In general the LoS will be high where either the traffic speeds and volumes are sufficiently low or where safe cycle infrastructure is provided to sufficiently physically separate people cycling from traffic. As a result, this layer is useful to help define where new infrastructure is needed as part of the network planning process. It provides a graphical representation of the distribution of high LoS roads across Scotland that are suitable for most users. 
 
-This section also provides data on existing cycle infrastructure, speed limits, traffic volumes that are combined to produce an estimated LoS. 
+This section also provides data on existing cycle infrastructure, speed limits and estimated traffic volumes. 
 
 #### Level of service
 
-The LoS layer provides an overview of the existing cycle network quality in Scotland, based on the [Cycling by Design guidance](https://www.transport.gov.scot/media/50323/cycling-by-design-update-2019-final-document-15-september-2021-1.pdf) (Table 3.2).
+The LoS layer provides an overview of the existing cycle network quality in Scotland, by providing a high-level assessment of LoS based on the [Cycling by Design guidance](https://www.transport.gov.scot/media/50323/cycling-by-design-update-2019-final-document-15-september-2021-1.pdf) (Table 3.2).
+It is produced taking account of existing cycle infrastructure, speed limits and traffic volumes on each link.
 
 ![Table 3.2: When to separate cycle users from motor traffic](/images/clos_facilities.png)
 
@@ -333,11 +334,11 @@ Note: Table 3.2 displays Motor Traffic Speed in KPH ranges. For applying this gu
 
 #### Estimated traffic volume
 
-The traffic volume layer visualises modelled traffic levels for roads on which cycling is permitted. The primary source of input data for major roads is the Department for Transport (DfT) road traffic statistics, which primarily cover major roads and which are publicly available at [roadtraffic.dft.gov.uk](https://roadtraffic.dft.gov.uk).
+The traffic volume layer visualises modelled traffic levels for roads on which cycling is permitted. The primary source of input data for major roads is the Department for Transport (DfT) road traffic statistics, which primarily cover major roads and are publicly available at [roadtraffic.dft.gov.uk](https://roadtraffic.dft.gov.uk).
 
 To estimate motor traffic on roads for which data is lacking, we developed a model that uses [centrality](https://en.wikipedia.org/wiki/Centrality) (a measure of how central segments are to the road network), population density, and employment density to estimate average annual daily traffic (AADT). For specific low-speed environments, such as service roads and car parks, a 10 mph speed assumption is applied in the model.
 
-The model was trained and validated using real-world traffic count data from a selection of 20 mph residential roads in Edinburgh to ensure its accuracy. The outputs are categorised into bands that correspond to the guidance in the [Cycling by Design document](https://www.transport.gov.scot/media/50323/cycling-by-design-update-2019-final-document-15-september-2021-1.pdf#page=68), with the following ranges: 0-999, 1000-1,999, 2000-2,999, 3000-3,999, and 4,000+ AADT.
+The model was trained and validated using real-world traffic count data from a selection of 20 mph residential roads in Edinburgh to ensure its accuracy. The outputs are categorised into bands that correspond to the guidance in the [Cycling by Design document](https://www.transport.gov.scot/media/50323/cycling-by-design-update-2019-final-document-15-september-2021-1.pdf#page=68), with the following ranges: 0-999, 1,000-1,999, 2,000-3,999, and 4,000+ AADT.
 
 Due to limitations in the size of the training dataset and the quality of the input datasets representing the road network, the model may not accurately predict traffic volumes for all roads and should be interpreted accordingly.
 Traffic volumes vary over yearly, monthly, weekly, and daily timescales based on a range of factors, so users should defer to recent traffic counts or local knowledge where available.
@@ -362,7 +363,7 @@ Cycle infrastructure is classified as follows:
     </tr>
     <tr>
         <td>Off Road Path</td>
-        <td>These are paths which are more than a threshold distance (10 m) to a road on which cycling is permitted. They are often shared use, without separation between cycling and walking. In Cycling by Design they are called 'detached or remote cycle tracks'.</td>
+        <td>These are paths which are not adjacent to a road (defined as more than a 10 m threshold distance to a road on which cycling is permitted). They are often shared use, without separation between cycling and walking. In Cycling by Design they are called 'detached or remote cycle tracks'.</td>
         <td><a href="https://www.openstreetmap.org/way/41386401#map=18/56.368094/-2.891781" target="_blank"><img src="/manual/offroad.png" alt="Off Road Path" /></a></td>
         <td><span style="background-color: #3a9120; color: white;">Mid green</span></td>
     </tr>
