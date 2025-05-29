@@ -121,7 +121,7 @@ The NPT currently only considers direct journeys where the whole trip is by bicy
 
 #### Scenarios
 
-The scenarios drop-down allows you to view different levels of cycling and other information about the road network
+This drop-down allows you to explore anticipated levels of cycling under several 'Scenarios' of change.
 
 ##### Baseline 
 
