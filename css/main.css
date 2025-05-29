@@ -576,7 +576,10 @@ body .maplibregl-map {line-height: 1.4;}
   min-width: 350px;
   max-width: 400px;
   max-height: 340px;
-  overflow: auto;
+}
+
+.layerpopup .maplibregl-popup-content {
+  overflow-y: auto;
 }
 
 .layerpopup table th, .layerpopup table td {
