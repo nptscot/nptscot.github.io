@@ -153,13 +153,13 @@ CycleStreets calculate the routes likely to be taken by people cycling, and each
 
 ![Route network types](/images/rnet_types.png)
 
-Examples of the two network types in Edinburgh show how different assumptions about the routes people cycling take affect where the busiest parts (pink) of the network are predicted to be.
+*Examples of the two network types in Edinburgh show how different assumptions about the routes people cycle affect where the busiest parts (pink) of the network are predicted to be.*
 
 Note that the choice of network type does not just change the routes people take but also the number of cycle trips predicted under each scenario. This is because quieter routes are typically longer and hillier than the direct route which discourages cycling.
 
 ##### Fast/direct (preferred)
 
-This network type should be treated as the default.
+This network type should be treated as the default in the network planning process in line with Transport Scotland policy.
 
 The fastest network is based on people taking the most direct  routes on which it is legal to cycle. While people prefer direct routes, this will often bring them onto busy and dangerous major roads, which are a barrier to cycling without the provision of cycle infrastructure separated from traffic. Planners seeking to maximise cycling will build high-quality cycle infrastructure along main roads, which form part of the fast/direct cycle route network.
 
@@ -168,11 +168,12 @@ High quality cycle network plans, particularly in urban areas, will be based on 
 
 ##### Quiet/indirect
 
-The quiet network assumes that people will avoid busy roads and be willing to take significant detours. While directing people away from busy roads and onto quieter back streets may seem like a good idea, it can have significant downsides. Quiet routes are often longer and more challenging to navigate as they weave around the back streets. Even if the roads are safe, longer and more complex journeys discourage cycling. The NPT captures this effect, and the total number of cycle trips on the quiet route network is less than on the fast route network.
+The quiet network models cyclist behaviour that avoids busy roads and takes significant detours. While directing people away from busy roads and onto quieter back streets may seem like a good idea, it can have significant downsides. Quiet routes are generally longer and more challenging to navigate as they weave around the back streets, discouraging cycling uptake. The NPT captures this effect, and the total number of cycle trips on the quiet route network is less than on the fast route network.
 
-The most likely application of the 'Quiet/Indirect' network type is to:
+The intended uses of the 'Quiet/Indirect' network type are:
 
-* Identify potential low cost/high impact 'quick wins' where meaningful additions to the cycle network can be made in the very short term e.g. by filtering residential streets parallel to main roads.
+* •	Identification of potential low cost 'quick wins' where minor but meaningful additions to the cycle network can be made in the very short term e.g. by filtering residential streets parallel to main roads.
+
 * Supporting the design of Low Traffic Neighbourhoods.
 
 Quiet networks work best when the directness penalty is small. For example, a city with a grid layout could alternate between roads designed for cars and streets designed for active travel.
@@ -193,7 +194,7 @@ The line colour option allows you to visualise different characteristics of the 
 
 ![Number of cycle trips](/images/number_of_cyclists.png)
 
-This is an estimate of the average number of daily cycle trips in either direction (AADT) passing along each segment, for the selected purpose, network type, and scenario.
+This is an estimate of the average annual daily traffic (AADT), meaning the number of daily cycle trips in both directions (so a return trip on the same route counts as 2), on each segment, for the selected purpose, network type, and scenario.
 
 The thickness of the lines in the route network is also defined by the number of cycle trips, with thicker lines representing more people cycling.
 
