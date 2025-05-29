@@ -12,6 +12,7 @@ These tools build on the methods underlying the [Propensity to Cycle Tool](https
 Compared with the PCT, the NPT has an improved map interface, includes additional trip purposes in the estimates of cycling potential, uses higher-resolution data resulting in denser networks, and includes new layers.
 Each of these elements is described in this manual, which is divided into the following sections:
 
+1. [Map interface and controls](#interface) describes the user interface, including the map interface and layer controls
 2. [Layers that can be displayed on the map](#layers) provide information on cycling potential, existing cycle infrastructure, and other contextual information
 
   2.1. [The route network layer](#routenetwork) shows the estimated number of cycle trips on the transport network under different scenarios
@@ -34,7 +35,10 @@ The NPT is an open-source and open access project, meaning the source code and r
 See the [open-source codebase at github.com/nptscot](https://github.com/nptscot/).
 If you see an opportunity to improve the tool or its outputs, we encourage you to let us know by [raising an issue](https://github.com/nptscot/npt/issues) (requiring a GitHub account).
 
-The user interface consists of the map interface and controls on the left side of the screen, as described in the next section.
+## 1. Map interface and controls {interface}
+
+
+The user interface consists of the map interface and controls on the left side of the screen, as shown below. The map interface is the main part of the NPT, where you can view and interact with the different layers of information.
 
 ![Map controls](/images/map_controls.png)
 
@@ -45,11 +49,9 @@ The layer controls are available in a panel on the right side of the screen, whi
 These layer controls determine the information is shown on the map as described in the sections below. 
 
 
-## 1. Map interface and controls {interface}
 
 
-The map can be navigated using map controls on the top left of the screen.
-
+The NPT user interface consists of the map interface and controls on the left side of the screen, as described in the next section.
 The NPT provides different basemaps. The example below shows the basemap selection options with the satellite basemap with 3D terrain enabled. You can hide the basemap selection option by clicking the change basemap button again.
 
 ![Basemap controls](/images/basemaps.png)
