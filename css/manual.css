@@ -32,6 +32,8 @@ body {
   padding: 10px;
   background-color: #f5f5f5;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  max-height: calc(100vh - 80px); /* Ensure it fits viewport considering top offset and padding */
+  overflow-y: auto; /* Enable vertical scrolling */
 }
 
 .table-of-contents ul {
