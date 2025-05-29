@@ -10,9 +10,10 @@ The NPT is complemented by the related Network Planning Workspace ([NPW](https:/
 
 These tools build on the methods underlying the [Propensity to Cycle Tool](https://www.jtlu.org/index.php/jtlu/article/view/862) (available at [pct.bike](https://www.pct.bike/)) but go beyond them in several ways.
 Compared with the PCT, the NPT has an improved map interface, includes additional trip purposes in the estimates of cycling potential, uses higher-resolution data resulting in denser networks, and includes new layers.
-Each of these elements is described in this manual, which is divided into the following sections:
+Each of these elements is described in this manual, which is divided into the following sections (see the figure below for an overview of the NPT):
 
-1. [Map interface and controls](#interface) describes the user interface, including the map interface and layer controls
+1. [Map interface and controls](#interface) describes how to use the map interface and controls to view and interact with the different layers of information
+
 2. [Layers that can be displayed on the map](#layers) provide information on cycling potential, existing cycle infrastructure, and other contextual information
 
   2.1. [The route network layer](#routenetwork) shows the estimated number of cycle trips on the transport network under different scenarios
@@ -30,6 +31,12 @@ Each of these elements is described in this manual, which is divided into the fo
 3. [Accessing the NPT](#access) provides information on how to pin the app to your device's home screen
 4. [Data downloads](#data) provides information on how to download data from the NPT
 5. [The Network Planning Workspace](#npw) provides information on this separate web application for planning & assessing the quality of cycle networks.
+
+![NPT Overview](/images/npt-interface-overview.png)
+
+<!-- Caption: -->
+*NPT Overview: The web application when you first open the [www.npt.scot](https://www.npt.scot) website. 
+ The boxes shown and associated numbers in red correspond to the sections of this manual.*
 
 The NPT is an open-source and open access project, meaning the source code and results are transparent and in the public domain for all stakeholders to benefit from and build on.
 See the [open-source codebase at github.com/nptscot](https://github.com/nptscot/).
