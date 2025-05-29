@@ -402,7 +402,7 @@ The speed limit data displayed in the NPT is primarily sourced from OpenStreetMa
  				<div class="layertools layertools-streetspace">
 -->
 
-The Street Space layer allows at-a-glance evaluation of the <em>spatial</em> deliverability of segregated cycle infrastructure (on links requiring dedicated infrastructure).
+The Street Space layer allows a rapid, at-a-glance evaluation of the spatial deliverability of segregated cycle infrastructure (on links requiring dedicated infrastructure).
 
 It categorises roads in accordance with the [Cycling by Design guidance](https://www.transport.gov.scot/media/50323/cycling-by-design-update-2019-final-document-15-september-2021-1.pdf#page=68). It specifies the methodology for classifying road space and cycle infrastructure. The sections below describe the measurement methods and datasets used, the cycle infrastructure types considered, and the assumptions regarding bus routes and road types.
 
@@ -506,12 +506,14 @@ Data zones can be visualised based on the following attributes:
 * Population density (per hectare) (from 2021 Census)
 * Index of Multiple Deprivation (2020) (from the Scottish Indices of Multiple Deprivation)
 <!-- TODO: update these when we find out -->
-* Drive time to a petrol station
-* Drive time to GP
+* Drive time to a petrol station (from the Scottish Indices of Multiple Deprivation)
+* Drive time to GP (from the Scottish Indices of Multiple Deprivation)
 
 ### 2.6. Other layers {otherlayers}
 
 The NPT provides several supplementary map layers that enhance the contextual understanding of the cycling network
+
+<!-- TODO: add year to data sources -->
 
 * Schools (click on a school to see current and potential future mode split data): Revealing the locations of primary, secondary, and other educational institutions, this layer allows users to click on individual schools to review the present and potential future distribution of travel modes among students
 * Wards: This layer overlays the boundaries of local electoral wards onto the map
@@ -559,6 +561,4 @@ Click on the "Data" tab in the top menu to access the data downloads.
 
 ## 5. The Network Planning Workspace (NPW) {npw}
 
-The Network Planning Workspace (NPW) is a tool that builds on the NPT for more advanced users and people who want to design cycle networks.
-It allows users to sketch proposed interventions on the map and to assess the impact of these changes.
-See the NPW web application at [npw.scot](https://nptscot.github.io/npw/) for more information.
+The Network Planning Workspace (NPW) is a tool that builds on and makes use of the NPT data for more advanced users and people who want to plan cycle networks. It allows users to sketch a proposed cycle network on the map and assess the quality of the network plan. It can be accessed using the ‘Local Authorities’ tab or directly via npw.scot.  See the NPW web application at [npw.scot](https://nptscot.github.io/npw/) for more information.
