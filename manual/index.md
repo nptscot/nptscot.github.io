@@ -356,8 +356,8 @@ Cycle infrastructure is classified as follows:
         <th>Colour on map</th>
     </tr>
     <tr>
-        <td>Segregated Track</td>
-        <td>Segregated roadside cycle track that provides physical protection from motor traffic and separation from pedestrians. This category includes cycle tracks at carriageway level (including light segregation), stepped cycle tracks and footway level cycle tracks which are separated from pedestrians.</td>
+        <td>Segregated Track (wide)</td>
+        <td>Roadside infrastructure that is designated for cycling and provides physical protection from motor traffic and separation from pedestrians. Segregated Tracks include the following categories from Cycling by Design guidance: cycle tracks at carriageway level, light segregation, stepped cycle tracks, and footway level cycle tracks separated from pedestrians. Network segments classified with the Segregated Track (wide) category are the <a href="https://www.transport.gov.scot/media/50323/cycling-by-design-update-2019-final-document-15-september-2021-1.pdf#page=85" target="_blank">desirable minimum width</a> (2 m) or more according to OpenStreetMap <a href="https://wiki.openstreetmap.org/wiki/Key:width" target="_blank">width</a> or <a href="https://wiki.openstreetmap.org/wiki/Key:est_width" target="_blank">est_width</a> tags. Likely compliant with Cycling by Design guidance.</td>
         <td><a href="https://www.cyclestreets.net/location/81274/" target="_blank"><img src="/manual/segregated.jpg" alt="Segregated track" /></a></td>
         <td><span style="background-color: #054d05; color: white;">Dark green</span></td>
     </tr>
@@ -367,6 +367,13 @@ Cycle infrastructure is classified as follows:
         <td><a href="https://www.openstreetmap.org/way/41386401#map=18/56.368094/-2.891781" target="_blank"><img src="/manual/offroad.png" alt="Off Road Path" /></a></td>
         <td><span style="background-color: #3a9120; color: white;">Mid green</span></td>
     </tr>
+        <tr>
+        <td>Segregated Track (narrow)</td>
+        <td>Segregated roadside cycle track, as described above, but which is less than the <a href="https://www.transport.gov.scot/media/50323/cycling-by-design-update-2019-final-document-15-september-2021-1.pdf#page=85" target="_blank">desirable minimum width</a> (2 m) or has no width information based on OpenStreetMap <a href="https://wiki.openstreetmap.org/wiki/Key:width" target="_blank">width</a> or <a href="https://wiki.openstreetmap.org/wiki/Key:est_width" target="_blank">est_width</a> tags. May or may not be Cycling by Design compliant.</td>
+        <td><a href="https://www.cyclestreets.net/location/196620/" target="_blank"><img src="/manual/segregated-narrow.jpg" alt="Segregated track (narrow)" /></a></td>
+        <td><span style="background-color: #87d668; color: white;">Light green</span></td>
+    </tr>
+    <tr>
     <tr>
         <td>Shared Footway</td>
         <td>In Cycling by Design this is a cycle track at footway level (adjacent to carriageway)" but that does not provide separation from pedestrians, i.e. a pavement that has been designated for use by both pedestrians and people cycling.</td>
