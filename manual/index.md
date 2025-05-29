@@ -45,7 +45,9 @@ If you see an opportunity to improve the tool or its outputs, we encourage you t
 ## 1. Map interface and controls {interface}
 
 
-The user interface consists of the map interface and controls on the left side of the screen, as shown below. The map interface is the main part of the NPT, where you can view and interact with the different layers of information.
+The user interface consists of the map interface and controls on the left side of the screen, as shown below. The map interface shown in the largest box in the figure above is the main part of the NPT.
+You can pan, zoom and click on elements shown in this main map view.
+The map controls on the left side of the screen allow you to search for locations, find your current location, change the basemap, and make other adjustments to the map view, as shown below.
 
 ![Map controls](/images/map_controls.png)
 
@@ -56,22 +58,19 @@ The layer controls are available in a panel on the right side of the screen, whi
 These layer controls determine the information is shown on the map as described in the sections below. 
 
 
-
-
-The NPT user interface consists of the map interface and controls on the left side of the screen, as described in the next section.
 The NPT provides different basemaps. The example below shows the basemap selection options with the satellite basemap with 3D terrain enabled. You can hide the basemap selection option by clicking the change basemap button again.
 
 ![Basemap controls](/images/basemaps.png)
 
 The Anti-alias option enables advanced rendering options that make the map look smoother and clearer. However, performance on low-end devices may be impaired when using anti-aliasing.
 
-## 2. Layers that can be displayed on the map {#layers}
+## 2. Layers {#layers}
 
 This section describes layers that provide information on cycling potential, existing cycle infrastructure, and other contextual information.
 
 ### 2.1. The route network layer {routenetwork}
 
-The Route network layer displays estimates of cycling potential (i.e. number of cycle trips) on the road and path network, down to the level of individual segments.  It is the first and for many use cases the most important layer in the NPT.. The layer is useful for -identifying  where cycling infrastructure and new routes should ideally be located in order to meet latent demand, in order to maximise usage and ultimately modal shift to cycling. This data is used to inform the creation of the primary cycle network in the Network Planning Workspace. 
+The Route network layer displays estimates of cycling potential (i.e. number of cycle trips) on the road and path network, down to the level of individual segments.  It is the first and for many use cases the most important layer in the NPT. The layer is useful for -identifying  where cycling infrastructure and new routes should ideally be located in order to meet latent demand, in order to maximise usage and ultimately modal shift to cycling. This data is used to inform the creation of the primary cycle network in the Network Planning Workspace. 
 
 The route network provides a range of options and filters to allow you to view cycling potential for different journey purposes and under different scenarios of cycling uptake. For example if you are planning safe cycling routes to school, the primary and secondary school networks are particularly useful. The trip purpose and scenario options are described in detail below.
 
