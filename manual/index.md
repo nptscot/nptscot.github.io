@@ -5,7 +5,7 @@
 Welcome to the Network Planning Tool ([NPT](https://www.npt.scot)), a web application for strategic cycle network planning in Scotland.
 The NPT is designed to help local authorities, transport planners, and other stakeholders identify the best locations for cycling infrastructure and routes based on cycling potential and demand.
 
-The NPT is Funded by Transport Scotland and developed by the University of Leeds, [CycleStreets](https://www.cyclestreets.net/) and [A/B Street](https://a-b-street.github.io/docs/) in collaboration with and directed by [Sustrans Scotland](https://www.sustrans.org.uk/about-us/our-work-in-scotland/).
+The NPT is funded by Transport Scotland and developed by the University of Leeds, [CycleStreets](https://www.cyclestreets.net/) and [A/B Street](https://a-b-street.github.io/docs/) in collaboration with and directed by [Sustrans Scotland](https://www.sustrans.org.uk/about-us/our-work-in-scotland/).
 The NPT is complemented by the related Network Planning Workspace ([NPW](https://npw.scot)) web application for sketching, evaluating and sharing cycle networks, which was developed as part of the same project.
 
 These tools build on the methods underlying the [Propensity to Cycle Tool](https://www.jtlu.org/index.php/jtlu/article/view/862) (available at [pct.bike](https://www.pct.bike/)) but go beyond them in several ways.
@@ -71,7 +71,7 @@ This section describes layers that provide information on cycling potential, exi
 
 The Route network layer displays estimates of cycling demand (i.e. number of cycle trips) on the road and path network, down to the level of individual segments. It is the first and for many use cases the most important layer in the NPT. The layer is useful for identifying where cycling infrastructure and new routes should ideally be located in order to meet latent demand, maximise usage and ultimately maximise modal shift to cycling. This data is used to inform the creation of the primary cycle network in the Network Planning Workspace.
 
-The route network provides a range of options and filters to allow you to view cycling potential for different journey purposes and under different scenarios of cycling uptake. For example if you are planning safe cycling routes to school, the primary and secondary school networks are particularly useful. The trip purpose and scenario options are described in detail below.
+The route network provides a range of options and filters to allow you to view cycling potential for different journey purposes and under different scenarios of cycling uptake. For example, if you are planning safe cycling routes to school, the primary and secondary school networks are particularly useful. The trip purpose and scenario options are described in detail below.
 
 <!-- #purpose -->
 
@@ -81,7 +81,7 @@ People have many reasons to travel, and their reasons often change their choice 
 
 ##### All
 
-This is the default view that displays all journey purposes that are part of the NPT (travel to work, travel to school and other everyday journeys) combined. It offers an overview of total cycling potential and as  such it is useful as a starting point for planning local authority and regional cycle networks. 
+This is the default view that displays all journey purposes that are part of the NPT (travel to work, travel to school and other everyday journeys) combined. It offers an overview of total cycling potential and as such, it is useful as a starting point for planning local authority and regional cycle networks. 
 
 ##### Commute
 
@@ -133,7 +133,7 @@ The Go Dutch scenario imagines a future with a high level of cycling, where peop
 
 ##### Ebikes
 
-The Ebike scenario models the additional increase in cycling that would be achieved on top of the Go Dutch scenario, through the widespread uptake of electric cycles. The scenarios alters both the assumptions around cycling uptake and the routes choices made by people cycling, for example a reduced penalty for going up hills. People using a pedal cycle incur a significant time and effort penalty from going uphill. Hence, a longer but flatter route is often faster. A good ebike can enable people to ride uphill at 15 mph without breaking a sweat. Thus ebike riders may choose shorter but hillier routes than those using a pedal cycle.
+The Ebike scenario models the additional increase in cycling that would be achieved on top of the Go Dutch scenario, through the widespread uptake of electric cycles. The scenario alters both the assumptions around cycling uptake and the routes choices made by people cycling, for example a reduced penalty for going up hills. People using a pedal cycle incur a significant time and effort penalty from going uphill. Hence, a longer but flatter route is often faster. A good ebike can enable people to ride uphill at 15 mph without breaking a sweat. Thus ebike riders may choose shorter but hillier routes than those using a pedal cycle.
 
 As ebikes increase the range a typical person can cycle, as well as carrying capacity, while reducing effort and journey times, a world with many ebikes would expect higher levels of cycling than one with only pedal cycles.
 
@@ -172,7 +172,7 @@ The quiet network models cyclist behaviour that avoids busy roads and takes sign
 
 The intended uses of the 'Quiet/Indirect' network type are:
 
-* •	Identification of potential low cost 'quick wins' where minor but meaningful additions to the cycle network can be made in the very short term e.g. by filtering residential streets parallel to main roads.
+* Identification of potential low cost 'quick wins' where minor but meaningful additions to the cycle network can be made in the very short term e.g. by filtering residential streets parallel to main roads.
 
 * Supporting the design of Low Traffic Neighbourhoods.
 
@@ -248,7 +248,7 @@ Clicking on any segment within the route network on the map will display a pop-u
 
 ![Popup](/images/rnet_popup.png)
 
-The popup provides a summary table for all the information available about the route network. The table displays the number of cycle trips for each scenario - such as baseline, Go Dutch, and e-bikes - and distinguishes between the Fast/Direct and Quiet/Indirect network types. Above  the table, the average gradient of the road and its cycle friendliness score are shown, which assesses the suitability of the road for cycling. Additionally, there's an option to directly access the Google Street View of the road, if available, for a more grounded perspective.
+The popup provides a summary table for all the information available about the route network. The table displays the number of cycle trips for each scenario - such as baseline, Go Dutch, and e-bikes - and distinguishes between the Fast/Direct and Quiet/Indirect network types. Above the table, the average gradient of the road and its cycle friendliness score are shown, which assesses the suitability of the road for cycling. Additionally, there's an option to directly access the Google Street View of the road, if available, for a more grounded perspective.
 
 <!-- #filters -->
 
@@ -309,7 +309,7 @@ By focusing on coherence, directness, and optimal route density, this coherent n
 
 ### 2.3. The existing cycle network layer {clos}
 
-The "existing cycle network" is defined as all roads and paths on which it is legal to cycle. The default view for this layer shows an assessment of the quality of the existing cycle network, using a high-level assessment of the Cycling Level of Service (LoS). In network planning a high LoS network should be designed so that it will be suitable for most users, including new and less confident users. In general the LoS will be high where either the traffic speeds and volumes are sufficiently low or where safe cycle infrastructure is provided to sufficiently physically separate people cycling from traffic. As a result, this layer is useful to help define where new infrastructure is needed as part of the network planning process. It provides a graphical representation of the distribution of high LoS roads across Scotland that are suitable for most users. 
+The "existing cycle network" is defined as all roads and paths on which it is legal to cycle. The default view for this layer shows an assessment of the quality of the existing cycle network, using a high-level assessment of the Cycling Level of Service (LoS). In network planning, a high LoS network should be designed so that it is suitable for most users, including new and less confident users. In general the LoS will be high where either the traffic speeds and volumes are sufficiently low or where safe cycle infrastructure is provided to sufficiently physically separate people cycling from traffic. As a result, this layer is useful to help define where new infrastructure is needed as part of the network planning process. It provides a graphical representation of the distribution of high LoS roads across Scotland that are suitable for most users. 
 
 This section also provides data on existing cycle infrastructure, speed limits and estimated traffic volumes. 
 
@@ -376,7 +376,7 @@ Cycle infrastructure is classified as follows:
     <tr>
     <tr>
         <td>Shared Footway</td>
-        <td>In Cycling by Design this is a cycle track at footway level (adjacent to carriageway)" but that does not provide separation from pedestrians, i.e. a pavement that has been designated for use by both pedestrians and people cycling.</td>
+        <td>In Cycling by Design this is a "cycle track at footway level (adjacent to carriageway)" that does not provide separation from pedestrians, i.e. a pavement that has been designated for use by both pedestrians and people cycling.</td>
         <td><a href="https://www.cyclestreets.net/location/92805/" target="_blank"><img src="/manual/shareduse.jpg" alt="Shared footway" /></a></td>
         <td><span style="background-color: #ffbf00; color: white;">Orange</span></td>
     </tr>
