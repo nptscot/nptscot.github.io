@@ -55,7 +55,8 @@ h1{
     outline: none;
     transition: 0.4s;
     font-size: 0.97em;
-}
+    transform: translate3d(0, 0, 0); /* Force GPU acceleration for Safari: see: https://stackoverflow.com/questions/70138527 */
+  }
 .accordion:after {
   content: '+'; 
   font-size: 28px;
@@ -181,7 +182,7 @@ a.smaller {
   right: 0;
   bottom: 0;
   z-index: 3;
-  width: 270px;
+  width: 280px;
   overflow: auto;
   background-color: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(6px);
@@ -442,6 +443,7 @@ p.help-end {
   display: table;
   table-layout: fixed;
   font-size: 10px;
+  min-height: calc(18px + 18px + 2px);
 }
 
 .l_r{
@@ -454,10 +456,17 @@ p.help-end {
 
 .legend div span {
   display: inline-block;
-  height: 15px;
+  height: 18px;
   width: 100%;
   border: 1px solid black;
 }
+
+.legend div span input[type="checkbox"].legendfilter {
+  display: block;
+  text-align: left;
+  opacity: 0.65;
+}
+
 
 /* Basemap Control */
 #basemapcontrol {
@@ -554,9 +563,23 @@ input:checked + .slider:before {
 
 /* Map popup */
 
+/* Popups (adjustments to emulate Leaflet.js) - see https://github.com/mapbox/mapbox-gl-js/issues/8368 */
+@keyframes fadein {from {opacity: 0;} to {opacity: 1;}}
+.maplibregl-popup {animation: fadein 0.2s;}
+.maplibregl-popup-content {max-width: 300px; min-width: 50px; border-radius: 12px; padding: 13px 19px; box-shadow: 0 3px 14px rgba(0,0,0,0.4); min-width: 300px;}
+.maplibregl-popup-close-button {font-size: 16px; font-family: Tahoma, Verdana, sans-serif; color: #c3c3c3; font-weight: bold;}
+.maplibregl-popup-close-button:hover {color: #999; background-color: white; border-top-right-radius: 12px;}
+body .maplibregl-map {line-height: 1.4;}
+
+
 .layerpopup {
-  min-width: 300px;
+  min-width: 350px;
   max-width: 400px;
+  max-height: 340px;
+}
+
+.layerpopup .maplibregl-popup-content {
+  overflow-y: auto;
 }
 
 .layerpopup table th, .layerpopup table td {
@@ -569,6 +592,10 @@ input:checked + .slider:before {
 
 .layerpopup table td {
   text-align: right;
+}
+
+.layerpopup table.left td {
+  text-align: left;
 }
 
 /* Bigger Buttons */
@@ -808,3 +835,8 @@ table.filters td:first-child {width: 5.5em; height: 3.5em; font-size: 0.75em; li
 div.layertools {opacity: 0.2; pointer-events: none;}
 div.layertools.enabled {opacity: 1; pointer-events: auto;}
 
+/* License note */
+p.license {font-size: 0.77em; color: gray;}
+
+/* Beta */
+#betabanner {display: inline-block; margin-top: 14px; height: 25px; line-height: 25px; color: #00437d; background-color: #d9eeff; padding: 2px; border: 1px solid rgba(0, 101, 189, 0.8); margin-left: 10px; font-weight: normal;}
