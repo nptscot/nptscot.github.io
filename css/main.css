@@ -837,3 +837,6 @@ div.layertools.enabled {opacity: 1; pointer-events: auto;}
 
 /* License note */
 p.license {font-size: 0.77em; color: gray;}
+
+/* Beta */
+#betabanner {display: inline-block; margin-top: 14px; height: 25px; line-height: 25px; color: #00437d; background-color: #d9eeff; padding: 2px; border: 1px solid rgba(0, 101, 189, 0.8); margin-left: 10px; font-weight: normal;}
