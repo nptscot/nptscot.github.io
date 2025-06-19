@@ -1,38 +1,61 @@
-# NPT Manual
+# NPT manual
+
+## Overview
+
+Welcome to the Network Planning Tool ([NPT](https://www.npt.scot)), a web application for strategic cycle network planning in Scotland.
+The NPT is designed to help local authorities, transport planners, and other stakeholders identify the best locations for cycling infrastructure and routes based on cycling potential and demand.
+
+The NPT is funded by Transport Scotland and developed by the University of Leeds, [CycleStreets](https://www.cyclestreets.net/) and [A/B Street](https://a-b-street.github.io/docs/) in collaboration with and directed by [Sustrans Scotland](https://www.sustrans.org.uk/about-us/our-work-in-scotland/).
+The NPT is complemented by the related Network Planning Workspace ([NPW](https://npw.scot)) web application for sketching, evaluating and sharing cycle networks, which was developed as part of the same project.
+
+These tools build on the methods underlying the [Propensity to Cycle Tool](https://www.jtlu.org/index.php/jtlu/article/view/862) (available at [pct.bike](https://www.pct.bike/)) but go beyond them in several ways.
+Compared with the PCT, the NPT has an improved map interface, includes additional trip purposes in the estimates of cycling potential, uses higher-resolution data resulting in denser networks, and includes new layers.
+Each of these elements is described in this manual, which is divided into the following sections (see the figure below for an overview of the NPT):
+
+1. [Map interface and controls](#interface) describes how to use the map interface and controls to view and interact with the different layers of information
+
+2. [Layers that can be displayed on the map](#layers) provide information on cycling potential, existing cycle infrastructure, and other contextual information
+
+  2.1. [The route network layer](#routenetwork) shows the estimated number of cycle trips on the transport network under different scenarios
+
+  2.2. [The coherent network layer](#coherentnetwork) shows a strategic cycle network based on the route network
+
+  2.3. [The existing cycle network layer](#clos) shows the quality of the existing cycle network using Cycling Level of Service (LoS), existing cycle infrastructure, traffic volumes and speed limits
+
+  2.4. [The street space layer](#streetspace) shows the deliverability of segregated cycle infrastructure
+
+  2.5. [Data zones](#datazones) provide contextual area-based information based on small geographic zones created for summarising Census datasets
+  
+  2.6. [Other layers](#otherlayers) provide official boundaries, plus school locations and bus routes
+
+3. [Accessing the NPT](#access) provides information on how to pin the app to your device's home screen
+4. [Data downloads](#data) provides information on how to download data from the NPT
+5. [The Network Planning Workspace](#npw) provides information on this separate web application for planning & assessing the quality of cycle networks.
+
+![NPT Overview](/images/npt-interface-overview.png)
+
+<!-- Caption: -->
+*NPT Overview: The web application when you first open the [www.npt.scot](https://www.npt.scot) website. 
+ The boxes shown and associated numbers in red correspond to the sections of this manual.*
+
+The NPT is an open-source and open access project, meaning the source code and results are transparent and in the public domain for all stakeholders to benefit from and build on.
+See the [open-source codebase at github.com/nptscot](https://github.com/nptscot/).
+If you see an opportunity to improve the tool or its outputs, we encourage you to let us know by [raising an issue](https://github.com/nptscot/npt/issues) (requiring a GitHub account).
+
+## 1. Map interface and controls {interface}
 
 
-## Introduction
-
-
-Welcome to the Network Planning Tool (NPT) for Scotland, a cutting-edge web application designed for strategic cycle network planning. Funded by Transport Scotland and developed by the University of Leeds in collaboration with Sustrans Scotland. It builds on the functionality of the [Propensity to Cycle Tool](https://www.pct.bike/) for England and Wales, offering a detailed nationwide cycling potential analysis for Scotland, down to the street level ([Lovelace et al. 2017](https://www.jtlu.org/index.php/jtlu/article/view/862)). We invite users to explore its comprehensive features and contribute feedback for continuous improvement.
-
-### NPT Essentials
-
-The NPT is Scotland’s nationwide web-based strategic network planning tool that estimates cycling potential down to the street level.
-
-The easiest way to access the NPT website is hosted at [www.npt.scot](http://www.npt.scot).
-
-The NPT includes:
-
-1.  the [map user interface](https://www.npt.scot/), 
-2.  a series of open access [data downloads](https://www.npt.scot/data) that can be analysed in GIS software or statistical software, 
-3.  the [code base](https://github.com/nptscot/) that can be modified to fix bugs, add new features, and develop new scenarios.
-
-The NPT is an open-source tool, meaning the source code is transparent and in the public domain for others to learn from and build on. The code underlying the project is available to be copied and improved by the community.
-
-The online interface can serve many needs, including gaining insight into the network of routes where cycling potential is highest and quantifying the benefits of cycling uptake. However, we recommend that intermediate and advanced users download data on zones, routes and route networks for in-house analysis.
-
-The NPT allows users to visualise results baseline data and how cycling would change under different scenarios. The journey purposes and scenarios are described in detail below.
-
-## NPT User Interface Guide
-
-The NPT's user interface is intuitive, featuring map controls for easy navigation and layer controls to customize data visibility. Whether you're interested in the baseline cycling data or exploring various "what-if" scenarios like "Go Dutch" or ebike adoption, the tool provides a flexible platform for in-depth analysis.
-
-### Map Controls
+The user interface consists of the map interface and controls on the left side of the screen, as shown below. The map interface shown in the largest box in the figure above is the main part of the NPT.
+You can pan, zoom and click on elements shown in this main map view.
+The map controls on the left side of the screen allow you to search for locations, find your current location, change the basemap, and make other adjustments to the map view, as shown below.
 
 ![Map controls](/images/map_controls.png)
 
-The map can be navigated using map controls on the top left of the screen.
+The layer controls are available in a panel on the right side of the screen, which can be minimised.
+
+![Layer Controls](/images/layer_controls.png)
+
+These layer controls determine the information shown on the map as described in the sections below. 
 
 The NPT provides different basemaps. The example below shows the basemap selection options with the satellite basemap with 3D terrain enabled. You can hide the basemap selection option by clicking the change basemap button again.
 
@@ -40,58 +63,55 @@ The NPT provides different basemaps. The example below shows the basemap selecti
 
 The Anti-alias option enables advanced rendering options that make the map look smoother and clearer. However, performance on low-end devices may be impaired when using anti-aliasing.
 
-### Layer Controls
+## 2. Layers {#layers}
 
-![Layer Controls](/images/layer_controls.png)
+This section describes layers that provide information on cycling potential, existing cycle infrastructure, and other contextual information.
 
-The layer controls on the right side of the map control what information is shown on the map.
+### 2.1. The route network layer {routenetwork}
 
+The Route network layer displays estimates of cycling demand (i.e. number of cycle trips) on the road and path network, down to the level of individual segments. It is the first and for many use cases the most important layer in the NPT. The layer is useful for identifying where cycling infrastructure and new routes should ideally be located in order to meet latent demand, maximise usage and ultimately maximise modal shift to cycling. This data is used to inform the creation of the primary cycle network in the Network Planning Workspace.
 
-## Map Layers
-
-The NPT allows you to view a broad range of data about cycling by manipulating filters to showcase specific data points. This section describes each layer and its features.
-
-### Route network
-
-The Route Network is the primary layer in the NPT and the only one that is on by default when the tool loads. The route network estimates the number of cycle trips on each road. It is designed to emphasise roads with lots of cycling potential and so aid planners in deciding where cycling infrastructure is needed.
-
-The route network provides a range of options and filters to allow you to view different networks based on different journey purposes and assumptions. Whether you're considering daily commutes or leisurely excursions, the Route Network layer adapts to reflect different cycling possibilities and planning assumptions.
+The route network provides a range of options and filters to allow you to view cycling potential for different journey purposes and under different scenarios of cycling uptake. For example, if you are planning safe cycling routes to school, the primary and secondary school networks are particularly useful. The trip purpose and scenario options are described in detail below.
 
 <!-- #purpose -->
 
-#### Trip purpose
+#### Trip purposes
 
-People have many reasons to travel, and their reasons for travel often change their choice of destinations and routes. Therefore, a cycling network designed for commuters may look very different to a network designed for children to travel to school. The trip purpose drop-down allows you to view different networks based on different trip purposes.
+People have many reasons to travel, and their reasons often change their choice of destinations and routes. Therefore, a cycling network designed to serve commuters may look very different to a network designed for children to travel to school. The trip purpose drop-down allows you to view different networks based on different trip purposes.
 
 ##### All
 
-This is the default view that displays all journey purposes that are part of the NPT (travel to work, travel to school, and other everyday journeys) combined, offering an overview of total cycling potential.
+This is the default view that displays all journey purposes that are part of the NPT (travel to work, travel to school and other everyday journeys) combined. It offers an overview of total cycling potential and as such, it is useful as a starting point for planning local authority and regional cycle networks. 
 
 ##### Commute
 
-The commute network, as the second option in the travel purpose dropdown list, is based on the 2011 Census travel to work data. Commuters tend to favour radial routes from suburban residential areas into town and city centres where most jobs are concentrated. This layer can help identify the core arterial network.
+The commute network, as the second option in the travel purpose dropdown list, shows journeys to work and is based on aggregated journey to work origin-destination data from the 2011 Census at the Data Zone level (source: National Records of Scotland). Commuters tend to favour radial routes from suburban residential areas into town and city centres where most jobs are concentrated. This layer can help identify the core arterial cycle network.
 
-##### Primary School
+##### Primary school
 
-The primary school network, as the third option in the travel purpose dropdown list, shows cycling potential for children cycling to primary schools, whether by e-cargo, accompanied by adults, or including as part of 'cycle buses' or travelling independently. It provides insights into the routes that could be taken by children and carers. Recognising these patterns is important for urban planners, enabling them to emphasize and develop infrastructure that prioritises the safety of young people. Schools tend to be located in residential areas, so the resulting primary and secondary networks tend to favour denser orbital routes that could be supported by modal filters and traffic management.
+The primary school network, as the third option in the travel purpose dropdown list, shows cycling potential for children cycling to primary schools, whether by e-cargo, accompanied by adults, or including as part of 'cycle buses' or travelling independently. It is based on the Scottish Government's Pupil Census 2021 origin/destination data adjusted using school mode share data from the Hands Up Scotland Survey. It provides insights into the routes that could be taken by children and carers. Recognising these patterns is important for urban planners, enabling them to emphasize and develop infrastructure that prioritises the safety of young people. Schools tend to be located in residential areas, so the resulting primary and secondary school networks tend to favour denser orbital routes that could be supported by modal filters and traffic management.
 
-##### Secondary School
+##### Secondary school
 
-The secondary school network is the fourth option in the travel purpose dropdown menu. It offers insights into the networks that could enable young people safe cycling options to get to and from secondary school.
+The secondary school network is the fourth option in the travel purpose dropdown menu. It is based on the same data sources as the primary school network and offers insights into the networks that could provide young people with safe cycling options to get to and from secondary school.
 
 ##### Other Everyday
 
-Other Everyday trips include trips for three individual purposes; shopping, to access leisure facilities and personal trips. Each trip purpose is described below, with this network being the combination of these three journey purposes.
+Other Everyday trips include trips for three purposes:
 
-Shopping trips account for cycling behaviours of individuals travelling to shops, including for food shopping, providing insights into the most popular routes for these types of trips.
+1. Shopping: travel to shops, supermarkets, and other retail destinations
+2. Access leisure facilities: as leisure centres, parks, cinemas, pubs and other 'points of interest' related to leisure activities from the Ordnance Survey
+3. Social trips: visiting friends and family, meaning residential destinations
 
-Trips to access leisure facilities captures the cycling patterns of individuals travelling to social hubs, parks, and recreational destinations (e.g. leisure centres, cinemas).
+The total number of trips for each purpose between Data Zones was estimated using a spatial interaction model (SIM), described in an academic paper (Lovelace et al., [2024](https://doi.org/10.1186/s12544-024-00668-8)).
+The SIM estimates the total number of trips as a function of the following inputs: the population of each zone (from the 2021 Census), location and size of trip attractors (from Ordnance Survey Points of Interest and other sources), and national data on the total number of trips for each purpose (based on Scottish Household Survey).
+The number of trips *cycled* for each purpose was estimated using the same uptake function as used to estimate cycling potential for commuting trips, with the exception of shopping trips, in which cycling potential was reduced by half to account for the fact that people are less likely to use active modes when carrying shopping (Iacono et al., [2010](https://doi.org/10.1016/j.jtrangeo.2009.02.002)).
 
-Personal trips captures the cycling patterns of individuals visiting friends and family.
+##### Trip purposes not considered
 
-##### What’s missing from the NPT
+The NPT does not currently include estimates of cycling for recreational purposes or as part of a mixed-mode journey.
 
-The NPT does not currently consider recreational cycling. This is more complex to model as people cycling may not have a specific destination in mind.
+Recreational cycling is important in many places, but has high seasonal variability and is complex to model as people cycling often lack a clear destination. The NPT focuses on everyday cycling, which is more predictable and has a clearer destination.
 
 The NPT currently only considers direct journeys where the whole trip is by bicycle. It does not consider mixed-mode journeys such as cycling to the station and then taking a train to your final destination. This means that the NPT slightly underestimates cycling potential overall and may significantly underestimate cycling potential in specific places (such as around train stations).
 
@@ -101,21 +121,19 @@ The NPT currently only considers direct journeys where the whole trip is by bicy
 
 #### Scenarios
 
-The scenarios drop-down allows you to view different levels of cycling and other information about the road network
+This drop-down allows you to explore anticipated levels of cycling under several 'Scenarios' of change.
 
-##### Baseline 
+##### Baseline 
 
 The baseline scenario represents the current level of cycling. As such, it is intended to show where there is an existing demand for cycling infrastructure.
 
 ##### Go Dutch
 
-The Go Dutch scenario imagines a future with a high level of cycling, where people in Scotland are as likely to travel by cycle as people in the Netherlands while accounting for differences in trip distance and hilliness between locations. People in the Netherlands make 28.4% of trips by bicycle, greater than twenty times higher than the figure of 1.2% in Scotland in 2019 ().The Go Dutch scenario scales up the baseline scenario to a Dutch modal share for cycling in Scotland. This is not produced by scaling up baseline trips by a uniform factor, rather it takes account of trip distance and hilliness. So for example, in flatter areas the Go Dutch scenario will show a greater increase over baseline than equivalent more hilly areas. As such, this network shows how a Dutch modal share for cycling could be distributed across Scotland.
+The Go Dutch scenario imagines a future with a high level of cycling, where people in Scotland are as likely to travel by cycle as people in the Netherlands, while still accounting for differences in trip distance and hilliness between locations. People in the Netherlands make 28% of trips by bicycle, greater than fifteen times higher than the figure of 1.7% in Scotland in 2022. The Go Dutch scenario scales up the baseline scenario to a Dutch modal share for cycling in Scotland. This is not produced by scaling up baseline trips by a uniform factor, rather it takes account of trip distance and hilliness. So for example, in flatter areas the Go Dutch scenario will show a greater increase over baseline than equivalent more hilly areas. As such, this network shows how a Dutch modal share for cycling could be distributed across Scotland. Planners should seek to design cycle networks that meet the needs of those currently cycling and those who may in future.
 
-Planners should seek to design cycle networks that meet the needs of those currently cycling and those who may in future. But they may phase the construction to prioritise roads that will meet the needs of those currently cycling and enable new people to do so.
+##### Ebikes
 
-##### EBikes
-
-The Ebike scenario models the additional increase in cycling that would be achieved on top of the Go Dutch scenario, through the widespread uptake of electric cycles The scenarios alters both the assumptions around cycling uptake and the routes choices made by people cycling, for example a reduced penalty for going up hills. People using a pedal cycle incur a significant time and effort penalty from going uphill. Hence, a longer but flatter route is often faster. A good ebike can enable people to ride uphill at 15 mph without breaking a sweat. Thus ebike riders may choose shorter but hillier routes than those using a pedal cycle.
+The Ebike scenario models the additional increase in cycling that would be achieved on top of the Go Dutch scenario, through the widespread uptake of electric cycles. The scenario alters both the assumptions around cycling uptake and the routes choices made by people cycling, for example a reduced penalty for going up hills. People using a pedal cycle incur a significant time and effort penalty from going uphill. Hence, a longer but flatter route is often faster. A good ebike can enable people to ride uphill at 15 mph without breaking a sweat. Thus ebike riders may choose shorter but hillier routes than those using a pedal cycle.
 
 As ebikes increase the range a typical person can cycle, as well as carrying capacity, while reducing effort and journey times, a world with many ebikes would expect higher levels of cycling than one with only pedal cycles.
 
@@ -129,32 +147,34 @@ The 'network type' reflects route choices people make when cycling. There is str
 
 The need to prioritise creation of a network of safe & direct cycle routes, is central to Transport Scotland's Cycling Framework for Active Travel and Active Travel Strategy Guidance. [Cycling By Design](https://www.transport.gov.scot/publication/cycling-by-design/) defines how to achieve a high level of service for cycling, either through providing cycling facilities physically separated from traffic or on carriageway where traffic speed and volume is sufficiently low.
 
-However, until such a safe & direct network is created, people cycling may make detours away from roads that are (or are perceived to be) dangerous. There is strong evidence that safety concerns are the main barrier to more people cycling.
+However, until such a safe & direct network is created, people currently cycling often make detours away from roads that are (or are perceived to be) dangerous. There is strong evidence that safety concerns are the main barrier to more people cycling.
 
-CycleStreets calculate the routes likely taken by people cycling, and each network type is based on one of their routeing [algorithms](https://www.cyclestreets.net/help/journey/howitworks/). The route choices are based on the current road infrastructure and don't account for planned improvements or missing links.
+CycleStreets calculate the routes likely to be taken by people cycling, and each network type is based on one of their routeing [algorithms](https://www.cyclestreets.net/help/journey/howitworks/). The route choices are based on the current road infrastructure and don't account for planned improvements or missing links.
 
 ![Route network types](/images/rnet_types.png)
 
-Examples of the two network types in Edinburgh show how different assumptions about the routes people cycling take affect where the busiest parts (pink) of the network are predicted to be.
+*Examples of the two network types in Edinburgh show how different assumptions about the routes people cycle affect where the busiest parts (pink) of the network are predicted to be.*
 
 Note that the choice of network type does not just change the routes people take but also the number of cycle trips predicted under each scenario. This is because quieter routes are typically longer and hillier than the direct route which discourages cycling.
 
-##### Fast/Direct (preferred)
+##### Fast/direct (preferred)
 
-This network type should be treated as the default.
+This network type should be treated as the default in the network planning process in line with Transport Scotland policy.
 
-The fastest network is based on people taking the most direct (legal) routes. While people prefer direct routes, this will often bring them onto busy and dangerous major roads, which are a barrier to cycling without the provision of cycle infrastructure separated from traffic. Planners seeking to maximise cycling will build high-quality cycle infrastructure along main roads, which form part of the fastest cycle route network.
+The fastest network is based on people taking the most direct  routes on which it is legal to cycle. While people prefer direct routes, this will often bring them onto busy and dangerous major roads, which are a barrier to cycling without the provision of cycle infrastructure separated from traffic. Planners seeking to maximise cycling will build high-quality cycle infrastructure along main roads, which form part of the fast/direct cycle route network.
 
-High quality cycle network plans, particularly in urban areas, will be based on joining up the fast/direct routes with the highest predicted numbers of cycle trips to create a dense & coherent network. Supplementary guidance on how the tool should be used to generate these dense & coherent cycle networks will be developed to support cycle network planning.
+High quality cycle network plans, particularly in urban areas, will be based on joining up the fast/direct routes with the highest predicted numbers of cycle trips to create a dense & coherent network. Our associated Network Planning Workspace guides users step-by-step through a best practice process for creating a high-quality cycle network plan, based on the principles set out in Cycling by Design. 
+
 
 ##### Quiet/indirect
 
-The quiet network assumes that people will avoid busy roads and be willing to take significant detours. While directing people away from busy roads and onto quieter back streets may seem like a good idea, it can have significant downsides. Quiet routes are often longer and more challenging to navigate as they weave around the back streets. Even if the roads are safe, longer and more complex journeys discourage cycling. The NPT captures this effect, and the total number of cycle trips on the quiet route network is less than on the fast route network.
+The quiet network models cyclist behaviour that avoids busy roads and takes significant detours. While directing people away from busy roads and onto quieter back streets may seem like a good idea, it can have significant downsides. Quiet routes are generally longer and more challenging to navigate as they weave around the back streets, discouraging cycling uptake. The NPT captures this effect, and the total number of cycle trips on the quiet route network is less than on the fast route network.
 
-The most likely application of the 'Quiet/Indirect' network type is to:
+The intended uses of the 'Quiet/Indirect' network type are:
 
-* Identify potential low cost/high impact 'quick wins' where meaningful additions to the cycle network can be made in the very short term e.g. by filtering residential streets parallel to main roads.
-* Supporting the design of Low Traffic or 20-minute Neighbourhoods.
+* Identification of potential low cost 'quick wins' where minor but meaningful additions to the cycle network can be made in the very short term e.g. by filtering residential streets parallel to main roads.
+
+* Supporting the design of Low Traffic Neighbourhoods.
 
 Quiet networks work best when the directness penalty is small. For example, a city with a grid layout could alternate between roads designed for cars and streets designed for active travel.
 
@@ -166,7 +186,7 @@ The image above ([source](https://maps.amsterdam.nl/plushoofdnetten/)) shows how
 
 <!-- #colour -->
 
-#### Line Colour
+#### Line colour
 
 The line colour option allows you to visualise different characteristics of the route network. Below the line colour option is a contextual legend which shows the meaning of the colours on the map.
 
@@ -174,7 +194,7 @@ The line colour option allows you to visualise different characteristics of the 
 
 ![Number of cycle trips](/images/number_of_cyclists.png)
 
-This is an estimate of the average number of daily cycle trips in either direction (AADT) passing along each segment, for the selected purpose, network type, and scenario.
+This is an estimate of the average annual daily traffic (AADT), meaning the number of daily cycle trips in both directions (so a return trip on the same route counts as 2), on each segment, for the selected purpose, network type, and scenario.
 
 The thickness of the lines in the route network is also defined by the number of cycle trips, with thicker lines representing more people cycling.
 
@@ -191,26 +211,32 @@ Factors that contribute to a higher score of cycle friendliness include (as appr
 * Presence of cycle infrastructure
 * Speed limit
 * Surface quality
-* Cycle signage, 
+* Cycle signage, 
 * Any barriers or obstructions
 * Path width
 * Route legibility
 
-See [CycleStreets](https://www.cyclestreets.net/help/journey/howitworks/) for further information, the term ‘quietness’ is used for the same measure that we call ‘cycle friendliness’.
+See [CycleStreets](https://www.cyclestreets.net/help/journey/howitworks/#quietness) for further information, the term 'quietness' is used for the same measure that we call 'cycle friendliness'.
 
 ##### Gradient
 
 ![Gradient](/images/gradient.png)
 
-The average gradient of the road is shown as a percentage. Steeper roads are a barrier to cycling and affect route choice and the uptake of cycling in the scenarios. Please note in some locations where the network does follow the land contours, e.g. some bridges, the gradient will incorrectly show flat sections of network as steep. This is something we are working to resolve.
+The average gradient of the road is shown as a percentage. Steeper roads are a barrier to cycling and affect route choice and the uptake of cycling in the scenarios. Please note that in some locations where the network does not follow the land contours, such as elevated structures like North Bridge in Edinburgh, the gradient will incorrectly show flat sections of network as steep. This issue does not affect all bridges, for example, bridges over the River Clyde in Glasgow show correct gradients. We are aware of this inconsistency and are working to address it.
 
 <!-- /#colour -->
 
 <!-- #simplified_rnet -->
 
-#### Simplified Route Network
+#### Simplified route network
 
-The NPT includes a 'Simplified' toggle that streamlines the route network display. Major road corridors can be complex with multiple carriageways, cycle paths, and footways. It can be confusing to judge overall demand if people cycling are split across multiple overlapping routes. The simplified network attempts to address this problem by combining parallel routes into a single line. However, this consolidation is intricate and may lead to a loss of detail. For a comprehensive analysis, it's advisable to consider both the simplified and the full route networks in tandem when evaluating cycling demand. This dual approach helps balance the big-picture overview with the nuanced details of specific routes.
+The NPT includes a 'Simplified' toggle that simplifies the route network display. Major road corridors can be complex with multiple adjacent carriageways, cycle paths and footways, which are often shown as individual line features on OSM. This makes it hard to assess overall demand across corridors that contain multiple parallel segments. The simplified network attempts to address this problem by combining parallel routes into a single 'centerline' for each corridor.
+
+**Disclaimer:** The simplified network uses OS Open Roads, which aggregates values from the OSM layer. This joining stage may yield some errors. Please report any noticed errors.
+
+Application of the Simplified network can lead to a loss of detail. For a comprehensive analysis, it's advisable to consider both the simplified and the full route networks in tandem when evaluating cycling demand. This dual approach helps balance the big-picture overview with the nuanced details of specific routes. 
+
+
 
 ![Simplified Network](/images/simplified.png)
 
@@ -222,11 +248,11 @@ Clicking on any segment within the route network on the map will display a pop-u
 
 ![Popup](/images/rnet_popup.png)
 
-The popup provides a summary table for all the information available about the route network. The table displays the number of cycle trips for each scenario - such as baseline, Go Dutch, and e-bikes - and distinguishes between the Fast/Direct and Quiet/Indirect network types. Below the table, the average gradient of the road and its cycle friendliness score are shown, which assesses the suitability of the road for cycling. Additionally, there's an option to directly access the Google Street View of the road, if available, for a more grounded perspective.
+The popup provides a summary table for all the information available about the route network. The table displays the number of cycle trips for each scenario - such as baseline, Go Dutch, and e-bikes - and distinguishes between the Fast/Direct and Quiet/Indirect network types. Above the table, the average gradient of the road and its cycle friendliness score are shown, which assesses the suitability of the road for cycling. Additionally, there's an option to directly access the Google Street View of the road, if available, for a more grounded perspective.
 
 <!-- #filters -->
 
-### Route network filters
+#### Route network filters
 
 ![Route network filters](/images/rnet_filters.png)
 
@@ -248,50 +274,79 @@ Set the maximum and minimum quietness of roads that are visible. Quietness measu
 
 <!-- #coherentnetwork -->
 
-### Coherent network
+### 2.2. The coherent network layer {coherentnetwork}
 
-This section outlines the development of a coherent or "core" cycling network, composed of high-potential, direct routes that strategically connect urban areas. Created through automated analysis, this network emphasises coherence in design to ensure cycling infrastructure is functional, accessible, and efficient.
+This section outlines the development of a coherent strategic cycling network, composed of high-potential, direct routes within urban areas. Created through automated analysis, this network emphasises coherence in network planning to ensure cycling infrastructure is functional, accessible and efficient.
 
-The core network serves as a guide for prioritising investment by highlighting routes that maximize coverage and connectivity across urban zones. The methodology used focuses on several key aspects:
+The coherent network can be used as a 'starter for 10' in the Network Planning Workspace to quickly plan a strategic cycle network in urban areas prioritising investment by highlighting routes that maximize coverage and connectivity, while aligning with demand. The methodology used focuses on several key aspects.
+See [github.com/nptscot/corenet](https://github.com/nptscot/corenet) for details, links to the code and data, and a more detailed description of the methodology.
 
-#### Data Integration
+<!-- #### Data integration
 
 Ordnance Survey Open Roads (OS) provides the foundational structure, complemented by OpenStreetMap (OSM) data to include off-road paths and cycle lanes. This integration ensures that both official road classifications and additional cycling-specific infrastructure are represented.
 
-#### Network Filtering and Clustering
+#### Network filtering and clustering
 
-Route selection for the coherent network is based on two key attributes: road classification and cycling connectivity potential, both of which influence the "arterialness" score. This score prioritises routes that balance road hierarchy with accessibility for cyclists. Using a spatial clustering algorithm (DBSCAN), high-flow areas are identified, forming a focused core network by filtering out redundant or isolated segments. This method ensures that selected routes maximize connectivity and suitability, aligning the network’s structure with both directness and density requirements.
+Route selection for the coherent network is based on two key attributes: road classification and cycling connectivity potential, both of which influence the "arterialness" score. This score prioritises routes that balance road hierarchy with accessibility for cyclists. Using a spatial clustering algorithm (DBSCAN), high-flow areas are identified, forming a focused coherent network by filtering out redundant or isolated segments. This method ensures that selected routes maximize connectivity and suitability, aligning the network's structure with both directness and density requirements.
 
-#### Directness and Density Optimization
+Routes are classified into primary and secondary categories based on road type. A roads are classified as primary routes, forming the backbone of the cycling network. All other roads, including B roads, minor roads, and off-road paths, are classified as secondary routes, providing supplementary connections and ensuring comprehensive coverage.
 
-The network is adjusted to ensure direct routes with optimal density, following Transport Scotland’s specifications (250m in urban centres, 400m in suburban areas). This allows the network to meet a wide range of origin-destination trip needs, improving access and usability.
 
-#### Iterative Refinement
+#### Directness and density optimisation
+
+The network is adjusted to ensure direct routes with optimal density (e.g. 250m in urban centres, 400m in suburban areas). This allows the network to meet a wide range of origin-destination trip needs, improving access and usability.
+
+#### Iterative refinement
 
 Stakeholder feedback and ongoing urban data updates support iterative refinements, aligning the network with evolving user needs and policy objectives.
 
-By focusing on coherence, directness, and optimal route density, this core network offers a structured foundation for future investment, supporting sustainable urban transport by ensuring that cycling routes are accessible, efficient, and well-integrated across urban contexts.
+By focusing on coherence, directness, and optimal route density, this coherent network offers a structured foundation for cycle network planning. -->
 
 
 <!-- /#coherentnetwork -->
 
 <!-- #clos -->
 
-### Infrastructure and traffic
+### 2.3. The existing cycle network layer {clos}
 
-This section provides data on existing infrastructure, speed limits, volumes and estimated Cycling Level of Service (LoS).
+The "existing cycle network" is defined as all roads and paths on which it is legal to cycle. The default view for this layer shows an assessment of the quality of the existing cycle network, using a high-level assessment of the Cycling Level of Service (LoS). In network planning, a high LoS network should be designed so that it is suitable for most users, including new and less confident users. In general the LoS will be high where either the traffic speeds and volumes are sufficiently low or where safe cycle infrastructure is provided to sufficiently physically separate people cycling from traffic. As a result, this layer is useful to help define where new infrastructure is needed as part of the network planning process. It provides a graphical representation of the distribution of high LoS roads across Scotland that are suitable for most users. 
 
-The ratings for Level of Service reflect the [Cycling by Design guidance](https://www.transport.gov.scot/media/50323/cycling-by-design-update-2019-final-document-15-september-2021-1.pdf) - see table 3.2 on page 51.
+This section also provides data on existing cycle infrastructure, speed limits and estimated traffic volumes. 
+
+#### Level of service
+
+The LoS layer provides an overview of the existing cycle network quality in Scotland, by providing a high-level assessment of LoS based on the [Cycling by Design guidance](https://www.transport.gov.scot/media/50323/cycling-by-design-update-2019-final-document-15-september-2021-1.pdf) (Table 3.2).
+It is produced taking account of existing cycle infrastructure, speed limits and traffic volumes on each link.
 
 ![Table 3.2: When to separate cycle users from motor traffic](/images/clos_facilities.png)
+
+Note: Table 3.2 displays Motor Traffic Speed in KPH ranges. For applying this guidance in the UK, these KPH ranges are mapped to the corresponding UK statutory MPH speed limits as follows:
+*   20 mph statutory speed limit correspond to the 0 kph to 30 kph range.
+*   30 mph statutory speed limit correspond to the 30 kph to 50 kph range.
+*   40 mph statutory speed limit correspond to the 50 kph to 65 kph range.
+*   50 mph statutory speed limit correspond to the 65 kph to 80 kph range.
+*   60 mph statutory speed limit correspond to the 80 kph to 95 kph range.
+*   60+ mph statutory speed limit correspond to the 95 kph to 110 kph range.
 
 <!-- /#clos -->
 
 <!-- #infrastructuretypes -->
 
-### Cycle infrastructure types
+#### Estimated traffic volume
 
-We have categorised the various types of cycle infrastructure as follows:
+The traffic volume layer visualises modelled traffic levels for roads on which cycling is permitted. The primary source of input data for major roads is the Department for Transport (DfT) road traffic statistics, which primarily cover major roads and are publicly available at [roadtraffic.dft.gov.uk](https://roadtraffic.dft.gov.uk).
+
+To estimate motor traffic on roads for which data is lacking, we developed a model that uses [centrality](https://en.wikipedia.org/wiki/Centrality) (a measure of how central segments are to the road network), population density, and employment density to estimate average annual daily traffic (AADT). For specific low-speed environments, such as service roads and car parks, a 10 mph speed assumption is applied in the model.
+
+The model was trained and validated using real-world traffic count data from a selection of 20 mph residential roads in Edinburgh to ensure its accuracy. The outputs are categorised into bands that correspond to the guidance in the [Cycling by Design document](https://www.transport.gov.scot/media/50323/cycling-by-design-update-2019-final-document-15-september-2021-1.pdf#page=68), with the following ranges: 0-999, 1,000-1,999, 2,000-3,999, and 4,000+ AADT.
+
+Due to limitations in the size of the training dataset and the quality of the input datasets representing the road network, the model may not accurately predict traffic volumes for all roads and should be interpreted accordingly.
+Traffic volumes vary over yearly, monthly, weekly, and daily timescales based on a range of factors, so users should defer to recent traffic counts or local knowledge where available.
+Where traffic levels are a key determinant in decision-making, we recommend that users conduct their own traffic counts to validate the model outputs.
+
+#### Cycle infrastructure
+
+Cycle infrastructure is classified as follows:
 
 <table>
     <tr>
@@ -302,170 +357,215 @@ We have categorised the various types of cycle infrastructure as follows:
     </tr>
     <tr>
         <td>Segregated Track (wide)</td>
-        <td>Segregated (including light segregation and tracks carriageway or footway level based on <a href="https://www.transport.gov.scot/media/50323/cycling-by-design-update-2019-final-document-15-september-2021-1.pdf#page=56" target="_blank">Cycling by Design</a> guidance) roadside cycle track that is the <a href="https://www.transport.gov.scot/media/50323/cycling-by-design-update-2019-final-document-15-september-2021-1.pdf#page=85" target="_blank">desirable minimum width</a> (2 m) or more according to OpenStreetMap <a href="https://wiki.openstreetmap.org/wiki/Key:width" target="_blank">width</a> or <a href="https://wiki.openstreetmap.org/wiki/Key:est_width" target="_blank">est_width</a> tags. Likely compliant with Cycling by Design guidance.</td>
-        <td><a href="https://www.cyclestreets.net/location/81274/" target="_blank"><img src="/manual/segregated.jpg" alt="Segregated track (wide)" /></a></td>
+        <td>Roadside infrastructure that is designated for cycling and provides physical protection from motor traffic and separation from pedestrians. Segregated Tracks include the following categories from Cycling by Design guidance: cycle tracks at carriageway level, light segregation, stepped cycle tracks, and footway level cycle tracks separated from pedestrians. Network segments classified with the Segregated Track (wide) category are the <a href="https://www.transport.gov.scot/media/50323/cycling-by-design-update-2019-final-document-15-september-2021-1.pdf#page=85" target="_blank">desirable minimum width</a> (2 m) or more according to OpenStreetMap <a href="https://wiki.openstreetmap.org/wiki/Key:width" target="_blank">width</a> or <a href="https://wiki.openstreetmap.org/wiki/Key:est_width" target="_blank">est_width</a> tags. Likely compliant with Cycling by Design guidance.</td>
+        <td><a href="https://www.cyclestreets.net/location/81274/" target="_blank"><img src="/manual/segregated.jpg" alt="Segregated track" /></a></td>
         <td><span style="background-color: #054d05; color: white;">Dark green</span></td>
     </tr>
     <tr>
-        <td>Off Road Cycleway</td>
-        <td>Off road or 'detached' cycle track/path that is far (at least 10 m in its centre) from roads. Likely compliant with Cycling by Design guidance.</td>
-        <td><a href="https://www.cyclestreets.net/location/86744/" target="_blank"><img src="/manual/offroad.jpg" alt="Off road cycleway" /></a></td>
+        <td>Off Road Path</td>
+        <td>These are paths which are not adjacent to a road (defined as more than a 10 m threshold distance to a road on which cycling is permitted). They are often shared use, without separation between cycling and walking. In Cycling by Design they are called 'detached or remote cycle tracks'.</td>
+        <td><a href="https://www.openstreetmap.org/way/41386401#map=18/56.368094/-2.891781" target="_blank"><img src="/manual/offroad.png" alt="Off Road Path" /></a></td>
         <td><span style="background-color: #3a9120; color: white;">Mid green</span></td>
     </tr>
-    <tr>
+        <tr>
         <td>Segregated Track (narrow)</td>
-        <td>Segregated roadside cycle track that is less than the <a href="https://www.transport.gov.scot/media/50323/cycling-by-design-update-2019-final-document-15-september-2021-1.pdf#page=85" target="_blank">desirable minimum width</a> (2 m) according to OpenStreetMap <a href="https://wiki.openstreetmap.org/wiki/Key:width" target="_blank">width</a> or <a href="https://wiki.openstreetmap.org/wiki/Key:est_width" target="_blank">est_width</a> tags. May or may not be Cycling by Design compliant.</td>
+        <td>Segregated roadside cycle track, as described above, but which is less than the <a href="https://www.transport.gov.scot/media/50323/cycling-by-design-update-2019-final-document-15-september-2021-1.pdf#page=85" target="_blank">desirable minimum width</a> (2 m) or has no width information based on OpenStreetMap <a href="https://wiki.openstreetmap.org/wiki/Key:width" target="_blank">width</a> or <a href="https://wiki.openstreetmap.org/wiki/Key:est_width" target="_blank">est_width</a> tags. May or may not be Cycling by Design compliant.</td>
         <td><a href="https://www.cyclestreets.net/location/196620/" target="_blank"><img src="/manual/segregated-narrow.jpg" alt="Segregated track (narrow)" /></a></td>
         <td><span style="background-color: #87d668; color: white;">Light green</span></td>
     </tr>
     <tr>
+    <tr>
         <td>Shared Footway</td>
-        <td>Roadside shared pedestrian/cycle path/footway. May or may not be Cycling by Design compliant.</td>
+        <td>In Cycling by Design this is a "cycle track at footway level (adjacent to carriageway)" that does not provide separation from pedestrians, i.e. a pavement that has been designated for use by both pedestrians and people cycling.</td>
         <td><a href="https://www.cyclestreets.net/location/92805/" target="_blank"><img src="/manual/shareduse.jpg" alt="Shared footway" /></a></td>
         <td><span style="background-color: #ffbf00; color: white;">Orange</span></td>
     </tr>
     <tr>
         <td>Painted Cycle Lane</td>
-        <td>On-carriageway cycle lane. Not Cycling by Design compliant.</td>
+        <td>On-carriageway cycle lane that does not provide physical protection from motor traffic. It includes both advisory and mandatory cycle lanes</td>
         <td><a href="https://www.cyclestreets.net/location/81341/" target="_blank"><img src="/manual/lane.jpg" alt="Painted cycle lane" /></a></td>
         <td><span style="background-color: #ff0000; color: white;">Red</span></td>
     </tr>
 </table>
 
+#### Speed limit
+
+The speed limit data displayed in the NPT is primarily sourced from OpenStreetMap (OSM). In instances where speed limit information is not explicitly available in the OSM data, the following assumptions are applied to infer the speed limit based on the `highway` tag:
+
+*   **10 mph**: Assumed for `highway` types classified as "service".
+*   **30 mph**: Assumed for `highway` types classified as "residential".
+*   **40 mph**: Assumed for `highway` types classified as "primary", "secondary", or "tertiary". This is a general assumption, as actual speed limits can vary between urban (often 30 or 40 mph) and rural (often 60 mph) contexts for these road types.
+*   **60 mph**: Assumed for `highway` types classified as "trunk".
+*   **70 mph**: Assumed for `highway` types classified as "motorway".
+*   **No speed limit assigned (`NA`)**: For `highway` types such as "footway", "cycleway", "path", "pedestrian", or "razed", no speed limit is assigned.
+*   If a `highway` type does not fall into any of the above categories and lacks an explicit speed tag, its speed limit also remains `NA`.
+
 
 <!-- /#infrastructuretypes -->
 
+### 2.4. Street space evaluation {streetspace}
+
+<!-- From index.html, see the table beginning:
+ 				<div class="layertools layertools-streetspace">
+-->
+
+The Street Space layer allows a rapid, at-a-glance evaluation of the spatial deliverability of segregated cycle infrastructure (on links requiring dedicated infrastructure).
+
+It categorises roads in accordance with the [Cycling by Design guidance](https://www.transport.gov.scot/media/50323/cycling-by-design-update-2019-final-document-15-september-2021-1.pdf#page=68). It specifies the methodology for classifying road space and cycle infrastructure. The sections below describe the measurement methods and datasets used, the cycle infrastructure types considered, and the assumptions regarding bus routes and road types.
+
+The analysis compares the space required for segregated cycle infrastructure (widths taken from [Cycling by Design guidance table 3.2](https://www.transport.gov.scot/media/50323/cycling-by-design-update-2019-final-document-15-september-2021-1.pdf#page=68)) with the available kerb-to-kerb (carriageway) or full corridor (including footways and verges) widths.
+
+Note: Space required for parking and loading is currently excluded from the analysis, due to lack of a national parking & loading dataset.
+
+
+#### Road width measurements
+
+Two key measurements are taken to assess whether existing roads can accommodate cycle infrastructure: carriage width and corridor width. 
+Data on carriageway widths were derived from Ordnance Survey Mastermap Highways data, using the "averageWidth" attribute from the RoadLink layer (see [docs.os.uk](https://docs.os.uk/os-downloads/networks/os-mastermap-highways-network-roads/os-mastermap-highways-network-roads-technical-specification/structured-data-types/roadwidthtype) for details).
+Data on pavement widths were derived from Ordnance Survey Mastermap Topographic data (see terms and conditions below). These width attributes were truncated to 1 metre precision and aggregated to OS OpenRoads geometries to simplify the data for visualisation in the web app. In cases where a single OpenRoads centreline represents two or more carriageways or pavements, the width attributes were added.
+
+#### Within road width (Carriageway width) 
+   
+- **Definition:** The width available within the carriageway only.
+- **Excludes:** Manmade roadside area such as footways.
+- **Usage:** Determines if cycle infrastructure can fit solely within the carriageway.
+
+#### Using edge-to-edge (Corridor width)
+
+- **Definition:** The total width of the road corridor, encompassing both the carriageway and manmade roadside features (e.g., footways). 
+- **Usage:** Where local policy allows, part of the footway or other manmade roadside features may be reallocated for cycle infrastructure, provided that minimum safe footway widths are maintained (2x 2 m footway width).
+
+#### Cycle infrastructure width requirements
+
+Two main types of cycle infrastructure are considered, depending on the street configuration:
+
+Two Unidirectional Protected Cycle Tracks, one on each side of the street  (shown as '2 x 1 -way tracks' in the tool):
+  - *Absolute Minimum Width:* 1.5 m  
+  - *Desirable Minimum Width:* 2.0 m  
+
+A single Bidirectional Cycle Track on one side of the street  (shown as 2-way track):
+  - *Absolute Minimum Width:* 2.0 m
+  - *Desirable Minimum Width:* 3.0 m
+
+#### Buffers for cycle infrastructure
+
+Buffers are applied based on road speed and traffic conditions, as specified in Table 3.8 of the Cycling by Design document [Cycling by Design document](https://www.transport.gov.scot/media/50323/cycling-by-design-update-2019-final-document-15-september-2021-1.pdf#page=64). These buffers must be accounted for when calculating the effective available width for cycle infrastructure.
+
+| Road type / Speed limit | Buffer width |
+|-------------------------|--------------|
+| 30 mph                  | 0.5 m        |
+| 40 mph                  | 1.0 m        |
+| 50 mph                  | 2.0 m        |
+| 60 mph                  | 2.5 m        |
+| 70 mph                  | 3.5 m        |
+
+#### Bus routes and road traffic assumptions
+
+##### Bus routes and dedicated bus lanes
+
+Bus routes and dedicated bus lanes are key factors in determining the available space for cycle infrastructure:
+
+- **Non-bus routes:**  
+  The necessary carriageway lane width is considered to be **2 × 2.75 m**.
+
+- **Bus routes without dedicated bus lanes:**  
+  The necessary carriageway lane width to accommodate buses is considered to be **2 × 3.2 m**.
+
+- **Bus routes with dedicated bus lanes:**  
+  The necessary carriageway lane width to accommodate dedicated bus lanes is considered to be **2 × 3.2 m** plus an additional space of **`n_bus_lanes` × 3.2 m** for the dedicated bus lanes.
+
+##### Road types
+
+Roads are categorised based on their traffic configuration and bus route status:
+- Two‐way for motor traffic (non–bus route)
+- Two‐way for motor traffic (bus route without dedicated bus lanes)
+- Two‐way for motor traffic (bus route with dedicated bus lanes)
+
+#### Categorisation based on available width
+
+The Street Space layer divides roads into three groups, depending on whether the available width (carriageway width or corridor width) can accommodate the cycle infrastructure:
+
+- **Not enough space:**
+  The available space is insufficient to fit even the absolute minimum width of cycle infrastructure.
+
+- **Absolute minimum:**
+  The available space is enough to accommodate the absolute minimum width of cycle infrastructure, but it does not meet the desirable minimum.
+
+- **Desirable minimum:**
+  The available space is sufficient to accommodate the desirable minimum width of cycle infrastructure, providing a more comfortable design for all users.
+
+
+<!-- /#streetspace -->
+
 <!-- #data_zones -->
 
-### Data zones
+### 2.5. Data zones {datazones}
 
-Data Zones are small statistical neighbourhoods created for the Census. In the NPT, they are used to provide contextual area-based information.
+Data Zones are small geographic zones created for summarising Census datasets.
+In the NPT, they are used to provide contextual area-based information.
 
 ![Data zones](/images/data_zones.png)
 
-The data zone options are:
+Data zones can be visualised based on the following attributes:
 
-* % commuter cycling (baseline)
+* % commuter cycling (Baseline)
 * % commuter cycling (Go Dutch)
-* Population density (per hectare)
-* Index of Multiple Deprivation (2020)
-* Drive time to a petrol station
-* Drive time to GP
-* Drive time to post office
-* Drive time to a retail centre
-* Drive time to primary school
-* Drive time to secondary school
-* Public transport time to GP
-* Public transport time to a post office
-* Public transport time to a retail centre
-* % without superfast broadband
+* Population density (per hectare) (from 2021 Census)
+* Index of Multiple Deprivation (2020) (from the Scottish Indices of Multiple Deprivation)
+<!-- TODO: update these when we find out -->
+* Drive time to a petrol station (from the Scottish Indices of Multiple Deprivation)
+* Drive time to GP (from the Scottish Indices of Multiple Deprivation)
 
-**Dasymetric mode**
-
-By default, the data zones are shown as a [dasymetric map](https://en.wikipedia.org/wiki/Dasymetric_map). This means that the buildings within a zone are coloured to display information. If you turn off dasymetric mode, a simple [choropleth map](https://en.wikipedia.org/wiki/Choropleth_map) is shown where the whole Data Zone is coloured. Note that the same underlying data is being visualised in both modes, and the differences between modes are merely aesthetic. However, dasymetric maps are intended to better represent the data by emphasising the true locations of people who are not uniformly distributed across the Data Zone. 
-
-![Dasymetric maps](/images/dasymetric.png)
-
-Dasymetric map (left) and choropleth map (right) for the Index of Multiple Deprivation in Edinburgh.
-
-<!-- /#data_zones -->
-
-#### Data Zone popup
-
-Clicking on any Data Zone shows the popup report for that zone. Ten graphs are presented
-
-##### Commuters leaving
-
-The bar chart shows estimated mode shares under different scenarios for people leaving this zone to go to work. (i.e. they live here and commute to another zone).
-
-##### Commuters arriving
-
-The bar chart shows estimated mode shares under different scenarios for people arriving in this zone at work. (i.e. they work here and live in another zone).
-
-##### Primary school children
-
-The bar chart shows estimated mode shares under different scenarios for primary school children that live in this zone.
-
-##### Secondary school children
-
-The bar chart shows estimated mode shares under different scenarios for secondary school children that live in this zone.
-
-##### Shoppers leaving
-
-The bar chart shows estimated mode shares of shopping trips under different scenarios for trips leaving this zone.
-
-##### Shoppers arriving
-
-The bar chart shows estimated mode shares of shopping trips under different scenarios for trips arriving this zone.
-
-##### People leaving to travel to a Leisure facility
-
-The bar chart shows estimated mode shares of leisure trips under different scenarios for trips leaving this zone.
-
-##### People arriving at a Leisure facility
-
-The bar chart shows estimated mode shares of leisure trips under different scenarios for trips arriving this zone.
-
-##### People leaving to visit friends and family
-
-The bar chart shows estimated mode shares of trips for visiting friends and family under different scenarios for trips leaving this zone.
-
-##### People arriving to visit friends and family
-
-The bar chart shows estimated mode shares of trips for visiting friends and family under different scenarios for trips arriving this zone.
-
-### Other layers
+### 2.6. Other layers {otherlayers}
 
 The NPT provides several supplementary map layers that enhance the contextual understanding of the cycling network
+
+<!-- TODO: add year to data sources -->
 
 * Schools (click on a school to see current and potential future mode split data): Revealing the locations of primary, secondary, and other educational institutions, this layer allows users to click on individual schools to review the present and potential future distribution of travel modes among students
 * Wards: This layer overlays the boundaries of local electoral wards onto the map
 * Scottish Parliamentary Constituencies: Users can display the geographic divisions for Scottish parliamentary representation
 * Local Authority: Highlight the administrative areas within Scotland, aiding in planning and analysis at a local government level.
 
-## Accessing the NPT 
+## 3. Accessing the NPT {#access}
 
-### Progressive Web App
+#### Progressive Web App
 
-The NPT is a Progressive Web App (PWA), which can be installed on many devices, including your smartphone. The App provides the same features as the website. Still, it includes additional benefits such as pining the App to your device’s home screen and full-screen support.
+The NPT is a Progressive Web App (PWA), which can be installed on many devices, including your smartphone. The App provides the same features as the website. Still, it includes additional benefits such as pinning the App to your device's home screen and full-screen support.
 
-How to install the NPT App
+How to install the NPT as an app
 
 #### Android
 
-1.  Visit [www.npt.scot](http://www.npt.scot) using Google Chrome
-2.  Click the “Add NPT to Home screen” and follow the instructions
+1.  Visit [www.npt.scot](http://www.npt.scot) using Google Chrome
+2.  Click the "Add NPT to Home screen" and follow the instructions
 
-If the “Add NPT to Home screen” option does not appear, you can also select the “Install app” option from the main chrome menu (…)
+If the "Add NPT to Home screen" option does not appear, you can also select the "Install app" option from the main chrome menu (…)
 
 #### Windows 10 & 11 and Linux
 
-1.  Visit [www.npt.scot](http://www.npt.scot) using Microsoft Edge or Chrome
+1.  Visit [www.npt.scot](http://www.npt.scot) using Microsoft Edge or Chrome
 2.  In the address bar, click the App install button
 3.  Click install
 
 #### iOS
 
-1.  Visit [www.npt.scot](http://www.npt.scot) using Safari
+1.  Visit [www.npt.scot](http://www.npt.scot) using Safari
 2.  In the bottom menu bar, click the share button (middle button)
-3.  Click “Add to Home Screen”
-4.  Click “Add”
+3.  Click "Add to Home Screen"
+4.  Click "Add"
 
 #### macOS
 
-1.  Visit [www.npt.scot](http://www.npt.scot) using Safari
+1.  Visit [www.npt.scot](http://www.npt.scot) using Safari
 2.  In the address bar, click the App install button
 3.  Click install
 
-<!--
+## 4. Data downloads {#data}
 
-#### Schools popup
+A series of open access [data downloads](https://github.com/nptscot/npt/releases/tag/v2025-05-01) that can be analysed in-house with GIS such as QGIS or data science tools such as R and Python.
+Click on the "Data" tab in the top menu to access the data downloads.
 
-Clicking on any school shows the schools popup
+## 5. The Network Planning Workspace (NPW) {npw}
 
-### Trip ends
-
-Travel data can be summarised by origins or destinations. Consider work travel; typically, people travel from many residential areas at the edge of cities into a few city centre areas where most jobs are concentrated. So mapping cycling by origins shows information about residents. But mapping by destination shows information about workers.
-
--->
-
+The Network Planning Workspace (NPW) is a tool that builds on and makes use of the NPT data for more advanced users and people who want to plan cycle networks. It allows users to sketch a proposed cycle network on the map and assess the quality of the network plan. It can be accessed using the ‘Local Authorities’ tab or directly via npw.scot.  See the NPW web application at [npw.scot](https://nptscot.github.io/npw/) for more information.

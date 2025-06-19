@@ -1,47 +1,62 @@
-/* Convert Markdown to HTML */
-loadManual ();
+// Load data
+loadLocalAuthorities (settings);
 
 // Top nav
 topnav ();
 
 
 // Load the Markdown file as text and place it into the content div
-function loadManual ()
+function loadLocalAuthorities (settings)
 {
-  fetch ('index.md')
-    .then (response => response.text ())
-    .then (function (text) {
-      document.querySelector ('#content').innerHTML = mdToHtml (text);
-      followAnchorHash ();
-      createToc ();
-      createEditLink ();
-    })
-    .catch (function (error) {
-      alert('Failed to load manual text.');
-    });
+	// Fetch the data
+	fetch (settings.boundariesUrl)
+		.then (function (response) {
+			return response.json ();
+		})
+		.then (function (boundaries) {
+			
+			// Filter for LADs only and sort them alphabetically by name initially
+			const ladFeatures = boundaries.features
+				.filter(feature => feature.properties.kind === 'LAD')
+				.sort((a, b) => a.properties.name.localeCompare(b.properties.name));
+
+			// Add the list
+			const div = document.createElement ('div');
+			div.id = 'localAuthoritiesListContainer'; // Changed ID for clarity
+			div.innerHTML = boundariesList (ladFeatures); // Use new list rendering function
+			document.querySelector ('#content').appendChild (div);
+
+			// Add search functionality
+			const searchInput = document.getElementById('searchInput');
+			searchInput.addEventListener('keyup', function() {
+				const filter = searchInput.value.toLowerCase();
+				// Filter from the initially sorted ladFeatures list and re-sort
+				const filteredLads = ladFeatures
+					.filter(feature => {
+						return feature.properties.name.toLowerCase().includes(filter);
+					})
+					.sort((a, b) => a.properties.name.localeCompare(b.properties.name)); // Ensure filtered results are also sorted
+				div.innerHTML = boundariesList(filteredLads); // Update with list rendering
+			});
+		});
 }
 
 
-// Function to convert the loaded Markdown file text to HTML
-function mdToHtml (mdText)
+// Function to render the list (renamed from boundariesTable)
+function boundariesList (features) 
 {
-  const converter = new showdown.Converter ({tables: true, customizedHeaderId: true});
-  const html = converter.makeHtml (mdText);
-  return html;
+	// Build the list from each feature
+	let html = '<ul class="lad-list">'; // Use a class for potential styling
+	features.forEach (function (feature) { 
+		const linkUrl = 'https://npw.scot/npw?boundary=LAD_' + encodeURIComponent (feature.properties.name);
+		html += '<li><a href="' + linkUrl + '">' + feature.properties.name + '</a></li>'; 
+	});
+	html += '</ul>';
+	
+	// Return the HTML
+	return html;
 }
 
-
-// Function to follow the anchor hash for JS-loaded content (which loads after document ready)
-function followAnchorHash ()
-{
-  // Go to hash if present; see: https://stackoverflow.com/a/13736194/180733
-  if (window.location.hash) {
-    if (document.getElementById (window.location.hash.substring (1))) {
-      const top = document.getElementById (window.location.hash.substring (1)).offsetTop;
-      window.scrollTo (0, top);
-    }
-  }
-}
 
 
 // Function to create table of contents
