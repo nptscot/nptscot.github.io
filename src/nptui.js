@@ -142,12 +142,22 @@ const nptUi = (function () {
 		// Welcome screen
 		welcomeScreen: function ()
 		{
-			// Show only first time
+			// Define the modal
+			const welcomeModal = nptUi.newModal ('welcome-modal');
+			
+			// Beta button
+			if (document.getElementById ('betabanner')) {
+				document.getElementById ('betabanner').addEventListener ('click', function (e) {
+					welcomeModal.show ();
+					e.preventDefault ();
+				});
+			}
+			
+			// Show initially
 			const cookieName = 'welcomescreen';
 			if (nptUi.getCookie (cookieName)) {return;}
 			
 			// Create modal
-			const welcomeModal = nptUi.newModal ('welcome-modal');
 			welcomeModal.show ();
 			
 			// Set OSM and update dates in the text, if present
