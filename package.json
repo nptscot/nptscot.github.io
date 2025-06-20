@@ -19,6 +19,9 @@
     "url": "https://github.com/nptscot/nptscot.github.io/issues"
   },
   "homepage": "https://npt.scot",
+  "scripts": {
+    "build": "echo \"No build specified\""
+  },
   "dependencies": {
     "nouislider": "^15.7.0"
   }
