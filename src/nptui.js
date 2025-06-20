@@ -144,11 +144,22 @@ const nptUi = (function () {
 		{
 			// Define the modal
 			const welcomeModal = nptUi.newModal ('welcome-modal');
+
+			const showAndPopulateWelcomeModal = function () {
+				// Set OSM and update dates in the text, if present
+				for (const element of document.getElementsByClassName('osmupdatedate')) {
+					element.innerHTML = nptUi.formatAsUKDate (_build.osmDate);
+				}
+				if (document.getElementById ('updatedate')) {
+					document.getElementById ('updatedate').innerText = nptUi.formatAsUKDate (document.lastModified);
+				}
+				welcomeModal.show();
+			};
 			
 			// Beta button
 			if (document.getElementById ('betabanner')) {
 				document.getElementById ('betabanner').addEventListener ('click', function (e) {
-					welcomeModal.show ();
+					showAndPopulateWelcomeModal();
 					e.preventDefault ();
 				});
 			}
@@ -158,15 +169,7 @@ const nptUi = (function () {
 			if (nptUi.getCookie (cookieName)) {return;}
 			
 			// Create modal
-			welcomeModal.show ();
-			
-			// Set OSM and update dates in the text, if present
-			if (document.getElementById ('osmupdatedate')) {
-				document.getElementById ('osmupdatedate').innerHTML = nptUi.formatAsUKDate (_build.osmDate);
-			}
-			if (document.getElementById ('updatedate')) {
-				document.getElementById ('updatedate').innerText = nptUi.formatAsUKDate (document.lastModified);
-			}
+			showAndPopulateWelcomeModal();
 			
 			// Set cookie
 			nptUi.setCookie (cookieName, 'true');
@@ -599,7 +602,7 @@ const nptUi = (function () {
 		parseMapHash: function ()
 		{
 			// Extract the hash and split by /
-			const mapHash = _hashComponents.map.replace (new RegExp ('^#'), '');	// Do not read window.location.hash directly, as that will contain layer state
+			const mapHash = _hashComponents.map.replace (new RegExp ('^'), '');	// Do not read window.location.hash directly, as that will contain layer state
 			const parts = mapHash.split ('/');
 			
 			// If three parts, parse out
@@ -1618,7 +1621,7 @@ const nptUi = (function () {
 					// Parse to HTML
 					const parser = new DOMParser ();
 					const otherPage = parser.parseFromString (html, 'text/html');
-					const contentHtml = otherPage.querySelector ('body');
+					let contentHtml = otherPage.querySelector ('body');
 					//console.log(otherDiv.innerHTML);
 					if (!contentHtml) {
 						contentHtml = '<p><strong>Help missing!</strong></p>';
