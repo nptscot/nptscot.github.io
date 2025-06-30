@@ -19,15 +19,6 @@ The NPT is complemented by the related [Network Planning Workspace (NPW)](https:
 
 The coherent network layer in the NPT can be used as a 'starter for 10' in the Network Planning Workspace to quickly plan a strategic cycle network in urban areas, prioritising investment by highlighting routes that maximize coverage and connectivity while aligning with demand.
 
-<p id="logos">
-	<a href="https://www.transport.gov.scot/" target="_blank"><img src="/images/logos/transportscotland.svg" alt="Transport Scotland" /></a>
-	<a href="https://www.sustrans.org.uk/about-us/our-work-in-scotland" target="_blank"><img src="/images/logos/sustrans.png" alt="Sustrans" /></a>
-	<a href="https://environment.leeds.ac.uk/transport" target="_blank"><img src="/images/logos/leeds.png" alt="University of Leeds" /></a>
-	<a href="https://www.cyclestreets.org/" target="_blank"><img src="/images/logos/cyclestreets.svg" alt="CycleStreets" /></a>
-	<a href="https://abstreet.org/" target="_blank"><img src="/images/abstreet-logo.svg" alt="A/B Street" /></a>
-</p>
-
-
 ## What's new?
 
 <!-- See package.json: -->
@@ -54,6 +45,15 @@ The coherent network layer in the NPT can be used as a 'starter for 10' in the N
 ## The development team
 
 The NPT Scotland project is a collaboration between Transport Scotland, Sustrans, the University of Leeds, CycleStreets and A/B Street.
+
+<p id="logos">
+	<a href="https://www.transport.gov.scot/" target="_blank"><img src="/images/logos/transportscotland.svg" alt="Transport Scotland" /></a>
+	<a href="https://www.sustrans.org.uk/about-us/our-work-in-scotland" target="_blank"><img src="/images/logos/sustrans.png" alt="Sustrans" /></a>
+	<a href="https://environment.leeds.ac.uk/transport" target="_blank"><img src="/images/logos/leeds.png" alt="University of Leeds" /></a>
+	<a href="https://www.cyclestreets.org/" target="_blank"><img src="/images/logos/cyclestreets.svg" alt="CycleStreets" /></a>
+	<a href="https://abstreet.org/" target="_blank"><img src="/images/abstreet-logo.svg" alt="A/B Street" /></a>
+</p>
+
 Contributors to the [codebase](https://github.com/nptscot) include:
 
 - Robin Lovelace (University of Leeds)
@@ -77,7 +77,6 @@ The NPT builds on the Propensity to Cycle Tool (PCT) for England and Wales which
 
 Non-transferable and non-exclusive rights to use background intellectual property are granted for the project's sole purpose. The arising intellectual property will be owned by the University of Leeds, Sustrans, or jointly, depending on who generated or developed it. The University of Leeds developed the code underlying the NPT tool as open source software licensed under the terms of the AGPLv3, as outlined below, to ensure public benefit arising from public investment in the tool and improvements to the underlying methods and software. The terms of any license agreement will be negotiated in good faith and will be fair and reasonable, taking into account the scientific and financial contributions of the University of Leeds and other parties.
 
-
 ## Open Source Policy
 
 Like the PCT, the NPT tool is open source and licensed under the terms of the AGPLv3 to encourage community contributions and ensure public benefit arising from public investment in the tool, as outlined below.
@@ -89,8 +88,7 @@ The NPT Scotland project is open source, and the code is available on [GitHub](h
 
 This means that you are free to copy and re-use the code but that if you use a version of the code, you must make the source code publicly available.
 
-
-## Feedback and Contributions
+## Feedback, contributions and privacy
 
 We encourage feedback and contributions to the project:
 
@@ -100,11 +98,7 @@ We encourage feedback and contributions to the project:
 * Questions and discussions are welcome in the [Discussions](https://github.com/nptscot/npt/discussions) section of the project's GitHub repo
 * For general enquiries you can contact us on: [nptscotland@gmail.com](mailto:nptscotland@gmail.com)
 
-
-## Privacy
-
 Our [privacy policy](/privacy/) is available.
-
 
 ## References
 
