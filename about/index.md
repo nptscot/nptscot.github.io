@@ -15,7 +15,7 @@ See the [manual](/manual) for more information on how to use the tool.
 
 ## The Network Planning Workspace (NPW)
 
-The NPT is complemented by the related [Network Planning Workspace (NPW)](https://npw.scot) web application for sketching, evaluating and sharing cycle networks, which was developed as part of the same project. The NPW is a tool that builds on and makes use of the NPT data for more advanced users and people who want to design cycle networks in a web app with rapid feedback. It allows users to sketch a proposed cycle network on the map and assess the quality of the network plan. It can be accessed using the 'Local Authorities' tab or directly via [npw.scot](https://nptscot.github.io/npw/).
+The NPT is complemented by the related [Network Planning Workspace (NPW)](https://npw.scot) web application for sketching, evaluating and sharing cycle networks, which was developed as part of the same project. The NPW is a tool that builds on and makes use of the NPT data for more advanced users and people who want to design cycle networks in a web app with rapid feedback. It allows users to sketch a proposed cycle network on the map and assess the quality of the network plan. It can be accessed using the 'Local Authorities' tab or directly via [npw.scot](https://npw.scot).
 
 The coherent network layer in the NPT can be used as a 'starter for 10' in the Network Planning Workspace to quickly plan a strategic cycle network in urban areas, prioritising investment by highlighting routes that maximize coverage and connectivity while aligning with demand.
 
