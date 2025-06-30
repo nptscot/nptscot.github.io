@@ -15,10 +15,11 @@ It is designed to be used by local authorities, community groups and other organ
 See the [manual](/manual) for more information on how to use the tool.
 
 <p id="logos">
-	<a href="https://environment.leeds.ac.uk/transport" target="_blank"><img src="/images/logos/leeds.png" alt="University of Leeds" /></a>
-	<a href="https://www.sustrans.org.uk/about-us/our-work-in-scotland" target="_blank"><img src="/images/logos/sustrans.png" alt="Sustrans" /></a>
 	<a href="https://www.transport.gov.scot/" target="_blank"><img src="/images/logos/transportscotland.svg" alt="Transport Scotland" /></a>
+	<a href="https://www.sustrans.org.uk/about-us/our-work-in-scotland" target="_blank"><img src="/images/logos/sustrans.png" alt="Sustrans" /></a>
+	<a href="https://environment.leeds.ac.uk/transport" target="_blank"><img src="/images/logos/leeds.png" alt="University of Leeds" /></a>
 	<a href="https://www.cyclestreets.org/" target="_blank"><img src="/images/logos/cyclestreets.svg" alt="CycleStreets" /></a>
+	<a href="https://abstreet.org/" target="_blank"><img src="/images/abstreet-logo.svg" alt="A/B Street" /></a>
 </p>
 
 ## The Team
@@ -41,6 +42,16 @@ See the [manual](/manual) for more information on how to use the tool.
 ## What's new?
 
 <!-- See package.json: -->
+### v2.1.0 (June 2025)
+
+* Added A/B Street logo to welcome modal and updated logo ordering
+* Updated initial map view to show all of Scotland by default
+* Fixed issues with help page popups and improved manual navigation
+* Fixed typos and improved documentation
+* Added missing dates to landing page popup
+* Improved table of contents functionality in manual
+* Enhanced user interface and styling improvements
+
 ### v2.0.0 (January 2025)
 
 * Updates to the route network data, now using the all-purpose O/D data
