@@ -44,11 +44,11 @@ See the [manual](/manual) for more information on how to use the tool.
 <!-- See package.json: -->
 ### v2.1.0 (June 2025)
 
-* Added A/B Street logo to welcome modal and updated logo ordering
-* Updated initial map view to show all of Scotland by default
-* Fixed issues with help page popups and improved manual navigation
-* Fixed typos and improved documentation
-* Added missing dates to landing page popup
+* Added A/B Street logo to welcome modal and updated logo ordering (see issue [#477](https://github.com/nptscot/nptscot.github.io/issues/477) and pull request [#484](https://github.com/nptscot/nptscot.github.io/pull/484))
+* Updated initial map view to show all of Scotland by default (see issue [#475](https://github.com/nptscot/nptscot.github.io/issues/475) and pull request [#483](https://github.com/nptscot/nptscot.github.io/pull/483))
+* Fixed issues with help page popups and improved manual navigation (see issue [#479](https://github.com/nptscot/nptscot.github.io/issues/479) and pull request [#480](https://github.com/nptscot/nptscot.github.io/pull/480))
+* Fixed typos and improved documentation (see pull request [#478](https://github.com/nptscot/nptscot.github.io/pull/478))
+* Added missing dates to landing page popup (see issue [#471](https://github.com/nptscot/nptscot.github.io/issues/471) and pull request [#472](https://github.com/nptscot/nptscot.github.io/pull/472))
 * Improved table of contents functionality in manual
 * Enhanced user interface and styling improvements
 
