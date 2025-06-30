@@ -272,11 +272,11 @@ Set the maximum and minimum quietness of roads that are visible. Quietness measu
 
 <!-- /#filters -->
 
-<!-- #coherentnetwork -->
-
 ### 2.2. The coherent network layer {#coherentnetwork}
 
-This section outlines the development of a coherent strategic cycling network, composed of high-potential, direct routes within urban areas. Created through automated analysis, this network emphasises coherence in network planning to ensure cycling infrastructure is functional, accessible and efficient.
+<!-- #coherentnetwork -->
+
+The coherent network is a strategic cycling network composed of high-potential, direct routes within urban areas. Created through automated analysis, this network emphasises coherence in network planning to ensure cycling infrastructure is functional, accessible and efficient.
 
 The coherent network can be used as a 'starter for 10' in the Network Planning Workspace to quickly plan a strategic cycle network in urban areas prioritising investment by highlighting routes that maximize coverage and connectivity, while aligning with demand. The methodology used focuses on several key aspects.
 See [github.com/nptscot/corenet](https://github.com/nptscot/corenet) for details, links to the code and data, and a more detailed description of the methodology.
@@ -305,9 +305,9 @@ By focusing on coherence, directness, and optimal route density, this coherent n
 
 <!-- /#coherentnetwork -->
 
-<!-- #clos -->
-
 ### 2.3. The existing cycle network layer {#clos}
+
+<!-- #clos -->
 
 The "existing cycle network" is defined as all roads and paths on which it is legal to cycle. The default view for this layer shows an assessment of the quality of the existing cycle network, using a high-level assessment of the Cycling Level of Service (LoS). In network planning, a high LoS network should be designed so that it is suitable for most users, including new and less confident users. In general the LoS will be high where either the traffic speeds and volumes are sufficiently low or where safe cycle infrastructure is provided to sufficiently physically separate people cycling from traffic. As a result, this layer is useful to help define where new infrastructure is needed as part of the network planning process. It provides a graphical representation of the distribution of high LoS roads across Scotland that are suitable for most users. 
 
@@ -403,9 +403,9 @@ The speed limit data displayed in the NPT is primarily sourced from OpenStreetMa
 
 <!-- /#infrastructuretypes -->
 
-<!-- #streetspace -->
-
 ### 2.4. Street space evaluation {#streetspace}
+
+<!-- #streetspace -->
 
 <!-- From index.html, see the table beginning:
  				<div class="layertools layertools-streetspace">
@@ -499,9 +499,9 @@ The Street Space layer divides roads into three groups, depending on whether the
 
 <!-- /#streetspace -->
 
-<!-- #data_zones -->
-
 ### 2.5. Data zones {#datazones}
+
+<!-- #data_zones -->
 
 Data Zones are small geographic zones created for summarising Census datasets.
 In the NPT, they are used to provide contextual area-based information.
