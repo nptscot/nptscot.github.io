@@ -4,8 +4,8 @@ const settings = {
 	
 	// Map position
 	initialPosition: {
-		center: [-3.1382, 55.9533],	// Lon,lat
-		zoom: 8,
+		center: [-3.909, 57.006],	// Lon,lat - centered to show all of Scotland
+		zoom: 6.49,
 	},
 	maxZoom: 19,
 	minZoom: 6,
