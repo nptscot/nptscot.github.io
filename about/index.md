@@ -22,22 +22,6 @@ See the [manual](/manual) for more information on how to use the tool.
 	<a href="https://abstreet.org/" target="_blank"><img src="/images/abstreet-logo.svg" alt="A/B Street" /></a>
 </p>
 
-## The Team
-
-<div>
-	<div style="height: 260px">
-		<img src="/images/robin.webp" alt="Robin Lovelace" style="width:200px; max-width:50%; float:right; box-shadow: 10px 10px 20px 0px #666;">
-		<p>Dr Robin Lovelace, Associate Professor of Transport Data Science, University of Leeds.</p>
-		<p>Robin is project lead.</p>
-	</div>
-	<div style="height:301px">
-		<img src="/images/malcolm.webp" alt="Malcolm Morgan" style="width:200px; max-width:50%; float:right; box-shadow: 10px 10px 20px 0px #666;">
-		<p>Dr Malcolm Morgan, Senior Research Fellow in and Spatial Analysis, University of Leeds.</p>
-		<p>Malcolm is a specialist in GIS with an interest in low carbon transport and housing.</p>
-	</div>
-
-</div>
-
 
 ## What's new?
 
@@ -62,6 +46,19 @@ See the [manual](/manual) for more information on how to use the tool.
 * Refinements to the user interface
 * Permalinks for enabled layers
 
+## The development team
+
+The NPT Scotland project is a collaboration between Transport Scotland, Sustrans, the University of Leeds, CycleStreets and A/B Street.
+Contributors to the [codebase](https://github.com/nptscot) include:
+
+- Robin Lovelace (University of Leeds)
+- Malcolm Morgan (University of Leeds)
+- Zhao Wang (University of Leeds)
+- Hussein Mahfouz (University of Leeds)
+- Juan Pablo Fonseca Zamora (University of Leeds)
+- Martin Lucas-Smith (CycleStreets Ltd)
+- Dustin Carlino (A/B Street Ltd)
+- Angus Calder (Sustrans Scotland)
 
 ## Intellectual Property
 

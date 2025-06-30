@@ -42,7 +42,7 @@ The NPT is an open-source and open access project, meaning the source code and r
 See the [open-source codebase at github.com/nptscot](https://github.com/nptscot/).
 If you see an opportunity to improve the tool or its outputs, we encourage you to let us know by [raising an issue](https://github.com/nptscot/npt/issues) (requiring a GitHub account).
 
-## 1. Map interface and controls {#interface}
+## 1. Map interface and controls {interface}
 
 
 The user interface consists of the map interface and controls on the left side of the screen, as shown below. The map interface shown in the largest box in the figure above is the main part of the NPT.
@@ -67,7 +67,7 @@ The Anti-alias option enables advanced rendering options that make the map look 
 
 This section describes layers that provide information on cycling potential, existing cycle infrastructure, and other contextual information.
 
-### 2.1. The route network layer {#routenetwork}
+### 2.1. The route network layer {routenetwork}
 
 The Route network layer displays estimates of cycling demand (i.e. number of cycle trips) on the road and path network, down to the level of individual segments. It is the first and for many use cases the most important layer in the NPT. The layer is useful for identifying where cycling infrastructure and new routes should ideally be located in order to meet latent demand, maximise usage and ultimately maximise modal shift to cycling. This data is used to inform the creation of the primary cycle network in the Network Planning Workspace.
 
@@ -272,11 +272,11 @@ Set the maximum and minimum quietness of roads that are visible. Quietness measu
 
 <!-- /#filters -->
 
-### 2.2. The coherent network layer {#coherentnetwork}
-
 <!-- #coherentnetwork -->
 
-The coherent network is a strategic cycling network composed of high-potential, direct routes within urban areas. Created through automated analysis, this network emphasises coherence in network planning to ensure cycling infrastructure is functional, accessible and efficient.
+### 2.2. The coherent network layer {coherentnetwork}
+
+This section outlines the development of a coherent strategic cycling network, composed of high-potential, direct routes within urban areas. Created through automated analysis, this network emphasises coherence in network planning to ensure cycling infrastructure is functional, accessible and efficient.
 
 The coherent network can be used as a 'starter for 10' in the Network Planning Workspace to quickly plan a strategic cycle network in urban areas prioritising investment by highlighting routes that maximize coverage and connectivity, while aligning with demand. The methodology used focuses on several key aspects.
 See [github.com/nptscot/corenet](https://github.com/nptscot/corenet) for details, links to the code and data, and a more detailed description of the methodology.
@@ -305,9 +305,9 @@ By focusing on coherence, directness, and optimal route density, this coherent n
 
 <!-- /#coherentnetwork -->
 
-### 2.3. The existing cycle network layer {#clos}
-
 <!-- #clos -->
+
+### 2.3. The existing cycle network layer {clos}
 
 The "existing cycle network" is defined as all roads and paths on which it is legal to cycle. The default view for this layer shows an assessment of the quality of the existing cycle network, using a high-level assessment of the Cycling Level of Service (LoS). In network planning, a high LoS network should be designed so that it is suitable for most users, including new and less confident users. In general the LoS will be high where either the traffic speeds and volumes are sufficiently low or where safe cycle infrastructure is provided to sufficiently physically separate people cycling from traffic. As a result, this layer is useful to help define where new infrastructure is needed as part of the network planning process. It provides a graphical representation of the distribution of high LoS roads across Scotland that are suitable for most users. 
 
@@ -403,9 +403,7 @@ The speed limit data displayed in the NPT is primarily sourced from OpenStreetMa
 
 <!-- /#infrastructuretypes -->
 
-### 2.4. Street space evaluation {#streetspace}
-
-<!-- #streetspace -->
+### 2.4. Street space evaluation {streetspace}
 
 <!-- From index.html, see the table beginning:
  				<div class="layertools layertools-streetspace">
@@ -499,9 +497,9 @@ The Street Space layer divides roads into three groups, depending on whether the
 
 <!-- /#streetspace -->
 
-### 2.5. Data zones {#datazones}
-
 <!-- #data_zones -->
+
+### 2.5. Data zones {datazones}
 
 Data Zones are small geographic zones created for summarising Census datasets.
 In the NPT, they are used to provide contextual area-based information.
@@ -518,7 +516,7 @@ Data zones can be visualised based on the following attributes:
 * Drive time to a petrol station (from the Scottish Indices of Multiple Deprivation)
 * Drive time to GP (from the Scottish Indices of Multiple Deprivation)
 
-### 2.6. Other layers {#otherlayers}
+### 2.6. Other layers {otherlayers}
 
 The NPT provides several supplementary map layers that enhance the contextual understanding of the cycling network
 
@@ -568,6 +566,6 @@ If the "Add NPT to Home screen" option does not appear, you can also select the 
 A series of open access [data downloads](https://github.com/nptscot/npt/releases/tag/v2025-05-01) that can be analysed in-house with GIS such as QGIS or data science tools such as R and Python.
 Click on the "Data" tab in the top menu to access the data downloads.
 
-## 5. The Network Planning Workspace (NPW) {#npw}
+## 5. The Network Planning Workspace (NPW) {npw}
 
 The Network Planning Workspace (NPW) is a tool that builds on and makes use of the NPT data for more advanced users and people who want to plan cycle networks. It allows users to sketch a proposed cycle network on the map and assess the quality of the network plan. It can be accessed using the ‘Local Authorities’ tab or directly via npw.scot.  See the NPW web application at [npw.scot](https://nptscot.github.io/npw/) for more information.
