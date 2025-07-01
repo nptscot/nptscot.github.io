@@ -501,7 +501,7 @@ The Street Space layer divides roads into three groups, depending on whether the
 
 ### 2.5. Data zones {#datazones}
 
-<!-- #data_zones -->
+<!-- #datazones -->
 
 Data Zones are small geographic zones created for summarising Census datasets.
 In the NPT, they are used to provide contextual area-based information.
@@ -518,7 +518,12 @@ Data zones can be visualised based on the following attributes:
 * Drive time to a petrol station (from the Scottish Indices of Multiple Deprivation)
 * Drive time to GP (from the Scottish Indices of Multiple Deprivation)
 
+<!-- /#datazones -->
+
+
 ### 2.6. Other layers {#otherlayers}
+
+<!-- #otherlayers -->
 
 The NPT provides several supplementary map layers that enhance the contextual understanding of the cycling network
 
@@ -528,6 +533,8 @@ The NPT provides several supplementary map layers that enhance the contextual un
 * Wards: This layer overlays the boundaries of local electoral wards onto the map
 * Scottish Parliamentary Constituencies: Users can display the geographic divisions for Scottish parliamentary representation
 * Local Authority: Highlight the administrative areas within Scotland, aiding in planning and analysis at a local government level.
+
+<!-- /#otherlayers -->
 
 ## 3. Accessing the NPT {#access}
 
