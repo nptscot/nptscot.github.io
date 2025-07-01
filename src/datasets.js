@@ -876,7 +876,7 @@ function data_zonesStyling (layerId, map, settings, datasets)
 // Function to determine the buildings colour
 function getBuildingsColour (settings, sublayer, daysymetricMode)
 {
-	// If datazones is off, buildings shown, if vector style, as static colour appropriate to the basemap
+	// If data_zones is off, buildings shown, if vector style, as static colour appropriate to the basemap
 	if (!document.querySelector ('input.showlayer[data-layer="data_zones"]').checked) {
 		const styleName = document.querySelector ('#basemapform input:checked').value;	// Same as nptUi.getBasemapStyle()
 		return settings.basemapStyles[styleName].buildingColour;

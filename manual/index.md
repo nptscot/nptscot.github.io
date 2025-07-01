@@ -24,7 +24,7 @@ Each of these elements is described in this manual, which is divided into the fo
 
   2.4. [The street space layer](#streetspace) shows the deliverability of segregated cycle infrastructure
 
-  2.5. [Data zones](#datazones) provide contextual area-based information based on small geographic zones created for summarising Census datasets
+  2.5. [Data zones](#data_zones) provide contextual area-based information based on small geographic zones created for summarising Census datasets
   
   2.6. [Other layers](#otherlayers) provide official boundaries, plus school locations and bus routes
 
@@ -499,7 +499,7 @@ The Street Space layer divides roads into three groups, depending on whether the
 
 <!-- /#streetspace -->
 
-### 2.5. Data zones {#datazones}
+### 2.5. Data zones {#data_zones}
 
 <!-- #data_zones -->
 
@@ -517,6 +517,8 @@ Data zones can be visualised based on the following attributes:
 <!-- TODO: update these when we find out -->
 * Drive time to a petrol station (from the Scottish Indices of Multiple Deprivation)
 * Drive time to GP (from the Scottish Indices of Multiple Deprivation)
+
+<!-- /#data_zones -->
 
 ### 2.6. Other layers {#otherlayers}
 
