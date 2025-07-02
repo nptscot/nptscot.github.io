@@ -413,9 +413,7 @@ The speed limit data displayed in the NPT is primarily sourced from OpenStreetMa
 
 The Street Space layer allows a rapid, at-a-glance evaluation of the spatial deliverability of segregated cycle infrastructure (on links requiring dedicated infrastructure).
 
-It categorises roads in accordance with the [Cycling by Design guidance](https://www.transport.gov.scot/media/50323/cycling-by-design-update-2019-final-document-15-september-2021-1.pdf#page=68). It specifies the methodology for classifying road space and cycle infrastructure. The sections below describe the measurement methods and datasets used, the cycle infrastructure types considered, and the assumptions regarding bus routes and road types.
-
-The analysis compares the space required for segregated cycle infrastructure (widths taken from [Cycling by Design guidance table 3.2](https://www.transport.gov.scot/media/50323/cycling-by-design-update-2019-final-document-15-september-2021-1.pdf#page=68)) with the available kerb-to-kerb (carriageway) or full corridor (including footways and verges) widths.
+The analysis compares the space required for segregated cycle infrastructure (widths taken from [Cycling by Design guidance table 3.2](https://www.transport.gov.scot/media/50323/cycling-by-design-update-2019-final-document-15-september-2021-1.pdf#page=68)) with the available kerb-to-kerb (carriageway) or full corridor (including footways) widths.
 
 Note: Space required for parking and loading is currently excluded from the analysis, due to lack of a national parking & loading dataset.
 
@@ -434,8 +432,8 @@ Data on pavement widths were derived from Ordnance Survey Mastermap Topographic 
 
 #### Using edge-to-edge (Corridor width)
 
-- **Definition:** The total width of the road corridor, encompassing both the carriageway and manmade roadside features (e.g., footways). 
-- **Usage:** Where local policy allows, part of the footway or other manmade roadside features may be reallocated for cycle infrastructure, provided that minimum safe footway widths are maintained (2x 2 m footway width).
+- **Definition:** The total width of the road corridor, encompassing both the carriageway and footways. 
+- **Usage:** Where local policy allows, part of the footway may be reallocated for cycle infrastructure, provided that minimum safe footway widths are maintained (2x 2 m footway width).
 
 #### Cycle infrastructure width requirements
 
