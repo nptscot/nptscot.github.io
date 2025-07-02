@@ -27,6 +27,7 @@ The coherent network layer in the NPT can be used as a 'starter for 10' in the N
 * Added A/B Street logo to welcome modal and updated logo ordering (see issue [#477](https://github.com/nptscot/nptscot.github.io/issues/477) and pull request [#484](https://github.com/nptscot/nptscot.github.io/pull/484))
 * Updated initial map view to show all of Scotland by default (see issue [#475](https://github.com/nptscot/nptscot.github.io/issues/475) and pull request [#483](https://github.com/nptscot/nptscot.github.io/pull/483))
 * Fixed issues with help page popups and improved manual navigation (see issue [#479](https://github.com/nptscot/nptscot.github.io/issues/479) and pull request [#480](https://github.com/nptscot/nptscot.github.io/pull/480))
+* Fixed incorrect information in street space layer manual section - clarified that edge-to-edge widths include only carriageway and footways, not verges (see issue [#498](https://github.com/nptscot/nptscot.github.io/issues/498))
 * Fixed typos and improved documentation (see pull request [#478](https://github.com/nptscot/nptscot.github.io/pull/478))
 * Added missing dates to landing page popup (see issue [#471](https://github.com/nptscot/nptscot.github.io/issues/471) and pull request [#472](https://github.com/nptscot/nptscot.github.io/pull/472))
 * Improved table of contents functionality in manual
