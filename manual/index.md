@@ -411,12 +411,22 @@ The speed limit data displayed in the NPT is primarily sourced from OpenStreetMa
  				<div class="layertools layertools-streetspace">
 -->
 
-The Street Space layer provides information about the spatial deliverability of segregated cycle infrastructure (on links requiring dedicated infrastructure).
+The Street Space layer shows whether segregated cycle infrastructure can be delivered on each road segment.
 
-The layer visualises whether or not new infrastructure will fit on road segments by calculating the space required for segregated cycle infrastructure, accounting for width requirements for buffers between light segregation and motor traffic described in [table 3.2 of Cycling by Design](https://www.transport.gov.scot/media/50323/cycling-by-design-update-2019-final-document-15-september-2021-1.pdf#page=68), based on the speed limit of roads.
-The checkboxes allow the user to choose between the kerb-to-kerb (carriageway) or full corridor (carriageway plus pavements or other man-made part of the corridor, from 'building-to-building' or 'edge-to-edge' of the road in built-up areas) widths of the existing network.
-The full corridor width excludes grass verges, trees, and other natural features that could be used for cycle infrastructure.
-The checkboxes also allows you to choose between two types of cycle infrastructure: two unidirectional protected cycle tracks (one on each side of the street, appropriate in most cases) or a single bidirectional cycle track (on one side of the street, which require less space but which are unlikely to be suitable on roads with many side roads or driveways).
+It calculates if there is enough space for new infrastructure by considering the required width for cycle tracks separated from motor traffic by light segregation measures or other physical barriers, such as kerbs or planters.
+The layer also considers the space available on the road, including carriageway and pavement widths, cycle track widths, and buffer widths between the cycle track and motor traffic as specified in [Table 3.2 of Cycling by Design](https://www.transport.gov.scot/media/50323/cycling-by-design-update-2019-final-document-15-september-2021-1.pdf#page=68), based on the road's speed limit.
+
+You can use checkboxes to switch between two width measurements:
+
+- **Kerb-to-kerb (carriageway width):** Only the space between the kerbs, excluding pavements.
+- **Full corridor width:** The total width from building-to-building or edge-to-edge, including pavements and other man-made surfaces, but excluding grass verges, trees, and other natural features.
+
+These options are available for two types of cycle infrastructure:
+
+- **Two unidirectional cycle tracks** (one on each side of the street, suitable in most cases).
+- **A single bidirectional cycle track** (on one side of the street, requires less space but is less suitable where there are many side roads or driveways).
+
+Road segments are categorised based on whether they have enough space to accommodate desirable minimum cycle infrastructure widths, absolute minimum cycle infrastructure widths, or not enough space for even the absolute minimum width, assuming no changes to lanes for motor traffic or dedicated bus lanes.
 
 #### Road width measurements
 
