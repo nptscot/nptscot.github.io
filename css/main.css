@@ -635,6 +635,16 @@ body .maplibregl-map {line-height: 1.4;}
   max-width: 800px;
 }
 
+/* Mobile responsive modal */
+@media screen and (max-width: 760px) {
+  .modal {
+    left: 10px;
+    right: 10px;
+    max-height: 80vh;
+    padding: 15px;
+  }
+}
+
 /* Prevent images from overflowing the box size */
 .modal img {
   max-width: 100%;
