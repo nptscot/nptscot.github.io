@@ -411,12 +411,11 @@ The speed limit data displayed in the NPT is primarily sourced from OpenStreetMa
  				<div class="layertools layertools-streetspace">
 -->
 
-The Street Space layer allows a rapid, at-a-glance evaluation of the spatial deliverability of segregated cycle infrastructure (on links requiring dedicated infrastructure).
+The Street Space layer provides information about the spatial deliverability of segregated cycle infrastructure (on links requiring dedicated infrastructure).
 
-The analysis compares the space required for segregated cycle infrastructure (widths taken from [Cycling by Design guidance table 3.2](https://www.transport.gov.scot/media/50323/cycling-by-design-update-2019-final-document-15-september-2021-1.pdf#page=68)) with the available kerb-to-kerb (carriageway) or full corridor (including footways) widths.
-
-Note: Space required for parking and loading is currently excluded from the analysis, due to lack of a national parking & loading dataset.
-
+The layer visualises whether or not new infrastructure will fit on road segments by calculating the space required for segregated cycle infrastructure, accounting for width requirements for buffers between light segregation and motor traffic described in [table 3.2 of Cycling by Design](https://www.transport.gov.scot/media/50323/cycling-by-design-update-2019-final-document-15-september-2021-1.pdf#page=68), based on the speed limit of roads.
+The checkboxes allow the user to choose between the kerb-to-kerb (carriageway) or full corridor (carriageway plus pavements or other man-made part of the corridor, from 'building-to-building' or 'edge-to-edge' of the road in built-up areas) widths of the existing network.
+The checkboxes also allows you to choose between two types of cycle infrastructure: two unidirectional protected cycle tracks (one on each side of the street, appropriate in most cases) or a single bidirectional cycle track (on one side of the street, which require less space but which are unlikely to be suitable on roads with many side roads or driveways).
 
 #### Road width measurements
 
@@ -494,6 +493,14 @@ The Street Space layer divides roads into three groups, depending on whether the
 - **Desirable minimum:**
   The available space is sufficient to accommodate the desirable minimum width of cycle infrastructure, providing a more comfortable design for all users.
 
+#### Limitations
+
+Space used for parking and loading is currently excluded from the analysis.
+This means that road segments that are wide enough to accommodate cycle infrastructure if parking were removed or relocated are shown as having enough space (green), even if they currently have on-street parking.
+Interventions on segments with space available for cycle infrastructure according to the layer may therefore require parking to be removed or relocated, or may need to be made one-way, before cycle infrastructure can be installed.
+This limitation is due to the lack of a national parking & loading dataset.
+The layer also ignores the possiblity of making roads one-way, which would allow for more space to be made available for cycle infrastructure.
+We would like to address in future work.
 
 <!-- /#streetspace -->
 
