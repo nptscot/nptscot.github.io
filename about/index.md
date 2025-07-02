@@ -89,7 +89,7 @@ The NPT Scotland project is open source, and the code is available on [GitHub](h
 
 This means that you are free to copy and re-use the code but that if you use a version of the code, you must make the source code publicly available.
 
-## Feedback, contributions and privacy
+## Feedback and contributions
 
 We encourage feedback and contributions to the project:
 
@@ -98,6 +98,8 @@ We encourage feedback and contributions to the project:
 * Code contributions can be made via Pull Requests to the [GitHub repository containing the web app](https://github.com/nptscot/nptscot.github.io/pulls).
 * Questions and discussions are welcome in the [Discussions](https://github.com/nptscot/npt/discussions) section of the project's GitHub repo
 * For general enquiries you can contact us on: [nptscotland@gmail.com](mailto:nptscotland@gmail.com)
+
+## Privacy
 
 Our [privacy policy](/privacy/) is available.
 
