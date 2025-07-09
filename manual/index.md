@@ -392,7 +392,7 @@ The layer also considers the space available on the road, including carriageway 
 You can use checkboxes to switch between two width measurements:
 
 - **Kerb-to-kerb (carriageway width):** Only the space between the kerbs, excluding pavements.
-- **Full corridor width:** The total width from building-to-building or edge-to-edge, including pavements and other man-made surfaces, but excluding grass verges, trees, and other natural features.
+- **Full corridor width:** The total width from building-to-building or edge-to-edge, including pavements and other man-made surfaces, but excluding grass verges, trees, and other natural features. (Naturally, use of land either side of the carriageway may be subject to land acquisition and other issues.)
 
 These options are available for two types of cycle infrastructure:
 
@@ -410,7 +410,7 @@ Data on pavement widths were derived from Ordnance Survey Mastermap Topographic 
 #### Within road width (Carriageway width) 
    
 - **Definition:** The width available within the carriageway only.
-- **Excludes:** Manmade roadside area such as footways.
+- **Excludes:** Man-made roadside area such as footways.
 - **Usage:** Determines if cycle infrastructure can fit solely within the carriageway.
 
 #### Using edge-to-edge (Corridor width)
