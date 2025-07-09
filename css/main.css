@@ -623,10 +623,10 @@ body .maplibregl-map {line-height: 1.4;}
   position: fixed;
   z-index: 1000; /* Sit on top */
   left: 50px;
-  top: 50%;
+  top: 50px;
+  bottom: 50px;
   right: 50px;
-  transform: translateY(-50%);
-  max-height: 65vh;
+  max-height: 650px;
   padding: 20px;
   overflow: auto; /* Enable scroll if needed */
   background-color: #fefefe;
@@ -638,9 +638,11 @@ body .maplibregl-map {line-height: 1.4;}
 /* Mobile responsive modal */
 @media screen and (max-width: 760px) {
   .modal {
-    left: 10px;
-    right: 10px;
-    max-height: 80vh;
+    left: 20px;
+    right: 20px;
+    top: 20px;
+    bottom: 20px;
+    max-height: none;
     padding: 15px;
   }
 }
