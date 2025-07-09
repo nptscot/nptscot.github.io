@@ -483,6 +483,7 @@ Space used for parking and loading is currently excluded from the analysis.
 This means that road segments that are wide enough to accommodate cycle infrastructure if parking were removed or relocated are shown as having enough space (green), even if they currently have on-street parking.
 Interventions on segments with space available for cycle infrastructure according to the layer may therefore require parking to be removed or relocated, or may need to be made one-way, before cycle infrastructure can be installed.
 This limitation is due to the lack of a national parking & loading dataset.
+
 The layer also ignores the possibility of making roads one-way, which would allow for more space to be made available for cycle infrastructure.
 We would like to address this in future work.
 
