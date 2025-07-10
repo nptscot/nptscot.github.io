@@ -626,12 +626,25 @@ body .maplibregl-map {line-height: 1.4;}
   top: 50px;
   bottom: 50px;
   right: 50px;
+  max-height: 650px;
   padding: 20px;
   overflow: auto; /* Enable scroll if needed */
   background-color: #fefefe;
   animation-name: fadeIn;
   animation-duration: 0.4s;
   max-width: 800px;
+}
+
+/* Mobile responsive modal */
+@media screen and (max-width: 760px) {
+  .modal {
+    left: 20px;
+    right: 20px;
+    top: 20px;
+    bottom: 20px;
+    max-height: none;
+    padding: 15px;
+  }
 }
 
 /* Prevent images from overflowing the box size */
